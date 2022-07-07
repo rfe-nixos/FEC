@@ -2,13 +2,3 @@
 .DS_store
 
 node_modules
-
-<<<<<<< HEAD
-*.txt
-
-.env
-
-.sass-cache
-=======
-.DS_Store
->>>>>>> main
