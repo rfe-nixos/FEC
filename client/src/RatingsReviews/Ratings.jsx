@@ -1,3 +1,6 @@
+import React from "react";
+
+
 //renders
 //average rating from all the reviews,
 //shows distribution of ratings.
