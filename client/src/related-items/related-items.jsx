@@ -1,5 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
+import ProductList from './productList';
+import OutfitList from './outfitList';
 
 const RelatedItems = () => {
   const [state, setState] = useState();
