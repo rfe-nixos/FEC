@@ -1,8 +1,8 @@
 import React from 'react';
-import ReviewList from './ReviewsList.jsx'
-import ReviewTile from './ReviewsListEntry.jsx'
-import AddBar from './AddBar.jsx'
-import SortBar from './SortBar.jsx'
+import ReviewList from './ReviewsList.jsx';
+import ReviewTile from './ReviewsListEntry.jsx';
+import AddBar from './AddBar.jsx';
+import SortBar from './SortBar.jsx';
 
 class Reviews extends React.Component {
   constructor(props) {

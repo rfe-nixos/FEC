@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 import Ratings from './Ratings.jsx';
 import Reviews from './Reviews.jsx';
 
