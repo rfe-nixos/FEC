@@ -9,15 +9,16 @@ class SortBar extends React.Component {
     this.sort = this.sort.bind(this);
   }
 
-  sort() {
-
+  sort(e) {
+    console.log(e.target.value);
+    this.props.sort(e.target.value);
   }
 
   render() {
     return (
       <div>
         {this.props.reviews.length} reviews, sorted by
-        <select id="sort">
+        <select id="sort" onChange={this.sort}>
           <option value="relevance">Relevance</option>
           <option value="newest">Newest</option>
           <option value="helpful">Helpful</option>

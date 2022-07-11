@@ -1,5 +1,7 @@
 import React from 'react';
 import axios from 'axios';
+import Breakdown from './Breakdown.jsx';
+import Characteristics from './Characteristics.jsx';
 
 class Ratings extends React.Component {
   constructor(props) {
@@ -22,6 +24,8 @@ class Ratings extends React.Component {
     return (
       <div>
         this is the Ratings Component.
+        <Breakdown />
+        <Characteristics />
       </div>
     )
   }

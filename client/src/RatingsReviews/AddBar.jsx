@@ -6,12 +6,18 @@ class AddBar extends React.Component {
     this.state = {
       reviews: []
     }
+    this.moreReviews = this.moreReviews.bind(this);
   }
+
+  moreReviews(){
+    this.props.moreReviews()
+  }
+
   render() {
     return (
       <div>
         This is the Add Bar.
-        <button>MORE</button>
+        <button onClick={this.moreReviews}>MORE</button>
         <button>ADD REVIEW</button>
       </div>
     )

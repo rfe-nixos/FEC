@@ -9,10 +9,10 @@ class ReviewList extends React.Component {
     };
   }
   render() {
-    return (this.state.reviews.length > 0) ? (
+    return (this.props.reviews.length > 0) ? (
       <div>
         This is the Review list, holds reviewtiles
-        {this.state.reviews.map((review, index) => {
+        {this.props.reviews.map((review, index) => {
           return <ReviewTile
             review = {review}
             key = {index}
@@ -29,3 +29,4 @@ class ReviewList extends React.Component {
 }
 
 export default ReviewList;
+
