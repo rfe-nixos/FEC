@@ -6,10 +6,10 @@ function Characteristics(props) {
       {!props.isLoaded && <p>l o a d i n g . . .</p>}
       {props.isLoaded && (
         <div>
-          Comfort: {props.meta.characteristics.Comfort.value}<br />
-          Length: {props.meta.characteristics.Length.value}<br />
-          Quality: {props.meta.characteristics.Quality.value}<br />
-          Fit: {props.meta.characteristics.Fit.value}
+          Comfort: {parseFloat(props.meta.characteristics.Comfort.value).toFixed(2)}<br />
+          Length: {parseFloat(props.meta.characteristics.Length.value).toFixed(2)}<br />
+          Quality: {parseFloat(props.meta.characteristics.Quality.value).toFixed(2)}<br />
+          Fit: {parseFloat(props.meta.characteristics.Fit.value).toFixed(2)}
         </div>
       )}
     </div>
