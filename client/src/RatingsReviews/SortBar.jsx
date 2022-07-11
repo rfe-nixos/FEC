@@ -10,7 +10,6 @@ class SortBar extends React.Component {
   }
 
   sort(e) {
-    console.log(e.target.value);
     this.props.sort(e.target.value);
   }
 

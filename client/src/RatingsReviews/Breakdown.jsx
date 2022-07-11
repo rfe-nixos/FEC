@@ -1,20 +1,18 @@
 import React from 'react';
 
-class Breakdown extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      meta: {}
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        Breakdown component here.
-      </div>
-    );
-  }
+function Breakdown(props) {
+  return (
+    <div>
+      {!props.isLoaded && <p>loading . . .</p>}
+      {props.isLoaded && (
+        <div>
+          {Math.round(100 * (parseInt(props.meta.recommended.true)
+          / parseInt(props.totalRatings)))
+          + "% of buyers recommend this item."}
+        </div>
+      )}
+    </div>
+  );
 }
 
 export default Breakdown;

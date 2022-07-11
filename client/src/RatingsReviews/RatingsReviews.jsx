@@ -5,7 +5,6 @@ import Reviews from './Reviews.jsx';
 const RatingsReviews = () => {
   return (
     <div>
-         Ratings and Reviews here.
          <div>
            <Ratings />
          </div>

@@ -11,7 +11,6 @@ class ReviewList extends React.Component {
   render() {
     return (this.props.reviews.length > 0) ? (
       <div>
-        This is the Review list, holds reviewtiles
         {this.props.reviews.map((review, index) => {
           return <ReviewTile
             review = {review}

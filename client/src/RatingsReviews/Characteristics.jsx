@@ -1,20 +1,17 @@
 import React from 'react';
 
-class Characteristics extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      meta: {}
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        Characteristics component here.
-      </div>
-    );
-  }
+function Characteristics(props) {
+  return (
+    <div>
+      {!props.isLoaded && <p>l o a d i n g . . .</p>}
+      {props.isLoaded && (
+        <div>
+          loaded.
+        </div>
+      )}
+    </div>
+  );
 }
+
 
 export default Characteristics;

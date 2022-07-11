@@ -16,15 +16,14 @@ class Ratings extends React.Component {
     this.getRatings = this.getRatings.bind(this);
   }
 
-  static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
+  //static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
 
   componentDidMount() {
     this.getRatings();
-
   }
 
   getRatings() {
-    axios.get(`${Ratings.url}/reviews/meta?product_id=37311`, {
+    axios.get(`${process.env.API_URL}/reviews/meta?product_id=37311`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -52,8 +51,11 @@ class Ratings extends React.Component {
       <div>
         this is the Ratings Component.
         <Summary meta={this.state.meta} average={this.state.average} totalRatings={this.state.totalRatings} isLoaded={this.state.isLoaded}/>
-        <Breakdown />
-        <Characteristics />
+        <Breakdown meta={this.state.meta} isLoaded={this.state.isLoaded} totalRatings={this.state.totalRatings}/>
+        <Characteristics
+          meta={this.state.meta}
+          isLoaded={this.state.isLoaded}
+        />
       </div>
     )
   }

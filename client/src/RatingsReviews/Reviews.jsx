@@ -18,14 +18,14 @@ class Reviews extends React.Component {
     this.sort = this.sort.bind(this);
   }
 
-  static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
+  //static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
 
   componentDidMount() {
     this.getReviews();
   }
 
   getReviews() {
-    axios.get(`${Reviews.url}/reviews?product_id=37311&page=${this.state.page}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=37311&page=${this.state.page}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -74,6 +74,7 @@ class Reviews extends React.Component {
   render() {
     return (
       <div>
+        {`____________________________`}<br />
         this is the Reviews Component.
         <SortBar
           reviews={this.state.reviews}
