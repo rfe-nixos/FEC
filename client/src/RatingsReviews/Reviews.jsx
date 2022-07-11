@@ -4,9 +4,6 @@ import ReviewTile from './ReviewTile.jsx';
 import AddBar from './AddBar.jsx';
 import SortBar from './SortBar.jsx';
 import axios from 'axios';
-//require('dotenv').config({ "path": false });
-
-const url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -21,12 +18,14 @@ class Reviews extends React.Component {
     this.sort = this.sort.bind(this);
   }
 
+  static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
+
   componentDidMount() {
     this.getReviews();
   }
 
   getReviews() {
-    axios.get(`${url}/reviews?product_id=37311&page=${this.state.page}`, {
+    axios.get(`${Reviews.url}/reviews?product_id=37311&page=${this.state.page}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -51,7 +50,7 @@ class Reviews extends React.Component {
 
   sort(option) {
     console.log(option, 'has been selected');
-    axios.get(`${url}/reviews?product_id=37311&sort=${option}`, {
+    axios.get(`${Reviews.url}/reviews?product_id=37311&sort=${option}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
