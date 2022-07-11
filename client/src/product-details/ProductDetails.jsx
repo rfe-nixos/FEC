@@ -1,16 +1,18 @@
+/* eslint-disable react/destructuring-assignment */
+/* eslint-disable react/prop-types */
 import React from 'react';
 
-function ProductDetails(title, category, rating, price, overview, reviewNum) {
-  const starRating = rating;
+function ProductDetails(style) {
+  const starRating = style.props.rating;
 
-  if (reviewNum > 0) {
+  if (style.props.reviewNum > 0) {
     return (
       <div>
-        <p id="category">{category}</p>
-        <h1 id="title">{title}</h1>
-        <h2 id="rating">{`${starRating} Read all ${reviewNum} reviews`}</h2>
-        <h2 id="price">{price}</h2>
-        <p id="overview">{overview}</p>
+        <p id="category">{style.props.category}</p>
+        <h1 id="title">{style.props.title}</h1>
+        <h2 id="rating">{`${starRating} stars. Read all ${style.props.reviewNum} review(s)`}</h2>
+        <h2 id="price">{style.props.price}</h2>
+        <p id="overview">{style.props.overview}</p>
         <button id="Facebook" type="button">Facebook</button>
         <button id="Twitter" type="button">Twitter</button>
         <button id="Pinterest" type="button">Pinterest</button>
@@ -19,10 +21,10 @@ function ProductDetails(title, category, rating, price, overview, reviewNum) {
   }
   return (
     <div>
-      <p id="category">{category}</p>
-      <h1 id="title">{title}</h1>
-      <h2 id="price">{price}</h2>
-      <p id="overview">{overview}</p>
+      <p id="category">{style.props.category}</p>
+      <h1 id="title">{style.props.title}</h1>
+      <h2 id="price">{style.props.price}</h2>
+      <p id="overview">{style.props.overview}</p>
       <button id="Facebook" type="button">Facebook</button>
       <button id="Twitter" type="button">Twitter</button>
       <button id="Pinterest" type="button">Pinterest</button>

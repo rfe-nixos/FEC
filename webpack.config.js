@@ -28,8 +28,15 @@ module.exports = {
       // Second rule is to check for css files and load them with the following loaders
       {
         test: /\.css$/,
-        use: ['style-loader','css-loader']
-      }
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '/public/icons/[name].[ext]',
+        },
+      },
     ]
   },
   // [devtool] this is an additional source map that will let the browser know what files are running our code.
