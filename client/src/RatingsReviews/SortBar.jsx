@@ -16,10 +16,12 @@ class SortBar extends React.Component {
   render() {
     return (
       <div>
-        This is the Sort Bar.
-        Should show how many reviews there are.
-        {this.state.reviews.length}
-        <button>SORT</button>
+        {this.props.reviews.length} reviews, sorted by
+        <select id="sort">
+          <option value="relevance">Relevance</option>
+          <option value="newest">Newest</option>
+          <option value="helpful">Helpful</option>
+        </select>
       </div>
     )
   }

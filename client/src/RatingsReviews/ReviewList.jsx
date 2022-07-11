@@ -1,19 +1,27 @@
 import React from 'react';
+import ReviewTile from './ReviewTile.jsx'
 
 class ReviewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: []
-    }
+      reviews: [],
+    };
   }
   render() {
-    return (
+    return (this.state.reviews.length > 0) ? (
       <div>
         This is the Review list, holds reviewtiles
-        <ReviewTile/>
-        <ReviewTile/>
-        <ReviewTile/>
+        {this.state.reviews.map((review, index) => {
+          return <ReviewTile
+            review = {review}
+            key = {index}
+          />
+        })}
+      </div>
+    ) : (
+      <div>
+        There are no reviews currently.
       </div>
     )
 
@@ -21,12 +29,3 @@ class ReviewList extends React.Component {
 }
 
 export default ReviewList;
-
-
-//stateful
-//state : array of reviews
-//renders
-// total number of reviews + sort method
-// a list of reviewslistentrys
-// paginated through the addreview component
-//

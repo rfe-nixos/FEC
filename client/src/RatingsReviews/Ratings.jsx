@@ -1,4 +1,5 @@
-import React from "react";
+import React from 'react';
+import axios from 'axios';
 
 class Ratings extends React.Component {
   constructor(props) {
@@ -6,6 +7,15 @@ class Ratings extends React.Component {
     this.state = {
       meta: {}
     }
+    this.getRatings = this.getRatings.bind(this);
+  }
+
+  componentDidMount() {
+    this.getRatings();
+  }
+
+  getRatings() {
+
   }
 
   render() {
