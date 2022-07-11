@@ -50,7 +50,7 @@ class Reviews extends React.Component {
 
   sort(option) {
     console.log(option, 'has been selected');
-    axios.get(`${Reviews.url}/reviews?product_id=37311&sort=${option}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${option}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
