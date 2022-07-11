@@ -5,9 +5,19 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      review: {}
+      reviewed: false
     }
+    this.markHelpful = this.markHelpful.bind(this);
   }
+
+  markHelpful() {
+    if (!this.state.reviewed) {
+      this.props.markHelpful(this.props.review.review_id);
+      this.setState({reviewed: true});
+    } else {
+      alert('you have already marked as helpful');
+    }
+  };
 
   render() {
     return (
@@ -15,12 +25,12 @@ class ReviewTile extends React.Component {
         {`____________________________`}<br />
         Rating: {this.props.review.rating + " "}
         Date: {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
-        <h4>{this.props.review.summary}</h4>
+        <h5>{this.props.review.summary}</h5>
         {this.props.review.body + " "}
         {this.props.review.recommend &&
-          <h4>
+          <h5>
             I recommend this product &#10003;
-          </h4>
+          </h5>
         }
         {this.props.review.reviewer_name &&
           <h5>
@@ -33,6 +43,7 @@ class ReviewTile extends React.Component {
           </h4>
         }
         Helpful? : {this.props.review.helpfulness + " "}
+        <button onClick={this.markHelpful}>YES</button>
       </div>
     )
   }

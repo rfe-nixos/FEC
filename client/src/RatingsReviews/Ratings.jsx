@@ -41,15 +41,14 @@ class Ratings extends React.Component {
        this.setState(
          {meta: response.data, ratings: response.data.ratings, average: (sum / totalRatings).toFixed(2), totalRatings: totalRatings, isLoaded: true}
        )
-       this.getAverage();
      })
-     .catch((err) => console.log('error fetching ratings, err'));
+     .catch((err) => console.log('error fetching ratings', err));
   }
 
   render() {
     return (
       <div>
-        this is the Ratings Component.
+        <h5>R A T I N G S .</h5>
         <Summary meta={this.state.meta} average={this.state.average} totalRatings={this.state.totalRatings} isLoaded={this.state.isLoaded}/>
         <Breakdown meta={this.state.meta} isLoaded={this.state.isLoaded} totalRatings={this.state.totalRatings}/>
         <Characteristics

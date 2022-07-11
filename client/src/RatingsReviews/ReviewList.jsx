@@ -5,8 +5,8 @@ class ReviewList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: [],
-    };
+      reviews: []
+    }
   }
   render() {
     return (this.props.reviews.length > 0) ? (
@@ -15,6 +15,7 @@ class ReviewList extends React.Component {
           return <ReviewTile
             review = {review}
             key = {index}
+            markHelpful = {this.props.markHelpful}
           />
         })}
       </div>

@@ -2,16 +2,17 @@ import React from 'react';
 import Ratings from './Ratings.jsx';
 import Reviews from './Reviews.jsx';
 
-const RatingsReviews = () => {
+function RatingsReviews() {
   return (
     <div>
-         <div>
-           <Ratings />
-         </div>
-          <div>
-           <Reviews />
-         </div>
-       </div>
+      <h2>RATINGS / REVIEWS</h2>
+      <div>
+        <Ratings />
+      </div>
+      <div>
+        <Reviews />
+      </div>
+    </div>
   );
 }
 // class RatingsReviews extends React.Component {

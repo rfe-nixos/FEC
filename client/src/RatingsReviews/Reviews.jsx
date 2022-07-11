@@ -10,15 +10,14 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      page: 1,
+      page: 1
     };
     this.getReviews = this.getReviews.bind(this);
     this.addReview = this.addReview.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
     this.sort = this.sort.bind(this);
+    this.markHelpful = this.markHelpful.bind(this);
   }
-
-  //static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
 
   componentDidMount() {
     this.getReviews();
@@ -42,14 +41,12 @@ class Reviews extends React.Component {
 
   moreReviews() {
     let page = this.state.page;
-    page++;
+    page += 1;
     this.setState({page: page});
     this.getReviews();
-
   }
 
   sort(option) {
-    console.log(option, 'has been selected');
     axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${option}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
@@ -71,16 +68,35 @@ class Reviews extends React.Component {
 
   }
 
+  markHelpful(reviewId) {
+      console.log('this is the reviewId:', reviewId);
+      axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
+        headers: {
+          Authorization: process.env.AUTH_KEY,
+        },
+      })
+      .then(() => {
+        this.setState({reviewed: true});
+        console.log('success marking helpful');
+        this.getReviews();
+      })
+      .catch((err) => console.log('error marking helpful', err))
+   }
+
+
   render() {
     return (
       <div>
         {`____________________________`}<br />
-        this is the Reviews Component.
+        <h5>R E V I E W S .</h5>
         <SortBar
           reviews={this.state.reviews}
           sort={this.sort}
         />
-        <ReviewList reviews={this.state.reviews}/>
+        <ReviewList
+          reviews={this.state.reviews}
+          markHelpful={this.markHelpful}
+        />
         <AddBar
           reviews={this.state.reviews}
           addReview={this.addReview}
