@@ -1,8 +1,12 @@
-import React from "react";
+import React from 'react';
+
+import Overview from './product-details/Overview';
 
 // Huzzah for jsx!
-const App = () => {
-  return <h1>Hello World</h1>
+function App() {
+  return (
+    <Overview />
+  );
 }
 
 export default App;
