@@ -1,4 +1,5 @@
 import React from 'react';
+import { formatDistanceToNow, format, parseISO } from "date-fns";
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -11,22 +12,27 @@ class ReviewTile extends React.Component {
   render() {
     return (
       <div>
-        Rating: {this.props.review.rating}
-        Date: {this.props.review.date}
+        {`____________________________`}<br />
+        Rating: {this.props.review.rating + " "}
+        Date: {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
         <h4>{this.props.review.summary}</h4>
-        {this.props.review.body}
+        {this.props.review.body + " "}
         {this.props.review.recommend &&
           <h4>
             I recommend this product &#10003;
           </h4>
         }
-        By: {this.props.review.reviewer_name}
+        {this.props.review.reviewer_name &&
+          <h5>
+            By: {this.props.review.reviewer_name + " "}
+          </h5>
+        }
         {this.props.review.response &&
           <h4>
             from the seller: {this.props.review.response}
           </h4>
         }
-        Helpful? : {this.props.review.helpfulness}
+        Helpful? : {this.props.review.helpfulness + " "}
       </div>
     )
   }
