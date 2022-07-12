@@ -1,6 +1,6 @@
 import React from 'react';
-import Ratings from './Ratings.jsx';
-import Reviews from './Reviews.jsx';
+import Ratings from './Ratings/Ratings.jsx';
+import Reviews from './Reviews/Reviews.jsx';
 
 function RatingsReviews() {
   return (
