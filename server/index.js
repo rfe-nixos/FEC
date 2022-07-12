@@ -3,8 +3,8 @@ const path = require('path');
 
 const app = express();
 app.use(express.static(path.join(__dirname, '../client/public')));
-const port = 3000;
+//const port = 3000;
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  console.log(`listening on port ${process.env.PORT}`);
 });
