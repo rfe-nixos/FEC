@@ -24,7 +24,7 @@ class AddBar extends React.Component {
   render() {
     return (
       <div>
-        This is the Add Bar.
+        {`____________________________`}<br />
         <button onClick={this.moreReviews}>MORE</button>
         <button onClick={this.toggleForm}>ADD REVIEW</button>
         {this.state.formShowing && <ReviewForm />}

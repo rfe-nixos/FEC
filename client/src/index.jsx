@@ -7,8 +7,6 @@ import App from './App.jsx';
 const root = createRoot(document.getElementById("root"));
 
 root.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+    <App />,
   document.getElementById('root')
 );
