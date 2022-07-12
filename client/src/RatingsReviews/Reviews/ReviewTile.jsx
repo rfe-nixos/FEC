@@ -7,8 +7,10 @@ class ReviewTile extends React.Component {
     super(props);
     this.state = {
       reviewed: false,
+      reported: false
     };
     this.markHelpful = this.markHelpful.bind(this);
+    this.report = this.report.bind(this);
   }
 
   markHelpful() {
@@ -19,6 +21,18 @@ class ReviewTile extends React.Component {
       alert('you have already marked as helpful');
     }
   };
+
+  report() {
+    var r = confirm('are you sure you want to report this review?');
+    if (r) {
+      if (!this.state.reported) {
+        this.props.report(this.props.review.review_id);
+        this.setState({ reported: true });
+      } else {
+        alert('you have already reported');
+      }
+    }
+  }
 
   render() {
     return (
@@ -45,6 +59,7 @@ class ReviewTile extends React.Component {
         }
         Helpful? : {this.props.review.helpfulness + " "}
         <button onClick={this.markHelpful}>YES</button>
+        <button onClick={this.report}>report</button>
       </div>
     )
   }

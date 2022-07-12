@@ -14,9 +14,10 @@ class ReviewList extends React.Component {
       <div>
         {this.props.reviews.map((review, index) => {
           return <ReviewTile
-            review = {review}
-            key = {index}
-            markHelpful = {this.props.markHelpful}
+            review={review}
+            key={index}
+            markHelpful={this.props.markHelpful}
+            report={this.props.report}
           />
         })}
       </div>
