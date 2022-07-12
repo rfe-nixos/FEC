@@ -14,7 +14,7 @@ const StyledTile = styled.div`
 `
 
 const StyledButton = styled.button`
-  width: auto;
+  width: 100px;
   font-size: 1em;
   margin: 1em;
   padding: 0.25em 1em;
@@ -76,8 +76,11 @@ class ReviewTile extends React.Component {
           </h4>
         }
         Helpful? : {this.props.review.helpfulness + " "}
-        <StyledButton onClick={this.markHelpful}>YES</StyledButton>
-        <StyledButton onClick={this.report}>report</StyledButton>
+        <div>
+          <StyledButton onClick={this.markHelpful}>YES</StyledButton>
+          <StyledButton onClick={this.report}>report</StyledButton>
+        </div>
+
       </StyledTile>
     )
   }
