@@ -18,7 +18,7 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
-    new Dotenv(),
+    new Dotenv()
   ],
   module: {
     // [rules] will determine the rules around those external modules
