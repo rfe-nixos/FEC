@@ -11,7 +11,7 @@ function AddToCart(style) {
   amounts.forEach((amount) => amountOptions.push(<option key={amount}>{amount}</option>));
 
   return (
-    <form>
+    <form className="addToCart">
       <select>
         {sizeOptions}
       </select>

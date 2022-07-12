@@ -1,4 +1,5 @@
 import React from 'react';
+import './OverviewStyles.css';
 import ImageGallery from './ImageGallery';
 import AddToCart from './AddToCart';
 import ProductDetails from './ProductDetails';
@@ -45,7 +46,7 @@ function Overview() {
   };
 
   return (
-    <div>
+    <div className="overview">
       <ImageGallery props={currentStyle} />
       <ProductDetails props={currentStyle} />
       <StyleSelector props={styles} />

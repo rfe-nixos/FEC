@@ -7,7 +7,7 @@ function ProductDetails(style) {
 
   if (style.props.reviewNum > 0) {
     return (
-      <div>
+      <div className="productDetails">
         <p id="category">{style.props.category}</p>
         <h1 id="title">{style.props.title}</h1>
         <h2 id="rating">{`${starRating} stars. Read all ${style.props.reviewNum} review(s)`}</h2>
@@ -20,7 +20,7 @@ function ProductDetails(style) {
     );
   }
   return (
-    <div>
+    <div className="productDetails">
       <p id="category">{style.props.category}</p>
       <h1 id="title">{style.props.title}</h1>
       <h2 id="price">{style.props.price}</h2>
