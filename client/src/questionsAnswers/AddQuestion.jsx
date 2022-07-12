@@ -34,7 +34,6 @@ function AddQuestion({ id, renderQuestions, DivContainer }) {
 
   const addQuestion = (formValues) => {
     // get the form data and
-    console.log(process.env.API_KEY);
     const { body, name, email } = formValues;
     const url = `${process.env.API_URL}/qa/questions`;
     const requestBody = {
@@ -48,7 +47,9 @@ function AddQuestion({ id, renderQuestions, DivContainer }) {
         Authorization: process.env.API_KEY,
       },
     };
-    axios.post(url, requestBody, headers)
+
+    axios
+      .post(url, requestBody, headers)
       .then(() => {
         document.getElementById(`${id}-popup`).style.display = 'none';
         renderQuestions();

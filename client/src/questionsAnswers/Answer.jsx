@@ -5,7 +5,6 @@ import Helpful from './Helpful';
 
 const PropertyDiv = styled.div`
   display: flex;
-  width: 40%;
   justify-content: flex-start;
   padding: 15px 0;
   font-size: 15px;
@@ -28,7 +27,12 @@ function Answer({ answer, renderQuestions={renderQuestions} }) {
           |
         </Span>
         <Span>
-          <Helpful id={answer.id} type="answer" currentCount={answer.helpfulness} renderQuestions={renderQuestions} />
+          <Helpful
+            id={answer.id}
+            type="answer"
+            currentCount={answer.helpfulness}
+            renderQuestions={renderQuestions}
+          />
         </Span>
         <Span>
           |

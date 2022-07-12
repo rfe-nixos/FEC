@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import IndividualQuestion from './IndividualQuestion';
-// import MoreQuestions from './MoreQuestions';
+import MoreQuestions from './MoreQuestions';
 
 function QuestionList({ questions, renderQuestions, DivContainer }) {
   const [maxQuestionCount, setMaxQuestionCount] = useState(4);
@@ -15,7 +15,11 @@ function QuestionList({ questions, renderQuestions, DivContainer }) {
           renderQuestions={renderQuestions}
         />
       ))}
-      {/* <MoreQuestions setMaxQuestionCount={setMaxQuestionCount} /> */}
+      <MoreQuestions
+        currentCount={maxQuestionCount}
+        setMaxQuestionCount={setMaxQuestionCount}
+        DivContainer={DivContainer}
+      />
     </DivContainer>
   );
 }

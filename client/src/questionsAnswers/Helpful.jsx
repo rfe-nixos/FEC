@@ -16,7 +16,9 @@ function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
         Authorization: process.env.API_KEY,
       },
     };
-    axios.put(url, requestBody, options)
+
+    axios
+      .put(url, requestBody, options)
       .then(() => {
         renderQuestions();
       })

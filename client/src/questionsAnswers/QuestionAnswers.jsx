@@ -12,6 +12,8 @@ const DivContainer = styled.div`
   flex-direction: column;
   width: 65%;
   margin: auto;
+  color : #3d3c3c;
+  font-size: 17px;
 `;
 
 const Button = styled.button`

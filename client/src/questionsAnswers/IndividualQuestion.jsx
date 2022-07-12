@@ -1,14 +1,15 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Answer from './Answer';
 import Helpful from './Helpful';
 import PopupForm from './PopupForm';
+import AnswerList from './AnswerList';
 
-const DivHelpful = styled.div`
+const OptionsDiv = styled.div`
   display: flex;
   width:30%;
   justify-content: space-around;
+  font-size: 15px;
 `;
 
 const DivQuestion = styled.div`
@@ -18,34 +19,28 @@ const DivQuestion = styled.div`
   align-items: center;
 `;
 
-const CollapseSpan = styled.span`
+const Title = styled.span`
+  width: 30px;
   font-weight: bold;
 `;
 
+const Content = styled.div`
+  width: 90%;
+`;
+
+const SpanBold = styled.span`
+  font-weight: bold;
+  font-size: 20px;
+`;
+
+const QContainer = styled.div`
+  display: flex;
+  width: 70%;
+`;
+
+// const Clickable
+
 function IndividualQuestion({ question, renderQuestions }) {
-  const [collapsed, setCollapsed] = useState(true);
-  const answerList = Object.values(question.answers).sort((a, b) => {
-    if (a.helpfulness < b.helpfulness) return 1;
-    if (a.helpfulness > b.helpfulness) return -1;
-    return 0;
-  });
-
-  const mapAnswer = (answer) =>
-    <Answer key={answer.id} answer={answer} renderQuestions={renderQuestions} />;
-
-  const handleClick = (e) => {
-    if (e.target.innerText === 'LOAD MORE ANSWERS') {
-      // change state to false
-      setCollapsed(false);
-    } else if (e.target.innerText === 'COLLAPSE') {
-      setCollapsed(true);
-    } else if (e.target.innerText === 'Add Answer') {
-      // display a popup form.
-      // TODO LATER WHEN POPUP FORM IS CREATED
-      document.getElementById(`${question.question_id}-popup`).style.display = 'flex';
-    }
-  };
-
   const formConfig = [
     {
       label: 'Your Answer',
@@ -82,13 +77,29 @@ function IndividualQuestion({ question, renderQuestions }) {
     },
   ];
 
+  const handleClick = () => {
+    document.getElementById(`${question.question_id}-popup`).style.display = 'flex';
+  };
+
   const addAnswer = (formValues) => {
     const { body, name, email, photos } = formValues;
-    axios.post(`${process.env.API_URL}/qa/questions/${question.question_id}/answers`, { body, name, email, photos }, { headers: { Authorization: process.env.AUTH_KEY } })
+    const url = `${process.env.API_URL}/qa/questions/${question.question_id}/answers`;
+    const requestBody = {
+      body,
+      name,
+      email,
+      photos,
+    };
+    const options = {
+      headers: {
+        Authorization: process.env.API_KEY,
+      },
+    };
+
+    axios
+      .post(url, requestBody, options)
       .then(() => {
-        console.log('successfully posted answer');
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
-        // rerender answers / question list
         renderQuestions();
       })
       .catch((err) => {
@@ -99,27 +110,47 @@ function IndividualQuestion({ question, renderQuestions }) {
   return (
     <div className="individual-question">
       <DivQuestion className="question">
-        <b>
-          <span className="label">Q:</span>
-          <span className="question-text">{question.question_body}</span>
-        </b>
-        <DivHelpful className="question-options">
-          <Helpful id={question.question_id} type="question" currentCount={question.question_helpfulness} renderQuestions={renderQuestions} />
+        <QContainer>
+          <Title>
+            Q:
+          </Title>
+          <Content>
+            <SpanBold className="question-text">
+              {question.question_body}
+            </SpanBold>
+          </Content>
+        </QContainer>
+        <OptionsDiv>
+          <Helpful
+            id={question.question_id}
+            type="question"
+            currentCount={question.question_helpfulness}
+            renderQuestions={renderQuestions}
+            tabIndex="0"
+          />
           {' | '}
-          <u onClick={handleClick}>Add Answer</u>
-        </DivHelpful>
+          <u
+            onClick={handleClick}
+            onKeyDown={handleClick}
+            role="button"
+            tabIndex="-1"
+          >
+            Add Answer
+          </u>
+        </OptionsDiv>
       </DivQuestion>
-      <div className="answers">
-        <b>
-          <span className="label">A:</span>
-        </b>
-        <div className="answer-list">
-          {collapsed ? answerList.slice(0, 2).map(mapAnswer) : answerList.map(mapAnswer)}
-          {collapsed && answerList.length > 2 && <CollapseSpan onClick={handleClick}>LOAD MORE ANSWERS</CollapseSpan>}
-          {!collapsed && answerList.length > 2 && <CollapseSpan onClick={handleClick}>COLLAPSE</CollapseSpan>}
-        </div>
-      </div>
-      <PopupForm id={question.question_id} config={formConfig} submitHandler={addAnswer} header={`Q: ${question.question_body}`} />
+      <AnswerList
+        answers={question.answers}
+        renderQuestions={renderQuestions}
+        SpanBold={SpanBold}
+        Title={Title}
+      />
+      <PopupForm
+        id={question.question_id}
+        config={formConfig}
+        submitHandler={addAnswer}
+        header={`Q: ${question.question_body}`}
+      />
     </div>
   );
 }
