@@ -9,7 +9,8 @@ class Reviews extends React.Component {
     super(props);
     this.state = {
       reviews: [],
-      page: 1
+      page: 1,
+      markedHelpful: []
     };
     this.getReviews = this.getReviews.bind(this);
     this.addReview = this.addReview.bind(this);
@@ -81,18 +82,25 @@ class Reviews extends React.Component {
   }
 
   markHelpful(reviewId) {
-    console.log('this is the reviewId:', reviewId);
-    axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    })
-      .then(() => {
-        this.setState({ reviewed: true });
-        console.log('success marking helpful');
-        this.getReviews();
+    //console.log('this is the reviewId:', reviewId);
+    if (this.state.markedHelpful.indexOf(reviewId) === -1) {
+      axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
+        headers: {
+          Authorization: process.env.AUTH_KEY,
+        },
       })
-      .catch((err) => console.log('error marking helpful', err))
+        .then(() => {
+          //this.setState({ reviewed: true });
+          //console.log('success marking helpful');
+          let markedHelpful = this.state.markedHelpful;
+          markedHelpful.push(reviewId);
+          this.setState({ markedHelpful });
+          this.getReviews();
+        })
+        .catch((err) => console.log('error marking helpful', err))
+    } else {
+      alert('you have already marked this review as helpful');
+    }
   }
 
   render() {

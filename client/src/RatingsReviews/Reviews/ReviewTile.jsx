@@ -14,14 +14,7 @@ class ReviewTile extends React.Component {
 
   markHelpful() {
     let r_id = this.props.review.review_id
-    if (this.state.reviewed.indexOf(r_id) === -1) {
-      this.props.markHelpful(r_id);
-      let reviewed = this.state.reviewed;
-      reviewed.push(r_id);
-      this.setState({ reviewed });
-    } else {
-      alert('you have already marked this review as helpful');
-    }
+    this.props.markHelpful(r_id);
   };
 
   report() {
