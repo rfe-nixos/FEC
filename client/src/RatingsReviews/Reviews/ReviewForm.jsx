@@ -7,6 +7,7 @@ class ReviewForm extends React.Component {
       reviews: [],
     };
   }
+
   render() {
     return (
       <div>

@@ -1,9 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import ReviewList from './ReviewList.jsx';
-import ReviewTile from './ReviewTile.jsx';
 import AddBar from './AddBar.jsx';
 import SortBar from './SortBar.jsx';
-import axios from 'axios';
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -29,20 +28,20 @@ class Reviews extends React.Component {
         Authorization: process.env.AUTH_KEY,
       },
     })
-     .then((response) => {
-       console.log('successfully fetched reviews');
-       console.log(response.data.results);
-       this.setState(
-         {reviews: response.data.results}
-       )
-     })
-     .catch((err) => console.log('error fetching reviews, err'));
+      .then((response) => {
+        console.log('successfully fetched reviews');
+        console.log(response.data.results);
+        this.setState(
+          { reviews: response.data.results },
+        );
+      })
+      .catch((err) => console.log('error fetching reviews', err));
   }
 
   moreReviews() {
     let page = this.state.page;
     page += 1;
-    this.setState({page: page});
+    this.setState({ page });
     this.getReviews();
   }
 
@@ -52,14 +51,14 @@ class Reviews extends React.Component {
         Authorization: process.env.AUTH_KEY,
       },
     })
-     .then((response) => {
-       console.log('successfully fetched reviews');
-       console.log(response.data.results);
-       this.setState(
-         {reviews: response.data.results},
-       )
-     })
-     .catch((err) => console.log('error fetching reviews', err));
+      .then((response) => {
+        console.log('successfully fetched reviews');
+        console.log(response.data.results);
+        this.setState(
+          { reviews: response.data.results },
+        );
+      })
+      .catch((err) => console.log('error fetching reviews', err));
   }
 
 
@@ -69,19 +68,19 @@ class Reviews extends React.Component {
   }
 
   markHelpful(reviewId) {
-      console.log('this is the reviewId:', reviewId);
-      axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
-        headers: {
-          Authorization: process.env.AUTH_KEY,
-        },
-      })
+    console.log('this is the reviewId:', reviewId);
+    axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
+      headers: {
+        Authorization: process.env.AUTH_KEY,
+      },
+    })
       .then(() => {
-        this.setState({reviewed: true});
+        this.setState({ reviewed: true });
         console.log('success marking helpful');
         this.getReviews();
       })
       .catch((err) => console.log('error marking helpful', err))
-   }
+  }
 
 
   render() {

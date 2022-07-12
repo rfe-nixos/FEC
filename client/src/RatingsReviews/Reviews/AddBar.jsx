@@ -9,7 +9,7 @@ class AddBar extends React.Component {
     this.moreReviews = this.moreReviews.bind(this);
   }
 
-  moreReviews(){
+  moreReviews() {
     this.props.moreReviews()
   }
 
@@ -25,8 +25,3 @@ class AddBar extends React.Component {
 }
 
 export default AddBar;
-
-
-//renders
-// a button to load more reviews
-// a button to add a review.

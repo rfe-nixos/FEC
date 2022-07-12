@@ -1,19 +1,20 @@
+/* eslint-disable no-alert */
 import React from 'react';
-import { formatDistanceToNow, format, parseISO } from "date-fns";
+import { formatDistanceToNow, format, parseISO } from 'date-fns';
 
 class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewed: false
-    }
+      reviewed: false,
+    };
     this.markHelpful = this.markHelpful.bind(this);
   }
 
   markHelpful() {
     if (!this.state.reviewed) {
       this.props.markHelpful(this.props.review.review_id);
-      this.setState({reviewed: true});
+      this.setState({ reviewed: true });
     } else {
       alert('you have already marked as helpful');
     }
@@ -50,12 +51,3 @@ class ReviewTile extends React.Component {
 }
 
 export default ReviewTile;
-
-//renders
-// a single review entry
-//which contains
-// rating,
-// review title
-// review body
-// recommend
-// helpful/report

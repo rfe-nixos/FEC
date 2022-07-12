@@ -8,6 +8,7 @@ class ReviewList extends React.Component {
       reviews: []
     }
   }
+
   render() {
     return (this.props.reviews.length > 0) ? (
       <div>
@@ -24,9 +25,7 @@ class ReviewList extends React.Component {
         There are no reviews currently.
       </div>
     )
-
   }
 }
 
 export default ReviewList;
-
