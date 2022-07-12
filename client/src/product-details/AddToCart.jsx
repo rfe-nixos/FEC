@@ -10,6 +10,10 @@ function AddToCart(style) {
   const amountOptions = [];
   amounts.forEach((amount) => amountOptions.push(<option key={amount}>{amount}</option>));
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   return (
     <form className="addToCart">
       <select>
@@ -18,7 +22,7 @@ function AddToCart(style) {
       <select>
         {amountOptions}
       </select>
-      <input type="submit" value="Add to Cart" />
+      <input type="submit" value="Add to Cart" onSubmit={handleSubmit} />
     </form>
   );
 }

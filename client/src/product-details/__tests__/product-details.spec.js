@@ -1,3 +1,9 @@
+/* eslint-disable react/jsx-filename-extension */
+/* eslint-disable no-undef */
+import React from 'react';
+import renderer from 'react-test-renderer';
+import ProductDetails from '../ProductDetails';
+
 describe('currentStyle', () => {
   test('it should have a length of one', () => {
     const currentStyle = {
@@ -17,4 +23,10 @@ describe('currentStyle', () => {
 
     expect(keys.length).toEqual(10);
   });
+});
+
+it('should have a type of objecy', () => {
+  const component = <ProductDetails />;
+
+  expect(typeof component).toEqual('object');
 });
