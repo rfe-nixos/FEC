@@ -1,6 +1,6 @@
 /* eslint-disable no-alert */
 import React from 'react';
-import { formatDistanceToNow, format, parseISO } from 'date-fns';
+import { format, parseISO } from 'date-fns';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -13,12 +13,12 @@ class ReviewTile extends React.Component {
   }
 
   markHelpful() {
-    let r_id = this.props.review.review_id
-    this.props.markHelpful(r_id);
+    let rId = this.props.review.review_id
+    this.props.markHelpful(rId);
   };
 
   report() {
-    var r = confirm('are you sure you want to report this review?');
+    const r = confirm('are you sure you want to report this review?');
     if (r) {
       this.props.report(this.props.review.review_id);
     }
