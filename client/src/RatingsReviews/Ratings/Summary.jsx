@@ -1,4 +1,6 @@
 import React from 'react';
+import starRating from '../lib/starRatings.js';
+import Stars from './Stars.jsx';
 
 function Summary({ average, totalRatings, isLoaded }) {
   return (
@@ -7,7 +9,11 @@ function Summary({ average, totalRatings, isLoaded }) {
       {(isLoaded)
         && (
         <div>
-          {`average rating: ${average}`}
+          <h2>{`${average}`}</h2>
+          <br />
+          <div id="outerstar">
+            <Stars average={average} percentage={starRating(average)} />
+          </div>
           <br />
           {`out of ${totalRatings} reviews`}
         </div>

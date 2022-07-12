@@ -35,7 +35,7 @@ class ReviewForm extends React.Component {
   }
 
   handleChange(e) {
-    e.preventDefault()
+    e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
     });

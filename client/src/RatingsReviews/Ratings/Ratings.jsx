@@ -11,12 +11,12 @@ class Ratings extends React.Component {
       meta: {},
       ratings: {},
       totalRatings: 0,
-      isLoaded: false
-    }
+      isLoaded: false,
+    };
     this.getRatings = this.getRatings.bind(this);
   }
 
-  //static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
+  // static url = `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe`;
 
   componentDidMount() {
     this.getRatings();
@@ -28,43 +28,43 @@ class Ratings extends React.Component {
         Authorization: process.env.AUTH_KEY,
       },
     })
-     .then((response) => {
-       console.log('successfully fetched ratings');
-       console.log(response.data);
-       let sum = 0;
-       let totalRatings = 0;
-       let r = response.data.ratings;
-       for (let key in r) {
-         totalRatings += parseInt(r[key]);
-         sum += parseInt(key) * parseInt(r[key]);
-       }
-       this.setState(
-         {meta: response.data, ratings: response.data.ratings, average: (sum / totalRatings).toFixed(2), totalRatings: totalRatings, isLoaded: true}
-       )
-     })
-     .catch((err) => console.log('error fetching ratings', err));
+      .then((response) => {
+        console.log('successfully fetched ratings');
+        console.log(response.data);
+        let sum = 0;
+        let totalRatings = 0;
+        const r = response.data.ratings;
+        for (const key in r) {
+          totalRatings += parseInt(r[key]);
+          sum += parseInt(key) * parseInt(r[key]);
+        }
+        this.setState(
+          {
+            meta: response.data, average: (sum / totalRatings).toFixed(2), ratings: response.data.ratings, totalRatings, isLoaded: true,
+          },
+        );
+      })
+      .catch((err) => console.log('error fetching ratings', err));
   }
 
   render() {
     return (
       <div>
         <h5>R A T I N G S .</h5>
-        <Summary meta={this.state.meta} average={this.state.average} totalRatings={this.state.totalRatings} isLoaded={this.state.isLoaded}/>
-        <Breakdown meta={this.state.meta} isLoaded={this.state.isLoaded} totalRatings={this.state.totalRatings}/>
+        <Summary meta={this.state.meta} average={this.state.average} totalRatings={this.state.totalRatings} isLoaded={this.state.isLoaded} />
+        <Breakdown meta={this.state.meta} isLoaded={this.state.isLoaded} totalRatings={this.state.totalRatings} />
         <Characteristics
           meta={this.state.meta}
           isLoaded={this.state.isLoaded}
         />
       </div>
-    )
+    );
   }
 }
 
 export default Ratings;
 
-
-//renders
-//average rating from all the reviews,
-//shows distribution of ratings.
-//shows average size/comfort rating
-
+// renders
+// average rating from all the reviews,
+// shows distribution of ratings.
+// shows average size/comfort rating
