@@ -4,6 +4,16 @@ import axios from 'axios';
 import ReviewList from './ReviewList.jsx';
 import AddBar from './AddBar.jsx';
 import SortBar from './SortBar.jsx';
+import styled from 'styled-components';
+
+const StyledReviews = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  width: 90%;
+  padding: 5%;
+
+`
 
 class Reviews extends React.Component {
   constructor(props) {
@@ -28,7 +38,7 @@ class Reviews extends React.Component {
   }
 
   getReviews() {
-    axios.get(`${process.env.API_URL}/reviews?product_id=37311&page=${this.state.page}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=37311&count=${this.state.page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -112,7 +122,6 @@ class Reviews extends React.Component {
   }
 
   markHelpful(reviewId) {
-    //console.log('this is the reviewId:', reviewId);
     if (this.state.markedHelpful.indexOf(reviewId) === -1) {
       axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
         headers: {
@@ -134,7 +143,6 @@ class Reviews extends React.Component {
   render() {
     return (
       <div>
-        {`____________________________`}<br />
         <h5>R E V I E W S .</h5>
         <SortBar
           reviews={this.state.reviews}

@@ -2,12 +2,7 @@ import React from 'react';
 import starRating from '../lib/starRatings.js';
 import styled from 'styled-components';
 
-// const StyledOuter = styled.div`
-//   display: inline-block;
-//   position: relative;
-//   font-family: FontAwesome;
-// `
-const StyledStars = styled.div`
+const StyledStars = styled.p`
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -22,7 +17,7 @@ const StyledStars = styled.div`
 function Stars({ percentage, average }) {
   return (
     <React.Fragment>
-      <StyledStars percentage={percentage}>★★★★★</StyledStars>
+      <StyledStars percentage={starRating(average)}>★★★★★</StyledStars>
     </React.Fragment>
   );
 }

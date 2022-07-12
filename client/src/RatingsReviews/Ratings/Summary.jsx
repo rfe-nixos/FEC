@@ -15,7 +15,7 @@ function Summary({ average, totalRatings, isLoaded }) {
             <Stars average={average} percentage={starRating(average)} />
           </div>
           <br />
-          {`out of ${totalRatings} reviews`}
+          <em>{`out of ${totalRatings} reviews`}</em>
         </div>
         )}
     </div>

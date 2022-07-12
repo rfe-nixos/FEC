@@ -5,7 +5,6 @@ import RatingsReviews from './RatingsReviews/RatingsReviews.jsx'
 const App = () => {
   return (
     <div>
-      <h1>Hello World</h1>
       <RatingsReviews />
     </div>
     )

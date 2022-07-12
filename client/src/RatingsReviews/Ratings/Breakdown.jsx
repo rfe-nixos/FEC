@@ -3,6 +3,7 @@ import React from 'react';
 function Breakdown(props) {
   return (
     <div>
+
       {!props.isLoaded && <p>loading . . .</p>}
       {props.isLoaded && (
         <div>

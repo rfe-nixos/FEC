@@ -1,6 +1,32 @@
 /* eslint-disable no-alert */
 import React from 'react';
 import { format, parseISO } from 'date-fns';
+import styled from 'styled-components';
+
+const StyledTile = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  width: 100%;
+  border-top: 2px solid black;
+  padding-left: 5%;
+`
+
+const StyledButton = styled.button`
+  width: auto;
+  font-size: 1em;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -28,7 +54,7 @@ class ReviewTile extends React.Component {
 
   render() {
     return (
-      <div>
+      <StyledTile>
         {`____________________________`}<br />
         Rating: {this.props.review.rating + " "}
         Date: {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
@@ -50,9 +76,9 @@ class ReviewTile extends React.Component {
           </h4>
         }
         Helpful? : {this.props.review.helpfulness + " "}
-        <button onClick={this.markHelpful}>YES</button>
-        <button onClick={this.report}>report</button>
-      </div>
+        <StyledButton onClick={this.markHelpful}>YES</StyledButton>
+        <StyledButton onClick={this.report}>report</StyledButton>
+      </StyledTile>
     )
   }
 }

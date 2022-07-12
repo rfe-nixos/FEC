@@ -1,5 +1,15 @@
 import React from 'react';
 import ReviewTile from './ReviewTile.jsx';
+import styled from 'styled-components';
+
+const StyledList = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: top;
+  width: 100%;
+  padding: 5%;
+`
 
 class ReviewList extends React.Component {
   constructor(props) {
@@ -11,7 +21,7 @@ class ReviewList extends React.Component {
 
   render() {
     return (this.props.reviews.length > 0) ? (
-      <div>
+      <StyledList>
         {this.props.reviews.map((review, index) => (
           <ReviewTile
             review={review}
@@ -20,11 +30,13 @@ class ReviewList extends React.Component {
             report={this.props.report}
           />
         ))}
-      </div>
+      </StyledList>
     ) : (
-      <div>
-        There are no reviews currently.
-      </div>
+      <StyledList>
+        <h2>
+          There are no reviews currently
+        </h2>
+      </StyledList>
     );
   }
 }
