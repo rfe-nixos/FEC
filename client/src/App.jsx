@@ -1,8 +1,10 @@
-import React from "react";
-
+import React from 'react';
+import QuestionAnswer from './questionsAnswers/QuestionAnswers';
 // Huzzah for jsx!
-const App = () => {
-  return <h1>Hello World</h1>
+function App() {
+  return (
+    <QuestionAnswer productId={37313} />
+  );
 }
 
 export default App;

@@ -1,9 +1,9 @@
-import { createStore } from 'redux'
+import { createStore } from 'redux';
 
 import reducer from './reducers/index';
 
 const store = createStore(reducer);
-//console.log(store.getState())
-//should give us our states
+// console.log(store.getState())
+// should give us our states
 
 export default store;
