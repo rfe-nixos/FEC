@@ -12,12 +12,14 @@ class ReviewTile extends React.Component {
     this.report = this.report.bind(this);
   }
 
-  markHelpful() {
+  markHelpful(e) {
+    e.preventDefault();
     let rId = this.props.review.review_id
     this.props.markHelpful(rId);
   };
 
-  report() {
+  report(e) {
+    e.preventDefault();
     const r = confirm('are you sure you want to report this review?');
     if (r) {
       this.props.report(this.props.review.review_id);

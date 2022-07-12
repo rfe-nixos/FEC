@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 import React from 'react';
 import axios from 'axios';
 import ReviewList from './ReviewList.jsx';
@@ -66,17 +67,17 @@ class Reviews extends React.Component {
   }
 
   addReview(reviewBody) {
-    let temp = {
-      product_id: 37311,
-      rating: 5,
-      name: 'joe',
-      summary: 'wow',
-      body: 'cool',
-      recommend: true,
-      email: 'aaa@aaa.com',
-      characteristics: {'125033': 3, '125031': 4, '125032': 5, '125034': 3}
-    };
-    console.log(temp);
+    // let temp = {
+    //   product_id: 37311,
+    //   rating: 5,
+    //   name: 'joe',
+    //   summary: 'wow',
+    //   body: 'cool',
+    //   recommend: true,
+    //   email: 'aaa@aaa.com',
+    //   characteristics: {'125033': 3, '125031': 4, '125032': 5, '125034': 3}
+    // };
+    // console.log(temp);
 
     axios.post(`${process.env.API_URL}/reviews`, reviewBody, {
       headers: {
@@ -88,9 +89,8 @@ class Reviews extends React.Component {
         alert('thank you for your submission');
         // this.getReviews();
         this.refresh();
-      }
-        )
-      .catch((err) => console.log('error adding review', err))
+      })
+      .catch((err) => console.log('error adding review', err));
   }
 
   refresh() {

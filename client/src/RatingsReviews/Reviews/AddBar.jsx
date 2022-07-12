@@ -11,7 +11,8 @@ class AddBar extends React.Component {
     this.toggleForm = this.toggleForm.bind(this);
   }
 
-  moreReviews() {
+  moreReviews(e) {
+    e.preventDefault();
     this.props.moreReviews();
   }
 
