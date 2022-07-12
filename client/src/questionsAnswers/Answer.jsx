@@ -2,6 +2,7 @@ import React from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import Helpful from './Helpful';
+import Report from './Report';
 
 const PropertyDiv = styled.div`
   display: flex;
@@ -15,9 +16,13 @@ const Span = styled.span`
   padding-right: 10px;
 `;
 
-function Answer({ answer, renderQuestions={renderQuestions} }) {
+const AnswerDiv = styled.div`
+  padding-bottom: 10px;
+`;
+
+function Answer({ answer, renderQuestions }) {
   return (
-    <div className="answer">
+    <AnswerDiv className="answer">
       <span className="answer-text">{answer.body}</span>
       <PropertyDiv className="answer-properties">
         <Span className="answer-property">
@@ -39,11 +44,10 @@ function Answer({ answer, renderQuestions={renderQuestions} }) {
         </Span>
         <Span>
           {/* TODO */}
-          {/* <Report id={answer.id} type={answer} /> */}
-          <u>Report</u>
+          <Report id={answer.id} type={answer} renderQuestions={renderQuestions} />
         </Span>
       </PropertyDiv>
-    </div>
+    </AnswerDiv>
   );
 }
 

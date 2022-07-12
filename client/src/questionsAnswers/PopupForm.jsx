@@ -19,7 +19,7 @@ const Popup = styled.div`
 
 function PopupForm({ config, id, header, submitHandler }) {
   return (
-    <Popup className="popup" id={`${id}-popup`}>
+    <Popup className="popup" id={`${id}-popup`} data-testid="popup-test">
       <Form formConfig={config} submitHandler={submitHandler} id={id} header={header} />
     </Popup>
   );

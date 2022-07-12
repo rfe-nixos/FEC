@@ -6,10 +6,10 @@ import PopupForm from './PopupForm';
 import AnswerList from './AnswerList';
 
 const OptionsDiv = styled.div`
-  display: flex;
-  width:30%;
-  justify-content: space-around;
-  font-size: 15px;
+display: flex;
+width:30%;
+justify-content: space-around;
+font-size: 15px;
 `;
 
 const DivQuestion = styled.div`
@@ -17,6 +17,7 @@ const DivQuestion = styled.div`
   justify-content: space-between;
   height: 50px;
   align-items: center;
+  margin: 5px 0;
 `;
 
 const Title = styled.span`
@@ -37,8 +38,6 @@ const QContainer = styled.div`
   display: flex;
   width: 70%;
 `;
-
-// const Clickable
 
 function IndividualQuestion({ question, renderQuestions }) {
   const formConfig = [
@@ -92,14 +91,16 @@ function IndividualQuestion({ question, renderQuestions }) {
     };
     const options = {
       headers: {
-        Authorization: process.env.API_KEY,
+        Authorization: process.env.AUTH_TOKEN,
       },
     };
 
     axios
       .post(url, requestBody, options)
       .then(() => {
+        console.log('request is made in the individual questions');
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
+        // TODO instead of rendering all Questions, we will set the state with added new answer
         renderQuestions();
       })
       .catch((err) => {
@@ -140,7 +141,8 @@ function IndividualQuestion({ question, renderQuestions }) {
         </OptionsDiv>
       </DivQuestion>
       <AnswerList
-        answers={question.answers}
+        questionId={question.question_id}
+        answerList={Object.values(question.answers)}
         renderQuestions={renderQuestions}
         SpanBold={SpanBold}
         Title={Title}

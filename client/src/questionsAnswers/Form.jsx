@@ -56,7 +56,7 @@ function Form({ formConfig = [], id, header, submitHandler }) {
         />
       ))}
       <DivButton className="form-buttons">
-        <ButtonStyled type="submit" onClick={handleSubmit}>
+        <ButtonStyled type="submit" onClick={handleSubmit} data-testid="form-button-test">
           Submit
         </ButtonStyled>
         <ButtonStyled onClick={handleClose}>

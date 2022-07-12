@@ -13,7 +13,7 @@ function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
     const requestBody = {};
     const options = {
       headers: {
-        Authorization: process.env.API_KEY,
+        Authorization: process.env.AUTH_TOKEN,
       },
     };
 
