@@ -18,6 +18,8 @@ class Reviews extends React.Component {
     this.sort = this.sort.bind(this);
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
+    this.addReview = this.addReview.bind(this);
+    this.refresh = this.refresh.bind(this);
   }
 
   componentDidMount() {
@@ -63,8 +65,36 @@ class Reviews extends React.Component {
       .catch((err) => console.log('error fetching reviews', err));
   }
 
-  addReview() {
+  addReview(reviewBody) {
+    let temp = {
+      product_id: 37311,
+      rating: 5,
+      name: 'joe',
+      summary: 'wow',
+      body: 'cool',
+      recommend: true,
+      email: 'aaa@aaa.com',
+      characteristics: {'125033': 3, '125031': 4, '125032': 5, '125034': 3}
+    };
+    console.log(temp);
 
+    axios.post(`${process.env.API_URL}/reviews`, reviewBody, {
+      headers: {
+        AUthorization: process.env.AUTH_KEY,
+      },
+    })
+      .then((response) => {
+        console.log('success adding review', response);
+        alert('thank you for your submission');
+        // this.getReviews();
+        this.refresh();
+      }
+        )
+      .catch((err) => console.log('error adding review', err))
+  }
+
+  refresh() {
+    window.location.reload();
   }
 
   report(reviewId) {
@@ -90,8 +120,6 @@ class Reviews extends React.Component {
         },
       })
         .then(() => {
-          //this.setState({ reviewed: true });
-          //console.log('success marking helpful');
           let markedHelpful = this.state.markedHelpful;
           markedHelpful.push(reviewId);
           this.setState({ markedHelpful });
