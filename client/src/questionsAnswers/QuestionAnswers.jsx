@@ -6,9 +6,7 @@ import styled from 'styled-components';
 import QuestionList from './QuestionList';
 // import MoreQuestions from './MoreQuestions';
 import AddQuestion from './AddQuestion';
-import config from '../../../config';
 
-const { API_KEY, API_URL } = config;
 const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -23,9 +21,17 @@ const Button = styled.button`
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
   // axios call to api to get all questions
-
   const getAllQuestions = () => {
-    axios.get(`${API_URL}/qa/questions`, { params: { product_id: productId }, headers: { Authorization: API_KEY } })
+    const path = `${process.env.API_URL}/qa/questions`;
+    const params = {
+      params: {
+        product_id: productId,
+      },
+      headers: {
+        Authorization: process.env.API_KEY,
+      },
+    };
+    axios.get(path, params)
       .then((result) => {
         setQuestionList(result.data.results);
       })
@@ -41,9 +47,17 @@ function QuestionAnswers({ productId }) {
   return (
     <div id="question-and-answers">
       {/* <Search /> */}
-      <QuestionList questions={questionList} renderQuestions={getAllQuestions} DivContainer={DivContainer} />
+      <QuestionList
+        questions={questionList}
+        renderQuestions={getAllQuestions}
+        DivContainer={DivContainer}
+      />
       {/* <MoreQuestions productId={productId} /> */}
-      <AddQuestion id={productId} renderQuestions={getAllQuestions} DivContainer={DivContainer} />
+      <AddQuestion
+        id={productId}
+        renderQuestions={getAllQuestions}
+        DivContainer={DivContainer}
+      />
     </div>
   );
 }

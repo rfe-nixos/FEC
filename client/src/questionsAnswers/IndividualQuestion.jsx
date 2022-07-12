@@ -4,9 +4,7 @@ import styled from 'styled-components';
 import Answer from './Answer';
 import Helpful from './Helpful';
 import PopupForm from './PopupForm';
-import config from '../../../config';
 
-const { API_KEY, API_URL } = config;
 const DivHelpful = styled.div`
   display: flex;
   width:30%;
@@ -86,7 +84,7 @@ function IndividualQuestion({ question, renderQuestions }) {
 
   const addAnswer = (formValues) => {
     const { body, name, email, photos } = formValues;
-    axios.post(`${API_URL}/qa/questions/${question.question_id}/answers`, { body, name, email, photos }, { headers: { Authorization: API_KEY } })
+    axios.post(`${process.env.API_URL}/qa/questions/${question.question_id}/answers`, { body, name, email, photos }, { headers: { Authorization: process.env.AUTH_KEY } })
       .then(() => {
         console.log('successfully posted answer');
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
@@ -121,7 +119,7 @@ function IndividualQuestion({ question, renderQuestions }) {
           {!collapsed && answerList.length > 2 && <CollapseSpan onClick={handleClick}>COLLAPSE</CollapseSpan>}
         </div>
       </div>
-      <PopupForm id={question.question_id} config={formConfig} submitHandler={addAnswer} />
+      <PopupForm id={question.question_id} config={formConfig} submitHandler={addAnswer} header={`Q: ${question.question_body}`} />
     </div>
   );
 }

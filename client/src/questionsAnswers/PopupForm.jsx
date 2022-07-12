@@ -8,7 +8,6 @@ const Popup = styled.div`
   padding: 20px;
   border: 1px solid #888;
   width: 50%;
-  height: 70%;
   position: fixed;
   background-color: #fefefe;
   left: 25%;
@@ -18,10 +17,10 @@ const Popup = styled.div`
   display: none;
 `;
 
-function PopupForm({ config, id, submitHandler }) {
+function PopupForm({ config, id, header, submitHandler }) {
   return (
     <Popup className="popup" id={`${id}-popup`}>
-      <Form formConfig={config} submitHandler={submitHandler} id={id} />
+      <Form formConfig={config} submitHandler={submitHandler} id={id} header={header} />
     </Popup>
   );
 }

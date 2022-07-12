@@ -13,7 +13,7 @@ function QuestionList({ questions, renderQuestions, DivContainer }) {
           key={question.question_id}
           question={question}
           renderQuestions={renderQuestions}
-          />
+        />
       ))}
       {/* <MoreQuestions setMaxQuestionCount={setMaxQuestionCount} /> */}
     </DivContainer>

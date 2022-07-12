@@ -21,13 +21,20 @@ function Answer({ answer, renderQuestions={renderQuestions} }) {
     <div className="answer">
       <span className="answer-text">{answer.body}</span>
       <PropertyDiv className="answer-properties">
-        <Span className="answer-property">by {answer.answerer_name}, {format(new Date(answer.date), 'MMMM d, yyyy')}</Span>
-        <Span>|</Span>
+        <Span className="answer-property">
+          by {answer.answerer_name}, {format(new Date(answer.date), 'MMMM d, yyyy')}
+        </Span>
+        <Span>
+          |
+        </Span>
         <Span>
           <Helpful id={answer.id} type="answer" currentCount={answer.helpfulness} renderQuestions={renderQuestions} />
         </Span>
-        <Span>|</Span>
         <Span>
+          |
+        </Span>
+        <Span>
+          {/* TODO */}
           {/* <Report id={answer.id} type={answer} /> */}
           <u>Report</u>
         </Span>

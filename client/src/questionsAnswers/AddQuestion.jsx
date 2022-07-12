@@ -1,9 +1,6 @@
 import React from 'react';
 import axios from 'axios';
-import config from '../../../config';
 import PopupForm from './PopupForm';
-
-const { API_KEY, API_URL } = config;
 
 function AddQuestion({ id, renderQuestions, DivContainer }) {
   const formConfig = [
@@ -37,10 +34,23 @@ function AddQuestion({ id, renderQuestions, DivContainer }) {
 
   const addQuestion = (formValues) => {
     // get the form data and
+    console.log(process.env.API_KEY);
     const { body, name, email } = formValues;
-    axios.post(`${API_URL}/qa/questions`, { body, name, email, product_id: id }, { headers: { Authorization: API_KEY } })
-      .then((result) => {
-        console.log('successfully posted question');
+    const url = `${process.env.API_URL}/qa/questions`;
+    const requestBody = {
+      body,
+      name,
+      email,
+      product_id: id,
+    };
+    const headers = {
+      headers: {
+        Authorization: process.env.API_KEY,
+      },
+    };
+    axios.post(url, requestBody, headers)
+      .then(() => {
+        document.getElementById(`${id}-popup`).style.display = 'none';
         renderQuestions();
       })
       .catch((err) => {
@@ -59,7 +69,7 @@ function AddQuestion({ id, renderQuestions, DivContainer }) {
         Add Question
       </button>
       { /* DEFAULT HIDDEN POPUP FORM FOR QUESTION */ }
-      <PopupForm id={id} config={formConfig} submitHandler={addQuestion} />
+      <PopupForm id={id} config={formConfig} submitHandler={addQuestion} header="Add a Question" />
     </DivContainer>
   );
 }

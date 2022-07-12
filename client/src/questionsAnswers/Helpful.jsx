@@ -1,8 +1,5 @@
 import React from 'react';
 import axios from 'axios';
-import config from '../../../config';
-
-const { API_URL, API_KEY } = config;
 
 function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
   let path;
@@ -12,9 +9,15 @@ function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
 
   const handleClick = () => {
     // send api request
-    axios.put(`${API_URL}/${path}/${id}/helpful`, {}, { headers: { Authorization: API_KEY } })
+    const url = `${process.env.API_URL}/${path}/${id}/helpful`;
+    const requestBody = {};
+    const options = {
+      headers: {
+        Authorization: process.env.API_KEY,
+      },
+    };
+    axios.put(url, requestBody, options)
       .then(() => {
-        // rerender the questionList ....
         renderQuestions();
       })
       .catch((err) => {

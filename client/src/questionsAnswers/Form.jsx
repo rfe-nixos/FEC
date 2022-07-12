@@ -10,7 +10,7 @@ const FormStyled = styled.form`
 const ButtonStyled = styled.button`
   padding: 2px;
   width: 30%;
-  margin: 5px 0;
+  margin: 20px 0;
 `;
 
 const DivButton = styled.div`
@@ -18,7 +18,7 @@ const DivButton = styled.div`
   justify-content: space-evenly;
 `;
 
-function Form({ formConfig = [], submitHandler, id }) {
+function Form({ formConfig = [], id, header, submitHandler }) {
   const [formValue, setFormValue] = useState(formConfig);
 
   const onChange = (e) => {
@@ -42,6 +42,7 @@ function Form({ formConfig = [], submitHandler, id }) {
 
   return (
     <FormStyled>
+      {header && <h2>{header}</h2>}
       {formConfig.map((config) => (
         <FormInput
           key={config.name}
@@ -55,8 +56,12 @@ function Form({ formConfig = [], submitHandler, id }) {
         />
       ))}
       <DivButton className="form-buttons">
-        <ButtonStyled type="submit" onClick={handleSubmit}>Submit</ButtonStyled>
-        <ButtonStyled onClick={handleClose}>Close</ButtonStyled>
+        <ButtonStyled type="submit" onClick={handleSubmit}>
+          Submit
+        </ButtonStyled>
+        <ButtonStyled onClick={handleClose}>
+          Close
+        </ButtonStyled>
       </DivButton>
     </FormStyled>
   );

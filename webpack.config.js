@@ -1,6 +1,7 @@
 // For node to know our absolute file path we will be using the internal module path
-const path = require("path");
+const path = require('path');
 const Dotenv = require('dotenv-webpack');
+// const webpack = require('webpack');
 
 // Our export here is the configuration webpack will use
 module.exports = {
@@ -17,9 +18,6 @@ module.exports = {
     // [filename] is the name of the file
     filename: 'bundle.js',
   },
-  plugins: [
-    new Dotenv()
-  ],
   module: {
     // [rules] will determine the rules around those external modules
     rules: [
@@ -51,11 +49,6 @@ module.exports = {
     extensions: ['', '.js', '.jsx'],
   },
   plugins: [
-    // new Dotenv(),
-    new webpack.DefinePlugin({
-      'process.env': {
-        API_KEY: JSON.stringify(process.env.API_KEY),
-      },
-    }),
+    new Dotenv(),
   ],
 };
