@@ -6,31 +6,28 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewed: false,
-      reported: false
+      reviewed: [],
     };
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
   }
 
   markHelpful() {
-    if (!this.state.reviewed) {
-      this.props.markHelpful(this.props.review.review_id);
-      this.setState({ reviewed: true });
+    let r_id = this.props.review.review_id
+    if (this.state.reviewed.indexOf(r_id) === -1) {
+      this.props.markHelpful(r_id);
+      let reviewed = this.state.reviewed;
+      reviewed.push(r_id);
+      this.setState({ reviewed });
     } else {
-      alert('you have already marked as helpful');
+      alert('you have already marked this review as helpful');
     }
   };
 
   report() {
     var r = confirm('are you sure you want to report this review?');
     if (r) {
-      if (!this.state.reported) {
-        this.props.report(this.props.review.review_id);
-        this.setState({ reported: true });
-      } else {
-        alert('you have already reported');
-      }
+      this.props.report(this.props.review.review_id);
     }
   }
 
