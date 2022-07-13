@@ -8,7 +8,6 @@ import { Promise } from 'bluebird';
 import ProductList from './productList.jsx';
 import OutfitList from './outfitList.jsx';
 
-
 function RelatedItems() {
   const [productListStateIds, setProductListStateIds] = useState();
   const [currentProduct, setCurrentProduct] = useState('37314');
@@ -142,14 +141,14 @@ function RelatedItems() {
 
   useEffect(() => getProductIds(), []);
   return (
-    <>
+    <div data-testid="related-items">
       <ProductList
         relatedProductStyles={relatedProductStyles}
         relatedProduct_ids={relatedProduct_ids}
         relatedProductReviews={relatedProductReviews}
       />
       <OutfitList />
-    </>
+    </div>
   );
 }
 export default RelatedItems;
