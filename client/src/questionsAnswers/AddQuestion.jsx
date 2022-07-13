@@ -66,7 +66,7 @@ function AddQuestion({ id, renderQuestions, Button }) {
 
   return (
     <div id="add-question-btn">
-      <Button type="submit" onClick={handleClick}>
+      <Button type="submit" onClick={handleClick} data-testid='add-question-btn'>
         ADD A QUESTION +
       </Button>
       { /* DEFAULT HIDDEN POPUP FORM FOR QUESTION */ }

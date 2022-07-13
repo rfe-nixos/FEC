@@ -9,7 +9,6 @@ function MoreQuestions({ totalQuestionCount, currentMaxCount, setMaxQuestionCoun
 
   return (
     <div id="add-question-btn">
-      {/* TODO CHANGE Qcount to 4, <= to < */}
       {totalQuestionCount > 4 && currentMaxCount < totalQuestionCount
       && (
         <Button type="submit" onClick={handleClick}>

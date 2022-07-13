@@ -47,7 +47,6 @@ function QuestionAnswers({ productId }) {
 
     axios(requestConfig)
       .then((result) => {
-        console.log('axios request is made inside questionAnswers');
         setQuestionList(result.data.results);
       })
       .catch((err) => {
