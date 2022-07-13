@@ -7,8 +7,8 @@ const BarContainer = styled.div`
   margin-top: 3%;
   width: 100%;
   display: flex;
-  flex-direction: row;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 `
 
 const OuterBar = styled.div`
@@ -17,7 +17,6 @@ const OuterBar = styled.div`
   width: 100%;
   height: 10px;
   background-color: #bdbdbd;
-  margin-left: 5%;
   &:hover{
     opacity:70%;
     cursor: pointer;
@@ -26,25 +25,37 @@ const OuterBar = styled.div`
 
 const InnerBar = styled.div`
   position: absolute;
-  top: 0;
-  left: 0;
+  top: 50%;
+  left: ${props => props.width};
   white-space: nowrap;
   overflow: hidden;
-  height: 10px;
-  width: ${props => props.width}%;
-  background-color: black;
+  width:auto;
+  height: 20px;
+  transform: translate(-50%, -50%);
+  &:before {
+    content: "★";
+  }
+
 `
 
-function Bar({ percentage, star }) {
+function CharBar({ rating, char }) {
   return (
     <BarContainer>
-      <StarCount>{star}</StarCount><OuterBar><InnerBar width={percentage}></InnerBar></OuterBar>
+      <StarCount>{char}: </StarCount>
+      <OuterBar>
+        <InnerBar width={starRating(rating)}>
+        </InnerBar>
+      </OuterBar>
     </BarContainer>
   );
 }
 
-const StarCount = styled.div`
-  border-bottom: .5px solid black;
+const Pointer = styled.div`
+
 `
 
-export default Bar;
+const StarCount = styled.div`
+
+`
+
+export default CharBar;
