@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import Bar from './Bar.jsx';
 
 function Breakdown(props) {
   return (
@@ -8,9 +9,18 @@ function Breakdown(props) {
       {!props.isLoaded && <p>loading . . .</p>}
       {props.isLoaded && (
         <BreakContainer>
-          {Math.round(100 * (parseInt(props.meta.recommended.true)
-          / parseInt(props.totalRatings)))
-          + "% of reviewers recommend this item."}
+          <div>
+            {Math.round(100 * (parseInt(props.meta.recommended.true)
+            / parseInt(props.totalRatings)))
+            + "% of reviewers recommend this item."}
+          </div>
+          <div>
+            <Bar star="5" percentage="60"/>
+            <Bar star="4" percentage="0"/>
+            <Bar star="3" percentage="25"/>
+            <Bar star="2" percentage="5"/>
+            <Bar star="1" percentage="10"/>
+          </div>
         </BreakContainer>
       )}
     </div>
@@ -24,5 +34,10 @@ const BreakContainer = styled.div`
   margin-top: 7%;
   width: 200px;
 `
+
+// const BarContainer = styled.div`
+//   display:flex;
+//   flex-direction: row;
+// `
 
 export default Breakdown;

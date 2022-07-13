@@ -73,7 +73,7 @@ const TileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: top;
-  width: 100%;
+  max-width: 400px;
   border-bottom: 1px solid black;
   padding: 0%;
   margin-top: 1%;
@@ -92,6 +92,7 @@ const TileMain = styled.div`
   font-size: small;
   flex-direction: column;
   margin-top: -2%;
+  max-width: 400px
 `
 
 const StyledButton = styled.button`

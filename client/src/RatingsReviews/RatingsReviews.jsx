@@ -71,6 +71,7 @@ const StyledMain = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 80%;
+  height: 90%;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
@@ -83,6 +84,7 @@ const StyledInner = styled.div`
   width: 90%;
   border-top: 1px solid black;
   padding-top: 1%;
+  height: 100%
 `;
 
 const StyledTitle = styled.div`

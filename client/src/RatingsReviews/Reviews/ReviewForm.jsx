@@ -26,7 +26,7 @@ const StyledInner = styled.div`
   width: 400px;
   height:auto;
   padding: 1%;
-  overflow-y:auto;
+  overflow-y: auto;
   background: white;
   border: 1px solid black;
   font-size:small;
@@ -45,7 +45,6 @@ const InnerTop = styled.div`
   border-bottom: .5px solid black;
   padding: .5%;
   margin: .5%;
-  margin-top: 5%;
 `;
 
 const StyledCat = styled.div`
