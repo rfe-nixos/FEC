@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import axios from 'axios';
 import Answer from './Answer';
 
 const CollapseSpan = styled.span`
@@ -13,7 +12,7 @@ const DivAnswer = styled.div`
   margin-bottom: 20px;
 `;
 
-function AnswerList({ answerList, questionId, renderAnswers, Title }) {
+function AnswerList({ answerList, renderAnswers, Title }) {
   const [collapsed, setCollapsed] = useState(true);
 
   const mapAnswer = (answer) => (
@@ -32,9 +31,7 @@ function AnswerList({ answerList, questionId, renderAnswers, Title }) {
   if (Array.isArray(answerList) && answerList.length > 0) {
     return answerList.length > 0 && (
       <DivAnswer>
-        <Title>
-          A:
-        </Title>
+        <Title>A:</Title>
         <div className="answer-list">
           {collapsed ? answerList.slice(0, 2).map(mapAnswer) : answerList.map(mapAnswer)}
           {collapsed && answerList.length > 2

@@ -1,6 +1,7 @@
 import React from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
+import { Stack, Divider } from '@mui/material';
 import Helpful from './Helpful';
 import Report from './Report';
 
@@ -21,32 +22,36 @@ const AnswerDiv = styled.div`
 `;
 
 function Answer({ answer, renderAnswers }) {
-  console.log(answer);
+  const answerInfo = (
+    <Span className="answer-property">
+      by {answer.answerer_name}, {format(new Date(answer.date), 'MMMM d, yyyy')}
+    </Span>
+  );
+  const helpful = (
+    <Helpful id={answer.answer_id} type="answer"
+      currentCount={answer.helpfulness}
+      renderComponent={renderAnswers}
+    />
+  );
+  const report = (
+    <Span>
+      <Report
+        id={answer.answer_id}
+        type={answer}
+        renderComponent={renderAnswers}
+      />
+    </Span>
+  );
+
   return (
     <AnswerDiv className="answer">
       <span className="answer-text">{answer.body}</span>
       <PropertyDiv className="answer-properties">
-        <Span className="answer-property">
-          by {answer.answerer_name}, {format(new Date(answer.date), 'MMMM d, yyyy')}
-        </Span>
-        <Span>
-          |
-        </Span>
-        <Span>
-          <Helpful
-            id={answer.answer_id}
-            type="answer"
-            currentCount={answer.helpfulness}
-            renderComponent={renderAnswers}
-          />
-        </Span>
-        <Span>
-          |
-        </Span>
-        <Span>
-          {/* TODO */}
-          <Report id={answer.answer_id} type={answer} renderComponent={renderAnswers} />
-        </Span>
+        <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
+          {answerInfo}
+          {helpful}
+          {report}
+        </Stack>
       </PropertyDiv>
     </AnswerDiv>
   );

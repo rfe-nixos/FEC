@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { Stack, Divider } from '@mui/material';
 import Helpful from './Helpful';
 import PopupForm from './PopupForm';
 import AnswerList from './AnswerList';
@@ -25,10 +26,6 @@ const Title = styled.span`
   font-weight: bold;
 `;
 
-const Content = styled.div`
-  width: 90%;
-`;
-
 const SpanBold = styled.span`
   font-weight: bold;
   font-size: 20px;
@@ -40,6 +37,7 @@ const QContainer = styled.div`
 `;
 
 function IndividualQuestion({ question, renderQuestions }) {
+  // VARIABLE DECLARATION //
   const [answerList, setAnswerList] = useState([]);
 
   const formConfig = [
@@ -78,6 +76,7 @@ function IndividualQuestion({ question, renderQuestions }) {
     },
   ];
 
+  // HANDLERS //
   const getAnswers = () => {
     const requestConfig = {
       method: 'GET',
@@ -133,6 +132,7 @@ function IndividualQuestion({ question, renderQuestions }) {
     document.getElementById(`${question.question_id}-popup`).style.display = 'flex';
   };
 
+  // FUNCTION INVOCATION //
   useEffect(() => {
     getAnswers();
   }, []);
@@ -141,32 +141,24 @@ function IndividualQuestion({ question, renderQuestions }) {
     <div className="individual-question">
       <DivQuestion className="question">
         <QContainer>
-          <Title>
-            Q:
-          </Title>
-          <Content>
-            <SpanBold className="question-text">
-              {question.question_body}
-            </SpanBold>
-          </Content>
+          <Title>Q:</Title>
+          <SpanBold style={{ width: '90%' }} className="question-text">
+            {question.question_body}
+          </SpanBold>
         </QContainer>
         <OptionsDiv>
-          <Helpful
-            id={question.question_id}
-            type="question"
-            currentCount={question.question_helpfulness}
-            renderComponent={renderQuestions}
-            tabIndex="0"
-          />
-          {' | '}
-          <u
-            onClick={handleClick}
-            onKeyDown={handleClick}
-            role="button"
-            tabIndex="-1"
-          >
-            Add Answer
-          </u>
+          <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
+            <Helpful
+              id={question.question_id}
+              type="question"
+              currentCount={question.question_helpfulness}
+              renderComponent={renderQuestions}
+              tabIndex="0"
+            />
+            <u onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="-1">
+              Add Answer
+            </u>
+          </Stack>
         </OptionsDiv>
       </DivQuestion>
       <AnswerList

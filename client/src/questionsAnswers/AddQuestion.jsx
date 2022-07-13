@@ -50,7 +50,6 @@ function AddQuestion({ id, renderQuestions, Button }) {
     axios
       .post(url, requestBody, headers)
       .then(() => {
-        console.log('axios request is made inside addquestion');
         document.getElementById(`${id}-popup`).style.display = 'none';
         renderQuestions();
       })
@@ -69,7 +68,6 @@ function AddQuestion({ id, renderQuestions, Button }) {
       <Button type="submit" onClick={handleClick} data-testid='add-question-btn'>
         ADD A QUESTION +
       </Button>
-      { /* DEFAULT HIDDEN POPUP FORM FOR QUESTION */ }
       <PopupForm id={id} config={formConfig} submitHandler={addQuestion} header="Add a Question" />
     </div>
   );

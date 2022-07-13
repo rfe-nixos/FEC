@@ -12,6 +12,9 @@
     "dev": "webpack serve --open"
   },
   "dependencies": {
+    "@emotion/react": "^11.9.3",
+    "@emotion/styled": "^11.9.3",
+    "@mui/material": "^5.9.0",
     "@reduxjs/toolkit": "^1.8.3",
     "axios": "^0.27.2",
     "bluebird": "^3.7.2",

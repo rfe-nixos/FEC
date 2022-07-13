@@ -1,24 +1,26 @@
 import React from 'react';
-import styled from 'styled-components';
 import axios from 'axios';
 
 function Report({ id, type, renderComponent }) {
   const handleClick = () => {
-    const requestConfig = {
-      method: 'PUT',
-      url: `${process.env.API_URL}/qa/answers/${id}/report`,
-      headers: {
-        Authorization: process.env.AUTH_TOKEN,
-      },
-    };
+    const executed = confirm("Are you sure you want to report this?");
+    if (executed) {
+      const requestConfig = {
+        method: 'PUT',
+        url: `${process.env.API_URL}/qa/answers/${id}/report`,
+        headers: {
+          Authorization: process.env.AUTH_TOKEN,
+        },
+      };
 
-    axios(requestConfig)
-      .then(() => {
-        renderComponent();
-      })
-      .catch((err) => {
-        console.log('failed reporting answer', err);
-      });
+      axios(requestConfig)
+        .then(() => {
+          renderComponent();
+        })
+        .catch((err) => {
+          console.log('failed reporting answer', err);
+        });
+    }
   };
 
   return (
