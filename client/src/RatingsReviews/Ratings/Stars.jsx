@@ -8,7 +8,7 @@ const StyledStars = styled.p`
   align-items: center;
   align-self: flex-start;
   border: none;
-  font-size: x-small;
+  font-size: small;
   width: auto;
   background: linear-gradient(90deg, black ${props => props.percentage}, white ${props => props.percentage});
   -webkit-background-clip: text;

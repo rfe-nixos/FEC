@@ -1,4 +1,5 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function Breakdown(props) {
   return (
@@ -6,14 +7,22 @@ function Breakdown(props) {
 
       {!props.isLoaded && <p>loading . . .</p>}
       {props.isLoaded && (
-        <div>
+        <BreakContainer>
           {Math.round(100 * (parseInt(props.meta.recommended.true)
           / parseInt(props.totalRatings)))
-          + "% of buyers recommend this item."}
-        </div>
+          + "% of reviewers recommend this item."}
+        </BreakContainer>
       )}
     </div>
   );
 }
+
+const BreakContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  font-size: x-small;
+  font-weight: light;
+  margin-top: 7%;
+`
 
 export default Breakdown;

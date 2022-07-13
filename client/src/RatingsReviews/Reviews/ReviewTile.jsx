@@ -7,12 +7,11 @@ import Stars from '../Ratings/Stars.jsx';
 const TileContainer = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: top;
   width: 100%;
   border-bottom: 1px solid black;
-  padding: 1%;
-  margin-top: 5%;
+  padding: 0%;
+  margin-top: 1%;
 `
 
 const TileTop = styled.div`
@@ -26,6 +25,7 @@ const TileTop = styled.div`
 const TileMain = styled.div`
   display: flex;
   flex-direction: column;
+  margin-top: -5%;
 `
 
 const StyledButton = styled.button`

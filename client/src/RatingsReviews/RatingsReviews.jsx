@@ -29,6 +29,7 @@ const StyledTitle = styled.div`
   margin-left: 2%;
   font-size: small;
   font-weight: 400;
+  margin-bottom: 1%;
 
 `
 

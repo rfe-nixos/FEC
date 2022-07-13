@@ -3,6 +3,7 @@ import axios from 'axios';
 import Breakdown from './Breakdown.jsx';
 import Characteristics from './Characteristics.jsx';
 import Summary from './Summary.jsx';
+import styled from 'styled-components';
 
 class Ratings extends React.Component {
   constructor(props) {
@@ -49,21 +50,23 @@ class Ratings extends React.Component {
 
   render() {
     return (
-      <div>
+      <RatingsContainer>
         <Summary meta={this.state.meta} average={this.state.average} totalRatings={this.state.totalRatings} isLoaded={this.state.isLoaded} />
         <Breakdown meta={this.state.meta} isLoaded={this.state.isLoaded} totalRatings={this.state.totalRatings} />
         <Characteristics
           meta={this.state.meta}
           isLoaded={this.state.isLoaded}
         />
-      </div>
+      </RatingsContainer>
     );
   }
 }
 
-export default Ratings;
+const RatingsContainer = styled.div`
+  display:flex;
+  flex-direction: column;
+  padding: 1%;
+  margin-top: -1%;
+`
 
-// renders
-// average rating from all the reviews,
-// shows distribution of ratings.
-// shows average size/comfort rating
+export default Ratings;

@@ -24,7 +24,7 @@ function Summary({ average, totalRatings, isLoaded }) {
 }
 
 const BigRating = styled.div`
-  font-size: xx-large;
+  font-size: xxx-large;
   font-weight: bold;
   margin-right: 5%;
 `

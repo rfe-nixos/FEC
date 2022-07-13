@@ -6,15 +6,6 @@ import AddBar from './AddBar.jsx';
 import SortBar from './SortBar.jsx';
 import styled from 'styled-components';
 
-const StyledReviews = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: top;
-  width: 90%;
-  padding: 5%;
-  margin-left: 10%;
-`
-
 class Reviews extends React.Component {
   constructor(props) {
     super(props);
@@ -142,7 +133,7 @@ class Reviews extends React.Component {
 
   render() {
     return (
-      <div data-testid="reviews-1">
+      <ReviewsContainer data-testid="reviews-1">
         <SortBar
           reviews={this.state.reviews}
           sort={this.sort}
@@ -157,9 +148,18 @@ class Reviews extends React.Component {
           addReview={this.addReview}
           moreReviews={this.moreReviews}
         />
-      </div>
+      </ReviewsContainer>
     )
   }
 }
+
+const ReviewsContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: top;
+  width: 90%;
+  padding: 1%;
+  margin-left: 10%;
+`
 
 export default Reviews;

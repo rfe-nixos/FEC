@@ -1,9 +1,9 @@
 import React from 'react';
+import styled from 'styled-components';
 
 function Characteristics(props) {
   return (
-    <div>
-      {`____________________________`}<br />
+    <CharContainer>
       {!props.isLoaded && <p>l o a d i n g . . .</p>}
       {props.isLoaded && (
         <div>
@@ -13,9 +13,15 @@ function Characteristics(props) {
           <b>Fit:</b> {parseFloat(props.meta.characteristics.Fit.value).toFixed(2)}
         </div>
       )}
-    </div>
+    </CharContainer>
   );
 }
+
+const CharContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin-top: 5%;
+`
 
 
 export default Characteristics;
