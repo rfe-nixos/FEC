@@ -1,16 +1,22 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
 
-function Helpful({ id, type, currentCount, renderComponent, StyledSpan }) {
+const PaddedSpan = styled.span`
+  padding-right: 7px;
+`;
 
+const PaddedU = styled.u`
+  padding-right: 3px;
+`;
+
+function Helpful({ id, type, currentCount, renderComponent }) {
   let path;
   if (type === 'question') path = 'qa/questions';
   if (type === 'answer') path = 'qa/answers';
   if (type === 'review') path = 'review';
 
   const handleClick = () => {
-    // send api request
-    console.log(id);
     const url = `${process.env.API_URL}/${path}/${id}/helpful`;
     const requestBody = {};
     const options = {
@@ -31,9 +37,20 @@ function Helpful({ id, type, currentCount, renderComponent, StyledSpan }) {
 
   return (
     <div className="helpful">
-      <span>Helpful? </span>
-      <u onClick={handleClick}>Yes</u>
-      <span> {`(${currentCount})`}</span>
+      <PaddedSpan>
+        Helpful?
+      </PaddedSpan>
+      <PaddedU
+        onClick={handleClick}
+        onKeyDown={handleClick}
+        role="button"
+        tabIndex="-1"
+      >
+        Yes
+      </PaddedU>
+      <span>
+        {`(${currentCount})`}
+      </span>
     </div>
   );
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import PopupForm from './PopupForm';
 
-function AddQuestion({ id, renderQuestions, Button }) {
+function AddQuestion({ id, renderQuestions, Button, productName }) {
   const formConfig = [
     {
       label: 'Your Question',
@@ -68,7 +68,7 @@ function AddQuestion({ id, renderQuestions, Button }) {
       <Button type="submit" onClick={handleClick} data-testid='add-question-btn'>
         ADD A QUESTION +
       </Button>
-      <PopupForm id={id} config={formConfig} submitHandler={addQuestion} header="Add a Question" />
+      <PopupForm id={id} config={formConfig} submitHandler={addQuestion} title="Ask Your Question" subtitle={`About the ${productName}`} />
     </div>
   );
 }

@@ -18,9 +18,21 @@ const DivButton = styled.div`
   justify-content: space-evenly;
 `;
 
-function Form({ formConfig = [], id, header, submitHandler }) {
-  const [formValue, setFormValue] = useState(formConfig);
+const Title = styled.h2`
+  margin: 10px 0;
+  text-align: center;
+`;
 
+const Subtitle = styled.h3`
+  margin: 10px 0;
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid grey;
+  text-align: center;
+`;
+
+function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
+  const [formValue, setFormValue] = useState(formConfig);
   const onChange = (e) => {
     // update the formvalue on the name of the input
     const { name, value } = e.target;
@@ -42,7 +54,8 @@ function Form({ formConfig = [], id, header, submitHandler }) {
 
   return (
     <FormStyled>
-      {header && <h2>{header}</h2>}
+      {title && <Title>{title}</Title>}
+      {subtitle && <Subtitle>{subtitle}</Subtitle>}
       {formConfig.map((config) => (
         <FormInput
           key={config.name}
@@ -51,6 +64,7 @@ function Form({ formConfig = [], id, header, submitHandler }) {
           name={config.name}
           placeholder={config.placeholder}
           value={formValue.value}
+          mandatory={config.mandatory}
           extra={config.extra || ''}
           onChange={onChange}
         />

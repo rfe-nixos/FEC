@@ -9,7 +9,7 @@ function MoreQuestions({ totalQuestionCount, currentMaxCount, setMaxQuestionCoun
 
   return (
     <div id="add-question-btn">
-      {totalQuestionCount > 4 && currentMaxCount < totalQuestionCount
+      {currentMaxCount <= totalQuestionCount
       && (
         <Button type="submit" onClick={handleClick}>
           MORE ANSWERED QUESTIONS

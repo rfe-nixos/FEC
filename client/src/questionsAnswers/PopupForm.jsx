@@ -17,10 +17,16 @@ const Popup = styled.div`
   display: none;
 `;
 
-function PopupForm({ config, id, header, submitHandler }) {
+function PopupForm({ config, id, title, subtitle, submitHandler }) {
   return (
     <Popup className="popup" id={`${id}-popup`} data-testid="popup-test">
-      <Form formConfig={config} submitHandler={submitHandler} id={id} header={header} />
+      <Form
+        formConfig={config}
+        submitHandler={submitHandler}
+        id={id}
+        title={title}
+        subtitle={subtitle}
+      />
     </Popup>
   );
 }

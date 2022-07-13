@@ -20,7 +20,7 @@ const Input = styled.input`
   width: 50%;
 `;
 
-function FormInput({ label, type, name, placeholder, value, onChange, extra }) {
+function FormInput({ label, type, name, placeholder, mandatory, value, onChange, extra }) {
   const textarea = (
     <Textarea
       name={name}
@@ -44,6 +44,7 @@ function FormInput({ label, type, name, placeholder, value, onChange, extra }) {
     <Div className="form-input">
       <Label>
         {label}
+        {mandatory && '*'}
       </Label>
       {type === 'textarea' && textarea}
       {type !== 'textarea' && input}

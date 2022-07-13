@@ -10,7 +10,7 @@ import AddQuestion from './AddQuestion';
 const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 65%;
+  width: 60%;
   margin: auto;
   color : #3d3c3c;
   font-size: 17px;
@@ -26,11 +26,13 @@ const Button = styled.button`
 const FlexDiv = styled.div`
   display: flex;
 `;
-
+// ask if productName can be passed down as props
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
-  const [maxQuestionCount, setMaxQuestionCount] = useState(4); // might not need this anymore
-  const [currentPage, setCurrentPage] = useState(0);
+  const [maxQuestionCount, setMaxQuestionCount] = useState(2);
+  const [currentCount, setCurrentCount] = useState(30);
+  const [filteredKeyword, setFilteredKeyword] = useState('');
+  const [productInfo, setProductInfo] = useState({});
 
   const getAllQuestions = () => {
     const requestConfig = {
@@ -38,8 +40,7 @@ function QuestionAnswers({ productId }) {
       url: `${process.env.API_URL}/qa/questions`,
       params: {
         product_id: productId,
-        page: currentPage + 1,
-        count: 5,
+        count: currentCount,
       },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
@@ -48,33 +49,59 @@ function QuestionAnswers({ productId }) {
 
     axios(requestConfig)
       .then((result) => {
-        const newQuestionList = [...questionList].concat(result.data.results);
-        setQuestionList(newQuestionList);
-        setCurrentPage(currentPage + 1);
+        setQuestionList(result.data.results);
       })
       .catch((err) => {
         console.log('failed fetching all questions from API.', err);
       });
   };
 
+  const getProductInfo = () => {
+    const requestConfig = {
+      method: 'GET',
+      url: `${process.env.API_URL}/products/${productId}`,
+      headers: {
+        Authorization: process.env.AUTH_TOKEN,
+      },
+    };
+
+    axios(requestConfig)
+      .then((result) => {
+        setProductInfo(result.data);
+      })
+      .catch((err) => {
+        console.log('failed fetching product info.', err);
+      });
+  };
+
   useEffect(() => {
     getAllQuestions();
+    getProductInfo();
   }, []);
 
   useEffect(() => {
-    if (maxQuestionCount >= questionList.length) {
-      getAllQuestions();
+    if (questionList.length !== 0 && maxQuestionCount >= questionList.length) {
+      setCurrentCount(currentCount + 30);
     }
-  }, [currentPage, maxQuestionCount]);
+  }, [maxQuestionCount]);
+
+  useEffect(() => {
+    getAllQuestions();
+  }, [currentCount]);
+
 
   return (
     <DivContainer id="question-and-answers">
       <h3>QUESTIONS & ANSWERS</h3>
-      <Search />
+      <Search
+        setFilter={setFilteredKeyword}
+      />
       <QuestionList
         questions={questionList}
         renderQuestions={getAllQuestions}
         maxQuestionCount={maxQuestionCount}
+        keyword={filteredKeyword}
+        productName={productInfo.name}
       />
       <FlexDiv>
         <MoreQuestions
@@ -87,6 +114,7 @@ function QuestionAnswers({ productId }) {
           id={productId}
           renderQuestions={getAllQuestions}
           Button={Button}
+          productName={productInfo.name}
         />
       </FlexDiv>
     </DivContainer>

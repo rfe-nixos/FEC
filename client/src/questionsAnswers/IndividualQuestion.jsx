@@ -29,7 +29,7 @@ const QContainer = styled.div`
   width: 70%;
 `;
 
-function IndividualQuestion({ question, renderQuestions }) {
+function IndividualQuestion({ productName, question, renderQuestions }) {
   // VARIABLE DECLARATION //
   const [answerList, setAnswerList] = useState([]);
 
@@ -162,7 +162,8 @@ function IndividualQuestion({ question, renderQuestions }) {
         id={question.question_id}
         config={formConfig}
         submitHandler={addAnswer}
-        header={`Q: ${question.question_body}`}
+        title={`Submit your Answer`}
+        subtitle={`${productName}: ${question.question_body}`}
       />
     </div>
   );
