@@ -2,7 +2,72 @@
 import React from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
-import Stars from '../Ratings/Stars.jsx';
+import Star from '../Ratings/Star.jsx';
+
+class ReviewTile extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      reviewed: [],
+    };
+    this.markHelpful = this.markHelpful.bind(this);
+    this.report = this.report.bind(this);
+  }
+
+  markHelpful(e) {
+    e.preventDefault();
+    let rId = this.props.review.review_id
+    this.props.markHelpful(rId);
+  };
+
+  report(e) {
+    e.preventDefault();
+    const r = confirm('are you sure you want to report this review?');
+    if (r) {
+      this.props.report(this.props.review.review_id);
+    }
+  }
+
+  render() {
+    return (
+      <TileContainer>
+        <TileTop>
+          <div>
+            <Star average={this.props.review.rating} />
+          </div>
+          <div>
+            {this.props.review.reviewer_name + ", "}
+            {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
+          </div>
+        </TileTop>
+        <TileMain>
+          <div><h5>{this.props.review.summary}</h5></div>
+          <div><small>{this.props.review.body}</small></div>
+          <div>
+              {this.props.review.recommend &&
+              <h5>
+                I recommend this product &#10003;
+              </h5>
+            }
+            {this.props.review.response &&
+              <h4>
+                from the seller: {this.props.review.response}
+              </h4>
+            }
+          </div>
+          <div>
+            <small>
+              Helpful? : {this.props.review.helpfulness + " "}
+            </small>
+            <StyledButton onClick={this.markHelpful}>YES</StyledButton>
+            <StyledButton onClick={this.report}>report</StyledButton>
+          </div>
+        </TileMain>
+      </TileContainer>
+    )
+  }
+}
+
 
 const TileContainer = styled.div`
   display: flex;
@@ -43,68 +108,5 @@ const StyledButton = styled.button`
   }
 `
 
-class ReviewTile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      reviewed: [],
-    };
-    this.markHelpful = this.markHelpful.bind(this);
-    this.report = this.report.bind(this);
-  }
-
-  markHelpful(e) {
-    e.preventDefault();
-    let rId = this.props.review.review_id
-    this.props.markHelpful(rId);
-  };
-
-  report(e) {
-    e.preventDefault();
-    const r = confirm('are you sure you want to report this review?');
-    if (r) {
-      this.props.report(this.props.review.review_id);
-    }
-  }
-
-  render() {
-    return (
-      <TileContainer>
-        <TileTop>
-          <div>
-            <Stars average={this.props.review.rating} />
-          </div>
-          <div>
-            {this.props.review.reviewer_name + ", "}
-            {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
-          </div>
-        </TileTop>
-        <TileMain>
-          <div><h5>{this.props.review.summary}</h5></div>
-          <div><small>{this.props.review.body}</small></div>
-          <div>
-              {this.props.review.recommend &&
-              <h5>
-                I recommend this product &#10003;
-              </h5>
-            }
-            {this.props.review.response &&
-              <h4>
-                from the seller: {this.props.review.response}
-              </h4>
-            }
-          </div>
-          <div>
-            <small>
-              Helpful? : {this.props.review.helpfulness + " "}
-            </small>
-            <StyledButton onClick={this.markHelpful}>YES</StyledButton>
-            <StyledButton onClick={this.report}>report</StyledButton>
-          </div>
-        </TileMain>
-      </TileContainer>
-    )
-  }
-}
 
 export default ReviewTile;

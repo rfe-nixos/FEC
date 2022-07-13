@@ -2,6 +2,7 @@ import React from 'react';
 import starRating from '../lib/starRatings.js';
 import Stars from './Stars.jsx';
 import styled from 'styled-components';
+import Star from './Star.jsx';
 
 function Summary({ average, totalRatings, isLoaded }) {
   return (
@@ -12,7 +13,7 @@ function Summary({ average, totalRatings, isLoaded }) {
         <div>
           <StyledSummary>
             <BigRating>{`${average}`}</BigRating>
-            <Stars average={average} percentage={starRating(average)} />
+            <Star average={average} />
           </StyledSummary>
           <div>
             <em>{`out of ${totalRatings} reviews`}</em>
@@ -27,12 +28,14 @@ const BigRating = styled.div`
   font-size: xxx-large;
   font-weight: bold;
   margin-right: 5%;
+  margin-top:-5%;
+  align-self: flex-start;
 `
 
 const StyledSummary = styled.div`
   display: flex;
   flex-direction: row;
-  align-content: flex-start;
+  align-items: flex-start;
 
 `
 
