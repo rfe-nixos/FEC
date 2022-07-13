@@ -1,4 +1,6 @@
-import React from 'react';
+/* eslint-disable prefer-destructuring */
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import './OverviewStyles.css';
 import ImageGallery from './ImageGallery';
 import AddToCart from './AddToCart';
@@ -7,6 +9,38 @@ import StyleSelector from './StyleSelector';
 import Placeholder from './Placeholder.png';
 
 function Overview() {
+  const [product, setProduct] = useState({});
+
+  const requestConfig1 = {
+    method: 'GET',
+    url: `${process.env.API_URL}/products`,
+    params: {
+      product_id: 12,
+    },
+    headers: {
+      Authorization: process.env.AUTH_KEY,
+    },
+  };
+
+  /* const requestConfig2 = {
+    method: 'GET',
+    url: `${process.env.API_URL}/products/styles`,
+    params: {
+      product_id: 12,
+    },
+    headers: {
+      Authorization: process.env.AUTH_KEY,
+    },
+  };
+
+    axios(requestConfig2)
+    .then((result) => {
+      console.log(result);
+    })
+    .catch((err) => {
+      console.log('failed fetching product styles with id 1 from API.', err);
+    }); */
+
   const styles = [{
     title: 'Placeholder Title 1',
     category: 'Placeholder Category 1',
@@ -45,10 +79,22 @@ function Overview() {
     currentQuantity: 0,
   };
 
+  function getProduct() {
+    axios(requestConfig1)
+      .then((result) => setProduct(result.data[0]))
+      .catch((err) => {
+        console.log('failed fetching product with id 1 from API.', err);
+      });
+  }
+
+  useEffect(() => {
+    getProduct();
+  }, {});
+
   return (
     <div className="overview">
       <ImageGallery props={currentStyle} />
-      <ProductDetails props={currentStyle} />
+      <ProductDetails props={product} />
       <StyleSelector props={styles} />
       <AddToCart props={currentStyle} />
     </div>

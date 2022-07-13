@@ -2,10 +2,10 @@
 /* eslint-disable react/prop-types */
 import React from 'react';
 
-function ProductDetails(style) {
-  const starRating = style.props.rating;
+function ProductDetails(product) {
+  // const starRating = style.props.rating;
 
-  if (style.props.reviewNum > 0) {
+  /* if (style.props.reviewNum > 0) {
     return (
       <div className="productDetails">
         <p id="category">{style.props.category}</p>
@@ -18,13 +18,13 @@ function ProductDetails(style) {
         <button id="Pinterest" type="button">Pinterest</button>
       </div>
     );
-  }
+  } */
   return (
     <div className="productDetails">
-      <p id="category">{style.props.category}</p>
-      <h1 id="title">{style.props.title}</h1>
-      <h2 id="price">{style.props.price}</h2>
-      <p id="overview">{style.props.overview}</p>
+      <p id="category">{product.props.category}</p>
+      <h1 id="title">{product.props.name}</h1>
+      <h2 id="price">{product.props.default_price}</h2>
+      <p id="overview">{product.props.description}</p>
       <button id="Facebook" type="button">Facebook</button>
       <button id="Twitter" type="button">Twitter</button>
       <button id="Pinterest" type="button">Pinterest</button>
