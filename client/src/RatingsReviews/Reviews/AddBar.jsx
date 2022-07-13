@@ -1,5 +1,6 @@
 import React from 'react';
 import ReviewForm from './ReviewForm.jsx';
+import styled from 'styled-components';
 
 class AddBar extends React.Component {
   constructor(props) {
@@ -25,13 +26,31 @@ class AddBar extends React.Component {
   render() {
     return (
       <div>
-        {`____________________________`}<br />
-        <button onClick={this.moreReviews}>MORE</button>
-        <button onClick={this.toggleForm}>ADD REVIEW</button>
+        <StyledButton onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
+        <StyledButton onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
         {this.state.formShowing && <ReviewForm addReview={this.props.addReview} />}
       </div>
     );
   }
 }
+
+const AddBarContainer = styled.div`
+
+`
+
+const StyledButton = styled.button`
+  width: auto;
+  font-size: small;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`
 
 export default AddBar;

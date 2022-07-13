@@ -17,17 +17,32 @@ const StyledForm = styled.div`
   background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 `
 
+const Modal = styled.div`
+  width:600px;
+  height:400px;
+  display:block;
+  margin:50% 0 0 -300px;
+  position:relative;
+  top:50%; left:50%;
+  background:#fff;
+  opacity:0;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+`
+
 const StyledInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: left:;
   align-items: center;
   width: 80%;
-  padding: 10%;
+  padding: 5%;
 `
 
 const StyledInput = styled.input`
-  width: 50%;
+  width: 80%;
 `
 
 const StyledTextArea = styled.textarea`
@@ -60,12 +75,10 @@ class ReviewForm extends React.Component {
   }
 
   closeForm() {
-
+    window.location.reload();
   }
 
   addReview(e) {
-    // format it here
-    // this.props.addReview();
     e.preventDefault();
     const reviewBody = {
       product_id: 37311,
@@ -98,18 +111,17 @@ class ReviewForm extends React.Component {
       <StyledForm>
         <h2>here is the review form.</h2>
         <StyledInner>
-
-            <StyledInput placeholder="rating" name="rating" onChange={this.handleChange}/>
-            <textarea placeholder="summary" name="summary" onChange={this.handleChange} />
-            <textarea placeholder="body" name="body" onChange={this.handleChange} />
+            <h4>Rating: </h4><StyledInput placeholder="rating" name="rating" onChange={this.handleChange}/>
+            <h4>Summary: </h4><textarea placeholder="Example: Best purchase ever!" name="summary" onChange={this.handleChange} />
+            <h4>Body: </h4><textarea placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
             <button onClick={this.recommend}>recommend?</button>
-            <StyledInput placeholder="name" name="name" onChange={this.handleChange} />
-            <StyledInput placeholder="email" name="email" onChange={this.handleChange} />
+            <StyledInput placeholder="Example: jackson11" name="name" onChange={this.handleChange} />
+            <p><em>For privacy reasons, do not use your full name or email address</em></p>
+            <StyledInput placeholder="Example: jackson11@email.com" name="email" onChange={this.handleChange} />
+            <p><em>For authentication reasons, you will not be emailed.</em></p>
             <StyledInput type="submit" onClick={this.addReview} />
             <StyledClose onClick={this.closeForm}>CLOSE</StyledClose>
-
         </StyledInner>
-
       </StyledForm>
     );
   }

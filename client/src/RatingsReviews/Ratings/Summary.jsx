@@ -1,6 +1,7 @@
 import React from 'react';
 import starRating from '../lib/starRatings.js';
 import Stars from './Stars.jsx';
+import styled from 'styled-components';
 
 function Summary({ average, totalRatings, isLoaded }) {
   return (
@@ -9,17 +10,33 @@ function Summary({ average, totalRatings, isLoaded }) {
       {(isLoaded)
         && (
         <div>
-          <h2>{`${average}`}</h2>
-          <br />
-          <div id="outerstar">
+          <StyledSummary>
+            <BigRating>{`${average}`}</BigRating>
             <Stars average={average} percentage={starRating(average)} />
+          </StyledSummary>
+          <div>
+            <em>{`out of ${totalRatings} reviews`}</em>
           </div>
-          <br />
-          <em>{`out of ${totalRatings} reviews`}</em>
         </div>
         )}
     </div>
   );
 }
+
+const BigRating = styled.div`
+  font-size: xx-large;
+  font-weight: bold;
+  margin-right: 5%;
+`
+
+const StyledSummary = styled.div`
+  display: flex;
+  flex-direction: row;
+
+`
+
+const SumContainer = styled.div`
+
+`
 
 export default Summary;

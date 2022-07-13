@@ -7,11 +7,11 @@ function SortBar(props) {
 
   return (
     <div>
-      {props.reviews.length} reviews, sorted by
+      <b>{props.reviews.length} reviews, sorted by </b>
       <select id="sort" onChange={sort}>
         <option value="relevance">Relevance</option>
         <option value="newest">Newest</option>
-        <option value="helpful">Helpful</option>
+        <option value="helpful">Helpfulness</option>
       </select>
     </div>
   )

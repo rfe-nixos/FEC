@@ -143,7 +143,6 @@ class Reviews extends React.Component {
   render() {
     return (
       <div data-testid="reviews-1">
-        <h5>R E V I E W S .</h5>
         <SortBar
           reviews={this.state.reviews}
           sort={this.sort}

@@ -8,7 +8,6 @@ const StyledList = styled.div`
   justify-content: center;
   align-items: top;
   width: 100%;
-  padding: 5%;
 `
 
 class ReviewList extends React.Component {
