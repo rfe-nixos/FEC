@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
-function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
+function Helpful({ id, type, currentCount, renderComponent, StyledSpan }) {
+
   let path;
   if (type === 'question') path = 'qa/questions';
   if (type === 'answer') path = 'qa/answers';
@@ -9,6 +10,7 @@ function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
 
   const handleClick = () => {
     // send api request
+    console.log(id);
     const url = `${process.env.API_URL}/${path}/${id}/helpful`;
     const requestBody = {};
     const options = {
@@ -20,7 +22,7 @@ function Helpful({ id, type, currentCount, renderQuestions, StyledSpan }) {
     axios
       .put(url, requestBody, options)
       .then(() => {
-        renderQuestions();
+        renderComponent();
       })
       .catch((err) => {
         console.log(`Failed PUT request for marking ${type} of id ${id} helpful.`, err);

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import Answer from './Answer';
@@ -13,45 +13,14 @@ const DivAnswer = styled.div`
   margin-bottom: 20px;
 `;
 
-function AnswerList({ answerList, questionId, renderQuestions, Title }) {
-  // *** TODO if working on pagination, uncomment state ***
-  // const [answerList, setAnswerList] = useState([]);
-  // ***
+function AnswerList({ answerList, questionId, renderAnswers, Title }) {
   const [collapsed, setCollapsed] = useState(true);
-
-  // *** TODO if working on pagination, uncomment useEffect to render answer question from API ***
-  // useEffect(() => {
-  //   const requestConfig = {
-  //     method: 'GET',
-  //     url: `${process.env.API_URL}/qa/questions/${questionId}/answers`,
-  //     params: {
-  //       page: 1,
-  //       count: 5,
-  //     },
-  //     headers: {
-  //       Authorization: process.env.AUTH_TOKEN,
-  //     },
-  //   };
-  //   axios(requestConfig)
-  //     .then((result) => {
-  //       console.log('axios request is made inside answerlist');
-  //       setAnswerList(result.data.results.sort((a, b) => {
-  //         if (a.helpfulness < b.helpfulness) return 1;
-  //         if (a.helpfulness > b.helpfulness) return -1;
-  //         return 0;
-  //       }));
-  //     })
-  //     .catch((err) => {
-  //       console.log('failed to get answers', err);
-  //     });
-  // });
-  // ***
 
   const mapAnswer = (answer) => (
     <Answer
-      key={answer.id}
+      key={answer.answer_id}
       answer={answer}
-      renderQuestions={renderQuestions}
+      renderAnswers={renderAnswers}
     />
   );
 

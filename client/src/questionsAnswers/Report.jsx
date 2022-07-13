@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 
-function Report({ id, type, renderQuestions }) {
+function Report({ id, type, renderComponent }) {
   const handleClick = () => {
     const requestConfig = {
       method: 'PUT',
@@ -14,7 +14,7 @@ function Report({ id, type, renderQuestions }) {
 
     axios(requestConfig)
       .then(() => {
-        renderQuestions();
+        renderComponent();
       })
       .catch((err) => {
         console.log('failed reporting answer', err);

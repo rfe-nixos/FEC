@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import Helpful from './Helpful';
@@ -40,6 +40,8 @@ const QContainer = styled.div`
 `;
 
 function IndividualQuestion({ question, renderQuestions }) {
+  const [answerList, setAnswerList] = useState([]);
+
   const formConfig = [
     {
       label: 'Your Answer',
@@ -76,8 +78,29 @@ function IndividualQuestion({ question, renderQuestions }) {
     },
   ];
 
-  const handleClick = () => {
-    document.getElementById(`${question.question_id}-popup`).style.display = 'flex';
+  const getAnswers = () => {
+    const requestConfig = {
+      method: 'GET',
+      url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
+      params: {
+        page: 1,
+        count: 5,
+      },
+      headers: {
+        Authorization: process.env.AUTH_TOKEN,
+      },
+    };
+    axios(requestConfig)
+      .then((result) => {
+        setAnswerList(result.data.results.sort((a, b) => {
+          if (a.helpfulness < b.helpfulness) return 1;
+          if (a.helpfulness > b.helpfulness) return -1;
+          return 0;
+        }));
+      })
+      .catch((err) => {
+        console.log('failed to get answers', err);
+      });
   };
 
   const addAnswer = (formValues) => {
@@ -99,13 +122,20 @@ function IndividualQuestion({ question, renderQuestions }) {
       .post(url, requestBody, options)
       .then(() => {
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
-        // TODO instead of rendering all Questions, we will set the state with added new answer
-        renderQuestions();
+        getAnswers();
       })
       .catch((err) => {
         console.log('failed posting answer.', err);
       });
   };
+
+  const handleClick = () => {
+    document.getElementById(`${question.question_id}-popup`).style.display = 'flex';
+  };
+
+  useEffect(() => {
+    getAnswers();
+  }, []);
 
   return (
     <div className="individual-question">
@@ -125,7 +155,7 @@ function IndividualQuestion({ question, renderQuestions }) {
             id={question.question_id}
             type="question"
             currentCount={question.question_helpfulness}
-            renderQuestions={renderQuestions}
+            renderComponent={renderQuestions}
             tabIndex="0"
           />
           {' | '}
@@ -140,9 +170,8 @@ function IndividualQuestion({ question, renderQuestions }) {
         </OptionsDiv>
       </DivQuestion>
       <AnswerList
-        questionId={question.question_id}
-        answerList={Object.values(question.answers)}
-        renderQuestions={renderQuestions}
+        answerList={answerList}
+        renderAnswers={getAnswers}
         SpanBold={SpanBold}
         Title={Title}
       />

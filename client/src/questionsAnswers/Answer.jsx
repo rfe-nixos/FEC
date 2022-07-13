@@ -20,7 +20,8 @@ const AnswerDiv = styled.div`
   padding-bottom: 10px;
 `;
 
-function Answer({ answer, renderQuestions }) {
+function Answer({ answer, renderAnswers }) {
+  console.log(answer);
   return (
     <AnswerDiv className="answer">
       <span className="answer-text">{answer.body}</span>
@@ -33,10 +34,10 @@ function Answer({ answer, renderQuestions }) {
         </Span>
         <Span>
           <Helpful
-            id={answer.id}
+            id={answer.answer_id}
             type="answer"
             currentCount={answer.helpfulness}
-            renderQuestions={renderQuestions}
+            renderComponent={renderAnswers}
           />
         </Span>
         <Span>
@@ -44,7 +45,7 @@ function Answer({ answer, renderQuestions }) {
         </Span>
         <Span>
           {/* TODO */}
-          <Report id={answer.id} type={answer} renderQuestions={renderQuestions} />
+          <Report id={answer.answer_id} type={answer} renderComponent={renderAnswers} />
         </Span>
       </PropertyDiv>
     </AnswerDiv>
