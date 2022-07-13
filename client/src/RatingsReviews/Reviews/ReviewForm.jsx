@@ -37,12 +37,24 @@ const StyledInner = styled.div`
   flex-direction: column;
   justify-content: left;
   align-items: flex-start;
-  width: 60%;
+  width: 400px;
   height:auto;
   padding: 1%;
   background: white;
   border: 1px solid black;
   font-size:small;
+`
+
+const InnerTop = styled.div`
+  display: flex;
+  flex-direction: row;
+  font-size: large;
+  font-weight: bold;
+  width: 380px;
+  border-bottom: .5px solid black;
+  padding: .5%;
+  margin: .5%;
+  margin-top: 5%;
 `
 
 const StyledCat = styled.div`
@@ -51,6 +63,14 @@ const StyledCat = styled.div`
   display: flex;
   flex-direction: column;
   align-content: flex-start;
+  margin-top: 1%;
+`
+const InnerBot = styled.div`
+  font-weight: bold;
+  font-size: regular;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
 `
 
 const StyledInput = styled.input`
@@ -58,8 +78,8 @@ const StyledInput = styled.input`
 `
 
 const StyledTextArea = styled.textarea`
-  width: 200px;
-  height: 80px;
+  width: 390px;
+  height: 60px;
   resize: none;
   font-family: inherit;
 `
@@ -137,6 +157,7 @@ class ReviewForm extends React.Component {
     return (
       <StyledForm>
         <StyledInner>
+            <InnerTop>Write a Review.</InnerTop>
             <StyledCat>
               <div>Your Rating<sup>*</sup></div>
               <StyledInput placeholder="rating" name="rating" onChange={this.handleChange}/>
@@ -149,19 +170,24 @@ class ReviewForm extends React.Component {
               <div>Comments<sup>*</sup></div>
               <StyledTextArea placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
             </StyledCat>
-            <button onClick={this.recommend}>recommend?</button>
+            <StyledCat>
+              <div>Recommend<sup>*</sup></div><StyledButton onClick={this.recommend}>YES</StyledButton>
+            </StyledCat>
             <StyledCat>
               <div>Nickname</div>
-              <StyledInput placeholder="Example: jackson11" name="name" onChange={this.handleChange} />
+              <StyledInput placeholder="Example: snoibly123" name="name" onChange={this.handleChange} />
             </StyledCat>
 
             <p><em>For privacy reasons, do not use your full name or email address</em></p>
-            <StyledInput placeholder="Example: jackson11@email.com" name="email" onChange={this.handleChange} />
-            <p><em>For authentication reasons, you will not be emailed.</em></p>
             <StyledCat>
+              <div>Email*</div>
+              <StyledInput placeholder="Example: snoibly@snois.com" name="email" onChange={this.handleChange} />
+            </StyledCat>
+            <p><em>For authentication reasons, you will not be emailed.</em></p>
+            <InnerBot>
               <StyledButton onClick={this.addReview}>SUBMIT</StyledButton>
               <StyledButton onClick={this.closeForm}>BACK</StyledButton>
-            </StyledCat>
+            </InnerBot>
 
         </StyledInner>
       </StyledForm>
