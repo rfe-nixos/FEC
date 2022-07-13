@@ -5,8 +5,8 @@
 import React from 'react';
 // import styled from 'styled-components';
 
-function ImageGallery(style) {
-  let currentImage = <img src={style.props.gallery[0]} alt="style" className="currentImage" />;
+function ImageGallery(currentStyle) {
+  let currentImage;
 
   const handleClick = (event) => {
     event.preventDefault();
@@ -23,22 +23,26 @@ function ImageGallery(style) {
 
   const galleryList = [];
 
-  style.props.gallery.forEach((image) => {
-    galleryList.push(
-      <img src={image} key={galleryList.length} alt={style.props.title} onClick={handleClick} className="carousel" />,
-    );
-  });
+  if (Object.keys(currentStyle.props).length > 0) {
+    currentImage = <img src={currentStyle.props.photos[0].thumbnail_url} alt={currentStyle.props.name} className="currentImage" />;
 
-  return (
-    <div className="imagegallery">
-      <div>
-        <button className="button" type="button">left</button>
-        {galleryList}
-        <button className="button" type="button">right</button>
+    currentStyle.props.photos.forEach((photo) => {
+      galleryList.push(
+        <img src={photo.thumbnail_url} key={galleryList.length} alt={photo.name} onClick={handleClick} className="carousel" />,
+      );
+    });
+
+    return (
+      <div className="imagegallery">
+        <div className="thumbnailView">
+          <button className="button" type="button">left</button>
+          {galleryList}
+          <button className="button" type="button">right</button>
+        </div>
+        {currentImage}
       </div>
-      {currentImage}
-    </div>
-  );
+    );
+  }
 }
 
 export default ImageGallery;

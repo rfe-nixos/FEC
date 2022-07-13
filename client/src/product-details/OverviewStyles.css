@@ -1,7 +1,7 @@
 .overview {
   display: inline-block;
-  height: 500px;
-  width: 750px;
+  height: 750px;
+  width: 1000px;
   overflow: scroll;
   border: solid black 3px;
   padding: 10px;
@@ -9,19 +9,25 @@
 
 .imagegallery {
   float: left;
-  width: 400px;
-  height: 450px;
+  width: 500px;
+  height: 750px;
   align-items: center;
   text-align: center;
-  /*border: solid black 3px;*/
 }
 
 .currentImage {
-  height: 350px;
+  width: 500px;
+}
+
+.thumbnailView {
+  width: 500px;
+  overflow: scroll;
+  margin-bottom: 5px;
 }
 
 .carousel {
   height: 50px;
+  width: 50px;
   margin: 5px;
 }
 
@@ -32,7 +38,7 @@
 .productDetails {
   float: right;
   overflow: scroll;
-  width: 300px;
+  width: 500px;
   height: 250px;
   /*border: solid black 3px;*/
   text-align: center;
@@ -47,22 +53,25 @@
 .styleSelector {
   float: right;
   overflow: scroll;
-  width: 300px;
-  height: 125px;
+  width: 500px;
   text-align: center;
   /*border: solid black 3px;*/
 }
 
 .styleOption {
   float: left;
+  margin-left: 15px;
   text-align: center;
-  margin: 5px;
+  align-items: center;
   font-style: italic;
 }
 
 .styleOption img {
-  height: 50px;
-  border-radius: 50px;
+  height: 75px;
+  width: 75px;
+  margin-left: 25px;
+  margin-bottom: 25px;
+  border-radius: 75px;
 }
 
 .addToCart {
@@ -70,7 +79,18 @@
   text-align: center;
   overflow: scroll;
   margin-top: 5px;
-  width: 300px;
+  width: 500px;
   height: 50px;
-  /*border: solid black 3px;*/
+}
+
+.sizeOptions {
+  margin: 5px;
+}
+
+.amountOption {
+  margin: 5px;
+}
+
+.cartButton {
+  margin: 5px;
 }

@@ -6,90 +6,63 @@ import ImageGallery from './ImageGallery';
 import AddToCart from './AddToCart';
 import ProductDetails from './ProductDetails';
 import StyleSelector from './StyleSelector';
-import Placeholder from './Placeholder.png';
 
 function Overview() {
   const [product, setProduct] = useState({});
+  const [styles, setStyles] = useState({});
+  const [currentStyle, setCurrentStyle] = useState({});
+
+  const productId = '37314';
+  const productUrl = `${process.env.API_URL}/products/${productId}`;
+  const productStylesUrl = `${productUrl}/styles`;
 
   const requestConfig1 = {
     method: 'GET',
-    url: `${process.env.API_URL}/products`,
-    params: {
-      product_id: 12,
-    },
+    url: productUrl,
     headers: {
       Authorization: process.env.AUTH_KEY,
     },
   };
 
-  /* const requestConfig2 = {
+  const requestConfig2 = {
     method: 'GET',
-    url: `${process.env.API_URL}/products/styles`,
-    params: {
-      product_id: 12,
-    },
+    url: productStylesUrl,
     headers: {
       Authorization: process.env.AUTH_KEY,
     },
-  };
-
-    axios(requestConfig2)
-    .then((result) => {
-      console.log(result);
-    })
-    .catch((err) => {
-      console.log('failed fetching product styles with id 1 from API.', err);
-    }); */
-
-  const styles = [{
-    title: 'Placeholder Title 1',
-    category: 'Placeholder Category 1',
-    rating: 3.5,
-    price: '$500.00',
-    overview: 'Placeholder Overview 1',
-    reviewNum: 4,
-    stock: { small: 5, medium: 3, large: 2 },
-    gallery: [Placeholder],
-    currentSize: 'Choose a Size',
-    currentQuantity: 0,
-  },
-  {
-    title: 'Placeholder Title 2',
-    category: 'Placeholder Category 2',
-    rating: 4.5,
-    price: '$450.50',
-    overview: 'Placeholder Overview 2',
-    reviewNum: 7,
-    stock: { small: 5, medium: 3, large: 2 },
-    gallery: [Placeholder],
-    currentSize: 'Choose a Size',
-    currentQuantity: 0,
-  }];
-
-  const currentStyle = {
-    title: 'Placeholder Title 1',
-    category: 'Placeholder Category 1',
-    rating: 3.5,
-    price: '$500.00',
-    overview: 'Placeholder Overview 1',
-    reviewNum: 4,
-    stock: { small: 5, medium: 3, large: 2 },
-    gallery: [Placeholder, Placeholder, Placeholder, Placeholder],
-    currentSize: 'Choose a Size',
-    currentQuantity: 0,
   };
 
   function getProduct() {
     axios(requestConfig1)
-      .then((result) => setProduct(result.data[0]))
+      .then((result) => setProduct(result.data))
       .catch((err) => {
         console.log('failed fetching product with id 1 from API.', err);
       });
   }
 
+  function getStyles() {
+    axios(requestConfig2)
+      .then((result) => {
+        setStyles(result.data.results);
+      })
+      .catch((err) => {
+        console.log('failed fetching product styles with id 1 from API.', err);
+      });
+  }
+
   useEffect(() => {
     getProduct();
-  }, {});
+  }, []);
+
+  useEffect(() => {
+    getStyles();
+  }, []);
+
+  useEffect(() => {
+    if (styles.length > 0) {
+      setCurrentStyle(styles[0]);
+    }
+  });
 
   return (
     <div className="overview">

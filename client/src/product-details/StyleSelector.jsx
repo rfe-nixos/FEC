@@ -9,17 +9,19 @@ function StyleSelector(styles) {
   };
 
   const styleList = [];
+  // <p>{style.name}</p>
 
-  styles.props.forEach((style) => (
-    styleList.push(
-      <div key={style.title} className="styleOption">
-        <p>{style.title}</p>
-        <img src={style.gallery[0]} alt={style.title} onClick={handleClick} />
-      </div>,
-    )
-  ));
+  if (styles.props.length > 0) {
+    styles.props.forEach((style) => (
+      styleList.push(
+        <div key={style.name} className="styleOption">
+          <img src={style.photos[0].thumbnail_url} alt={style.name} onClick={handleClick} />
+        </div>,
+      )
+    ));
 
-  return <div className="styleSelector">{styleList}</div>;
+    return <div className="styleSelector">{styleList}</div>;
+  }
 }
 
 export default StyleSelector;

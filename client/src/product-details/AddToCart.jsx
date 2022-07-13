@@ -1,30 +1,46 @@
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
-function AddToCart(style) {
-  const sizes = Object.keys(style.props.stock);
-  const amounts = Object.values(style.props.stock);
+function AddToCart(currentStyle) {
+  // console.log(currentStyle.props);
 
-  const sizeOptions = [];
-  sizes.forEach((size) => sizeOptions.push(<option key={size}>{size}</option>));
-  const amountOptions = [];
-  amounts.forEach((amount) => amountOptions.push(<option key={amount}>{amount}</option>));
+  if (Object.keys(currentStyle).length > 0) {
+    const stock = currentStyle.props.skus;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-  };
+    const handleSizeClick = (event) => {
+      event.preventDefault();
+    };
 
-  return (
-    <form className="addToCart">
-      <select>
-        {sizeOptions}
-      </select>
-      <select>
-        {amountOptions}
-      </select>
-      <input type="submit" value="Add to Cart" onSubmit={handleSubmit} />
-    </form>
-  );
+    if (stock !== undefined) {
+      const stockKeys = Object.keys(stock);
+      const allSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
+      const currentSize = stock[stockKeys[0]].size;
+      const currentSizeQuantity = stock[stockKeys[0]].quantity;
+
+      const amountOptions = [];
+      for (let i = 1; i <= currentSizeQuantity; i++) {
+        amountOptions.push(<option key={i}>{i}</option>);
+      }
+      const sizeOptions = [];
+      allSizes.forEach((size) => sizeOptions.push(<option key={size} onClick={handleSizeClick}>{size}</option>));
+
+      const handleSubmit = (event) => {
+        event.preventDefault();
+      };
+
+      return (
+        <form className="addToCart">
+          <select className="sizeOptions">
+            {sizeOptions}
+          </select>
+          <select className="amountOptions">
+            {amountOptions}
+          </select>
+          <input className="cartButton" type="submit" value="Add to Cart" onSubmit={handleSubmit} />
+        </form>
+      );
+    }
+  }
 }
 
 export default AddToCart;
