@@ -29,16 +29,17 @@ const FlexDiv = styled.div`
 
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
-  const [maxQuestionCount, setMaxQuestionCount] = useState(4);
+  const [maxQuestionCount, setMaxQuestionCount] = useState(4); // might not need this anymore
+  const [currentPage, setCurrentPage] = useState(0);
 
-  const getAllQuestions = (page = 1, count = 4) => {
+  const getAllQuestions = () => {
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions`,
       params: {
         product_id: productId,
-        page,
-        count,
+        page: currentPage + 1,
+        count: 5,
       },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
@@ -47,7 +48,9 @@ function QuestionAnswers({ productId }) {
 
     axios(requestConfig)
       .then((result) => {
-        setQuestionList(result.data.results);
+        const newQuestionList = [...questionList].concat(result.data.results);
+        setQuestionList(newQuestionList);
+        setCurrentPage(currentPage + 1);
       })
       .catch((err) => {
         console.log('failed fetching all questions from API.', err);
@@ -55,9 +58,14 @@ function QuestionAnswers({ productId }) {
   };
 
   useEffect(() => {
-    // on initial load, get page1, 4 count
-    getAllQuestions(1, 4);
+    getAllQuestions();
   }, []);
+
+  useEffect(() => {
+    if (maxQuestionCount >= questionList.length) {
+      getAllQuestions();
+    }
+  }, [currentPage, maxQuestionCount]);
 
   return (
     <DivContainer id="question-and-answers">
