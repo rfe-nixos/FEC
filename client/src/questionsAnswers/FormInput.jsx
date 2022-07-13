@@ -21,15 +21,32 @@ const Input = styled.input`
 `;
 
 function FormInput({ label, type, name, placeholder, value, onChange, extra }) {
+  const textarea = (
+    <Textarea
+      name={name}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
+
+  const input = (
+    <Input
+      type={type}
+      name={name}
+      placeholder={placeholder}
+      value={value}
+      onChange={onChange}
+    />
+  );
+
   return (
     <Div className="form-input">
       <Label>
         {label}
       </Label>
-      {type === 'textarea'
-        && <Textarea name={name} placeholder={placeholder} value={value} onChange={onChange} />}
-      {type !== 'textarea'
-        && <Input type={type} name={name} placeholder={placeholder} value={value} onChange={onChange} />}
+      {type === 'textarea' && textarea}
+      {type !== 'textarea' && input}
       {extra
         && <div className="extra">{`*${extra}`}</div>}
     </Div>

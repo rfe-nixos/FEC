@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 // import PropTypes from 'prop-types';
 import IndividualQuestion from './IndividualQuestion';
-// import MoreQuestions from './MoreQuestions';
 
 function QuestionList({ questions, renderQuestions, maxQuestionCount }) {
   return (

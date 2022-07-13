@@ -30,7 +30,7 @@ const FlexDiv = styled.div`
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
   const [maxQuestionCount, setMaxQuestionCount] = useState(4);
-  // axios call to api to get all questions
+
   const getAllQuestions = () => {
     const requestConfig = {
       method: 'GET',

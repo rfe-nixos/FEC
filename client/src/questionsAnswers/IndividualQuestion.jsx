@@ -98,7 +98,6 @@ function IndividualQuestion({ question, renderQuestions }) {
     axios
       .post(url, requestBody, options)
       .then(() => {
-        console.log('request is made in the individual questions');
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
         // TODO instead of rendering all Questions, we will set the state with added new answer
         renderQuestions();

@@ -14,34 +14,38 @@ const DivAnswer = styled.div`
 `;
 
 function AnswerList({ answerList, questionId, renderQuestions, Title }) {
+  // *** TODO if working on pagination, uncomment state ***
   // const [answerList, setAnswerList] = useState([]);
+  // ***
   const [collapsed, setCollapsed] = useState(true);
 
-  useEffect(() => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/qa/questions/${questionId}/answers`,
-      params: {
-        page: 1,
-        count: 5,
-      },
-      headers: {
-        Authorization: process.env.AUTH_TOKEN,
-      },
-    };
-    // axios(requestConfig)
-    //   .then((result) => {
-    //     console.log('axios request is made inside answerlist');
-    //     setAnswerList(result.data.results.sort((a, b) => {
-    //       if (a.helpfulness < b.helpfulness) return 1;
-    //       if (a.helpfulness > b.helpfulness) return -1;
-    //       return 0;
-    //     }));
-    //   })
-    //   .catch((err) => {
-    //     console.log('failed to get answers', err);
-    //   });
-  });
+  // *** TODO if working on pagination, uncomment useEffect to render answer question from API ***
+  // useEffect(() => {
+  //   const requestConfig = {
+  //     method: 'GET',
+  //     url: `${process.env.API_URL}/qa/questions/${questionId}/answers`,
+  //     params: {
+  //       page: 1,
+  //       count: 5,
+  //     },
+  //     headers: {
+  //       Authorization: process.env.AUTH_TOKEN,
+  //     },
+  //   };
+  //   axios(requestConfig)
+  //     .then((result) => {
+  //       console.log('axios request is made inside answerlist');
+  //       setAnswerList(result.data.results.sort((a, b) => {
+  //         if (a.helpfulness < b.helpfulness) return 1;
+  //         if (a.helpfulness > b.helpfulness) return -1;
+  //         return 0;
+  //       }));
+  //     })
+  //     .catch((err) => {
+  //       console.log('failed to get answers', err);
+  //     });
+  // });
+  // ***
 
   const mapAnswer = (answer) => (
     <Answer
@@ -52,11 +56,8 @@ function AnswerList({ answerList, questionId, renderQuestions, Title }) {
   );
 
   const handleClick = (e) => {
-    if (e.target.innerText === 'LOAD MORE ANSWERS') {
-      setCollapsed(false);
-    } else if (e.target.innerText === 'COLLAPSE') {
-      setCollapsed(true);
-    }
+    const text = e.target.innerText;
+    setCollapsed(text === 'COLLAPSE');
   };
 
   if (Array.isArray(answerList) && answerList.length > 0) {
