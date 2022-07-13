@@ -8,6 +8,7 @@ import { Promise } from 'bluebird';
 import ProductList from './productList.jsx';
 import OutfitList from './outfitList.jsx';
 
+
 function RelatedItems() {
   const [productListStateIds, setProductListStateIds] = useState();
   const [currentProduct, setCurrentProduct] = useState('37314');
@@ -21,9 +22,9 @@ function RelatedItems() {
     for (let i = 0; i < ids.length; i++) {
       const config = {
         method: 'get',
-        url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${ids[i]}/styles`,
+        url: `${process.env.API_URL}/products/${ids[i]}/styles`,
         headers: {
-          Authorization: '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', // TODO: Get rid of this when env is set up!!
+          Authorization: process.env.AUTH_KEY, // TODO: Get rid of this when env is set up!!
         },
       };
       promises.push(axios(config));
@@ -50,9 +51,9 @@ function RelatedItems() {
     for (let i = 0; i < ids.length; i++) {
       const config = {
         method: 'get',
-        url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${ids[i]}`,
+        url: `${process.env.API_URL}/products/${ids[i]}`,
         headers: {
-          Authorization: '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', // TODO: Get rid of this when env is set up!!
+          Authorization: process.env.AUTH_KEY, // TODO: Get rid of this when env is set up!!
         },
       };
       promises.push(axios(config));
@@ -70,13 +71,13 @@ function RelatedItems() {
     for (let i = 0; i < ids.length; i++) {
       const config = {
         method: 'get',
-        url: 'https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/reviews',
+        url: `${process.env.API_URL}/reviews`,
         params: {
           product_id: ids[i],
           sort: 'relevant',
         },
         headers: {
-          Authorization: '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', // TODO: Get rid of this when env is set up!!
+          Authorization: process.env.AUTH_KEY, // TODO: Get rid of this when env is set up!!
         },
       };
       promises.push(axios(config));
@@ -120,9 +121,9 @@ function RelatedItems() {
   const getProductIds = () => {
     const config = {
       method: 'get',
-      url: `https://app-hrsei-api.herokuapp.com/api/fec2/hr-rfe/products/${currentProduct}/related`,
+      url: `${process.env.API_URL}/products/${currentProduct}/related`,
       headers: {
-        Authorization: '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', // TODO: Get rid of this when env is set up!!
+        Authorization: process.env.AUTH_KEY, // TODO: Get rid of this when env is set up!!
       },
     };
     axios(config)
