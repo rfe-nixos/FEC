@@ -2,6 +2,7 @@
  * @jest-environment jsdom
  */
 import React from 'react';
+import renderer from 'react-test-renderer';
 import { render, screen, cleanup } from '@testing-library/react';
 import RelatedItems from '../related-items.jsx';
 

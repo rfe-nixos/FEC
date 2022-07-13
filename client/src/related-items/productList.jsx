@@ -1,6 +1,7 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import Product from './product.jsx';
+import { StyledList } from './styles/list.styled.js';
 
 function ProductList({
   relatedProductStyles,
@@ -12,7 +13,7 @@ function ProductList({
     for (let i = 0; i < ids.length; i++) {
       const reviewTotal = reviews[i].results.reduce(
         (total, item) => total + parseInt(item.rating, 10),
-        0,
+        0
       );
       const reviewAvg = reviewTotal / (reviews[i].results.length - 1);
       const formattedCard = {
@@ -31,7 +32,7 @@ function ProductList({
           formattedCard={formattedCard}
           id={formattedCard.id}
           key={formattedCard.id}
-        />,
+        />
       );
     }
     return formattedCards;
@@ -50,7 +51,7 @@ function ProductList({
   } else {
     product = <p>ERROR 404</p>;
   }
-  return product;
+  return <StyledList>{product}</StyledList>;
 }
 
 export default ProductList;
