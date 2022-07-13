@@ -10,7 +10,7 @@ const StyledTile = styled.div`
   align-items: top;
   width: 100%;
   border-top: 2px solid black;
-  padding-left: 5%;
+  padding: 5%;
 `
 
 const StyledButton = styled.button`
@@ -55,7 +55,6 @@ class ReviewTile extends React.Component {
   render() {
     return (
       <StyledTile>
-        {`____________________________`}<br />
         Rating: {this.props.review.rating + " "}
         Date: {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
         <h5>{this.props.review.summary}</h5>
