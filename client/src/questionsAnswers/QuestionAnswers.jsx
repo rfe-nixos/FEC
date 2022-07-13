@@ -2,18 +2,18 @@ import React, { useState, useEffect } from 'react';
 // import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
-// import Search from './Search';
+import Search from './Search';
 import QuestionList from './QuestionList';
 import MoreQuestions from './MoreQuestions';
 import AddQuestion from './AddQuestion';
 
 const DivContainer = styled.div`
-display: flex;
-flex-direction: column;
-width: 65%;
-margin: auto;
-color : #3d3c3c;
-font-size: 17px;
+  display: flex;
+  flex-direction: column;
+  width: 65%;
+  margin: auto;
+  color : #3d3c3c;
+  font-size: 17px;
 `;
 
 const Button = styled.button`
@@ -61,7 +61,7 @@ function QuestionAnswers({ productId }) {
   return (
     <DivContainer id="question-and-answers">
       <h3>QUESTIONS & ANSWERS</h3>
-      {/* <Search /> */}
+      <Search />
       <QuestionList
         questions={questionList}
         renderQuestions={getAllQuestions}
