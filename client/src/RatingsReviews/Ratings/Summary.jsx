@@ -36,6 +36,7 @@ const StyledSummary = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
+  width: auto;
 
 `
 

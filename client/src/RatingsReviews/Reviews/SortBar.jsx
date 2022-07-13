@@ -26,14 +26,14 @@ const StyledSortBar = styled.div`
 `
 
 const StyledDropDown = styled.select`
-  margin-left: 2%;
+  margin-left: 1.5%;
   font-weight: bold;
   background: white;
   font-size: 14px;
   border: none;
   border-bottom: 1px solid black;
   align-self: flex-end;
-  margin-bottom: 3%;
+  margin-bottom: .4%;
 `
 
 export default SortBar;

@@ -65,6 +65,7 @@ const RatingsContainer = styled.div`
   flex-direction: column;
   padding: 1%;
   margin-top: -1%;
+  width: auto;
 `
 
 export default Ratings;

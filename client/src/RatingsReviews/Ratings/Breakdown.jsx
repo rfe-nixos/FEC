@@ -18,11 +18,11 @@ function Breakdown(props) {
 }
 
 const BreakContainer = styled.div`
-  display: flex;
-  flex-direction: column;
+  display: block;
   font-size: x-small;
   font-weight: light;
   margin-top: 7%;
+  width: 200px;
 `
 
 export default Breakdown;
