@@ -1,17 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import { Stack, Divider } from '@mui/material';
 import Helpful from './Helpful';
 import PopupForm from './PopupForm';
 import AnswerList from './AnswerList';
-
-const OptionsDiv = styled.div`
-display: flex;
-width:30%;
-justify-content: space-around;
-font-size: 15px;
-`;
+import Options from './Options';
 
 const DivQuestion = styled.div`
   display: flex;
@@ -146,20 +139,18 @@ function IndividualQuestion({ question, renderQuestions }) {
             {question.question_body}
           </SpanBold>
         </QContainer>
-        <OptionsDiv>
-          <Stack direction="row" divider={<Divider orientation="vertical" flexItem />} spacing={2}>
-            <Helpful
-              id={question.question_id}
-              type="question"
-              currentCount={question.question_helpfulness}
-              renderComponent={renderQuestions}
-              tabIndex="0"
-            />
-            <u onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="-1">
-              Add Answer
-            </u>
-          </Stack>
-        </OptionsDiv>
+        <Options>
+          <Helpful
+            id={question.question_id}
+            type="question"
+            currentCount={question.question_helpfulness}
+            renderComponent={renderQuestions}
+            tabIndex="0"
+          />
+          <u onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="-1">
+            Add Answer
+          </u>
+        </Options>
       </DivQuestion>
       <AnswerList
         answerList={answerList}
