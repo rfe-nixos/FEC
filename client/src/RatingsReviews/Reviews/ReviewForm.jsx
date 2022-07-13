@@ -35,26 +35,53 @@ const Modal = styled.div`
 const StyledInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: left:;
-  align-items: center;
-  width: 80%;
-  padding: 5%;
+  justify-content: left;
+  align-items: flex-start;
+  width: 60%;
+  height:auto;
+  padding: 1%;
+  background: white;
+  border: 1px solid black;
+  font-size:small;
+`
+
+const StyledCat = styled.div`
+  font-weight: bold;
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
 `
 
 const StyledInput = styled.input`
-  width: 80%;
+  width: 200px;
 `
 
 const StyledTextArea = styled.textarea`
-  width: 300px;
-  height: 120px;
+  width: 200px;
+  height: 80px;
   resize: none;
+  font-family: inherit;
 `
 const StyledClose = styled.button`
   color: #aaa;
   float: right;
   font-size: 28px;
   font-weight: bold;
+`
+const StyledButton = styled.button`
+  width: auto;
+  font-size: small;
+  margin: 1em;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `
 
 class ReviewForm extends React.Component {
@@ -109,18 +136,33 @@ class ReviewForm extends React.Component {
   render() {
     return (
       <StyledForm>
-        <h2>here is the review form.</h2>
         <StyledInner>
-            <h4>Rating: </h4><StyledInput placeholder="rating" name="rating" onChange={this.handleChange}/>
-            <h4>Summary: </h4><textarea placeholder="Example: Best purchase ever!" name="summary" onChange={this.handleChange} />
-            <h4>Body: </h4><textarea placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
+            <StyledCat>
+              <div>Your Rating<sup>*</sup></div>
+              <StyledInput placeholder="rating" name="rating" onChange={this.handleChange}/>
+            </StyledCat>
+            <StyledCat>
+              <div>Review Headline<sup>*</sup></div>
+              <StyledTextArea placeholder="Example: Best purchase ever!" name="summary" onChange={this.handleChange} />
+            </StyledCat>
+            <StyledCat>
+              <div>Comments<sup>*</sup></div>
+              <StyledTextArea placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
+            </StyledCat>
             <button onClick={this.recommend}>recommend?</button>
-            <StyledInput placeholder="Example: jackson11" name="name" onChange={this.handleChange} />
+            <StyledCat>
+              <div>Nickname</div>
+              <StyledInput placeholder="Example: jackson11" name="name" onChange={this.handleChange} />
+            </StyledCat>
+
             <p><em>For privacy reasons, do not use your full name or email address</em></p>
             <StyledInput placeholder="Example: jackson11@email.com" name="email" onChange={this.handleChange} />
             <p><em>For authentication reasons, you will not be emailed.</em></p>
-            <StyledInput type="submit" onClick={this.addReview} />
-            <StyledClose onClick={this.closeForm}>CLOSE</StyledClose>
+            <StyledCat>
+              <StyledButton onClick={this.addReview}>SUBMIT</StyledButton>
+              <StyledButton onClick={this.closeForm}>BACK</StyledButton>
+            </StyledCat>
+
         </StyledInner>
       </StyledForm>
     );

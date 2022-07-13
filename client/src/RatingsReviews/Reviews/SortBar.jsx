@@ -33,7 +33,7 @@ const StyledDropDown = styled.select`
   border: none;
   border-bottom: 1px solid black;
   align-self: flex-end;
-  margin-bottom: .4%;
+  margin-bottom: 3%;
 `
 
 export default SortBar;

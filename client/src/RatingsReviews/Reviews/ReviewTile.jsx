@@ -89,13 +89,14 @@ const TileTop = styled.div`
 
 const TileMain = styled.div`
   display: flex;
+  font-size: small;
   flex-direction: column;
-  margin-top: -5%;
+  margin-top: -2%;
 `
 
 const StyledButton = styled.button`
   width: auto;
-  font-size: small;
+  font-size: x-small;
   margin: 1em;
   padding: 0.25em 1em;
   border-radius: 3px;
