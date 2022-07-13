@@ -9,9 +9,9 @@ import Options from './Options';
 const DivQuestion = styled.div`
   display: flex;
   justify-content: space-between;
-  height: 50px;
   align-items: center;
   margin: 5px 0;
+  padding: 10px 0;
 `;
 
 const Title = styled.span`

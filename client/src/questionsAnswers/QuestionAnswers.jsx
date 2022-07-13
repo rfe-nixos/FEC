@@ -31,14 +31,14 @@ function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
   const [maxQuestionCount, setMaxQuestionCount] = useState(4);
 
-  const getAllQuestions = () => {
+  const getAllQuestions = (page = 1, count = 4) => {
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions`,
       params: {
         product_id: productId,
-        page: 1,
-        count: 20,
+        page,
+        count,
       },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
@@ -55,7 +55,8 @@ function QuestionAnswers({ productId }) {
   };
 
   useEffect(() => {
-    getAllQuestions(productId);
+    // on initial load, get page1, 4 count
+    getAllQuestions(1, 4);
   }, []);
 
   return (

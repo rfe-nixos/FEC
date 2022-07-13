@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -24,11 +24,24 @@ const InputIcons = styled.div`
   width: 100%
 `;
 
+// handle the change of input
 function Search() {
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleChange = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+  };
+
+
+
   return (
-    <form>
+    <form onSubmit={handleSubmit}>
       <InputIcons>
-        <SearchInput type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." />
+        <SearchInput type="text" placeholder="HAVE A QUESTION? SEARCH FOR ANSWERS..." onChange={handleChange} value={searchTerm} />
         <Icon icon={faMagnifyingGlass} />
       </InputIcons>
     </form>
