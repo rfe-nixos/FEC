@@ -161,6 +161,7 @@ const ReviewsContainer = styled.div`
   width: 90%;
   padding: 1%;
   margin-left: 10%;
+  height: 90%;
 `
 
 export default Reviews;
