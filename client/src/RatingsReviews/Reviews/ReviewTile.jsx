@@ -2,6 +2,7 @@
 import React from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
+import Stars from '../Ratings/Stars.jsx';
 
 const TileContainer = styled.div`
   display: flex;
@@ -18,7 +19,8 @@ const TileTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: small;
+  font-size: x-small;
+  align-items: center;
 `
 
 const TileMain = styled.div`
@@ -70,7 +72,7 @@ class ReviewTile extends React.Component {
       <TileContainer>
         <TileTop>
           <div>
-            Rating: {this.props.review.rating + " "}
+            <Stars average={this.props.review.rating} />
           </div>
           <div>
             {this.props.review.reviewer_name + ", "}

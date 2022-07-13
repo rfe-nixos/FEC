@@ -12,7 +12,7 @@ const StyledReviews = styled.div`
   align-items: top;
   width: 90%;
   padding: 5%;
-
+  margin-left: 10%;
 `
 
 class Reviews extends React.Component {

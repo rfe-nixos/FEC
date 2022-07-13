@@ -32,6 +32,7 @@ const BigRating = styled.div`
 const StyledSummary = styled.div`
   display: flex;
   flex-direction: row;
+  align-content: flex-start;
 
 `
 

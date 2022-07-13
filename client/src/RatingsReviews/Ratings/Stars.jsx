@@ -6,9 +6,10 @@ const StyledStars = styled.p`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  align-self: flex-start;
   border: none;
-  font-size: 18px;
-  width: 100px;
+  font-size: x-small;
+  width: auto;
   background: linear-gradient(90deg, black ${props => props.percentage}, white ${props => props.percentage});
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
