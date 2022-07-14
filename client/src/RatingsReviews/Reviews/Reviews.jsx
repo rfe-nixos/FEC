@@ -121,7 +121,7 @@ class Reviews extends React.Component {
           let markedHelpful = this.state.markedHelpful;
           markedHelpful.push(reviewId);
           this.setState({ markedHelpful });
-          this.getReviews();
+          this.props.getReviews();
         })
         .catch((err) => console.log('error marking helpful', err))
     } else {

@@ -169,6 +169,7 @@ class RatingsReviews extends React.Component {
             moreReviews={this.moreReviews}
             reviews={this.state.reviews}
             sort={this.sort}
+            getReviews={this.getReviews}
             />
           )}
           {this.state.filteredByRating && (
@@ -179,6 +180,7 @@ class RatingsReviews extends React.Component {
             moreReviews={this.moreReviews}
             reviews={this.state.filtered}
             sort={this.sort}
+            getReviews={this.getReviews}
             />
           )}
 
