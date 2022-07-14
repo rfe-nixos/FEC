@@ -1,9 +1,6 @@
 import React from 'react';
-import starRating from '../lib/starRatings.js';
-import Stars from './Stars.jsx';
 import styled from 'styled-components';
 import Star from './Star.jsx';
-import Bar from './Bar.jsx';
 
 function Summary({ average, totalRatings, isLoaded }) {
   return (

@@ -1,6 +1,6 @@
 import React from 'react';
-import starRating from '../lib/starRatings.js';
 import styled from 'styled-components';
+import starRating from '../lib/starRatings.js';
 
 const BarContainer = styled.div`
   font-size: xx-small;
@@ -9,7 +9,7 @@ const BarContainer = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-`
+`;
 
 const OuterBar = styled.div`
   display: inline-block;
@@ -22,7 +22,7 @@ const OuterBar = styled.div`
     opacity:70%;
     cursor: pointer;
   }
-`
+`;
 
 const InnerBar = styled.div`
   position: absolute;
@@ -31,14 +31,15 @@ const InnerBar = styled.div`
   white-space: nowrap;
   overflow: hidden;
   height: 10px;
-  width: ${props => props.width}%;
+  width: ${(props) => props.width}%;
   background-color: #1c1c1c;
-`
+`;
 
 function Bar({ percentage, star }) {
   return (
     <BarContainer>
-      <StarCount>{star}</StarCount><OuterBar><InnerBar width={percentage}></InnerBar></OuterBar>
+      <StarCount>{star}</StarCount>
+      <OuterBar><InnerBar width={percentage} /></OuterBar>
     </BarContainer>
   );
 }
@@ -49,6 +50,6 @@ const StarCount = styled.div`
     opacity:70%;
     cursor: pointer;
   }
-`
+`;
 
 export default Bar;

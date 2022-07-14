@@ -12,16 +12,31 @@ class RatingsReviews extends React.Component {
       ratings: {},
       totalRatings: 0,
       isLoaded: false,
+      products: [],
+      product: '37311'
     };
     this.getRatings = this.getRatings.bind(this);
   }
 
   componentDidMount() {
     this.getRatings();
+   //this.getProducts();
   }
 
+  // getProducts() {
+  //   axios.get(`${process.env.API_URL}/products?count=5`, {
+  //     headers: {
+  //       Authorization: process.env.AUTH_KEY,
+  //     },
+  //   })
+  //     .then((response) => {
+  //       this.setState({products: response.data});
+  //     })
+  //     .catch((err) => console.log('error getting products', err));
+  // }
+
   getRatings() {
-    axios.get(`${process.env.API_URL}/reviews/meta?product_id=37311`, {
+    axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.state.product}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -49,7 +64,11 @@ class RatingsReviews extends React.Component {
   render() {
     return (
       <StyledMain>
-        <StyledTitle>{`RATINGS & REVIEWS`}</StyledTitle>
+        <StyledTitle>
+          <div>
+            {`RATINGS & REVIEWS`}
+          </div>
+        </StyledTitle>
         <StyledInner>
           <Ratings
             meta={this.state.meta}
@@ -65,6 +84,22 @@ class RatingsReviews extends React.Component {
     );
   }
 }
+
+const StyledButton = styled.button`
+  width: auto;
+  font-size: small;
+  margin: 1%;
+  margin-right: 3%;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
 
 const StyledMain = styled.div`
   display: flex;
@@ -92,6 +127,7 @@ const StyledTitle = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
   margin-left: 2%;
   font-size: small;
   font-weight: 400;

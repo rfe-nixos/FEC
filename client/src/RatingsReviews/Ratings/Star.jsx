@@ -1,11 +1,11 @@
 import React from 'react';
-import starRating from '../lib/starRatings.js';
 import styled from 'styled-components';
+import starRating from '../lib/starRatings.js';
 
 const StarContainer = styled.div`
   font-size: small;
   margin-top: 3%;
-`
+`;
 
 const OuterStar = styled.div`
   display: inline-block;
@@ -13,7 +13,7 @@ const OuterStar = styled.div`
   &:before {
     content: "☆☆☆☆☆";
   }
-`
+`;
 
 const InnerStar = styled.div`
   position: absolute;
@@ -21,16 +21,16 @@ const InnerStar = styled.div`
   left: 0;
   white-space: nowrap;
   overflow: hidden;
-  width: ${props => props.width};
+  width: ${(props) => props.width};
   &:before {
     content: "★★★★★";
   }
-`
+`;
 
 function Star({ average }) {
   return (
     <StarContainer>
-      <OuterStar><InnerStar width={starRating(average)}></InnerStar></OuterStar>
+      <OuterStar><InnerStar width={starRating(average)} /></OuterStar>
     </StarContainer>
   );
 }
