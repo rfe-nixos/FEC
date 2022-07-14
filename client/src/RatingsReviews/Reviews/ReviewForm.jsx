@@ -145,7 +145,22 @@ class ReviewForm extends React.Component {
       characteristics: this.state.characteristics,
     };
     console.log(reviewBody);
-    this.props.addReview(reviewBody);
+    if (reviewBody.name) {
+      alert('please enter name');
+    } else if (!reviewBody.rating) {
+      alert('please enter rating');
+    } else if (!reviewBody.body) {
+      alert('please enter body');
+    } else if (!reviewBody.email) {
+      alert('please enter email');
+    } else if (!reviewBody.characteristics) {
+      alert('please enter characteristics');
+    } else if (!reviewBody.name) {
+      alert('please enter name');
+    } else {
+      this.props.addReview(reviewBody);
+    }
+
   }
 
   setRating(rating) {
