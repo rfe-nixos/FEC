@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef, useState } from 'react';
 import ReviewTile from './ReviewTile.jsx';
 import styled from 'styled-components';
 
@@ -8,38 +8,46 @@ const StyledList = styled.div`
   justify-content: flex-start;
   width: 100%;
   min-height: 300px;
-  max-height: 450px;
+  max-height: 470px;
   overflow-y: auto;
 `;
 
-class ReviewList extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      reviews: [],
-    };
-  }
 
-  render() {
-    return (this.props.reviews.length > 0) ? (
-      <StyledList>
-        {this.props.reviews.map((review, index) => (
-          <ReviewTile
-            review={review}
-            key={index}
-            markHelpful={this.props.markHelpful}
-            report={this.props.report}
-          />
-        ))}
-      </StyledList>
-    ) : (
-      <StyledList>
-        <h2>
-          There are no reviews currently
-        </h2>
-      </StyledList>
-    );
-  }
+
+function ReviewList(props) {
+  const listInnerRef = useRef();
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight + 1 > scrollHeight) {
+        console.log("reached bottom, getting more reviews");
+        props.moreReviews();
+      }
+    }
+  };
+
+  return (props.reviews.length > 0) ? (
+    <StyledList
+      onScroll={onScroll}
+      ref={listInnerRef}
+    >
+      {props.reviews.map((review, index) => (
+        <ReviewTile
+          review={review}
+          key={index}
+          markHelpful={props.markHelpful}
+          report={props.report}
+        />
+      ))}
+    </StyledList>
+  ) : (
+    <StyledList>
+      <h2>
+        There are no reviews currently
+      </h2>
+    </StyledList>
+  );
 }
 
 export default ReviewList;

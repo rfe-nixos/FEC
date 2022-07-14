@@ -25,7 +25,7 @@ const StyledInner = styled.div`
   justify-content: left;
   align-items: flex-start;
   width: 400px;
-  height:auto;
+  height: 80%;
   padding: 1.5%;
   overflow-y: auto;
   background: white;

@@ -57,6 +57,7 @@ class RatingsReviews extends React.Component {
     let page = this.state.page;
     page += 1;
     this.setState({ page, filteredByRating: false, filtered: [] }, () => {
+        console.log(page, 'page of more results')
         this.getReviews();
     });
   };

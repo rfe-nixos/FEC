@@ -16,65 +16,10 @@ class Reviews extends React.Component {
       sort_option: '',
       sorted: false,
     };
-    this.getReviews = this.getReviews.bind(this);
     this.addReview = this.addReview.bind(this);
-    this.moreReviews = this.moreReviews.bind(this);
-    this.sort = this.sort.bind(this);
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
     this.refresh = this.refresh.bind(this);
-  }
-
-  componentDidMount() {
-    //this.getReviews();
-  }
-
-  getReviews() {
-    if (!this.state.sorted) {
-      axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    })
-      .then((response) => {
-        console.log('successfully fetched reviews');
-        this.setState({ reviews: response.data.results });
-      })
-      .catch((err) => console.log('error fetching reviews', err));
-    } else {
-      this.sort(this.state.sort_option);
-    }
-  }
-
-  moreReviews() {
-    let page = this.state.page;
-    page += 1;
-    this.setState({ page }, () => {
-        this.getReviews();
-    });
-  };
-
-  sort(new_option) {
-    //if new option is different from current sort option,
-    //reset page count, and set sort option to the new option
-    if (new_option !== this.state.sort_option) {
-      this.setState({ page: 1 }, () => {
-        this.getReviews();
-      });
-    }
-    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    })
-      .then((response) => {
-        console.log('successfully fetched reviews');
-        console.log(response.data.results);
-        this.setState(
-          { reviews: response.data.results, sort_option: option, sorted: true},
-        );
-      })
-      .catch((err) => console.log('error fetching reviews', err));
   }
 
   addReview(reviewBody) {
@@ -86,7 +31,6 @@ class Reviews extends React.Component {
       .then((response) => {
         console.log('success adding review', response);
         alert('thank you for your submission');
-        // this.getReviews();
         this.refresh();
       })
       .catch((err) => console.log('error adding review', err));
@@ -141,6 +85,7 @@ class Reviews extends React.Component {
           reviews={this.props.reviews}
           markHelpful={this.markHelpful}
           report={this.report}
+          moreReviews={this.props.moreReviews}
         />
         <AddBar
           reviews={this.props.reviews}
@@ -155,7 +100,8 @@ class Reviews extends React.Component {
 const ReviewsContainer = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: top;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 90%;
   min-width: 350px;
   padding: 1%;
