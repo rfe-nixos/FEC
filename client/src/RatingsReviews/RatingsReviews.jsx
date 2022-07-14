@@ -64,12 +64,14 @@ class RatingsReviews extends React.Component {
   };
 
   scrollMore() {
-    let page = this.state.page;
-    page += 1;
-    this.setState({ page }, () => {
-        console.log(page, 'page of more results')
-        this.getReviews();
+    if(!this.state.filteredByRating) {
+      let page = this.state.page;
+      page += 1;
+      this.setState({ page }, () => {
+      console.log(page, 'page of more results')
+      this.getReviews();
     });
+    }
   };
 
   sort(new_option) {
