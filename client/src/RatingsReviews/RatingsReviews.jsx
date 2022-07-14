@@ -72,6 +72,7 @@ const StyledMain = styled.div`
   justify-content: center;
   width: 80%;
   height: 90%;
+  color: #1c1c1c;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;

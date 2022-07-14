@@ -16,7 +16,7 @@ const OuterBar = styled.div`
   position: relative;
   width: 100%;
   height: 10px;
-  background-color: #bdbdbd;
+  background-color: #d9d9d9;
   margin-left: 5%;
   &:hover{
     opacity:70%;
@@ -32,7 +32,7 @@ const InnerBar = styled.div`
   overflow: hidden;
   height: 10px;
   width: ${props => props.width}%;
-  background-color: black;
+  background-color: #1c1c1c;
 `
 
 function Bar({ percentage, star }) {

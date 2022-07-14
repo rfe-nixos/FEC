@@ -16,7 +16,7 @@ const OuterBar = styled.div`
   position: relative;
   width: 100%;
   height: 10px;
-  background-color: #bdbdbd;
+  background-color: #d9d9d9;
   &:hover{
     opacity:70%;
     cursor: pointer;
@@ -36,7 +36,6 @@ const InnerBar = styled.div`
   &:before {
     content: "▼";
   }
-
 `
 
 function CharBar({ rating, char, chars }) {
@@ -57,7 +56,7 @@ function CharBar({ rating, char, chars }) {
 }
 
 const CharList = styled.div`
-  font-size: xxx-small;
+  font-size: xxx  -small;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
