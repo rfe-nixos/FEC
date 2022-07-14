@@ -5,12 +5,11 @@ import styled from 'styled-components';
 const StyledList = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  align-items: top;
+  justify-content: flex-start;
   width: 100%;
   min-height: 300px;
-  // max-height: 450px;
-  // overflow-y: auto;
+  max-height: 450px;
+  overflow-y: auto;
 `
 
 class ReviewList extends React.Component {
