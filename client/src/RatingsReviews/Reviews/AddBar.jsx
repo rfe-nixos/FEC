@@ -1,5 +1,5 @@
 import React from 'react';
-import ReviewForm from './ReviewForm.jsx';
+import ReviewForm from './AddReview/ReviewForm.jsx';
 import styled from 'styled-components';
 
 class AddBar extends React.Component {
