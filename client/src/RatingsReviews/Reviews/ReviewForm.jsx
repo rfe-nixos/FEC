@@ -40,6 +40,7 @@ const StyledInner = styled.div`
 const InnerTop = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: space-between;
   font-size: large;
   font-weight: bold;
   width: 380px;
@@ -76,10 +77,18 @@ const StyledTextArea = styled.textarea`
   font-family: inherit;
 `;
 const StyledClose = styled.button`
-  color: #aaa;
-  float: right;
-  font-size: 28px;
-  font-weight: bold;
+  color: #1c1c1c;
+  font-size: 15px;
+  background-color: white;
+  width: auto;
+  font-weight: light;
+  padding: .25em .5em;
+  border-radius: 3px;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;
 const StyledButton = styled.button`
   width: auto;
@@ -139,12 +148,8 @@ class ReviewForm extends React.Component {
       name: this.state.name,
       email: this.state.email,
       recommend: this.state.recommend,
-      // characteristics: {
-      //   125033: 3, 125031: 4, 125032: 5, 125034: 3,
-      // },
       characteristics: this.state.characteristics,
     };
-    console.log(reviewBody);
     if (reviewBody.name) {
       alert('please enter name');
     } else if (!reviewBody.rating) {
@@ -160,11 +165,10 @@ class ReviewForm extends React.Component {
     } else {
       this.props.addReview(reviewBody);
     }
-
   }
 
   setRating(rating) {
-    this.setState({ rating })
+    this.setState({ rating });
   }
 
   handleChange(e) {
@@ -183,7 +187,10 @@ class ReviewForm extends React.Component {
     return (
       <StyledForm>
         <StyledInner>
-          <InnerTop>Write a Review.</InnerTop>
+          <InnerTop>
+            <div>Write a Review.</div>
+            <StyledClose onClick={this.closeForm}>X</StyledClose>
+          </InnerTop>
           <StyledCat>
             <div>
               Your Rating
