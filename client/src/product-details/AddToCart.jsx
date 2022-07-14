@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
 function AddToCart({ currentStyle, currentSize, setCurrentSize }) {

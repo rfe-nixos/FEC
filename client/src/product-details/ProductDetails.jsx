@@ -1,4 +1,3 @@
-/* eslint-disable react/destructuring-assignment */
 /* eslint-disable react/prop-types */
 import React from 'react';
 
@@ -19,6 +18,23 @@ function ProductDetails({ product, currentStyle }) {
       </div>
     );
   } */
+  // let sales_price = '$5.00';
+
+  if (currentStyle.sales_price) {
+    return (
+      <div className="productDetails">
+        <p id="category">{product.category}</p>
+        <h1 id="title">{product.name}</h1>
+        <h2 id="price" style={{ color: 'red', 'text-decoration': 'line-through' }}>{currentStyle.original_price}</h2>
+        <h2 id="salesPrice">{currentStyle.sales_price}</h2>
+        <p id="overview">{product.description}</p>
+        <button id="Facebook" type="button">Facebook</button>
+        <button id="Twitter" type="button">Twitter</button>
+        <button id="Pinterest" type="button">Pinterest</button>
+      </div>
+    );
+  }
+
   return (
     <div className="productDetails">
       <p id="category">{product.category}</p>

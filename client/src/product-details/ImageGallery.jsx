@@ -1,14 +1,11 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
-/* eslint-disable react/destructuring-assignment */
 import React from 'react';
 // import styled from 'styled-components';
 
 function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
-  // let currentImage;
-  // console.log(currentStyle, currentImage, setCurrentImage);
-
   /* const StyledCarousel = styled.div`
     display: flex,
     flex-direction: column,
@@ -23,7 +20,6 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
 
   const handleClick = (event) => {
     event.preventDefault();
-    console.log("Next Image!");
     setCurrentImage(event.target.src);
   };
 
@@ -33,12 +29,22 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
     );
   });
 
+  if (galleryList.length > 7) {
+    return (
+      <div className="imagegallery">
+        <div className="thumbnailView">
+          <button className="button" type="button">back</button>
+          {galleryList}
+          <button className="button" type="button">next</button>
+        </div>
+        {mainImage}
+      </div>
+    );
+  }
   return (
     <div className="imagegallery">
       <div className="thumbnailView">
-        <button className="button" type="button">back</button>
         {galleryList}
-        <button className="button" type="button">next</button>
       </div>
       {mainImage}
     </div>

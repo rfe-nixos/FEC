@@ -62,14 +62,20 @@ function Overview() {
   }, []);
 
   useEffect(() => {
-    if (styles.length > 0) {
+    if (styles.length > 0 && Object.keys(currentStyle).length === 0) {
       setCurrentStyle(styles[0]);
     }
   });
 
   useEffect(() => {
-    if (currentImage === '' && Object.keys(currentStyle).length > 0) {
-      setCurrentImage(currentStyle.photos[0].thumbnail_url);
+    if (Object.keys(currentStyle).length > 0) {
+      const thumbnails = [];
+      currentStyle.photos.forEach((photo) => {
+        thumbnails.push(photo.thumbnail_url);
+      });
+      if (!thumbnails.includes(currentImage)) {
+        setCurrentImage(thumbnails[0]);
+      }
     }
   });
 
@@ -78,7 +84,7 @@ function Overview() {
       <div className="overview">
         <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} />
         <ProductDetails product={product} currentStyle={currentStyle} />
-        <StyleSelector styles={styles} currentStyle={currentStyle} />
+        <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
         <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} />
       </div>
     );
