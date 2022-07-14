@@ -9,10 +9,16 @@ const AnswerDiv = styled.div`
   padding-bottom: 10px;
 `;
 
+const AnswerText = styled.span`
+  font-size: 15px;
+`;
+
 function Answer({ answer, renderAnswers }) {
   const answerInfo = (
     <span>
-      by {answer.answerer_name}, {format(new Date(answer.date), 'MMMM d, yyyy')}
+      {answer.answerer_name.toLowerCase() === 'seller' ? <span>by <b>Seller</b></span> : <span>by {answer.answerer_name} </span>}
+      {', '}
+      {format(new Date(answer.date), 'MMMM d, yyyy')}
     </span>
   );
   const helpful = (
@@ -33,7 +39,7 @@ function Answer({ answer, renderAnswers }) {
 
   return (
     <AnswerDiv className="answer">
-      <span className="answer-text">{answer.body}</span>
+      <AnswerText className="answer-text">{answer.body}</AnswerText>
       <Options>
         {answerInfo}
         {helpful}

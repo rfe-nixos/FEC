@@ -11,23 +11,27 @@ const PaddedU = styled.u`
 `;
 
 function Helpful({ id, type, currentCount, renderComponent }) {
+  const [clicked, setClicked] = useState(false);
   let path;
   if (type === 'question') path = 'qa/questions';
   if (type === 'answer') path = 'qa/answers';
   if (type === 'review') path = 'review';
 
   const handleClick = () => {
-    const url = `${process.env.API_URL}/${path}/${id}/helpful`;
-    const requestBody = {};
-    const options = {
+    if (clicked) {
+      return;
+    }
+    const requestConfig = {
+      method: 'PUT',
+      url: `${process.env.API_URL}/${path}/${id}/helpful`,
       headers: {
         Authorization: process.env.AUTH_TOKEN,
       },
     };
 
-    axios
-      .put(url, requestBody, options)
+    axios(requestConfig)
       .then(() => {
+        setClicked(true);
         renderComponent();
       })
       .catch((err) => {

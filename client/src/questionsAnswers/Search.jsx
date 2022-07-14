@@ -34,8 +34,6 @@ function Search({ setFilter }) {
 
   const handleChange = (e) => {
     setSearchTerm(e.target.value);
-    // when it becomes 3 or more characters long, we start the search.
-    // update the search term state of parent component
     if (e.target.value.length >= 3) {
       setFilter(e.target.value);
     } else {
@@ -46,8 +44,6 @@ function Search({ setFilter }) {
   const handleSubmit = (e) => {
     e.preventDefault();
   };
-
-
 
   return (
     <Form onSubmit={handleSubmit}>

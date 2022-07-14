@@ -34,21 +34,21 @@ function AddQuestion({ id, renderQuestions, Button, productName }) {
 
   const addQuestion = (formValues) => {
     const { body, name, email } = formValues;
-    const url = `${process.env.API_URL}/qa/questions`;
-    const requestBody = {
-      body,
-      name,
-      email,
-      product_id: id,
-    };
-    const headers = {
+    const requestConfig = {
+      method: 'POST',
+      url: `${process.env.API_URL}/qa/questions`,
+      data: {
+        body,
+        name,
+        email,
+        product_id: id,
+      },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
       },
     };
 
-    axios
-      .post(url, requestBody, headers)
+    axios(requestConfig)
       .then(() => {
         document.getElementById(`${id}-popup`).style.display = 'none';
         renderQuestions();

@@ -21,7 +21,7 @@ const Title = styled.span`
 
 const SpanBold = styled.span`
   font-weight: bold;
-  font-size: 20px;
+  font-size: 18px;
 `;
 
 const QContainer = styled.div`
@@ -97,21 +97,20 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
 
   const addAnswer = (formValues) => {
     const { body, name, email, photos } = formValues;
-    const url = `${process.env.API_URL}/qa/questions/${question.question_id}/answers`;
-    const requestBody = {
-      body,
-      name,
-      email,
-      photos,
-    };
-    const options = {
+    const requestConfig = {
+      method: 'POST',
+      url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
+      data: {
+        body,
+        name,
+        email,
+        photos,
+      },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
       },
     };
-
-    axios
-      .post(url, requestBody, options)
+    axios(requestConfig)
       .then(() => {
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
         getAnswers();

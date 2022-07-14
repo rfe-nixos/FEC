@@ -26,7 +26,12 @@ const Button = styled.button`
 const FlexDiv = styled.div`
   display: flex;
 `;
-// ask if productName can be passed down as props
+
+const Title = styled.div`
+  font-size: 18px;
+  padding: 17px 0;
+`;
+
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
   const [maxQuestionCount, setMaxQuestionCount] = useState(2);
@@ -92,7 +97,7 @@ function QuestionAnswers({ productId }) {
 
   return (
     <DivContainer id="question-and-answers">
-      <h3>QUESTIONS & ANSWERS</h3>
+      <Title>QUESTIONS & ANSWERS</Title>
       <Search
         setFilter={setFilteredKeyword}
       />
