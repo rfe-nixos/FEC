@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import CharButtons from './CharButtons.jsx';
+import StarRatingBar from './StarRatingBar.jsx';
 
 const StyledForm = styled.div`
   display: flex;
@@ -165,6 +166,7 @@ class ReviewForm extends React.Component {
             <div>
               Your Rating
               <sup>*</sup>
+              <StarRatingBar />
             </div>
             <StyledInput placeholder="rating" name="rating" onChange={this.handleChange} />
           </StyledCat>
