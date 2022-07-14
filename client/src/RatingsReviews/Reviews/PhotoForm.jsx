@@ -17,13 +17,12 @@ function PhotoForm(props) {
 
   return (
     <div>
-      <em>this is a photo form</em>
       <PhotoUpload
         onFileSelect={(file) => {
           setSelectedPhoto(file);
           addToArray(oldPhotos => [...oldPhotos, file]);
           props.addPhoto(file);
-          console.log(file);
+          //console.log(URL.createObjectURL(file));
         }
         }
        />

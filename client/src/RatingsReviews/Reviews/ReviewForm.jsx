@@ -121,6 +121,7 @@ class ReviewForm extends React.Component {
       characteristics: {},
       openPhotoForm: false,
       photos: [],
+      photoUrls: [],
     };
     this.addReview = this.addReview.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -155,6 +156,7 @@ class ReviewForm extends React.Component {
       email: this.state.email,
       recommend: this.state.recommend,
       characteristics: this.state.characteristics,
+      photos: this.state.photoUrls,
     };
     if (!reviewBody.rating) {
       alert('please enter rating');
@@ -198,7 +200,8 @@ class ReviewForm extends React.Component {
       alert('you have reached the maximum number of photos');
     } else {
       let temp = [...this.state.photos, photo];
-      this.setState({photos: temp});
+      let tempurls = [...this.state.photoUrls, URL.createObjectURL(photo)];
+      this.setState({photos: temp, photoUrls: tempurls});
     }
   }
 
