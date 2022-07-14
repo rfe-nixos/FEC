@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import CharButtons from './CharButtons.jsx';
 import StarRatingBar from './StarRatingBar.jsx';
+import PhotoForm from './PhotoForm.jsx';
 
 const StyledForm = styled.div`
   display: flex;
@@ -92,6 +93,7 @@ const StyledClose = styled.button`
 `;
 const StyledButton = styled.button`
   width: auto;
+  max-width: 100px;
   font-size: small;
   margin: 1%;
   margin-right: 3%;
@@ -116,7 +118,9 @@ class ReviewForm extends React.Component {
       name: '',
       email: '',
       recommend: false,
-      characteristics: {}
+      characteristics: {},
+      openPhotoForm: false,
+      photos: [],
     };
     this.addReview = this.addReview.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -124,6 +128,7 @@ class ReviewForm extends React.Component {
     this.closeForm = this.closeForm.bind(this);
     this.setChar = this.setChar.bind(this);
     this.setRating = this.setRating.bind(this);
+    this.togglePhotoForm = this.togglePhotoForm.bind(this);
   }
 
   setChar(char, rating) {
@@ -179,6 +184,12 @@ class ReviewForm extends React.Component {
   recommend(e) {
     e.preventDefault();
     this.setState({ recommend: true });
+  }
+
+  togglePhotoForm() {
+    !this.state.openPhotoForm
+      ? this.setState({ openPhotoForm: true })
+      : this.setState({ openPhotoForm: false });
   }
 
   render() {
@@ -241,6 +252,11 @@ class ReviewForm extends React.Component {
             <StyledInput placeholder="Example: snoibly@snois.com" name="email" onChange={this.handleChange} />
           </StyledCat>
           <p><em>For authentication reasons, you will not be emailed.</em></p>
+          <StyledCat>
+            <div>Photos</div>
+            <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>
+            {this.state.openPhotoForm && <PhotoForm photos={this.state.photos}/>}
+          </StyledCat>
           <InnerBot>
             <StyledButton onClick={this.addReview}>SUBMIT</StyledButton>
             <StyledButton onClick={this.closeForm}>BACK</StyledButton>

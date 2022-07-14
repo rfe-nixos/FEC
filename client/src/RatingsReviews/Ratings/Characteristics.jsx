@@ -11,24 +11,25 @@ function Characteristics(props) {
 
         <div>
           <CharBar
-            rating={props.meta.characteristics.Comfort.value}
-            char="Comfort"
-            chars={['poor', 'perfect']}/>
+            rating={props.meta.characteristics.Fit.value}
+            char="Fit"
+            chars={['small', 'perfect', 'large']}
+          />
           <CharBar
             rating={props.meta.characteristics.Length.value}
             char="Length"
-            chars={['too short', 'perfect', 'too long']}
+            chars={['short', 'perfect', 'long']}
+          />
+          <CharBar
+            rating={props.meta.characteristics.Comfort.value}
+            char="Comfort"
+            chars={['poor', 'ok', 'perfect']}
           />
           <CharBar
             rating={props.meta.characteristics.Quality.value}
             char="Quality"
-            chars={['poor', 'perfect']}
+            chars={['poor', 'expected', 'perfect']}
           />
-          <CharBar
-            rating={props.meta.characteristics.Fit.value}
-            char="Fit"
-            chars={['small', 'perfect', 'large']}
-            />
         </div>
       )}
     </CharContainer>
