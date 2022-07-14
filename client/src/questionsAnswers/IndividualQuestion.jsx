@@ -32,6 +32,10 @@ const QContainer = styled.div`
 function IndividualQuestion({ productName, question, renderQuestions }) {
   // VARIABLE DECLARATION //
   const [answerList, setAnswerList] = useState([]);
+  const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
+  const [page, setPage] = useState(1);
+  const count = 4;
 
   const formConfig = [
     {
@@ -70,13 +74,13 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
   ];
 
   // HANDLERS //
-  const getAnswers = () => {
+  const getAnswers = (initial) => {
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
       params: {
-        page: 1,
-        count: 5,
+        page,
+        count,
       },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
@@ -84,11 +88,18 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
     };
     axios(requestConfig)
       .then((result) => {
-        setAnswerList(result.data.results.sort((a, b) => {
-          if (a.helpfulness < b.helpfulness) return 1;
+        if (result.data.results.length === 0) {
+          setHasMore(false);
+          return;
+        }
+        const newAnswerList = [...answerList, ...result.data.results];
+        setAnswerList(newAnswerList.sort((a, b) => {
+          if (a.answerer_name.toLowerCase() === 'seller') return -1;
           if (a.helpfulness > b.helpfulness) return -1;
+          if (a.helpfulness < b.helpfulness) return 1;
           return 0;
         }));
+        setPage(page + 1);
       })
       .catch((err) => {
         console.log('failed to get answers', err);
@@ -126,7 +137,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
 
   // FUNCTION INVOCATION //
   useEffect(() => {
-    getAnswers();
+    getAnswers(true);
   }, []);
 
   return (
@@ -156,6 +167,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         renderAnswers={getAnswers}
         SpanBold={SpanBold}
         Title={Title}
+        hasMore={hasMore}
       />
       <PopupForm
         id={question.question_id}

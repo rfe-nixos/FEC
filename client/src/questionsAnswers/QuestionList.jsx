@@ -3,6 +3,7 @@ import styled from 'styled-components';
 // import PropTypes from 'prop-types';
 import IndividualQuestion from './IndividualQuestion';
 
+const Scrollabe
 const NoDataDiv = styled.div`
   padding: 10px 0;
   font-size: 18px;

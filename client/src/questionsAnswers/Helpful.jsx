@@ -10,6 +10,11 @@ const PaddedU = styled.u`
   padding-right: 3px;
 `;
 
+const HelpfulDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
 function Helpful({ id, type, currentCount, renderComponent }) {
   const [clicked, setClicked] = useState(false);
   let path;
@@ -40,7 +45,7 @@ function Helpful({ id, type, currentCount, renderComponent }) {
   };
 
   return (
-    <div className="helpful">
+    <HelpfulDiv className="helpful">
       <PaddedSpan>
         Helpful?
       </PaddedSpan>
@@ -55,7 +60,7 @@ function Helpful({ id, type, currentCount, renderComponent }) {
       <span>
         {`(${currentCount})`}
       </span>
-    </div>
+    </HelpfulDiv>
   );
 }
 

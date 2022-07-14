@@ -8,8 +8,8 @@ function Options({ children }) {
       divider={<Divider orientation="vertical" flexItem sx={{ borderRightWidth: 1, borderColor: '#77787a' }} />}
       spacing={1.5}
       fontSize="14px"
-      color="#77787a"
       padding="10px 0"
+      color="#77787a"
     >
       {children}
     </Stack>

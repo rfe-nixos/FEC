@@ -10,10 +10,11 @@ import AddQuestion from './AddQuestion';
 const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
-  width: 60%;
+  width: 70%;
   margin: auto;
   color : #3d3c3c;
   font-size: 17px;
+  max-height: ${windowHeight}px;
 `;
 
 const Button = styled.button`
@@ -93,7 +94,6 @@ function QuestionAnswers({ productId }) {
   useEffect(() => {
     getAllQuestions();
   }, [currentCount]);
-
 
   return (
     <DivContainer id="question-and-answers">

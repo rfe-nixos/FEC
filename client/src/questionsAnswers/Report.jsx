@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import axios from 'axios';
 
 function Report({ id, type, renderComponent }) {
+  const [reported, setReported] = useState(false);
   const handleClick = () => {
+    if (reported) {
+      return;
+    }
+
     const executed = confirm("Are you sure you want to report this?");
     if (executed) {
       const requestConfig = {
@@ -15,7 +20,8 @@ function Report({ id, type, renderComponent }) {
 
       axios(requestConfig)
         .then(() => {
-          renderComponent();
+          // renderComponent();
+          setReported(true);
         })
         .catch((err) => {
           console.log('failed reporting answer', err);
@@ -25,7 +31,7 @@ function Report({ id, type, renderComponent }) {
 
   return (
     <u onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="-1">
-      Report
+      {reported ? 'Reported' : 'Report'}
     </u>
   );
 }
