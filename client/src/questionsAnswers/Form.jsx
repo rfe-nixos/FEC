@@ -32,13 +32,20 @@ const Subtitle = styled.h3`
 `;
 
 function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
-  const [formValue, setFormValue] = useState(formConfig);
+  const [formValue, setFormValue] = useState({});
   const onChange = (e) => {
     // update the formvalue on the name of the input
     const { name, value } = e.target;
     setFormValue({
       ...formValue,
       [name]: value,
+    });
+  };
+
+  const setImages = (imageValues) => {
+    setFormValue({
+      ...formValue,
+      photos: imageValues,
     });
   };
 
@@ -67,6 +74,8 @@ function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
           mandatory={config.mandatory}
           extra={config.extra || ''}
           onChange={onChange}
+          other={config.other}
+          setImages={setImages}
         />
       ))}
       <DivButton className="form-buttons">

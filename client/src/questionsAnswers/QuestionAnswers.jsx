@@ -14,7 +14,7 @@ const DivContainer = styled.div`
   margin: auto;
   color : #3d3c3c;
   font-size: 17px;
-  max-height: 400px;
+  height: 100vh;
 `;
 
 const Button = styled.button`
@@ -43,6 +43,7 @@ function QuestionAnswers({ productId }) {
   const [expanded, setExpanded] = useState(false);
 
   const getAllQuestions = (count = 20) => {
+    console.log('called')
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions`,

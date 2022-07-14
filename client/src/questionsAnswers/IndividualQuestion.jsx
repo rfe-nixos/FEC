@@ -123,6 +123,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
     };
     axios(requestConfig)
       .then(() => {
+        console.log(requestConfig);
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
         getAnswers();
       })

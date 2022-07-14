@@ -58,6 +58,7 @@ function AnswerList({ answerList, renderAnswers, Title, hasMore }) {
                   dataLength={answerList.length}
                   next={renderAnswers}
                   hasMore={hasMore}
+                  infiniteScrollThrottle={0}
                   scrollableTarget="scrollableDiv"
                   loader={<h4>Loading...</h4>}
                   endMessage={(

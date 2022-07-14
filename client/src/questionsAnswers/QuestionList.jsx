@@ -9,10 +9,10 @@ const OuterDiv = styled.div`
 `;
 
 const Scroller = styled.div`
-  height: 65vh;
   width: 100%;
   overflow-y: auto;
   margin: 10px 0;
+  max-height: 70vh;
 `;
 
 const NoDataDiv = styled.div`
@@ -43,6 +43,7 @@ function QuestionList({ questions, renderQuestions, keyword, productName, hasMor
           <InfiniteScroll
             dataLength={questions.length}
             next={renderQuestions}
+            infiniteScrollThrottle={0}
             hasMore={hasMore}
             loader={<h4>Loading...</h4>}
             endMessage={(

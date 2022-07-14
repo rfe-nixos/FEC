@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import ImageInput from './ImageInput';
 
 const Label = styled.label`
   display: flex;
@@ -20,7 +21,7 @@ const Input = styled.input`
   width: 50%;
 `;
 
-function FormInput({ label, type, name, placeholder, mandatory, value, onChange, extra }) {
+function FormInput({ label, type, name, placeholder, mandatory, value, onChange, extra, setImages }) {
   const textarea = (
     <Textarea
       name={name}
@@ -47,7 +48,8 @@ function FormInput({ label, type, name, placeholder, mandatory, value, onChange,
         {mandatory && '*'}
       </Label>
       {type === 'textarea' && textarea}
-      {type !== 'textarea' && input}
+      {type === 'file' && <ImageInput name={name} setImageForm={setImages} />}
+      {type !== 'textarea' && type !== 'file' && input}
       {extra
         && <div className="extra">{`*${extra}`}</div>}
     </Div>
