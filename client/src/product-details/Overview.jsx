@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable prefer-destructuring */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
@@ -11,6 +12,8 @@ function Overview() {
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
   const [currentStyle, setCurrentStyle] = useState({});
+  const [currentSize, setCurrentSize] = useState('Select a Size');
+  const [currentImage, setCurrentImage] = useState('');
 
   const productId = '37314';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
@@ -64,14 +67,22 @@ function Overview() {
     }
   });
 
-  return (
-    <div className="overview">
-      <ImageGallery props={currentStyle} />
-      <ProductDetails props={product} />
-      <StyleSelector props={styles} />
-      <AddToCart props={currentStyle} />
-    </div>
-  );
+  useEffect(() => {
+    if (currentImage === '' && Object.keys(currentStyle).length > 0) {
+      setCurrentImage(currentStyle.photos[0].thumbnail_url);
+    }
+  });
+
+  if (Object.keys(currentStyle).length > 0) {
+    return (
+      <div className="overview">
+        <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} />
+        <ProductDetails product={product} currentStyle={currentStyle} />
+        <StyleSelector styles={styles} currentStyle={currentStyle} />
+        <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} />
+      </div>
+    );
+  }
 }
 
 export default Overview;

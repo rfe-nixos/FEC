@@ -1,8 +1,8 @@
 .overview {
   display: inline-block;
-  height: 750px;
+  height: 600px;
   width: 1000px;
-  overflow: scroll;
+  /* overflow: scroll; */
   border: solid black 3px;
   padding: 10px;
 }
@@ -10,7 +10,7 @@
 .imagegallery {
   float: left;
   width: 500px;
-  height: 750px;
+  height: 580px;
   align-items: center;
   text-align: center;
 }

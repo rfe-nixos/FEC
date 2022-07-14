@@ -1,46 +1,49 @@
+/* eslint-disable max-len */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 
-function AddToCart(currentStyle) {
+function AddToCart({ currentStyle, currentSize, setCurrentSize }) {
   // console.log(currentStyle.props);
 
-  if (Object.keys(currentStyle).length > 0) {
-    const stock = currentStyle.props.skus;
+  const stock = currentStyle.skus;
 
-    const handleSizeClick = (event) => {
-      event.preventDefault();
-    };
+  const stockKeys = Object.keys(stock);
 
-    if (stock !== undefined) {
-      const stockKeys = Object.keys(stock);
-      const allSizes = ['XS', 'S', 'M', 'L', 'XL', 'XXL'];
-      const currentSize = stock[stockKeys[0]].size;
-      const currentSizeQuantity = stock[stockKeys[0]].quantity;
-
-      const amountOptions = [];
-      for (let i = 1; i <= currentSizeQuantity; i++) {
-        amountOptions.push(<option key={i}>{i}</option>);
-      }
-      const sizeOptions = [];
-      allSizes.forEach((size) => sizeOptions.push(<option key={size} onClick={handleSizeClick}>{size}</option>));
-
-      const handleSubmit = (event) => {
-        event.preventDefault();
-      };
-
-      return (
-        <form className="addToCart">
-          <select className="sizeOptions">
-            {sizeOptions}
-          </select>
-          <select className="amountOptions">
-            {amountOptions}
-          </select>
-          <input className="cartButton" type="submit" value="Add to Cart" onSubmit={handleSubmit} />
-        </form>
-      );
-    }
+  const allSizes = [];
+  for (let i = 0; i < stockKeys.length; i += 1) {
+    allSizes.push(stock[stockKeys[i]]);
   }
+
+  // console.log(allSizes);
+
+  /* const amountOptions = [];
+  for (let i = 1; i <= currentSize.quantity; i += 1) {
+    amountOptions.push(<option key={i}>{i}</option>);
+  }
+
+  const handleSizeChange = (event) => {
+    event.preventDefault();
+    console.log('Size change!', event.target);
+  };
+
+  const sizeOptions = [];
+  allSizes.forEach((item) => sizeOptions.push(<option key={item.size} value={item}>{item.size}</option>));
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
+  return (
+    <form className="addToCart">
+      <select className="sizeOptions" onChange={handleSizeChange}>
+        {sizeOptions}
+      </select>
+      <select className="amountOptions">
+        {amountOptions}
+      </select>
+      <input className="cartButton" type="submit" value="Add to Cart" onSubmit={handleSubmit} />
+    </form>
+  ); */
 }
 
 export default AddToCart;

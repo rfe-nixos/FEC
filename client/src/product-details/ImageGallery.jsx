@@ -5,13 +5,9 @@
 import React from 'react';
 // import styled from 'styled-components';
 
-function ImageGallery(currentStyle) {
-  let currentImage;
-
-  const handleClick = (event) => {
-    event.preventDefault();
-    currentImage = event.target;
-  };
+function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
+  // let currentImage;
+  // console.log(currentStyle, currentImage, setCurrentImage);
 
   /* const StyledCarousel = styled.div`
     display: flex,
@@ -23,26 +19,30 @@ function ImageGallery(currentStyle) {
 
   const galleryList = [];
 
-  if (Object.keys(currentStyle.props).length > 0) {
-    currentImage = <img src={currentStyle.props.photos[0].thumbnail_url} alt={currentStyle.props.name} className="currentImage" />;
+  const mainImage = <img src={currentImage} alt={currentStyle.name} className="currentImage" />;
 
-    currentStyle.props.photos.forEach((photo) => {
-      galleryList.push(
-        <img src={photo.thumbnail_url} key={galleryList.length} alt={photo.name} onClick={handleClick} className="carousel" />,
-      );
-    });
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log("Next Image!");
+    setCurrentImage(event.target.src);
+  };
 
-    return (
-      <div className="imagegallery">
-        <div className="thumbnailView">
-          <button className="button" type="button">left</button>
-          {galleryList}
-          <button className="button" type="button">right</button>
-        </div>
-        {currentImage}
-      </div>
+  currentStyle.photos.forEach((photo) => {
+    galleryList.push(
+      <img src={photo.thumbnail_url} key={galleryList.length} alt={currentStyle.name} className="carousel" onClick={handleClick} />,
     );
-  }
+  });
+
+  return (
+    <div className="imagegallery">
+      <div className="thumbnailView">
+        <button className="button" type="button">back</button>
+        {galleryList}
+        <button className="button" type="button">next</button>
+      </div>
+      {mainImage}
+    </div>
+  );
 }
 
 export default ImageGallery;
