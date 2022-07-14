@@ -29,6 +29,7 @@ class Ratings extends React.Component {
           meta={this.props.meta}
           isLoaded={this.props.isLoaded}
           totalRatings={this.props.totalRatings}
+          setRatingFilter={this.props.setRatingFilter}
         />
         <Characteristics
           meta={this.props.meta}

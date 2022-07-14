@@ -10,7 +10,7 @@ const StyledList = styled.div`
   min-height: 300px;
   max-height: 450px;
   overflow-y: auto;
-`
+`;
 
 class ReviewList extends React.Component {
   constructor(props) {

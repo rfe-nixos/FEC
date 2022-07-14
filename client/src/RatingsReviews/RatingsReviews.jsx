@@ -14,8 +14,11 @@ class RatingsReviews extends React.Component {
       isLoaded: false,
       products: [],
       product: '37311',
+      ratingFilter: {},
+      filteredByRating: false
     };
     this.getRatings = this.getRatings.bind(this);
+    this.setRatingFilter = this.setRatingFilter.bind(this);
   }
 
   componentDidMount() {
@@ -64,6 +67,23 @@ class RatingsReviews extends React.Component {
       .catch((err) => console.log('error fetching ratings', err));
   }
 
+  setRatingFilter(rating) {
+    let temp = this.state.ratingFilter;
+    if (!temp[rating]) {
+      temp[rating] = true;
+    } else {
+      temp[rating] = false;
+    }
+    //if there is not a single true in rating filter,
+    //set filteredbyrating to false.
+    if (Object.values(temp).indexOf(true) !== -1) {
+      this.setState({ filteredByRating: true, ratingFilter: temp });
+    } else {
+      this.setState({ filteredByRating: false, ratingFilter: temp });
+    }
+
+  }
+
   render() {
     return (
       <StyledMain>
@@ -78,9 +98,12 @@ class RatingsReviews extends React.Component {
             isLoaded={this.state.isLoaded}
             average={this.state.average}
             totalRatings={this.state.totalRatings}
+            setRatingFilter={this.setRatingFilter}
           />
           <Reviews
             totalRatings={this.state.totalRatings}
+            ratingFilter={this.state.ratingFilter}
+            filteredByRating={this.state.filteredByRating}
           />
         </StyledInner>
       </StyledMain>

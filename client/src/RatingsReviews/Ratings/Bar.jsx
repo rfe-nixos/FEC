@@ -35,13 +35,36 @@ const InnerBar = styled.div`
   background-color: #1c1c1c;
 `;
 
-function Bar({ percentage, star }) {
-  return (
-    <BarContainer>
-      <StarCount>{star}</StarCount>
-      <OuterBar><InnerBar width={percentage} /></OuterBar>
-    </BarContainer>
-  );
+// function Bar({ percentage, star }) {
+//   return (
+//     <BarContainer>
+//       <StarCount>{star}</StarCount>
+//       <OuterBar><InnerBar width={percentage} /></OuterBar>
+//     </BarContainer>
+//   );
+// }
+
+class Bar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      resultsFilter: {}
+    }
+    this.handleClick = this.handleClick.bind(this);
+  }
+
+  handleClick() {
+    this.props.setRatingFilter(this.props.star);
+  }
+
+  render() {
+    return (
+      <BarContainer>
+        <StarCount>{this.props.star}</StarCount>
+        <OuterBar onClick={this.handleClick}><InnerBar width={this.props.percentage} /></OuterBar>
+      </BarContainer>
+    );
+  }
 }
 
 const StarCount = styled.div`

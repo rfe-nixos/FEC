@@ -39,16 +39,23 @@ class Reviews extends React.Component {
     })
       .then((response) => {
         console.log('successfully fetched reviews');
-        console.log(response.data.results);
-        this.setState(
-          { reviews: response.data.results },
-        );
+        // console.log(response.data.results);
+        if (this.props.filteredByRating) {
+          let obj = this.props.ratingFilter;
+          let filtered = response.data.results.filter((result) =>{
+            if (obj[result.rating+""]) {
+              return result;
+            }
+            })
+          this.setState({ reviews: filtered });
+        } else {
+          this.setState({ reviews: response.data.results });
+        }
       })
       .catch((err) => console.log('error fetching reviews', err));
     } else {
       this.sort(this.state.sort_option);
     }
-
   }
 
   moreReviews() {
