@@ -21,7 +21,7 @@ class RatingsReviews extends React.Component {
   }
 
   getRatings() {
-    axios.get(`${process.env.API_URL}/reviews/meta?product_id=37311`, {
+    axios.get(`${process.env.API_URL}/reviews/meta?product_id=37313`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },

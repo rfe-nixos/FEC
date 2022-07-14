@@ -9,7 +9,7 @@ const StyledList = styled.div`
   align-items: top;
   width: 100%;
   min-height: 300px;
-  max-height: 350px;
+  max-height: 450px;
   overflow-y: scroll;
 `
 

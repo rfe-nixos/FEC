@@ -29,7 +29,7 @@ class Reviews extends React.Component {
   }
 
   getReviews() {
-    axios.get(`${process.env.API_URL}/reviews?product_id=37311&count=${this.state.page * 2}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -52,7 +52,7 @@ class Reviews extends React.Component {
   }
 
   sort(option) {
-    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${option}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=37313&sort=${option}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },

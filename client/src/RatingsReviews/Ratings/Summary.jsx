@@ -18,7 +18,6 @@ function Summary({ average, totalRatings, isLoaded }) {
           </StyledSummary>
           <div>
             <em>{`out of ${totalRatings} reviews`}</em>
-            {/* <Bar percentage="50" /> */}
           </div>
         </div>
         )}
