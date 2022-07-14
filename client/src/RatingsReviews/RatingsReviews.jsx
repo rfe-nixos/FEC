@@ -13,14 +13,14 @@ class RatingsReviews extends React.Component {
       totalRatings: 0,
       isLoaded: false,
       products: [],
-      product: '37311'
+      product: '37311',
     };
     this.getRatings = this.getRatings.bind(this);
   }
 
   componentDidMount() {
     this.getRatings();
-   //this.getProducts();
+    // this.getProducts();
   }
 
   // getProducts() {
@@ -53,20 +53,23 @@ class RatingsReviews extends React.Component {
         }
         this.setState(
           {
-            meta: response.data, average: (sum / totalRatings).toFixed(2), ratings: response.data.ratings, totalRatings, isLoaded: true,
+            meta: response.data,
+            average: (sum / totalRatings).toFixed(2),
+            ratings: response.data.ratings,
+            totalRatings,
+            isLoaded: true,
           },
         );
       })
       .catch((err) => console.log('error fetching ratings', err));
   }
 
-
   render() {
     return (
       <StyledMain>
         <StyledTitle>
           <div>
-            {`RATINGS & REVIEWS`}
+            RATINGS & REVIEWS
           </div>
         </StyledTitle>
         <StyledInner>

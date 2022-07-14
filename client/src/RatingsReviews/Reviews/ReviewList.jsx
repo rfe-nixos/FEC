@@ -9,8 +9,8 @@ const StyledList = styled.div`
   align-items: top;
   width: 100%;
   min-height: 300px;
-  max-height: 450px;
-  overflow-y: auto;
+  // max-height: 450px;
+  // overflow-y: auto;
 `
 
 class ReviewList extends React.Component {

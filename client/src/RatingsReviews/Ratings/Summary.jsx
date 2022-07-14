@@ -28,18 +28,13 @@ const BigRating = styled.div`
   margin-right: 5%;
   margin-top:-5%;
   align-self: flex-start;
-`
+`;
 
 const StyledSummary = styled.div`
   display: flex;
   flex-direction: row;
   align-items: flex-start;
   width: auto;
-
-`
-
-const SumContainer = styled.div`
-
-`
+`;
 
 export default Summary;

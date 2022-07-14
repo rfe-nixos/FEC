@@ -12,7 +12,9 @@ class Reviews extends React.Component {
     this.state = {
       reviews: [],
       page: 1,
-      markedHelpful: []
+      markedHelpful: [],
+      sort_option: '',
+      sorted: false
     };
     this.getReviews = this.getReviews.bind(this);
     this.addReview = this.addReview.bind(this);
@@ -29,7 +31,8 @@ class Reviews extends React.Component {
   }
 
   getReviews() {
-    axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
+    if (!this.state.sorted) {
+      axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -42,17 +45,29 @@ class Reviews extends React.Component {
         );
       })
       .catch((err) => console.log('error fetching reviews', err));
+    } else {
+      this.sort(this.state.sort_option);
+    }
+
   }
 
   moreReviews() {
     let page = this.state.page;
     page += 1;
-    this.setState({ page });
-    this.getReviews();
+    this.setState({ page }, () => {
+      this.getReviews();
+    });
   }
 
-  sort(option) {
-    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${option}`, {
+  sort(new_option) {
+    //if new option is different from current sort option,
+    //reset page count, and set sort option to the new option
+    if (new_option !== this.state.sort_option) {
+      this.setState({ page: 1 }, () => {
+        this.getReviews();
+      });
+    }
+    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -61,25 +76,13 @@ class Reviews extends React.Component {
         console.log('successfully fetched reviews');
         console.log(response.data.results);
         this.setState(
-          { reviews: response.data.results },
+          { reviews: response.data.results, sort_option: option, sorted: true},
         );
       })
       .catch((err) => console.log('error fetching reviews', err));
   }
 
   addReview(reviewBody) {
-    // let temp = {
-    //   product_id: 37311,
-    //   rating: 5,
-    //   name: 'joe',
-    //   summary: 'wow',
-    //   body: 'cool',
-    //   recommend: true,
-    //   email: 'aaa@aaa.com',
-    //   characteristics: {'125033': 3, '125031': 4, '125032': 5, '125034': 3}
-    // };
-    // console.log(temp);
-
     axios.post(`${process.env.API_URL}/reviews`, reviewBody, {
       headers: {
         AUthorization: process.env.AUTH_KEY,
@@ -159,9 +162,10 @@ const ReviewsContainer = styled.div`
   flex-direction: column;
   align-items: top;
   width: 90%;
+  min-width: 350px;
   padding: 1%;
   margin-left: 10%;
   height: 90%;
-`
+`;
 
 export default Reviews;

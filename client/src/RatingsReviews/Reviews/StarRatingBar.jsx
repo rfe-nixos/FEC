@@ -61,6 +61,7 @@ class StarRatingBar extends React.Component {
 
 const StarContainer = styled.div`
   font-size: x-large;
+  font-style: light;
   margin-top: 1%;
   margin-bottom: 2%;
   display: flex;
@@ -68,8 +69,9 @@ const StarContainer = styled.div`
 `;
 
 const Star = styled.div`
+  opacity:90%;
   &:hover{
-    opacity: 70%;
+    opacity: 80%;
     cursor: pointer;
   }
 `;

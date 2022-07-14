@@ -48,6 +48,7 @@ const StyledButton = styled.button`
   border: 1px solid black;
   &:hover {
     cursor: pointer;
+    background-color: #d9d9d9;
     opacity: 60%;
   }
 `
