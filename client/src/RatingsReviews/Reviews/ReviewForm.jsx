@@ -55,6 +55,7 @@ const StyledCat = styled.div`
   flex-direction: column;
   align-content: flex-start;
   margin-top: 1%;
+  width: 100%;
 `;
 const InnerBot = styled.div`
   font-weight: bold;
@@ -83,7 +84,8 @@ const StyledClose = styled.button`
 const StyledButton = styled.button`
   width: auto;
   font-size: small;
-  margin: 1em;
+  margin: 1%;
+  margin-right: 3%;
   padding: 0.25em 1em;
   border-radius: 3px;
   background: white;
@@ -193,7 +195,11 @@ class ReviewForm extends React.Component {
               Recommend
               <sup>*</sup>
             </div>
-            <StyledButton onClick={this.recommend}>YES</StyledButton>
+            <div>
+              <StyledButton onClick={this.recommend}>YES</StyledButton>
+              {(this.state.recommend) && (<small><em>thanks for your recommendation !</em></small>)}
+            </div>
+
           </StyledCat>
           <StyledCat>
             Fit:
