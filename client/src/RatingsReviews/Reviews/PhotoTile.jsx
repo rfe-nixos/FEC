@@ -1,8 +1,8 @@
 import React from 'react';
 
-function PhotoTile() {
+function PhotoTile(props) {
   return(
-    <div>this is a photo tile</div>
+    <div>{props.photo.name}</div>
   )
 }
 

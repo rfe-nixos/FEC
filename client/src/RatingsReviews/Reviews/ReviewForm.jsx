@@ -129,6 +129,7 @@ class ReviewForm extends React.Component {
     this.setChar = this.setChar.bind(this);
     this.setRating = this.setRating.bind(this);
     this.togglePhotoForm = this.togglePhotoForm.bind(this);
+    this.addPhoto = this.addPhoto.bind(this);
   }
 
   setChar(char, rating) {
@@ -190,6 +191,15 @@ class ReviewForm extends React.Component {
     !this.state.openPhotoForm
       ? this.setState({ openPhotoForm: true })
       : this.setState({ openPhotoForm: false });
+  }
+
+  addPhoto(photo) {
+    if(this.state.photos.length >= 5) {
+      alert('you have reached the maximum number of photos');
+    } else {
+      let temp = [...this.state.photos, photo];
+      this.setState({photos: temp});
+    }
   }
 
   render() {
@@ -255,7 +265,7 @@ class ReviewForm extends React.Component {
           <StyledCat>
             <div>Photos</div>
             <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>
-            {this.state.openPhotoForm && <PhotoForm photos={this.state.photos}/>}
+            {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto}/>}
           </StyledCat>
           <InnerBot>
             <StyledButton onClick={this.addReview}>SUBMIT</StyledButton>
