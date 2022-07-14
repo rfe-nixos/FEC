@@ -32,6 +32,7 @@ const Subtitle = styled.h3`
 `;
 
 function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
+  const [invalidFields, setInvalidFields] = useState([]);
   const [formValue, setFormValue] = useState({});
   const onChange = (e) => {
     // update the formvalue on the name of the input
@@ -49,9 +50,31 @@ function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
     });
   };
 
+  const validateEmail = (email) => {
+    const re = /\S+@\S+\.\S+/;
+    return re.test(email);
+  };
+
+  const isFormValid = () => (
+    formConfig.every((form) => {
+      let tempResult = true;
+      if (form.mandatory) {
+        tempResult = tempResult && formValue[form.name];
+      }
+      if (!tempResult) return tempResult;
+      if (form.type === 'email') {
+        tempResult = tempResult && validateEmail(formValue[form.name]);
+      }
+      return tempResult;
+    })
+  );
+
   const handleSubmit = (e) => {
+    // validate form value here
     e.preventDefault();
-    submitHandler(formValue);
+    if (isFormValid()) {
+      submitHandler(formValue);
+    }
   };
 
   const handleClose = (e) => {
@@ -63,6 +86,15 @@ function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
     <FormStyled>
       {title && <Title>{title}</Title>}
       {subtitle && <Subtitle>{subtitle}</Subtitle>}
+      {invalidFields
+      && (
+        <div>
+          You must enter the following:
+          <ul>
+            {invalidFields.map((field) => <li>{field}</li>)}
+          </ul>
+        </div>
+      )}
       {formConfig.map((config) => (
         <FormInput
           key={config.name}
@@ -72,6 +104,7 @@ function Form({ formConfig = [], id, title, subtitle, submitHandler }) {
           placeholder={config.placeholder}
           value={formValue.value}
           mandatory={config.mandatory}
+          maxLength={config.maxLength}
           extra={config.extra || ''}
           onChange={onChange}
           other={config.other}

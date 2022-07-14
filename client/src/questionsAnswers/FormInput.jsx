@@ -21,13 +21,14 @@ const Input = styled.input`
   width: 50%;
 `;
 
-function FormInput({ label, type, name, placeholder, mandatory, value, onChange, extra, setImages }) {
+function FormInput({ label, type, name, placeholder, mandatory, value, onChange, maxLength, extra, setImages }) {
   const textarea = (
     <Textarea
       name={name}
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      maxLength={maxLength}
     />
   );
 
@@ -38,6 +39,7 @@ function FormInput({ label, type, name, placeholder, mandatory, value, onChange,
       placeholder={placeholder}
       value={value}
       onChange={onChange}
+      maxLength={maxLength}
     />
   );
 

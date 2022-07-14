@@ -44,6 +44,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       name: 'body',
       value: '',
       placeholder: '',
+      maxLength: 1000,
       mandatory: true,
     },
     {
@@ -53,6 +54,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       value: '',
       placeholder: 'Example: jack543!',
       extra: 'For privacy reasons, do not use your full name or email address',
+      maxLength: 60,
       mandatory: true,
     },
     {
@@ -62,6 +64,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       value: '',
       placeholder: 'Example: jack@email.com',
       extra: 'For authentication reasons, you will not be emailed',
+      maxLength: 60,
       mandatory: true,
     },
     {
@@ -123,7 +126,6 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
     };
     axios(requestConfig)
       .then(() => {
-        console.log(requestConfig);
         document.getElementById(`${question.question_id}-popup`).style.display = 'none';
         getAnswers();
       })

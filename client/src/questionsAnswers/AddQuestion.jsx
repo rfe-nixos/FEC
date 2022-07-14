@@ -11,6 +11,7 @@ function AddQuestion({ id, renderQuestions, Button, productName }) {
       value: '',
       placeholder: '',
       mandatory: true,
+      maxLength: 1000,
     },
     {
       label: 'What is your nickname',
@@ -20,6 +21,7 @@ function AddQuestion({ id, renderQuestions, Button, productName }) {
       placeholder: 'Example: jackson11!',
       extra: 'For privacy reasons, do not use your full name or email address',
       mandatory: true,
+      maxLength: 60,
     },
     {
       label: 'Your email',
@@ -29,6 +31,7 @@ function AddQuestion({ id, renderQuestions, Button, productName }) {
       placeholder: 'Example: jack@email.com',
       extra: 'For authentication reasons, you will not be emailed',
       mandatory: true,
+      maxLength: 60,
     },
   ];
 
