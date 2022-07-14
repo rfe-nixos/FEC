@@ -14,7 +14,7 @@ const DivContainer = styled.div`
   margin: auto;
   color : #3d3c3c;
   font-size: 17px;
-  max-height: ${windowHeight}px;
+  max-height: 400px;
 `;
 
 const Button = styled.button`
@@ -35,18 +35,21 @@ const Title = styled.div`
 
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
-  const [maxQuestionCount, setMaxQuestionCount] = useState(2);
-  const [currentCount, setCurrentCount] = useState(30);
+  const [hasMore, setHasMore] = useState(true);
+  const [page, setPage] = useState(1);
+  // const [currentCount, setCurrentCount] = useState(30);
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});
+  const [expanded, setExpanded] = useState(false);
 
-  const getAllQuestions = () => {
+  const getAllQuestions = (count = 20) => {
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions`,
       params: {
         product_id: productId,
-        count: currentCount,
+        count,
+        page,
       },
       headers: {
         Authorization: process.env.AUTH_TOKEN,
@@ -55,7 +58,12 @@ function QuestionAnswers({ productId }) {
 
     axios(requestConfig)
       .then((result) => {
-        setQuestionList(result.data.results);
+        if (result.data.results.length === 0) {
+          setHasMore(false);
+          return;
+        }
+        setQuestionList([...questionList, ...result.data.results]);
+        setPage(page + 1);
       })
       .catch((err) => {
         console.log('failed fetching all questions from API.', err);
@@ -85,15 +93,15 @@ function QuestionAnswers({ productId }) {
     getProductInfo();
   }, []);
 
-  useEffect(() => {
-    if (questionList.length !== 0 && maxQuestionCount >= questionList.length) {
-      setCurrentCount(currentCount + 30);
-    }
-  }, [maxQuestionCount]);
+  // useEffect(() => {
+  //   if (questionList.length !== 0 && maxQuestionCount >= questionList.length) {
+  //     setCurrentCount(currentCount + 30);
+  //   }
+  // }, [maxQuestionCount]);
 
-  useEffect(() => {
-    getAllQuestions();
-  }, [currentCount]);
+  // useEffect(() => {
+  //   getAllQuestions(2);
+  // }, []);
 
   return (
     <DivContainer id="question-and-answers">
@@ -104,15 +112,16 @@ function QuestionAnswers({ productId }) {
       <QuestionList
         questions={questionList}
         renderQuestions={getAllQuestions}
-        maxQuestionCount={maxQuestionCount}
         keyword={filteredKeyword}
         productName={productInfo.name}
+        hasMore={hasMore}
+        expanded={expanded}
       />
       <FlexDiv>
         <MoreQuestions
           totalQuestionCount={questionList.length}
-          currentMaxCount={maxQuestionCount}
-          setMaxQuestionCount={setMaxQuestionCount}
+          expanded={expanded}
+          setExpanded={setExpanded}
           Button={Button}
         />
         <AddQuestion

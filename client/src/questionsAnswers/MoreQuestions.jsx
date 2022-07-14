@@ -1,15 +1,15 @@
 import React, { useEffect } from 'react';
 // import ThemeProvider from 'styled-components';
 
-function MoreQuestions({ totalQuestionCount, currentMaxCount, setMaxQuestionCount, Button }) {
+function MoreQuestions({ expanded, setExpanded, Button }) {
   const handleClick = (e) => {
     e.preventDefault();
-    setMaxQuestionCount(currentMaxCount + 2);
+    setExpanded(true);
   };
 
   return (
     <div id="add-question-btn">
-      {currentMaxCount <= totalQuestionCount
+      {!expanded
       && (
         <Button type="submit" onClick={handleClick}>
           MORE ANSWERED QUESTIONS
