@@ -12,7 +12,8 @@ function Overview() {
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
   const [currentStyle, setCurrentStyle] = useState({});
-  const [currentSize, setCurrentSize] = useState('Select a Size');
+  const [currentSize, setCurrentSize] = useState('');
+  const [currentAmount, setCurrentAmount] = useState('');
   const [currentImage, setCurrentImage] = useState('');
 
   const productId = '37314';
@@ -85,7 +86,7 @@ function Overview() {
         <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} />
         <ProductDetails product={product} currentStyle={currentStyle} />
         <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
-        <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} />
+        <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} />
       </div>
     );
   }

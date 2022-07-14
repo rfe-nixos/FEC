@@ -1,32 +1,38 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable max-len */
 import React from 'react';
 
-function AddToCart({ currentStyle, currentSize, setCurrentSize }) {
-  // console.log(currentStyle.props);
-
+function AddToCart({ currentStyle, currentSize, setCurrentSize, currentAmount, setCurrentAmount }) {
   const stock = currentStyle.skus;
 
   const stockKeys = Object.keys(stock);
 
-  const allSizes = [];
+  const allOptions = {};
   for (let i = 0; i < stockKeys.length; i += 1) {
-    allSizes.push(stock[stockKeys[i]]);
+    allOptions[stock[stockKeys[i]].size] = stock[stockKeys[i]].quantity;
   }
 
-  // console.log(allSizes);
+  const sizes = Object.keys(allOptions);
+  const sizeOptions = [];
+  sizes.forEach((size) => sizeOptions.push(<option key={size} value={size}>{size}</option>));
 
-  /* const amountOptions = [];
-  for (let i = 1; i <= currentSize.quantity; i += 1) {
-    amountOptions.push(<option key={i}>{i}</option>);
+  const amountOptions = [];
+  if (currentSize !== 'Select a Size') {
+    const amount = allOptions[currentSize];
+    for (let i = 1; i <= amount; i += 1) {
+      amountOptions.push(<option key={i}>{i}</option>);
+    }
   }
 
   const handleSizeChange = (event) => {
     event.preventDefault();
-    console.log('Size change!', event.target);
+    setCurrentSize(event.target.value);
   };
 
-  const sizeOptions = [];
-  allSizes.forEach((item) => sizeOptions.push(<option key={item.size} value={item}>{item.size}</option>));
+  const handleAmountChange = (event) => {
+    event.preventDefault();
+    setCurrentAmount(event.target.value);
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -35,14 +41,16 @@ function AddToCart({ currentStyle, currentSize, setCurrentSize }) {
   return (
     <form className="addToCart">
       <select className="sizeOptions" onChange={handleSizeChange}>
+        <option key="defaultSize" value="Select a Size">Select a Size</option>
         {sizeOptions}
       </select>
-      <select className="amountOptions">
+      <select className="amountOptions" onChange={handleAmountChange}>
+        <option key="defaultAmount" value="Select an Amount">Select an Amount</option>
         {amountOptions}
       </select>
       <input className="cartButton" type="submit" value="Add to Cart" onSubmit={handleSubmit} />
     </form>
-  ); */
+  );
 }
 
 export default AddToCart;

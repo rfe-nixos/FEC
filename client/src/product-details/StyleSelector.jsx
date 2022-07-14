@@ -23,8 +23,8 @@ function StyleSelector({ styles, currentStyle, setCurrentStyle }) {
 
   styles.forEach((style) => (
     styleList.push(
-      <div key={style.name} className="styleOption" onClick={handleClick}>
-        <img src={style.photos[0].thumbnail_url} alt={style.style_id} />
+      <div key={style.name} className="styleOption">
+        <img src={style.photos[0].thumbnail_url} alt={style.style_id} onClick={handleClick} />
       </div>,
     )
   ));

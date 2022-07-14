@@ -1,6 +1,6 @@
 .overview {
   display: inline-block;
-  height: 600px;
+  height: 800px;
   width: 1000px;
   /* overflow: scroll; */
   border: solid black 3px;
@@ -78,7 +78,7 @@
   float: right;
   text-align: center;
   overflow: scroll;
-  margin-top: 5px;
+  margin: 5px;
   width: 500px;
   height: 50px;
 }
