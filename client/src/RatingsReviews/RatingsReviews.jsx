@@ -1,8 +1,8 @@
 import React from 'react';
+import axios from 'axios';
 import styled from 'styled-components';
 import Ratings from './Ratings/Ratings.jsx';
 import Reviews from './Reviews/Reviews.jsx';
-import axios from 'axios';
 
 class RatingsReviews extends React.Component {
   constructor(props) {

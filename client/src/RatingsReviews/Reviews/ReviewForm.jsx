@@ -154,14 +154,14 @@ class ReviewForm extends React.Component {
       alert('please enter name');
     } else if (!reviewBody.rating) {
       alert('please enter rating');
-    } else if (!reviewBody.body) {
-      alert('please enter body');
+    } else if (reviewBody.body.length < 20) {
+      alert('body must be at least 20 characters');
     } else if (!reviewBody.email) {
       alert('please enter email');
     } else if (!reviewBody.characteristics) {
       alert('please enter characteristics');
     } else if (!reviewBody.name) {
-      alert('please enter name');
+      alert('please enter nickname');
     } else {
       this.props.addReview(reviewBody);
     }
@@ -225,16 +225,12 @@ class ReviewForm extends React.Component {
           </StyledCat>
           <StyledCat>
             Fit:
-            {' '}
             <CharButtons char="125031" setChar={this.setChar} />
             Length:
-            {' '}
             <CharButtons char="125032" setChar={this.setChar} />
             Comfort:
-            {' '}
             <CharButtons char="125033" setChar={this.setChar} />
             Quality:
-            {' '}
             <CharButtons char="125034" setChar={this.setChar} />
           </StyledCat>
           <StyledCat>

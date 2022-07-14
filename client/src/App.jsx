@@ -1,14 +1,11 @@
-import React from "react";
-import RatingsReviews from './RatingsReviews/RatingsReviews.jsx'
+import React from 'react';
+import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 
 // Huzzah for jsx!
-const App = () => {
+function App() {
   return (
-    <div>
-      <RatingsReviews />
-    </div>
-    )
-
+    <RatingsReviews />
+  );
 }
 
 export default App;

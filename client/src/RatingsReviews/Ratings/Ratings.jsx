@@ -1,5 +1,4 @@
 import React from 'react';
-import axios from 'axios';
 import Breakdown from './Breakdown.jsx';
 import Characteristics from './Characteristics.jsx';
 import Summary from './Summary.jsx';

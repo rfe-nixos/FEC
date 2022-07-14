@@ -1,5 +1,5 @@
 import React from 'react';
-import starRating from '../lib/starRatings.js';
+import ratingToPercentage from '../lib/ratingToPercentage.js';
 import styled from 'styled-components';
 
 const StyledStars = styled.p`

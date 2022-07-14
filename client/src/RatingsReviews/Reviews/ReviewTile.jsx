@@ -1,3 +1,4 @@
+/* eslint-disable no-restricted-globals */
 /* eslint-disable no-alert */
 import React from 'react';
 import { format, parseISO } from 'date-fns';
@@ -16,9 +17,9 @@ class ReviewTile extends React.Component {
 
   markHelpful(e) {
     e.preventDefault();
-    let rId = this.props.review.review_id
+    const rId = this.props.review.review_id;
     this.props.markHelpful(rId);
-  };
+  }
 
   report(e) {
     e.preventDefault();
@@ -36,38 +37,43 @@ class ReviewTile extends React.Component {
             <Star average={this.props.review.rating} />
           </div>
           <div>
-            {this.props.review.reviewer_name + ", "}
-            {format(parseISO(this.props.review.date), 'MMMM dd, yyyy') + " "}
+            {`${this.props.review.reviewer_name}, `}
+            {`${format(parseISO(this.props.review.date), 'MMMM dd, yyyy')} `}
           </div>
         </TileTop>
         <TileMain>
           <div><h5>{this.props.review.summary}</h5></div>
           <div><small>{this.props.review.body}</small></div>
           <div>
-              {this.props.review.recommend &&
+            {this.props.review.recommend
+              && (
               <h5>
                 I recommend this product &#10003;
               </h5>
-            }
-            {this.props.review.response &&
+              )}
+            {this.props.review.response
+              && (
               <h4>
-                from the seller: {this.props.review.response}
+                from the seller:
+                {' '}
+                {this.props.review.response}
               </h4>
-            }
+              )}
           </div>
           <div>
             <small>
-              Helpful? : {this.props.review.helpfulness + " "}
+              Helpful? :
+              {' '}
+              {`${this.props.review.helpfulness} `}
             </small>
             <StyledButton onClick={this.markHelpful}>YES</StyledButton>
             <StyledButton onClick={this.report}>report</StyledButton>
           </div>
         </TileMain>
       </TileContainer>
-    )
+    );
   }
 }
-
 
 const TileContainer = styled.div`
   display: flex;
@@ -77,7 +83,7 @@ const TileContainer = styled.div`
   border-bottom: 1px solid black;
   padding: 0%;
   margin-top: 1%;
-`
+`;
 
 const TileTop = styled.div`
   display: flex;
@@ -85,7 +91,7 @@ const TileTop = styled.div`
   justify-content: space-between;
   font-size: x-small;
   align-items: center;
-`
+`;
 
 const TileMain = styled.div`
   display: flex;
@@ -93,7 +99,7 @@ const TileMain = styled.div`
   flex-direction: column;
   margin-top: -2%;
   max-width: 400px
-`
+`;
 
 const StyledButton = styled.button`
   width: auto;
@@ -108,7 +114,6 @@ const StyledButton = styled.button`
     cursor: pointer;
     opacity: 60%;
   }
-`
-
+`;
 
 export default ReviewTile;
