@@ -22,11 +22,13 @@ class Reviews extends React.Component {
     this.sort = this.sort.bind(this);
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
+    this.addReview = this.addReview.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.getByRating = this.getByRating.bind(this);
   }
 
   componentDidMount() {
-    //this.getReviews();
+    this.getReviews();
   }
 
   getReviews() {
@@ -41,16 +43,43 @@ class Reviews extends React.Component {
         this.setState({ reviews: response.data.results });
       })
       .catch((err) => console.log('error fetching reviews', err));
-    } else {
+    } else if (this.state.sorted) {
       this.sort(this.state.sort_option);
+    } else if (this.props.filteredByRating) {
+      this.getByRating();
     }
   }
+
+  getByRating() {
+      axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
+      headers: {
+        Authorization: process.env.AUTH_KEY,
+      },
+    })
+      .then((response) => {
+        console.log('successfully fetched reviews');
+        if (this.props.filteredByRating) {
+          let obj = this.props.ratingFilter;
+          let filtered = response.data.results.filter((result) => {
+            if (obj[result.rating+""]) {
+              return result;
+            }
+          })
+          this.setState({ reviews: filtered });
+        }
+      })
+      .catch((err) => console.log('error fetching reviews', err));
+  };
 
   moreReviews() {
     let page = this.state.page;
     page += 1;
     this.setState({ page }, () => {
+      if (this.props.filteredByRating) {
+        this.getByRating();
+      } else {
         this.getReviews();
+      }
     });
   };
 
@@ -133,19 +162,19 @@ class Reviews extends React.Component {
     return (
       <ReviewsContainer data-testid="reviews-1">
         <SortBar
-          reviews={this.props.reviews}
-          sort={this.props.sort}
+          reviews={this.state.reviews}
+          sort={this.sort}
           totalRatings={this.props.totalRatings}
         />
         <ReviewList
-          reviews={this.props.reviews}
+          reviews={this.state.reviews}
           markHelpful={this.markHelpful}
           report={this.report}
         />
         <AddBar
-          reviews={this.props.reviews}
+          reviews={this.state.reviews}
           addReview={this.addReview}
-          moreReviews={this.props.moreReviews}
+          moreReviews={this.moreReviews}
         />
       </ReviewsContainer>
     )

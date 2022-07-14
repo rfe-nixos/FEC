@@ -3,6 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Ratings from './Ratings/Ratings.jsx';
 import Reviews from './Reviews/Reviews.jsx';
+import getTotalRatings from './lib/getTotalRatings.js';
 
 class RatingsReviews extends React.Component {
   constructor(props) {
@@ -15,28 +16,77 @@ class RatingsReviews extends React.Component {
       products: [],
       product: '37311',
       ratingFilter: {},
-      filteredByRating: false
+      filteredByRating: false,
+      reviews: [],
+      page: 1,
+      sort_option: '',
+      sorted: false,
+      filtered: [],
+
     };
     this.getRatings = this.getRatings.bind(this);
     this.setRatingFilter = this.setRatingFilter.bind(this);
+    this.getReviews = this.getReviews.bind(this);
+    this.moreReviews = this.moreReviews.bind(this);
+    this.sort = this.sort.bind(this);
   }
 
   componentDidMount() {
     this.getRatings();
-    // this.getProducts();
+    this.getReviews();
   }
 
-  // getProducts() {
-  //   axios.get(`${process.env.API_URL}/products?count=5`, {
-  //     headers: {
-  //       Authorization: process.env.AUTH_KEY,
-  //     },
-  //   })
-  //     .then((response) => {
-  //       this.setState({products: response.data});
-  //     })
-  //     .catch((err) => console.log('error getting products', err));
-  // }
+  getReviews() {
+    if (!this.state.sorted) {
+      axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
+      headers: {
+        Authorization: process.env.AUTH_KEY,
+      },
+    })
+      .then((response) => {
+        console.log('successfully fetched reviews');
+        this.setState({ reviews: response.data.results });
+      })
+      .catch((err) => console.log('error fetching reviews', err));
+    } else {
+      this.sort(this.state.sort_option);
+    }
+  }
+
+  moreReviews() {
+    let page = this.state.page;
+    page += 1;
+    this.setState({ page, filteredByRating: false, filtered: [] }, () => {
+        this.getReviews();
+    });
+  };
+
+  sort(new_option) {
+    //if new option is different from current sort option,
+    //reset page count, and set sort option to the new option
+    if (new_option !== this.state.sort_option) {
+      this.setState({ page: 1, filteredByRating: false, filtered: [] }, () => {
+        this.getReviews();
+      });
+    }
+    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
+      headers: {
+        Authorization: process.env.AUTH_KEY,
+      },
+    })
+      .then((response) => {
+        console.log('successfully fetched reviews');
+        console.log(response.data.results);
+        this.setState({
+          reviews: response.data.results,
+          sort_option: option,
+          sorted: true,
+          filteredByRating: false,
+          filtered: [],
+        });
+      })
+      .catch((err) => console.log('error fetching reviews', err));
+  }
 
   getRatings() {
     axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.state.product}`, {
@@ -47,13 +97,8 @@ class RatingsReviews extends React.Component {
       .then((response) => {
         console.log('successfully fetched ratings');
         console.log(response.data);
-        let sum = 0;
-        let totalRatings = 0;
-        const r = response.data.ratings;
-        for (const key in r) {
-          totalRatings += parseInt(r[key]);
-          sum += parseInt(key) * parseInt(r[key]);
-        }
+        let sum = getTotalRatings(response.data.ratings)[0];
+        let totalRatings = getTotalRatings(response.data.ratings)[1];
         this.setState(
           {
             meta: response.data,
@@ -77,11 +122,27 @@ class RatingsReviews extends React.Component {
     //if there is not a single true in rating filter,
     //set filteredbyrating to false.
     if (Object.values(temp).indexOf(true) !== -1) {
-      this.setState({ filteredByRating: true, ratingFilter: temp });
+      this.setState({ filteredByRating: true, ratingFilter: temp }, () => {
+        this.getByRating();
+      });
     } else {
-      this.setState({ filteredByRating: false, ratingFilter: temp });
+      this.setState({ filteredByRating: false, ratingFilter: temp, filtered: [] }, () => {
+      });
     }
+  }
 
+  getByRating() {
+    //set temp as current list of reviews,
+    //filter temp to fit ratings filter,
+    //set state reviews to be temp.
+    let temp = this.state.reviews;
+    let obj = this.state.ratingFilter;
+    let filtered = temp.filter((review) => {
+      if (obj[review.rating+""]) {
+        return review;
+      }
+    });
+    this.setState({ filtered });
   }
 
   render() {
@@ -100,11 +161,27 @@ class RatingsReviews extends React.Component {
             totalRatings={this.state.totalRatings}
             setRatingFilter={this.setRatingFilter}
           />
-          <Reviews
+          {!this.state.filteredByRating && (
+            <Reviews
             totalRatings={this.state.totalRatings}
             ratingFilter={this.state.ratingFilter}
             filteredByRating={this.state.filteredByRating}
-          />
+            moreReviews={this.moreReviews}
+            reviews={this.state.reviews}
+            sort={this.sort}
+            />
+          )}
+          {this.state.filteredByRating && (
+            <Reviews
+            totalRatings={this.state.totalRatings}
+            ratingFilter={this.state.ratingFilter}
+            filteredByRating={this.state.filteredByRating}
+            moreReviews={this.moreReviews}
+            reviews={this.state.filtered}
+            sort={this.sort}
+            />
+          )}
+
         </StyledInner>
       </StyledMain>
     );

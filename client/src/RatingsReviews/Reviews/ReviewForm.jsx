@@ -150,9 +150,7 @@ class ReviewForm extends React.Component {
       recommend: this.state.recommend,
       characteristics: this.state.characteristics,
     };
-    if (reviewBody.name) {
-      alert('please enter name');
-    } else if (!reviewBody.rating) {
+    if (!reviewBody.rating) {
       alert('please enter rating');
     } else if (reviewBody.body.length < 20) {
       alert('body must be at least 20 characters');
