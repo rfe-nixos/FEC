@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import starRating from '../lib/starRatings.js';
+import ratingToPercentage from '../lib/starRatings.js';
 
 const StarContainer = styled.div`
   font-size: small;
@@ -30,7 +30,7 @@ const InnerStar = styled.div`
 function Star({ average }) {
   return (
     <StarContainer>
-      <OuterStar><InnerStar width={starRating(average)} /></OuterStar>
+      <OuterStar><InnerStar width={ratingToPercentage(average)} /></OuterStar>
     </StarContainer>
   );
 }

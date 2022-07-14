@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import starRating from '../lib/starRatings.js';
+import ratingToPercentage from '../lib/starRatings.js';
 
 const BarContainer = styled.div`
   font-size: xx-small;

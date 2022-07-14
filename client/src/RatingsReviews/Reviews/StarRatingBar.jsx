@@ -1,3 +1,6 @@
+/* eslint-disable no-plusplus */
+/* eslint-disable radix */
+/* eslint-disable no-console */
 import React from 'react';
 import styled from 'styled-components';
 

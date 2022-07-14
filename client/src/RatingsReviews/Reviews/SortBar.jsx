@@ -4,7 +4,7 @@ import styled from 'styled-components';
 function SortBar(props) {
   const sort = (e) => {
     props.sort(e.target.value);
-  }
+  };
 
   return (
     <StyledSortBar>
@@ -15,15 +15,15 @@ function SortBar(props) {
         <option value="helpful">Helpfulness</option>
       </StyledDropDown>
     </StyledSortBar>
-  )
+  );
 }
 
 const StyledSortBar = styled.div`
   display: flex;
+  flex-direction: row;
   font-weight: bold;
   font-size: 15px;
-  align-
-`
+`;
 
 const StyledDropDown = styled.select`
   margin-left: 1.5%;
@@ -34,6 +34,6 @@ const StyledDropDown = styled.select`
   border-bottom: 1px solid black;
   align-self: flex-end;
   margin-bottom: .4%;
-`
+`;
 
 export default SortBar;

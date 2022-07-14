@@ -1,7 +1,7 @@
 import React from 'react';
-import starRating from '../lib/starRatings.js';
 import styled from 'styled-components';
 import Char from './Char.jsx';
+import ratingToPercentage from '../lib/starRatings.js';
 
 const BarContainer = styled.div`
   font-size: xx-small;
@@ -43,7 +43,7 @@ function CharBar({ rating, char, chars }) {
     <BarContainer>
       <StarCount>{char}: </StarCount>
       <OuterBar>
-        <InnerBar width={starRating(rating)}>
+        <InnerBar width={ratingToPercentage(rating)}>
         </InnerBar>
       </OuterBar>
       <CharList>
