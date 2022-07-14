@@ -112,6 +112,7 @@ class ReviewForm extends React.Component {
     this.recommend = this.recommend.bind(this);
     this.closeForm = this.closeForm.bind(this);
     this.setChar = this.setChar.bind(this);
+    this.setRating = this.setRating.bind(this);
   }
 
   setChar(char, rating) {
@@ -145,6 +146,10 @@ class ReviewForm extends React.Component {
     this.props.addReview(reviewBody);
   }
 
+  setRating(rating) {
+    this.setState({ rating })
+  }
+
   handleChange(e) {
     e.preventDefault();
     this.setState({
@@ -166,9 +171,8 @@ class ReviewForm extends React.Component {
             <div>
               Your Rating
               <sup>*</sup>
-              <StarRatingBar />
+              <StarRatingBar setRating={this.setRating} />
             </div>
-            <StyledInput placeholder="rating" name="rating" onChange={this.handleChange} />
           </StyledCat>
           <StyledCat>
             <div>
