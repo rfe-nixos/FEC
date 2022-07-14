@@ -29,6 +29,7 @@ class RatingsReviews extends React.Component {
     this.getReviews = this.getReviews.bind(this);
     this.moreReviews = this.moreReviews.bind(this);
     this.sort = this.sort.bind(this);
+    this.scrollMore = this.scrollMore.bind(this);
   }
 
   componentDidMount() {
@@ -57,6 +58,15 @@ class RatingsReviews extends React.Component {
     let page = this.state.page;
     page += 1;
     this.setState({ page, filteredByRating: false, filtered: [] }, () => {
+        console.log(page, 'page of more results')
+        this.getReviews();
+    });
+  };
+
+  scrollMore() {
+    let page = this.state.page;
+    page += 1;
+    this.setState({ page }, () => {
         console.log(page, 'page of more results')
         this.getReviews();
     });
@@ -172,6 +182,7 @@ class RatingsReviews extends React.Component {
             reviews={this.state.reviews}
             sort={this.sort}
             getReviews={this.getReviews}
+            scrollMore={this.scrollMore}
             />
           )}
           {this.state.filteredByRating && (
@@ -183,9 +194,9 @@ class RatingsReviews extends React.Component {
             reviews={this.state.filtered}
             sort={this.sort}
             getReviews={this.getReviews}
+            scrollMore={this.scrollMore}
             />
           )}
-
         </StyledInner>
       </StyledMain>
     );
@@ -224,6 +235,7 @@ const StyledInner = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: top;
+  min-width: 700px;
   width: 90%;
   border-top: 1px solid black;
   padding-top: 1%;

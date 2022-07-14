@@ -85,7 +85,7 @@ class Reviews extends React.Component {
           reviews={this.props.reviews}
           markHelpful={this.markHelpful}
           report={this.report}
-          moreReviews={this.props.moreReviews}
+          scrollMore={this.props.scrollMore}
         />
         <AddBar
           reviews={this.props.reviews}

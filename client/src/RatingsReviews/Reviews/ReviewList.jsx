@@ -12,8 +12,6 @@ const StyledList = styled.div`
   overflow-y: auto;
 `;
 
-
-
 function ReviewList(props) {
   const listInnerRef = useRef();
 
@@ -22,7 +20,7 @@ function ReviewList(props) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
       if (scrollTop + clientHeight + 1 > scrollHeight) {
         console.log("reached bottom, getting more reviews");
-        props.moreReviews();
+        props.scrollMore();
       }
     }
   };
