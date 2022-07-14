@@ -1,6 +1,7 @@
 import React from 'react';
 import starRating from '../lib/starRatings.js';
 import styled from 'styled-components';
+import Char from './Char.jsx';
 
 const BarContainer = styled.div`
   font-size: xx-small;
@@ -8,7 +9,6 @@ const BarContainer = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
 `
 
 const OuterBar = styled.div`
@@ -31,14 +31,15 @@ const InnerBar = styled.div`
   overflow: hidden;
   width:auto;
   height: 20px;
+  font-size:x-small;
   transform: translate(-50%, -50%);
   &:before {
-    content: "★";
+    content: "▼";
   }
 
 `
 
-function CharBar({ rating, char }) {
+function CharBar({ rating, char, chars }) {
   return (
     <BarContainer>
       <StarCount>{char}: </StarCount>
@@ -46,12 +47,20 @@ function CharBar({ rating, char }) {
         <InnerBar width={starRating(rating)}>
         </InnerBar>
       </OuterBar>
+      <CharList>
+        {chars.map((c, index) => {
+          return <Char char={c} key={index}/>
+        })}
+      </CharList>
     </BarContainer>
   );
 }
 
-const Pointer = styled.div`
-
+const CharList = styled.div`
+  font-size: xxx-small;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
 `
 
 const StarCount = styled.div`

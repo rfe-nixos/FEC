@@ -45,6 +45,10 @@ function Bar({ percentage, star }) {
 
 const StarCount = styled.div`
   border-bottom: .5px solid black;
+  &:hover{
+    opacity:70%;
+    cursor: pointer;
+  }
 `
 
 export default Bar;
