@@ -1,15 +1,30 @@
 import styled from 'styled-components';
 
 export const StyledList = styled.div`
-  /* display: flex;
-  flex-direction: row;
-  flex-wrap: wrap; */
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
   grid-template-rows: repeat(auto-fit, minmax(12rem, auto));
   gap: 2rem;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
+  .slider {
+    background-color: gray;
+    position: absolute;
+    z-index: 1.5;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    top: 50%;
+    cursor: pointer;
+    border-radius: 0.25rem;
+  }
+  .leftSlider {
+    left: 2.5rem;
+  }
+  .rightSlider {
+    right: 2.5rem;
+  }
 `;
 
 export const StyledCard = styled.div`
@@ -41,7 +56,7 @@ export const StyledCard = styled.div`
   .relatedAction {
     position: absolute;
     padding: 0.25rem;
-    z-index:3;
+    z-index: 3;
     right: 0;
     top: 0;
     color: gold;

@@ -1,20 +1,41 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
+import { useState } from 'react';
 import { StyledCard } from './styles/list.styled.js';
+
 function Product({ formattedCard }) {
+  const [picIndex, setPicIndex] = useState(0);
+  console.log(formattedCard.image);
+  const handleRightClick = () => {
+    if (picIndex < formattedCard.image.length - 1) {
+      setPicIndex((prev) => prev + 1);
+    }
+  };
+  const handleLeftClick = () => {
+    if (picIndex > 0) {
+      setPicIndex((prev) => prev - 1);
+    }
+  };
   return (
     <StyledCard>
       <div className="cardHeader">
-      <FaStar className="relatedAction" />
+        <FaStar className="relatedAction" />
         <img
-          src={formattedCard.image}
+          src={
+            formattedCard.image[picIndex].thumbnail_url ||
+            'https://ngca.net/wp-content/uploads/2020/09/image-coming-soon-placeholder.png'
+          }
           className="cardImage"
           alt={formattedCard.description}
         />
-        <button class="btn btnLeft" type="button">
+        <button className="btn btnLeft" type="button" onClick={handleLeftClick}>
           &#8656;
         </button>
-        <button class="btn btnRight" type="button">
+        <button
+          className="btn btnRight"
+          type="button"
+          onClick={handleRightClick}
+        >
           &#8658;
         </button>
       </div>
