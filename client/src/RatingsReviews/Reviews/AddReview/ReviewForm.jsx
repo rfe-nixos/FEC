@@ -206,7 +206,6 @@ class ReviewForm extends React.Component {
     } else {
       console.log(photo);
       let temp = [...this.state.photos, photo];
-      //let tempurls = [...this.state.photoUrls, URL.createObjectURL(photo).slice(5)];
       this.setState({photos: temp});
     }
   }
@@ -225,7 +224,6 @@ class ReviewForm extends React.Component {
       temp.splice(index, 1);
       this.setState({photoUrls: temp});
     }
-
   }
 
   render() {

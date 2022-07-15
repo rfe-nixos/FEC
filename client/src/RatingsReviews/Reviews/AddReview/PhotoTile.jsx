@@ -4,8 +4,8 @@ import styled from 'styled-components';
 function PhotoTile(props) {
   return(
     <StyledDiv>
-      {props.photo.name}
-      <StyledImg src={URL.createObjectURL(props.photo)} />
+      {props.photo.original_filename}
+      <StyledImg src={props.photo.url} />
     </StyledDiv>
   )
 }

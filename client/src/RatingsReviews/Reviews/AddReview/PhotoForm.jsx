@@ -9,7 +9,6 @@ function PhotoForm(props) {
   const [photosArray, addToArray] = useState([]);
 
   const url = "https://api.cloudinary.com/v1_1/joehan/image/upload"
-  const api_key = "481542639533787"
 
   const uploadPhoto = () => {
     var fd = new FormData();
@@ -22,6 +21,8 @@ function PhotoForm(props) {
       .then((res) => {
         console.log('file upload success', res);
         props.addUrl(res.data.url);
+        props.addPhoto(res.data);
+        setSelectedPhoto(null); // reset selected photo.
       })
       .catch((err) => console.log('error uploading photo', err));
   }
@@ -32,16 +33,17 @@ function PhotoForm(props) {
         onFileSelect={(file) => {
           setSelectedPhoto(file);
           addToArray(oldPhotos => [...oldPhotos, file]);
-          props.addPhoto(file);
         }}
         addUrl={props.addUrl}
        />
+      <button onClick={uploadPhoto}>upload photo</button>
+      <div>uploaded images:</div>
       {(props.photos.length > 0) &&
         (props.photos.map((photo, index) => (
           <PhotoTile key={index} photo={photo} />
         )))
       }
-      <button onClick={uploadPhoto}>submit</button>
+
 
     </StyledDiv>
   )
