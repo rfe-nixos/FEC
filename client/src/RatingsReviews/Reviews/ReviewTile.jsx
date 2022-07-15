@@ -51,6 +51,11 @@ class ReviewTile extends React.Component {
                 I recommend this product &#10003;
               </h5>
               )}
+            {this.props.review.photos.length > 0
+              && (
+                <StyledImg src={this.props.review.photos[0]['url']} />
+              )
+            }
             {this.props.review.response
               && (
               <h4>
@@ -110,6 +115,16 @@ const StyledButton = styled.button`
   background: white;
   color: black;
   border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
+
+const StyledImg = styled.img`
+  max-height: 100px;
+  scale: auto;
+  border: 1px solid #d9d9d9;
   &:hover {
     cursor: pointer;
     opacity: 60%;

@@ -14,7 +14,7 @@ class RatingsReviews extends React.Component {
       totalRatings: 0,
       isLoaded: false,
       products: [],
-      product: '37311',
+      product: '37316',
       ratingFilter: {},
       filteredByRating: false,
       reviews: [],
@@ -39,7 +39,7 @@ class RatingsReviews extends React.Component {
 
   getReviews() {
     if (!this.state.sorted) {
-      axios.get(`${process.env.API_URL}/reviews?product_id=37313&count=${this.state.page * 2}`, {
+      axios.get(`${process.env.API_URL}/reviews?product_id=37311&count=${this.state.page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -96,14 +96,14 @@ class RatingsReviews extends React.Component {
             sorted: true,
             filteredByRating: false,
             filtered: [],
-          });
+          }, () => {console.log(this.state.reviews)});
         })
         .catch((err) => console.log('error fetching reviews', err));
     }
   }
 
   getRatings() {
-    axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.state.product}`, {
+    axios.get(`${process.env.API_URL}/reviews/meta?product_id=37311`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
