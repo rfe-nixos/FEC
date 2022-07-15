@@ -50,10 +50,10 @@ class Bar extends React.Component {
     this.state = {
       resultsFilter: {}
     }
-    this.handleClick = this.handleClick.bind(this);
+    this.setRatingFilter = this.setRatingFilter.bind(this);
   }
 
-  handleClick() {
+  setRatingFilter() {
     this.props.setRatingFilter(this.props.star);
   }
 
@@ -61,7 +61,7 @@ class Bar extends React.Component {
     return (
       <BarContainer>
         <StarCount>{this.props.star}</StarCount>
-        <OuterBar onClick={this.handleClick}><InnerBar width={this.props.percentage} /></OuterBar>
+        <OuterBar onClick={this.setRatingFilter}><InnerBar width={this.props.percentage} /></OuterBar>
       </BarContainer>
     );
   }
@@ -69,10 +69,10 @@ class Bar extends React.Component {
 
 const StarCount = styled.div`
   border-bottom: .5px solid black;
-  &:hover{
+  /* &:hover{
     opacity:70%;
     cursor: pointer;
-  }
+  } */
 `;
 
 export default Bar;

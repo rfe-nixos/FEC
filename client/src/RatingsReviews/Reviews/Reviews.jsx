@@ -49,7 +49,7 @@ class Reviews extends React.Component {
       .then(() => {
         this.setState({ reviewed: true });
         console.log('success reporting review');
-        this.getReviews();
+        this.props.getReviews();
       })
       .catch((err) => console.log('error reporting review', err))
   }

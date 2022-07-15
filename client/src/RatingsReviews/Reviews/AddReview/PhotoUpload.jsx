@@ -23,13 +23,16 @@ function PhotoUpload ({ onFileSelect, addUrl }) {
         <StyledImg onClick={handlePhotoSelection} src="https://media.gq.com/photos/619d44c7f3b9613312e5a58d/16:9/w_2560%2Cc_limit/story%2520dnc%2520259207888_4588755407868444_1734975685078234037_n.jpeg" />
         <StyledImg onClick={handlePhotoSelection} src="https://cdn.whatsonthestar.com/uploads/t_20200708145548.jpg" />
         <StyledImg onClick={handlePhotoSelection} src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Michael_Jordan_crying.jpg/220px-Michael_Jordan_crying.jpg" />
+        <StyledImg onClick={handlePhotoSelection} src="https://6.viki.io/image/04e3e839af9d4fcd937661fe2bc1e1cf/dummy.jpeg?s=900x600&e=t" />
     </div>
   )
 }
 
 const StyledImg = styled.img`
-  max-height: 60px;
+  height: 60px;
+  width: 60px;
   scale: auto;
+  object-fit: cover;
   border: 1px solid #d9d9d9;
   &:hover {
     cursor: pointer;
