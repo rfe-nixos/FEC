@@ -204,9 +204,10 @@ class ReviewForm extends React.Component {
     if(this.state.photoUrls.length >= 5) {
       alert('you have reached the maximum number of photos');
     } else {
+      console.log(photo);
       let temp = [...this.state.photos, photo];
-      let tempurls = [...this.state.photoUrls, URL.createObjectURL(photo).slice(5)];
-      this.setState({photos: temp, photoUrls: tempurls});
+      //let tempurls = [...this.state.photoUrls, URL.createObjectURL(photo).slice(5)];
+      this.setState({photos: temp});
     }
   }
 

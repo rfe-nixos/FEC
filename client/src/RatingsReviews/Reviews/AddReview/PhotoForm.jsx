@@ -2,10 +2,29 @@ import React, { useRef, useState } from 'react';
 import PhotoTile from './PhotoTile.jsx';
 import PhotoUpload from './PhotoUpload.jsx';
 import styled from 'styled-components';
+import axios from 'axios';
 
 function PhotoForm(props) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photosArray, addToArray] = useState([]);
+
+  const url = "https://api.cloudinary.com/v1_1/joehan/image/upload"
+  const api_key = "481542639533787"
+
+  const uploadPhoto = () => {
+    var fd = new FormData();
+    fd.append('upload_preset', 'upload1');
+    fd.append('file', selectedPhoto);
+    const config = {
+      headers: { "X-Requested-With": "XMLHttpRequest" },
+    };
+    axios.post(url, fd, config)
+      .then((res) => {
+        console.log('file upload success', res);
+        props.addUrl(res.data.url);
+      })
+      .catch((err) => console.log('error uploading photo', err));
+  }
 
   return (
     <StyledDiv>
@@ -22,6 +41,7 @@ function PhotoForm(props) {
           <PhotoTile key={index} photo={photo} />
         )))
       }
+      <button onClick={uploadPhoto}>submit</button>
 
     </StyledDiv>
   )
