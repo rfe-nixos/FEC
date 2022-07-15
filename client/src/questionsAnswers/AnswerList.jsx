@@ -14,11 +14,10 @@ const DivAnswer = styled.div`
 `;
 
 const Scroller = styled.div`
-  max-height: 30vh;
+  max-height: 20vh;
   width: 70%;
   overflow-y: auto;
   height: 300;
-  /* overflow: 'auto'; */
   display: 'flex';
   flex-direction: 'column-reverse';
 `;
@@ -54,7 +53,7 @@ function AnswerList({ answerList, renderAnswers, Title, hasMore }) {
           {collapsed ? <div>{answerList.slice(0, 2).map(mapAnswer)}</div>
             : (
               <Scroller id="scrollableDiv">
-                <InfiniteScroll
+                {/* <InfiniteScroll
                   dataLength={answerList.length}
                   next={renderAnswers}
                   hasMore={hasMore}
@@ -66,9 +65,9 @@ function AnswerList({ answerList, renderAnswers, Title, hasMore }) {
                       <b>You have seen all answers</b>
                     </p>
                   )}
-                >
+                > */}
                   {answerList.map(mapAnswer)}
-                </InfiniteScroll>
+                {/* </InfiniteScroll> */}
               </Scroller>
             )}
           {collapsed && answerList.length > 2

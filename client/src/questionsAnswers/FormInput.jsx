@@ -6,7 +6,7 @@ function FormInput({ attribute, changeHandler }) {
       <Label>
         <div>
           {attribute.label}
-          {attribute.mandatory && <span style={{ 'font-size': '0.8rem', display: 'inline' }}> *</span>}
+          {attribute.mandatory && <span style={{ 'fontSize': '0.8rem', display: 'inline' }}> *</span>}
         </div>
         {attribute.type === 'textarea'
         && (

@@ -36,14 +36,15 @@ const Title = styled.div`
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  const [page, setPage] = useState(1);
-  // const [currentCount, setCurrentCount] = useState(30);
+  // const [page, setPage] = useState(1);
+  const [currentCount, setCurrentCount] = useState(0);
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});
   const [expanded, setExpanded] = useState(false);
 
-  const getAllQuestions = (count = 20) => {
-    console.log('called')
+  const getAllQuestions = () => {
+    const page = 1;
+    const count = 200;
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions`,
@@ -60,11 +61,11 @@ function QuestionAnswers({ productId }) {
     axios(requestConfig)
       .then((result) => {
         if (result.data.results.length === 0) {
-          setHasMore(false);
+          // setHasMore(false);
           return;
         }
-        setQuestionList([...questionList, ...result.data.results]);
-        setPage(page + 1);
+        setQuestionList(result.data.results);
+        // setPage(page + 1);
       })
       .catch((err) => {
         console.log('failed fetching all questions from API.', err);
@@ -94,16 +95,6 @@ function QuestionAnswers({ productId }) {
     getProductInfo();
   }, []);
 
-  // useEffect(() => {
-  //   if (questionList.length !== 0 && maxQuestionCount >= questionList.length) {
-  //     setCurrentCount(currentCount + 30);
-  //   }
-  // }, [maxQuestionCount]);
-
-  // useEffect(() => {
-  //   getAllQuestions(2);
-  // }, []);
-
   return (
     <DivContainer id="question-and-answers">
       <Title>QUESTIONS & ANSWERS</Title>
@@ -115,13 +106,14 @@ function QuestionAnswers({ productId }) {
         renderQuestions={getAllQuestions}
         keyword={filteredKeyword}
         productName={productInfo.name}
-        hasMore={hasMore}
+        // hasMore={hasMore}
         expanded={expanded}
       />
       <FlexDiv>
         <MoreQuestions
           totalQuestionCount={questionList.length}
           expanded={expanded}
+          // next={next}
           setExpanded={setExpanded}
           Button={Button}
         />

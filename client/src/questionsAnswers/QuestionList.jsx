@@ -21,7 +21,6 @@ const NoDataDiv = styled.div`
 `;
 
 function QuestionList({ questions, renderQuestions, keyword, productName, hasMore, expanded }) {
-  console.log(hasMore);
   if (questions.length === 0) {
     return (
       <NoDataDiv id="question-list">
@@ -40,7 +39,7 @@ function QuestionList({ questions, renderQuestions, keyword, productName, hasMor
       {expanded
       && (
         <Scroller>
-          <InfiniteScroll
+          {/* <InfiniteScroll
             dataLength={questions.length}
             next={renderQuestions}
             infiniteScrollThrottle={0}
@@ -51,7 +50,7 @@ function QuestionList({ questions, renderQuestions, keyword, productName, hasMor
                 <b>You have seen all questions</b>
               </p>
             )}
-          >
+          > */}
             {filteredQuestions
               .map((question) => (
                 <IndividualQuestion
@@ -61,7 +60,7 @@ function QuestionList({ questions, renderQuestions, keyword, productName, hasMor
                   productName={productName}
                 />
               ))}
-          </InfiniteScroll>
+          {/* </InfiniteScroll> */}
         </Scroller>
       )}
       {!expanded

@@ -22,7 +22,6 @@ function AddQuestion({ id, renderQuestions, Button, productName }) {
 
     axios(requestConfig)
       .then(() => {
-        document.getElementById(`${id}-popup`).style.display = 'none';
         renderQuestions();
       })
       .catch((err) => {

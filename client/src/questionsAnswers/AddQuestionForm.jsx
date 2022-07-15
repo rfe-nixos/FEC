@@ -2,62 +2,6 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormInput from './FormInput';
 
-const Modal = styled.div`
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100%;
-  z-index: 9998;
-  transition: all .3s ease;
-  background-color: rgba(0,0,0,.7);
-  overflow: auto;
-`;
-
-const PopupForm = styled.form`
-  position: relative;
-  max-width: 51.0714285714rem;
-  width: 60%;
-  margin: 5vh auto;
-  padding: 1.7142857143rem 1.1428571429rem;
-  background-color: #fff;
-`;
-
-const ButtonStyled = styled.button`
-  padding: 2px;
-  width: 30%;
-  margin: 20px 0;
-  border-radius: 1px;
-`;
-
-const DivButton = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`;
-
-const Header = styled.div`
-  margin-bottom: 10px;
-`;
-const Title = styled.div`
-  font-size: 1.5rem;
-  padding: 10px 0;
-`;
-
-const Subtitle = styled.div`
-  font-size: 1.1rem;
-  padding: 2px 0;
-`;
-
-
-const Invalid = styled.ul`
-  color: red;
-`;
-
-const PaddedDiv = styled.div`
-  padding: 10px;
-  margin: 10px;
-`;
-
 function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
   if (!show) return null;
   const [isFormValid, setIsFormValid] = useState(true);
@@ -141,7 +85,6 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
       }
       if (config.type === 'email' && !validateEmail(formValue[config.name])) {
         setInvalidMessage([
-          ...invalidMessage,
           'Email is invalid.',
         ]);
         result = false;
@@ -154,10 +97,10 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowModal(false);
     setEmptyFields([]);
     if (validateForm()) {
       submitHandler(formValue);
+      setShowModal(false);
     }
   };
 
@@ -216,3 +159,60 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
 }
 
 export default AddQuestionForm;
+
+
+const Modal = styled.div`
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100%;
+  z-index: 9998;
+  transition: all .3s ease;
+  background-color: rgba(0,0,0,.7);
+  overflow: auto;
+`;
+
+const PopupForm = styled.form`
+  position: relative;
+  max-width: 51.0714285714rem;
+  width: 60%;
+  margin: 5vh auto;
+  padding: 1.7142857143rem 1.1428571429rem;
+  background-color: #fff;
+`;
+
+const ButtonStyled = styled.button`
+  padding: 2px;
+  width: 30%;
+  margin: 20px 0;
+  border-radius: 1px;
+`;
+
+const DivButton = styled.div`
+  display: flex;
+  justify-content: space-evenly;
+`;
+
+const Header = styled.div`
+  margin-bottom: 10px;
+`;
+const Title = styled.div`
+  font-size: 1.5rem;
+  padding: 10px 0;
+`;
+
+const Subtitle = styled.div`
+  font-size: 1.1rem;
+  padding: 2px 0;
+`;
+
+
+const Invalid = styled.ul`
+  color: red;
+`;
+
+const PaddedDiv = styled.div`
+  padding: 10px;
+  margin: 10px;
+`;

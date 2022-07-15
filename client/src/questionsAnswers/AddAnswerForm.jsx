@@ -98,6 +98,7 @@ function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHan
   const validateForm = () => {
     let result = true;
     const invalid = [];
+    const newInvalidMessage = [];
     inputs.forEach(({ config }) => {
       const target = config.name;
       if (Boolean(config.mandatory) && !formValue[target]) {
@@ -113,20 +114,15 @@ function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHan
         result = false;
       }
       if (config.type === 'email' && !validateEmail(formValue[config.name])) {
-        setInvalidMessage([
-          ...invalidMessage,
-          'Email is invalid.',
-        ]);
+        newInvalidMessage.push('Email is invalid.');
         result = false;
       }
       if (config.type === 'file' && !validateFiles(formValue[config.name])) {
-        setInvalidMessage([
-          ...invalidMessage,
-          'uploaded image is invalid.',
-        ]);
+        newInvalidMessage.push('uploaded image is invalid.');
         result = false;
       }
     });
+    setInvalidMessage(newInvalidMessage);
     setEmptyFields(invalid);
     setIsFormValid(result);
     return result;
@@ -134,10 +130,10 @@ function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHan
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setShowModal(false);
     setEmptyFields([]);
     if (validateForm()) {
       submitHandler(formValue);
+      setShowModal(false);
     }
   };
 
