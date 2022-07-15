@@ -5,7 +5,6 @@ import { StyledCard } from './styles/list.styled.js';
 
 function Product({ formattedCard }) {
   const [picIndex, setPicIndex] = useState(0);
-  console.log(formattedCard.image);
   const handleRightClick = () => {
     if (picIndex < formattedCard.image.length - 1) {
       setPicIndex((prev) => prev + 1);

@@ -2,6 +2,8 @@ import styled from 'styled-components';
 
 export const StyledList = styled.div`
   display: grid;
+  margin-top: 5em;
+  margin-bottom: 5em;
   grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
   grid-template-rows: repeat(auto-fit, minmax(12rem, auto));
   gap: 2rem;

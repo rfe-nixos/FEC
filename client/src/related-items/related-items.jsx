@@ -141,14 +141,20 @@ function RelatedItems() {
 
   useEffect(() => getProductIds(), []);
   return (
-    <div data-testid="related-items">
+    <>
+      <h2>Related Items</h2>
       <ProductList
         relatedProductStyles={relatedProductStyles}
         relatedProduct_ids={relatedProduct_ids}
         relatedProductReviews={relatedProductReviews}
       />
-      <OutfitList />
-    </div>
+      <h2>Your Outfits</h2>
+      <ProductList
+        relatedProductStyles={relatedProductStyles}
+        relatedProduct_ids={relatedProduct_ids}
+        relatedProductReviews={relatedProductReviews}
+      />
+    </>
   );
 }
 export default RelatedItems;
