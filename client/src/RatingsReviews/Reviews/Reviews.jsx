@@ -25,7 +25,7 @@ class Reviews extends React.Component {
   addReview(reviewBody) {
     axios.post(`${process.env.API_URL}/reviews`, reviewBody, {
       headers: {
-        AUthorization: process.env.AUTH_KEY,
+        Authorization: process.env.AUTH_KEY,
       },
     })
       .then((response) => {
@@ -92,6 +92,7 @@ class Reviews extends React.Component {
           reviews={this.props.reviews}
           addReview={this.addReview}
           moreReviews={this.props.moreReviews}
+          product_id={this.props.product_id}
         />
       </ReviewsContainer>
     )

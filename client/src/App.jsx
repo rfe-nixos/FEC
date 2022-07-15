@@ -4,7 +4,7 @@ import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 // Huzzah for jsx!
 function App() {
   return (
-    <RatingsReviews />
+    <RatingsReviews product_id="37313" />
   );
 }
 

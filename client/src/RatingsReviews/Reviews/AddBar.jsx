@@ -28,7 +28,7 @@ class AddBar extends React.Component {
       <div>
         <StyledButton onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
         <StyledButton onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
-        {this.state.formShowing && <ReviewForm addReview={this.props.addReview} />}
+        {this.state.formShowing && <ReviewForm product_id={this.props.product_id} addReview={this.props.addReview} />}
       </div>
     );
   }
