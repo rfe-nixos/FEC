@@ -35,7 +35,7 @@ class StarRatingBar extends React.Component {
     for (let i = 1; i <= 5; i++) {
       const x = `star-${i}`;
       const y = document.getElementById(x);
-      console.log(y);
+      //console.log(y);
       if (i <= parseInt(rating)) {
         y.textContent = '★';
       } else {

@@ -79,6 +79,7 @@ class Reviews extends React.Component {
         <SortBar
           reviews={this.props.reviews}
           sort={this.props.sort}
+          setSortOption={this.props.setSortOption}
           totalRatings={this.props.totalRatings}
         />
         <ReviewList

@@ -14,9 +14,8 @@ function PhotoForm(props) {
           setSelectedPhoto(file);
           addToArray(oldPhotos => [...oldPhotos, file]);
           props.addPhoto(file);
-          //console.log(URL.createObjectURL(file));
-        }
-        }
+        }}
+        addUrl={props.addUrl}
        />
       {(props.photos.length > 0) &&
         (props.photos.map((photo, index) => (

@@ -5,7 +5,7 @@ function PhotoTile(props) {
   return(
     <StyledDiv>
       {props.photo.name}
-      <StyledImg src={URL.createObjectURL(props.photo)}/>
+      <StyledImg src={URL.createObjectURL(props.photo)} />
     </StyledDiv>
   )
 }
@@ -24,10 +24,13 @@ const StyledDiv = styled.div`
 `
 
 const StyledImg = styled.img`
-  width: 48px;
-  height: 48px;
+  max-height: 48px;
   scale: auto;
   border: 1px solid #d9d9d9;
-`
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
 
 export default PhotoTile;

@@ -75,34 +75,36 @@ class RatingsReviews extends React.Component {
     }
   };
 
-  setSortOption (new_option) {
-    if (new_option !== this.state.sort_option) {
-      console.log('sorting by', new_option);
-      this.setState({
-        page: 1,
-        sort_option: new_option,
-        sorted: true,
-        filteredByRating: false,
-        filtered: [],
-      }, () => {
-        this.sort(new_option);
-      });
-    }
+  setSortOption () {
+
   }
 
   sort(new_option) {
-    axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    })
-      .then((response) => {
-        console.log('successfully fetched reviews');
-        this.setState({
-          reviews: response.data.results,
-        });
+    //if new option is different from current sort option,
+    //reset page count, and set sort option to the new option
+    if (new_option !== this.state.sort_option) {
+      console.log('sorting by', new_option);
+      this.setState({ page: 1, sort_option: new_option, filteredByRating: false, filtered: [] }, () => {
+        this.sort(new_option);
+      });
+    } else {
+      axios.get(`${process.env.API_URL}/reviews?product_id=37311&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
+        headers: {
+          Authorization: process.env.AUTH_KEY,
+        },
       })
-      .catch((err) => console.log('error fetching reviews', err));
+        .then((response) => {
+          console.log('successfully fetched reviews');
+          console.log(response.data.results);
+          this.setState({
+            reviews: response.data.results,
+            sorted: true,
+            filteredByRating: false,
+            filtered: [],
+          }, () => {console.log(this.state.reviews)});
+        })
+        .catch((err) => console.log('error fetching reviews', err));
+    }
   }
 
   getRatings() {

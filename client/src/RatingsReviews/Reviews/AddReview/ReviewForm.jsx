@@ -135,6 +135,7 @@ class ReviewForm extends React.Component {
     this.setRating = this.setRating.bind(this);
     this.togglePhotoForm = this.togglePhotoForm.bind(this);
     this.addPhoto = this.addPhoto.bind(this);
+    this.addUrl = this.addUrl.bind(this);
   }
 
   setChar(char, rating) {
@@ -200,13 +201,30 @@ class ReviewForm extends React.Component {
   }
 
   addPhoto(photo) {
-    if(this.state.photos.length >= 5) {
+    if(this.state.photoUrls.length >= 5) {
       alert('you have reached the maximum number of photos');
     } else {
       let temp = [...this.state.photos, photo];
-      let tempurls = [...this.state.photoUrls, URL.createObjectURL(photo)];
+      let tempurls = [...this.state.photoUrls, URL.createObjectURL(photo).slice(5)];
       this.setState({photos: temp, photoUrls: tempurls});
     }
+  }
+
+  addUrl(url) {
+    let index = this.state.photoUrls.indexOf(url)
+    if (index === -1) {
+      if(this.state.photoUrls.length >= 5) {
+        alert('you have reached the maximum number of photos');
+      } else {
+        let tempurls = [...this.state.photoUrls, url];
+        this.setState({photoUrls: tempurls});
+      }
+    } else {
+      let temp = this.state.photoUrls;
+      temp.splice(index, 1);
+      this.setState({photoUrls: temp});
+    }
+
   }
 
   render() {
@@ -271,8 +289,9 @@ class ReviewForm extends React.Component {
           <p><em>For authentication reasons, you will not be emailed.</em></p>
           <StyledCat>
             <div>Photos</div>
+
             <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>
-            {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto}/>}
+            {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto} addUrl={this.addUrl} />}
           </StyledCat>
           <InnerBot>
             <StyledButton onClick={this.addReview}>SUBMIT</StyledButton>

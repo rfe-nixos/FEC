@@ -3,7 +3,7 @@ import styled from 'styled-components';
 
 function SortBar(props) {
   const sort = (e) => {
-    props.sort(e.target.value);
+    props.setSortOption(e.target.value);
   };
 
   return (
