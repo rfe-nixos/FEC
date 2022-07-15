@@ -35,15 +35,6 @@ const InnerBar = styled.div`
   background-color: #1c1c1c;
 `;
 
-// function Bar({ percentage, star }) {
-//   return (
-//     <BarContainer>
-//       <StarCount>{star}</StarCount>
-//       <OuterBar><InnerBar width={percentage} /></OuterBar>
-//     </BarContainer>
-//   );
-// }
-
 class Bar extends React.Component {
   constructor(props) {
     super(props);

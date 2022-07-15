@@ -58,13 +58,13 @@ class RatingsReviews extends React.Component {
   moreReviews() {
     let page = this.state.page;
     page += 1;
-    this.setState({ page, filteredByRating: false, filtered: [] }, () => {
+    this.setState({ page, filteredByRating: false, filtered: [], ratingFilter: {} }, () => {
         console.log(page, 'page of more results')
         this.getReviews();
     });
   };
 
-  scrollMore() {
+  scrollMore() { //only works when its not filtered by rating.
     if(!this.state.filteredByRating) {
       let page = this.state.page;
       page += 1;
@@ -84,6 +84,7 @@ class RatingsReviews extends React.Component {
         sorted: true,
         filteredByRating: false,
         filtered: [],
+        ratingFilter: {},
       }, () => {
         this.sort(new_option);
       });
@@ -177,6 +178,7 @@ class RatingsReviews extends React.Component {
             average={this.state.average}
             totalRatings={this.state.totalRatings}
             setRatingFilter={this.setRatingFilter}
+            ratingFilter={this.state.ratingFilter}
           />
           {!this.state.filteredByRating && (
             <Reviews
