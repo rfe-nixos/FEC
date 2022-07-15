@@ -1,15 +1,38 @@
 import React from 'react';
 import styled from 'styled-components';
-import ImageInput from './ImageInput';
+
+function FormInput({ attribute, changeHandler }) {
+  return (
+      <Label>
+        <div>
+          {attribute.label}
+          {attribute.mandatory && <span style={{ 'font-size': '0.8rem', display: 'inline' }}> *</span>}
+        </div>
+        {attribute.type === 'textarea'
+        && (
+          <Textarea
+            onChange={changeHandler}
+            {...attribute}
+          />
+        )}
+        {attribute.type !== 'textarea'
+        && (
+          <Input
+          onChange={changeHandler}
+            {...attribute}
+          />
+        )}
+      </Label>
+  );
+}
+
+export default FormInput;
 
 const Label = styled.label`
   display: flex;
-  font-weight: bold;
-  padding-bottom: 5px;
-`;
-
-const Div = styled.div`
-  padding: 5px 0;
+  font-size: 1rem;
+  flex-direction: column;
+  padding-top: 20px;
 `;
 
 const Textarea = styled.textarea`
@@ -19,43 +42,5 @@ const Textarea = styled.textarea`
 
 const Input = styled.input`
   width: 50%;
+  margin: 5px 0;
 `;
-
-function FormInput({ label, type, name, placeholder, mandatory, value, onChange, maxLength, extra, setImages }) {
-  const textarea = (
-    <Textarea
-      name={name}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      maxLength={maxLength}
-    />
-  );
-
-  const input = (
-    <Input
-      type={type}
-      name={name}
-      placeholder={placeholder}
-      value={value}
-      onChange={onChange}
-      maxLength={maxLength}
-    />
-  );
-
-  return (
-    <Div className="form-input">
-      <Label>
-        {label}
-        {mandatory && '*'}
-      </Label>
-      {type === 'textarea' && textarea}
-      {type === 'file' && <ImageInput name={name} setImageForm={setImages} />}
-      {type !== 'textarea' && type !== 'file' && input}
-      {extra
-        && <div className="extra">{`*${extra}`}</div>}
-    </Div>
-  );
-}
-
-export default FormInput;
