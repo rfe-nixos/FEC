@@ -1,26 +1,29 @@
 .overview {
   display: inline-block;
   height: 800px;
-  width: 1000px;
+  width: 80%;
+  min-width: 800px;
+  max-width: 1000px;
   overflow: scroll;
   border: solid black 3px;
   padding: 10px;
+  margin-left: 10%;
 }
 
 .imagegallery {
   float: left;
-  width: 500px;
-  height: 580px;
+  width: 49%;
+  height: 100%;
   align-items: center;
   text-align: center;
 }
 
 .currentImage {
-  width: 500px;
+  width: 100%;
 }
 
 .thumbnailView {
-  width: 500px;
+  width: 100%;
   overflow: scroll;
   margin-bottom: 5px;
 }
@@ -35,13 +38,17 @@
   margin: 5px;
 }
 
-.productDetails {
+.right {
   float: right;
-  overflow: scroll;
-  width: 500px;
-  height: 250px;
-  /*border: solid black 3px;*/
+  width: 49%;
+  height: 100%;
+}
+
+.productDetails {
+  height: 35%;
+  width: 100%;
   text-align: center;
+  overflow: scroll;
 }
 
 .productDetails h2 {
@@ -50,21 +57,55 @@
   text-decoration: underline;
 }
 
-.styleSelector {
-  float: right;
+#overview {
+  width: 100%;
+  height: 10%;
   overflow: scroll;
-  width: 500px;
+}
+
+#nonPrice {
+  color: red;
+  text-decoration: line-through;
+  float: left;
+  text-align: right;
+  font-size: 20px;
+  width: 48%;
+  height: 100%;
+}
+
+#price {
+  font-size: 20px;
+}
+
+#salesPrice {
+  float: right;
+  text-align: left;
+  font-size: 20px;
+  width: 48%;
+  height: 100%;
+}
+
+.saleOutlay {
+  height: 15%;
+  border: solid black 1px;
+}
+
+.styleSelector {
+  float: center;
+  width: 100%;
   text-align: center;
-  /*border: solid black 3px;*/
+  height: 45%;
+  margin-left: 5%;
 }
 
 .styleOption {
   float: left;
-  margin-left: 40px;
   text-align: center;
   align-items: center;
   font-style: italic;
-  margin-bottom: 25px;
+  height: 80px;
+  width: 80px;
+  margin: 2%;
 }
 
 #styleOverlay {
@@ -77,25 +118,23 @@
 }
 
 .styleOption img {
-  height: 75px;
-  width: 75px;
-  border-radius: 75px;
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
   z-index: 1;
 }
 
 .addToCart {
   float: right;
   text-align: center;
-  overflow: scroll;
   margin: 5px;
-  width: 500px;
-  height: 50px;
+  width: 100%;
+  height: 10%;
 }
 
 .outOfStock {
   float: right;
   text-align: center;
-  overflow: scroll;
   margin: 5px;
   width: 500px;
   height: 50px;

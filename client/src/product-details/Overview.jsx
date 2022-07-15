@@ -15,10 +15,12 @@ function Overview() {
   const [currentAmount, setCurrentAmount] = useState('');
   const [currentImage, setCurrentImage] = useState('');
   const [sizeAlert, setSizeAlert] = useState('');
+  const [productReviews, setProductReviews] = useState({});
 
   const productId = '37314';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
+  const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${37311}`;
 
   const requestConfig1 = {
     method: 'GET',
@@ -36,11 +38,19 @@ function Overview() {
     },
   };
 
+  const requestConfig3 = {
+    method: 'GET',
+    url: productReviewsUrl,
+    headers: {
+      Authorization: process.env.AUTH_KEY,
+    },
+  };
+
   function getProduct() {
     axios(requestConfig1)
       .then((result) => setProduct(result.data))
       .catch((err) => {
-        console.log('failed fetching product with id 1 from API.', err);
+        console.log('failed fetching product from API.', err);
       });
   }
 
@@ -50,7 +60,17 @@ function Overview() {
         setStyles(result.data.results);
       })
       .catch((err) => {
-        console.log('failed fetching product styles with id 1 from API.', err);
+        console.log('failed fetching product styles from API.', err);
+      });
+  }
+
+  function getReviews() {
+    axios(requestConfig3)
+      .then((result) => {
+        setProductReviews(result.data);
+      })
+      .catch((err) => {
+        console.log('failed fetching product reviews from API.', err);
       });
   }
 
@@ -60,6 +80,10 @@ function Overview() {
 
   useEffect(() => {
     getStyles();
+  }, []);
+
+  useEffect(() => {
+    getReviews();
   }, []);
 
   useEffect(() => {
@@ -80,13 +104,15 @@ function Overview() {
     }
   });
 
-  if (Object.keys(currentStyle).length > 0) {
+  if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0) {
     return (
       <div className="overview">
         <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} />
-        <ProductDetails product={product} currentStyle={currentStyle} />
-        <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
-        <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
+        <div className="right">
+          <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} />
+          <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
+          <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
+        </div>
       </div>
     );
   }
