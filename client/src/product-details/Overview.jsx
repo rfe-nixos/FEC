@@ -1,5 +1,4 @@
 /* eslint-disable max-len */
-/* eslint-disable prefer-destructuring */
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OverviewStyles.css';
@@ -15,6 +14,7 @@ function Overview() {
   const [currentSize, setCurrentSize] = useState('');
   const [currentAmount, setCurrentAmount] = useState('');
   const [currentImage, setCurrentImage] = useState('');
+  const [sizeAlert, setSizeAlert] = useState('');
 
   const productId = '37314';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
@@ -86,7 +86,7 @@ function Overview() {
         <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} />
         <ProductDetails product={product} currentStyle={currentStyle} />
         <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
-        <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} />
+        <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
       </div>
     );
   }

@@ -5,6 +5,7 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React from 'react';
+import checkmark from './assets/checkmark.png';
 
 function StyleSelector({ styles, currentStyle, setCurrentStyle }) {
   const handleClick = (event) => {
@@ -21,13 +22,23 @@ function StyleSelector({ styles, currentStyle, setCurrentStyle }) {
 
   const styleList = [];
 
-  styles.forEach((style) => (
-    styleList.push(
-      <div key={style.name} className="styleOption">
-        <img src={style.photos[0].thumbnail_url} alt={style.style_id} onClick={handleClick} />
-      </div>,
-    )
-  ));
+  styles.forEach((style) => {
+    if (style === currentStyle) {
+      styleList.push(
+        <div key={style.name} className="styleOption">
+          <img src={checkmark} alt="checkmark" id="styleOverlay" />
+          <img src={style.photos[0].thumbnail_url} alt={style.style_id} onClick={handleClick} />
+
+        </div>,
+      );
+    } else {
+      styleList.push(
+        <div key={style.name} className="styleOption">
+          <img src={style.photos[0].thumbnail_url} alt={style.style_id} onClick={handleClick} />
+        </div>,
+      );
+    }
+  });
 
   return (
     <div className="styleSelector">

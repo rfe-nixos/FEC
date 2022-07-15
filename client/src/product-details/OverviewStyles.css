@@ -2,7 +2,7 @@
   display: inline-block;
   height: 800px;
   width: 1000px;
-  /* overflow: scroll; */
+  overflow: scroll;
   border: solid black 3px;
   padding: 10px;
 }
@@ -60,21 +60,39 @@
 
 .styleOption {
   float: left;
-  margin-left: 15px;
+  margin-left: 40px;
   text-align: center;
   align-items: center;
   font-style: italic;
+  margin-bottom: 25px;
+}
+
+#styleOverlay {
+  margin-left: 15px;
+  margin-top: 10px;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  z-index: 50;
 }
 
 .styleOption img {
   height: 75px;
   width: 75px;
-  margin-left: 25px;
-  margin-bottom: 25px;
   border-radius: 75px;
+  z-index: 1;
 }
 
 .addToCart {
+  float: right;
+  text-align: center;
+  overflow: scroll;
+  margin: 5px;
+  width: 500px;
+  height: 50px;
+}
+
+.outOfStock {
   float: right;
   text-align: center;
   overflow: scroll;
@@ -93,4 +111,8 @@
 
 .cartButton {
   margin: 5px;
+}
+
+.sizeAlert {
+  color: red;
 }
