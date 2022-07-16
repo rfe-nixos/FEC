@@ -1,13 +1,16 @@
 import React from 'react';
 import { FaStar } from 'react-icons/fa';
-import { useState } from 'react';
+import { useState, useContext } from 'react';
 import { StyledCard } from './styles/list.styled.js';
 import Comparison from './comparison.jsx';
+import {useCurrentProductUpdate} from '../context.jsx'
 
 function Product({ formattedCard }) {
   // States
   const [picIndex, setPicIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
+  const setCurrentProduct = useCurrentProductUpdate();
+ // const [formattedCardState, setFormattedCard]= useState(formattedCard);
   const handleRightClick = () => {
     if (picIndex < formattedCard.image.length - 1) {
       setPicIndex((prev) => prev + 1);
@@ -18,10 +21,13 @@ function Product({ formattedCard }) {
       setPicIndex((prev) => prev - 1);
     }
   };
-  console.log(formattedCard);
+
+  const handleGlobalStateClick = () => {
+    setCurrentProduct(formattedCard.id);
+  };
   return (
     <>
-      <StyledCard>
+      <StyledCard onClick={handleGlobalStateClick}>
         <div className="cardHeader">
           <FaStar className="relatedAction" onClick={() => setOpenModal(true)} />
           <img
