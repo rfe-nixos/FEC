@@ -25,6 +25,7 @@ function Product({ formattedCard }) {
   const handleGlobalStateClick = () => {
     setCurrentProduct(formattedCard.id);
   };
+
   return (
     <>
       <StyledCard onClick={handleGlobalStateClick}>
