@@ -104,10 +104,11 @@ const DivContainer = styled.div`
   display: flex;
   flex-direction: column;
   width: 70%;
-  margin: auto;
+  margin: 20px auto;
   color : #3d3c3c;
-  font-size: 17px;
-  height: 100vh;
+  font-size: 15px;
+  padding: 20px 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 
 const Button = styled.button`
@@ -115,13 +116,15 @@ const Button = styled.button`
   border: 1px solid #3d3c3c;
   background-color: white;
   margin-right: 10px;
+  font-weight:500px!important;
 `;
 
 const ButtonContainer = styled.div`
   display: flex;
+  margin-top: 30px;
 `;
 
 const Title = styled.div`
-  font-size: 18px;
+  font-size: small;
   padding: 17px 0;
 `;

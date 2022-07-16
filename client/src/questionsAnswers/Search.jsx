@@ -37,19 +37,20 @@ const Form = styled.form`
 `;
 
 const SearchInput = styled.input`
-  padding: 15px;
   width: 100%;
+  padding: 15px;
+  box-sizing: border-box;
   ::placeholder {
     color: #3d3c3c;
     font-weight: bold;
+    margin-left: 10px;
   }
 `;
 
 const Icon = styled(FontAwesomeIcon)`
   position: absolute;
-  left: 100%;
-  top: 4.5px;
-  padding-top: 12px;
+  padding: 15px;
+  left: 81vh;
 `;
 
 const InputIcons = styled.div`

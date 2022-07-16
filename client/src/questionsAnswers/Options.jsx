@@ -7,8 +7,9 @@ function Options({ children }) {
       direction="row"
       divider={<Divider orientation="vertical" flexItem sx={{ borderRightWidth: 1, borderColor: '#77787a' }} />}
       spacing={1.5}
-      fontSize="14px"
       padding="10px 0"
+      fontSize="11px"
+      fontWeight="300"
       color="#77787a"
     >
       {children}

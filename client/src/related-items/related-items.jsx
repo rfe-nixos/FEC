@@ -7,13 +7,15 @@ import axios from 'axios';
 import { Promise } from 'bluebird';
 import ProductList from './productList.jsx';
 import OutfitList from './outfitList.jsx';
+import { useCurrentProductContext } from '../context.jsx';
 
 function RelatedItems() {
   const [productListStateIds, setProductListStateIds] = useState();
-  const [currentProduct, setCurrentProduct] = useState('37314');
+  //const [currentProduct, setCurrentProduct] = useState('37314');
   const [relatedProductStyles, setRelatedProductStyles] = useState();
   const [relatedProduct_ids, setRelatedProduct_ids] = useState();
   const [relatedProductReviews, setRelatedProductReviews] = useState();
+  const currentProduct = useCurrentProductContext();
   //  TODO: Change default state
   //  Will need to be able to show more than the default and update accordingly
   const getStylesArr = (ids) => {
@@ -83,7 +85,9 @@ function RelatedItems() {
     }
     Promise.all(promises)
       .then((prodObjArr) => {
-        setRelatedProductReviews(() => prodObjArr.map((product) => product.data));
+        setRelatedProductReviews(() =>
+          prodObjArr.map((product) => product.data)
+        );
         return prodObjArr.map((product) => product.data);
       })
       .catch((err) => console.log('Error:', err));
