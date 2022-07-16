@@ -19,7 +19,7 @@ function QuestionList({ questions, renderQuestions, keyword, productName, expand
   filteredQuestions = expanded ? filteredQuestions : filteredQuestions.slice(0, 2);
 
   return (
-    <OuterDiv id="question-list">
+    <div id="question-list">
       <Scroller>
         {filteredQuestions
           .map((question) => (
@@ -31,20 +31,15 @@ function QuestionList({ questions, renderQuestions, keyword, productName, expand
             />
           ))}
       </Scroller>
-    </OuterDiv>
+    </div>
   );
 }
 
 export default QuestionList;
 
-const OuterDiv = styled.div`
-  margin: 20px 0;
-`;
-
 const Scroller = styled.div`
   width: 100%;
   overflow-y: auto;
-  margin: 10px 0;
   max-height: 70vh;
 `;
 

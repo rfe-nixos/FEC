@@ -1,20 +1,29 @@
 import React from 'react';
+<<<<<<< HEAD
 import styled from 'styled-components';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
-import QuestionAnswer from './questionsAnswers/QuestionAnswers';
-import RelatedItems from './related-items/related-items.jsx';
-import Overview from './product-details/Overview.jsx';
+=======
 
-// Huzzah for jsx!
+import Overview from './product-details/Overview';
+import RatingsReviews from './RatingsReviews/RatingsReviews';
+>>>>>>> main
+import QuestionAnswer from './questionsAnswers/QuestionAnswers';
+import RelatedItems from './related-items/related-items';
+
 function App() {
   return (
     <MainDiv id="app">
       <Overview />
       <RelatedItems />
       <QuestionAnswer productId={37311} />
+<<<<<<< HEAD
       <RatingsReviews productId={37311} />
     </MainDiv>
 
+=======
+      <RatingsReviews product_id={37311} />
+    </div>
+>>>>>>> main
   );
 }
 
