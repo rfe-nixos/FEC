@@ -10,11 +10,8 @@ class RatingsReviews extends React.Component {
     super(props);
     this.state = {
       meta: {},
-      ratings: {},
       totalRatings: 0,
       isLoaded: false,
-      products: [],
-      product: '37316',
       ratingFilter: {},
       filteredByRating: false,
       reviews: [],
@@ -41,41 +38,43 @@ class RatingsReviews extends React.Component {
   getReviews() {
     if (!this.state.sorted) {
       axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.product_id}&count=${this.state.page * 2}`, {
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    })
-      .then((response) => {
-        console.log('successfully fetched reviews');
-        this.setState({ reviews: response.data.results });
+        headers: {
+          Authorization: process.env.AUTH_KEY,
+        },
       })
-      .catch((err) => console.log('error fetching reviews', err));
+        .then((response) => {
+          console.log('successfully fetched reviews');
+          this.setState({ reviews: response.data.results });
+        })
+        .catch((err) => console.log('error fetching reviews', err));
     } else {
       this.sort(this.state.sort_option);
     }
   }
 
   moreReviews() {
-    let page = this.state.page;
+    let { page } = this.state;
     page += 1;
-    this.setState({ page, filteredByRating: false, filtered: [], ratingFilter: {} }, () => {
-        console.log(page, 'page of more results')
-        this.getReviews();
-    });
-  };
-
-  scrollMore() { //only works when its not filtered by rating.
-    if(!this.state.filteredByRating) {
-      let page = this.state.page;
-      page += 1;
-      this.setState({ page }, () => {
+    this.setState({
+      page, filteredByRating: false, filtered: [], ratingFilter: {},
+    }, () => {
       console.log(page, 'page of more results');
       this.getReviews();
     });
-    }
-  };
+  }
 
-  setSortOption (new_option) {
+  scrollMore() { // only works when its not filtered by rating.
+    if (!this.state.filteredByRating) {
+      let { page } = this.state;
+      page += 1;
+      this.setState({ page }, () => {
+        console.log(page, 'page of more results');
+        this.getReviews();
+      });
+    }
+  }
+
+  setSortOption(new_option) {
     if (new_option !== this.state.sort_option) {
       console.log('sorting by', new_option);
       this.setState({
@@ -115,8 +114,8 @@ class RatingsReviews extends React.Component {
       .then((response) => {
         console.log('successfully fetched ratings');
         console.log(response.data);
-        let sum = getTotalRatings(response.data.ratings)[0];
-        let totalRatings = getTotalRatings(response.data.ratings)[1];
+        const sum = getTotalRatings(response.data.ratings)[0];
+        const totalRatings = getTotalRatings(response.data.ratings)[1];
         this.setState(
           {
             meta: response.data,
@@ -131,14 +130,14 @@ class RatingsReviews extends React.Component {
   }
 
   setRatingFilter(rating) {
-    let temp = this.state.ratingFilter;
+    const temp = this.state.ratingFilter;
     if (!temp[rating]) {
       temp[rating] = true;
     } else {
       temp[rating] = false;
     }
-    //if there is not a single true in rating filter,
-    //set filteredbyrating to false.
+    // if there is not a single true in rating filter,
+    // set filteredbyrating to false.
     if (Object.values(temp).indexOf(true) !== -1) {
       this.setState({ filteredByRating: true, ratingFilter: temp }, () => {
         this.getByRating();
@@ -150,13 +149,13 @@ class RatingsReviews extends React.Component {
   }
 
   getByRating() {
-    //set temp as current list of reviews,
-    //filter temp to fit ratings filter,
-    //set state reviews to be temp.
-    let temp = this.state.reviews;
-    let obj = this.state.ratingFilter;
-    let filtered = temp.filter((review) => {
-      if (obj[review.rating+""]) {
+    // set temp as current list of reviews,
+    // filter temp to fit ratings filter,
+    // set state reviews to be temp.
+    const temp = this.state.reviews;
+    const obj = this.state.ratingFilter;
+    const filtered = temp.filter((review) => {
+      if (obj[`${review.rating}`]) {
         return review;
       }
     });
@@ -182,29 +181,29 @@ class RatingsReviews extends React.Component {
           />
           {!this.state.filteredByRating && (
             <Reviews
-            product_id={this.props.product_id}
-            totalRatings={this.state.totalRatings}
-            ratingFilter={this.state.ratingFilter}
-            filteredByRating={this.state.filteredByRating}
-            moreReviews={this.moreReviews}
-            reviews={this.state.reviews}
-            sort={this.sort}
-            getReviews={this.getReviews}
-            scrollMore={this.scrollMore}
-            setSortOption={this.setSortOption}
+              product_id={this.props.product_id}
+              totalRatings={this.state.totalRatings}
+              ratingFilter={this.state.ratingFilter}
+              filteredByRating={this.state.filteredByRating}
+              moreReviews={this.moreReviews}
+              reviews={this.state.reviews}
+              sort={this.sort}
+              getReviews={this.getReviews}
+              scrollMore={this.scrollMore}
+              setSortOption={this.setSortOption}
             />
           )}
           {this.state.filteredByRating && (
             <Reviews
-            totalRatings={this.state.totalRatings}
-            ratingFilter={this.state.ratingFilter}
-            filteredByRating={this.state.filteredByRating}
-            moreReviews={this.moreReviews}
-            reviews={this.state.filtered}
-            sort={this.sort}
-            getReviews={this.getReviews}
-            scrollMore={this.scrollMore}
-            setSortOption={this.setSortOption}
+              totalRatings={this.state.totalRatings}
+              ratingFilter={this.state.ratingFilter}
+              filteredByRating={this.state.filteredByRating}
+              moreReviews={this.moreReviews}
+              reviews={this.state.filtered}
+              sort={this.sort}
+              getReviews={this.getReviews}
+              scrollMore={this.scrollMore}
+              setSortOption={this.setSortOption}
             />
           )}
         </StyledInner>

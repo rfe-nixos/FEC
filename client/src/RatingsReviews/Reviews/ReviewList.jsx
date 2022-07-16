@@ -18,8 +18,8 @@ function ReviewList(props) {
   const onScroll = () => {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight + .75 > scrollHeight) {
-        console.log("reached bottom, getting more reviews");
+      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
+        console.log('reached bottom, getting more reviews');
         props.scrollMore();
       }
     }

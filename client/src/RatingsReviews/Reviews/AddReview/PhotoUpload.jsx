@@ -2,7 +2,6 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 
 function PhotoUpload({ onFileSelect, addUrl }) {
-  const fileInput = useRef(null);
   const [selectedPhoto, setSelectedPhoto] = useState(null);
 
   const handleFileInput = (e) => {

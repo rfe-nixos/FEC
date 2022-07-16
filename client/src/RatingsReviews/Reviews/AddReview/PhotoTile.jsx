@@ -2,12 +2,12 @@ import React from 'react';
 import styled from 'styled-components';
 
 function PhotoTile(props) {
-  return(
+  return (
     <StyledDiv>
       {props.photo.original_filename}
       <StyledImg src={props.photo.url} />
     </StyledDiv>
-  )
+  );
 }
 
 const StyledDiv = styled.div`
@@ -21,7 +21,7 @@ const StyledDiv = styled.div`
   padding: 2%;
   margin: 1%;
   border: .5px solid #d9d9d9;
-`
+`;
 
 const StyledImg = styled.img`
   max-height: 48px;
