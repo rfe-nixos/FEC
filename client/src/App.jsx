@@ -12,7 +12,7 @@ function App() {
       <Overview />
       <RelatedItems />
       <QuestionAnswer productId={37311} />
-      <RatingsReviews product_id={37319} />
+      <RatingsReviews productId={37311} />
     </MainDiv>
 
   );

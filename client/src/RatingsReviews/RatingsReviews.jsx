@@ -37,7 +37,7 @@ class RatingsReviews extends React.Component {
 
   getReviews() {
     if (!this.state.sorted) {
-      axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.product_id}&count=${this.state.page * 2}`, {
+      axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.productId}&count=${this.state.page * 2}`, {
         headers: {
           Authorization: process.env.AUTH_KEY,
         },
@@ -91,7 +91,7 @@ class RatingsReviews extends React.Component {
   }
 
   sort(new_option) {
-    axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.product_id}&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.productId}&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -106,7 +106,7 @@ class RatingsReviews extends React.Component {
   }
 
   getRatings() {
-    axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.props.product_id}`, {
+    axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.props.productId}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -181,7 +181,7 @@ class RatingsReviews extends React.Component {
           />
           {!this.state.filteredByRating && (
             <Reviews
-              product_id={this.props.product_id}
+              productId={this.props.productId}
               totalRatings={this.state.totalRatings}
               ratingFilter={this.state.ratingFilter}
               filteredByRating={this.state.filteredByRating}

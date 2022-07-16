@@ -153,7 +153,7 @@ class ReviewForm extends React.Component {
   addReview(e) {
     e.preventDefault();
     const reviewBody = {
-      product_id: parseInt(this.props.product_id),
+      product_id: parseInt(this.props.productId),
       rating: parseInt(this.state.rating),
       summary: this.state.summary,
       body: this.state.body,

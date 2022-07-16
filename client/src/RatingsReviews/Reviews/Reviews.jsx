@@ -93,7 +93,7 @@ class Reviews extends React.Component {
           reviews={this.props.reviews}
           addReview={this.addReview}
           moreReviews={this.props.moreReviews}
-          product_id={this.props.product_id}
+          productId={this.props.productId}
         />
       </ReviewsContainer>
     )
