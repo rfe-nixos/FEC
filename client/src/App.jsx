@@ -1,12 +1,8 @@
 import React from 'react';
 
-import Overview from './product-details/Overview';
-
 // Huzzah for jsx!
 function App() {
-  return (
-    <Overview />
-  );
+  return <h1>Hello World</h1>
 }
 
 export default App;
