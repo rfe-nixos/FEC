@@ -3,26 +3,26 @@ import styled from 'styled-components';
 
 function FormInput({ attribute, changeHandler }) {
   return (
-      <Label>
-        <div>
-          {attribute.label}
-          {attribute.mandatory && <span style={{ 'fontSize': '0.8rem', display: 'inline' }}> *</span>}
-        </div>
-        {attribute.type === 'textarea'
-        && (
-          <Textarea
-            onChange={changeHandler}
-            {...attribute}
-          />
-        )}
-        {attribute.type !== 'textarea'
-        && (
-          <Input
+    <Label>
+      <div>
+        {attribute.label}
+        {attribute.mandatory && <span style={{ 'fontSize': '0.8rem', display: 'inline' }}> *</span>}
+      </div>
+      {attribute.type === 'textarea'
+      && (
+        <Textarea
           onChange={changeHandler}
-            {...attribute}
-          />
-        )}
-      </Label>
+          {...attribute}
+        />
+      )}
+      {attribute.type !== 'textarea'
+      && (
+        <Input
+        onChange={changeHandler}
+          {...attribute}
+        />
+      )}
+    </Label>
   );
 }
 

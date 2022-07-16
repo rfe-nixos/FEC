@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-// import PropTypes from 'prop-types';
 import axios from 'axios';
 import styled from 'styled-components';
 import Search from './Search';
@@ -7,44 +6,15 @@ import QuestionList from './QuestionList';
 import MoreQuestions from './MoreQuestions';
 import AddQuestion from './AddQuestion';
 
-const DivContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  width: 70%;
-  margin: auto;
-  color : #3d3c3c;
-  font-size: 17px;
-  height: 100vh;
-`;
-
-const Button = styled.button`
-  padding: 15px;
-  border: 1px solid #3d3c3c;
-  background-color: white;
-  margin-right: 10px;
-`;
-
-const FlexDiv = styled.div`
-  display: flex;
-`;
-
-const Title = styled.div`
-  font-size: 18px;
-  padding: 17px 0;
-`;
-
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);
-  const [hasMore, setHasMore] = useState(true);
-  // const [page, setPage] = useState(1);
-  const [currentCount, setCurrentCount] = useState(0);
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});
   const [expanded, setExpanded] = useState(false);
+  const [count, setCount] = useState(200);
+  const [page, setPage] = useState(1);
 
   const getAllQuestions = () => {
-    const page = 1;
-    const count = 200;
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions`,
@@ -61,11 +31,9 @@ function QuestionAnswers({ productId }) {
     axios(requestConfig)
       .then((result) => {
         if (result.data.results.length === 0) {
-          // setHasMore(false);
           return;
         }
         setQuestionList(result.data.results);
-        // setPage(page + 1);
       })
       .catch((err) => {
         console.log('failed fetching all questions from API.', err);
@@ -95,25 +63,27 @@ function QuestionAnswers({ productId }) {
     getProductInfo();
   }, []);
 
+  useEffect(() => {
+    if (questionList.length >= count) {
+      setCount(count * 2);
+    }
+  }, [questionList]);
+
   return (
     <DivContainer id="question-and-answers">
       <Title>QUESTIONS & ANSWERS</Title>
-      <Search
-        setFilter={setFilteredKeyword}
-      />
+      <Search setFilter={setFilteredKeyword} />
       <QuestionList
         questions={questionList}
         renderQuestions={getAllQuestions}
         keyword={filteredKeyword}
         productName={productInfo.name}
-        // hasMore={hasMore}
         expanded={expanded}
       />
-      <FlexDiv>
+      <ButtonContainer>
         <MoreQuestions
           totalQuestionCount={questionList.length}
           expanded={expanded}
-          // next={next}
           setExpanded={setExpanded}
           Button={Button}
         />
@@ -123,17 +93,35 @@ function QuestionAnswers({ productId }) {
           Button={Button}
           productName={productInfo.name}
         />
-      </FlexDiv>
+      </ButtonContainer>
     </DivContainer>
   );
 }
 
-// QuestionAnswers.propTypes = {
-//   productId: PropTypes.number,
-// };
-
-// QuestionAnswers.defaultProps = {
-//   productId: 0,
-// };
-
 export default QuestionAnswers;
+
+const DivContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 70%;
+  margin: auto;
+  color : #3d3c3c;
+  font-size: 17px;
+  height: 100vh;
+`;
+
+const Button = styled.button`
+  padding: 15px;
+  border: 1px solid #3d3c3c;
+  background-color: white;
+  margin-right: 10px;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+`;
+
+const Title = styled.div`
+  font-size: 18px;
+  padding: 17px 0;
+`;

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-// import ThemeProvider from 'styled-components';
 
 function MoreQuestions({ expanded, setExpanded, Button }) {
   const handleClick = (e) => {

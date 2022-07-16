@@ -160,7 +160,6 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
 
 export default AddQuestionForm;
 
-
 const Modal = styled.div`
   position: fixed;
   top: 0;
@@ -180,6 +179,7 @@ const PopupForm = styled.form`
   margin: 5vh auto;
   padding: 1.7142857143rem 1.1428571429rem;
   background-color: #fff;
+  border-radius: .2857142857rem;
 `;
 
 const ButtonStyled = styled.button`

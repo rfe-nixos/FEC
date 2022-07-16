@@ -2,19 +2,6 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 
-const PaddedSpan = styled.span`
-  padding-right: 7px;
-`;
-
-const PaddedU = styled.u`
-  padding-right: 3px;
-`;
-
-const HelpfulDiv = styled.div`
-  display: flex;
-  align-items: center;
-`;
-
 function Helpful({ id, type, currentCount, renderComponent }) {
   const [clicked, setClicked] = useState(false);
   let path;
@@ -65,3 +52,16 @@ function Helpful({ id, type, currentCount, renderComponent }) {
 }
 
 export default Helpful;
+
+const PaddedSpan = styled.span`
+  padding-right: 7px;
+`;
+
+const PaddedU = styled.u`
+  padding-right: 3px;
+`;
+
+const HelpfulDiv = styled.div`
+  display: flex;
+  align-items: center;
+`;

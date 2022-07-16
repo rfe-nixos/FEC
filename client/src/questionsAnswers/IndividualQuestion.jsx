@@ -6,43 +6,14 @@ import AddAnswerForm from './AddAnswerForm';
 import AnswerList from './AnswerList';
 import Options from './Options';
 
-const DivQuestion = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin: 5px 0;
-  padding: 10px 0;
-`;
-
-const Title = styled.span`
-  width: 30px;
-  font-weight: bold;
-`;
-
-const SpanBold = styled.span`
-  font-weight: bold;
-  font-size: 18px;
-`;
-
-const QContainer = styled.div`
-  display: flex;
-  width: 70%;
-`;
-
 function IndividualQuestion({ productName, question, renderQuestions }) {
-  // VARIABLE DECLARATION //
   const [showModal, setShowModal] = useState(false);
   const [answerList, setAnswerList] = useState([]);
   const [hasMore, setHasMore] = useState(true);
-  // const [page, setPage] = useState(1);
-  // const [count, setCount] = useState(4);
+  const [page, setPage] = useState(1);
+  const [count, setCount] = useState(100);
 
-  // HANDLERS //
   const getAnswers = () => {
-    // const page = answerList.length ? 2 : 1;
-    // const count = answerList.length ? answerList.length : 4;
-    const page = 1;
-    const count = 200;
     const requestConfig = {
       method: 'GET',
       url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
@@ -60,14 +31,12 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
           setHasMore(false);
           return;
         }
-        const newAnswerList = [...answerList, ...result.data.results];
-        setAnswerList(newAnswerList.sort((a, b) => {
+        setAnswerList(result.data.results.sort((a, b) => {
           if (a.answerer_name.toLowerCase() === 'seller') return -1;
           if (a.helpfulness > b.helpfulness) return -1;
           if (a.helpfulness < b.helpfulness) return 1;
           return 0;
         }));
-        // setPage(page + 1);
       })
       .catch((err) => {
         console.log('failed to get answers', err);
@@ -98,26 +67,22 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       });
   };
 
-  // FUNCTION INVOCATION //
   useEffect(() => {
     getAnswers(true);
   }, []);
 
-  // useEffect(() => {
-  //   if (answerList.length < count * page) {
-  //     setCount(count * page);
-  //     setPage(2);
-  //   }
-  // }, [answerList]);
+  useEffect(() => {
+    if (answerList.length >= count) {
+      setCount(count * 2);
+    }
+  }, [answerList]);
 
   return (
     <div className="individual-question">
-      <DivQuestion className="question">
+      <DivQuestion>
         <QContainer>
           <Title>Q:</Title>
-          <SpanBold style={{ width: '90%' }} className="question-text">
-            {question.question_body}
-          </SpanBold>
+          <SpanBold>{question.question_body}</SpanBold>
         </QContainer>
         <Options>
           <Helpful
@@ -135,7 +100,6 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       <AnswerList
         answerList={answerList}
         renderAnswers={getAnswers}
-        SpanBold={SpanBold}
         Title={Title}
         hasMore={hasMore}
       />
@@ -152,3 +116,26 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
 }
 
 export default IndividualQuestion;
+
+const DivQuestion = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 5px 0;
+  padding: 10px 0;
+`;
+
+const Title = styled.span`
+  width: 30px;
+  font-weight: bold;
+`;
+
+const SpanBold = styled.span`
+  font-weight: bold;
+  font-size: 18px;
+`;
+
+const QContainer = styled.div`
+  display: flex;
+  width: 70%;
+`;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 
-function Report({ id, type, renderComponent }) {
+function Report({ id }) {
   const [reported, setReported] = useState(false);
   const handleClick = () => {
     if (reported) {
@@ -20,7 +20,6 @@ function Report({ id, type, renderComponent }) {
 
       axios(requestConfig)
         .then(() => {
-          // renderComponent();
           setReported(true);
         })
         .catch((err) => {
