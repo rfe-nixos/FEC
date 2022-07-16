@@ -8,4 +8,7 @@ yarn.lock
 
 package-lock.json
 
-bundle.js
+.jest/*
+
+client/public/bundle.js
+

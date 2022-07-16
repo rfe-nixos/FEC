@@ -18,7 +18,11 @@ module.exports = {
     filename: "bundle.js"
   },
   plugins: [
+<<<<<<< HEAD
     new Dotenv()
+=======
+    new Dotenv(),
+>>>>>>> main
   ],
   module: {
     // [rules] will determine the rules around those external modules
@@ -32,8 +36,15 @@ module.exports = {
       // Second rule is to check for css files and load them with the following loaders
       {
         test: /\.css$/,
-        use: ['style-loader','css-loader']
-      }
+        use: ['style-loader', 'css-loader']
+      },
+      {
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        loader: 'file-loader',
+        options: {
+          name: '/public/icons/[name].[ext]',
+        },
+      },
     ]
   },
   // [devtool] this is an additional source map that will let the browser know what files are running our code.
@@ -48,5 +59,10 @@ module.exports = {
     compress: true,
     // [port] what port on our local machine to run the dev server
     port: 3000,
-  }
-}
+  },
+  resolve: {
+    extensions: [
+      '.js', '.json', '.jsx',
+    ],
+  },
+};
