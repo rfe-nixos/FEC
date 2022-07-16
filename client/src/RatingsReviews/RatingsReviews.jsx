@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Ratings from './Ratings/Ratings.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import getTotalRatings from './lib/getTotalRatings';
+import { useCurrentProductUpdate, useCurrentProductContext } from '../context.jsx'
 
 class RatingsReviews extends React.Component {
   constructor(props) {
@@ -112,8 +113,6 @@ class RatingsReviews extends React.Component {
       },
     })
       .then((response) => {
-        // console.log('successfully fetched ratings');
-        // console.log(response.data);
         const sum = getTotalRatings(response.data.ratings)[0];
         const totalRatings = getTotalRatings(response.data.ratings)[1];
         this.setState(
