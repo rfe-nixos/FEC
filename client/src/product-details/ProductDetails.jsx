@@ -14,6 +14,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
     }
 
     averageRating /= totalRatings;
+    averageRating = averageRating.toFixed(2);
 
     if (currentStyle.sales_price) {
       console.log('1');
@@ -21,7 +22,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
         <div className="productDetails">
           <p id="category">{product.category}</p>
           <h1 id="title">{product.name}</h1>
-          <h2 id="rating">{`${starRating} stars. Read all ${totalRatings} review(s)`}</h2>
+          <h2 id="rating">{`${averageRating} stars. Read all ${totalRatings} review(s)`}</h2>
           <div className="saleOutlay">
             <h3 id="nonPrice">{'$' + currentStyle.original_price}</h3>
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
@@ -38,7 +39,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
       <div className="productDetails">
         <p id="category">{product.category}</p>
         <h1 id="title">{product.name}</h1>
-        <h2 id="rating">{`${starRating} stars. Read all ${totalRatings} review(s)`}</h2>
+        <h2 id="rating">{`${averageRating} stars. Read all ${totalRatings} review(s)`}</h2>
         <h3 id="price">{'$' + currentStyle.original_price}</h3>
         <p id="overview">{product.description}</p>
         <button id="Facebook" type="button">Facebook</button>
