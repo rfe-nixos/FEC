@@ -9,10 +9,6 @@ const AnswerDiv = styled.div`
   padding-bottom: 10px;
 `;
 
-const AnswerText = styled.span`
-  font-size: 15px;
-`;
-
 function Answer({ answer, renderAnswers }) {
   const answerInfo = (
     <span>
@@ -39,7 +35,7 @@ function Answer({ answer, renderAnswers }) {
 
   return (
     <AnswerDiv className="answer">
-      <AnswerText className="answer-text">{answer.body}</AnswerText>
+      <div className="answer-text">{answer.body}</div>
       <Options>
         {answerInfo}
         {helpful}

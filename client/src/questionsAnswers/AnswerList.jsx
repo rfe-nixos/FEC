@@ -30,7 +30,8 @@ function AnswerList({ answerList, renderAnswers, Title }) {
   }
   return (
     <DivAnswer>
-      <div>0 answers.</div>
+      <Title />
+      <div>No answers.</div>
     </DivAnswer>
   );
 }
@@ -39,16 +40,17 @@ export default AnswerList;
 
 const CollapseSpan = styled.span`
   font-weight: bold;
-  font-size: 13px;
+  font-size: 11px;
 `;
 
 const DivAnswer = styled.div`
   display: flex;
   margin-bottom: 20px;
+  font-size: small;
 `;
 
 const Scroller = styled.div`
-  max-height: 20vh;
+  max-height: 30vh;
   width: 70%;
   overflow-y: auto;
   height: 300;
@@ -58,5 +60,4 @@ const Scroller = styled.div`
 
 const AnswerListDiv = styled.div`
   width: 100%;
-  height: 300;
 `;

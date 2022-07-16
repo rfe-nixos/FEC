@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import _ from 'underscore';
 import Helpful from './Helpful';
 import AddAnswerForm from './AddAnswerForm';
 import AnswerList from './AnswerList';
@@ -8,7 +9,7 @@ import Options from './Options';
 
 function IndividualQuestion({ productName, question, renderQuestions }) {
   const [showModal, setShowModal] = useState(false);
-  const [answerList, setAnswerList] = useState([]);
+  const [answerList, setAnswerList] = useState(sortAnswers(question.answers));
   const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(100);
@@ -31,12 +32,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
           setHasMore(false);
           return;
         }
-        setAnswerList(result.data.results.sort((a, b) => {
-          if (a.answerer_name.toLowerCase() === 'seller') return -1;
-          if (a.helpfulness > b.helpfulness) return -1;
-          if (a.helpfulness < b.helpfulness) return 1;
-          return 0;
-        }));
+        setAnswerList(sortAnswers(result.data.results));
       })
       .catch((err) => {
         console.log('failed to get answers', err);
@@ -67,9 +63,9 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       });
   };
 
-  useEffect(() => {
-    getAnswers(true);
-  }, []);
+  // useEffect(() => {
+  //   getAnswers();
+  // }, []);
 
   useEffect(() => {
     if (answerList.length >= count) {
@@ -82,7 +78,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       <DivQuestion>
         <QContainer>
           <Title>Q:</Title>
-          <SpanBold>{question.question_body}</SpanBold>
+          <b>{question.question_body}</b>
         </QContainer>
         <Options>
           <Helpful
@@ -117,22 +113,25 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
 
 export default IndividualQuestion;
 
+const sortAnswers = (answers) => (
+  _.sortBy(answers, (a, b) => {
+    if (a.answerer_name.toLowerCase() === 'seller') return -1;
+    if (a.helpfulness > b.helpfulness) return -1;
+    if (a.helpfulness < b.helpfulness) return 1;
+    return 0;
+  })
+);
+
 const DivQuestion = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin: 5px 0;
-  padding: 10px 0;
 `;
 
 const Title = styled.span`
   width: 30px;
   font-weight: bold;
-`;
-
-const SpanBold = styled.span`
-  font-weight: bold;
-  font-size: 18px;
 `;
 
 const QContainer = styled.div`
