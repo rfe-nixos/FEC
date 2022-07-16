@@ -96,3 +96,46 @@ export const StyledCard = styled.div`
     left: 0.25rem;
   }
 `;
+
+export const StyledModal = styled.div`
+position: : absolute;
+top: 50%;
+left: 50%;
+transform: translate(-50%, -50%);
+border: 1px solid black;
+border-radius: 1rem;
+z-index: 10;
+background-color: white;
+width: 500px;
+max-width:80%;
+background-color: white;
+.modalHeader {
+  padding:10 15px;
+  display: flex;
+  justify-content:space-between;
+  border-bottom: 1px solid black;
+  align-items:center;
+  padding: 5px 15px;
+}
+.close {
+font-size: 1em;
+cursor: pointer;
+font-weight: bold;
+border:none;
+background: none;
+outline:none
+}
+.modalBody {
+  padding: 10px 15px;
+}
+`;
+
+export const ModalOverlay = styled.div`
+  position: fixed;
+  opacity:0;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background-color: white;
+`;
