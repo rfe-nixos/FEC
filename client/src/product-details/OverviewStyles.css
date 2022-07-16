@@ -1,0 +1,157 @@
+.overview {
+  display: inline-block;
+  height: 800px;
+  width: 80%;
+  min-width: 800px;
+  max-width: 1000px;
+  overflow: scroll;
+  border: solid black 3px;
+  padding: 10px;
+  margin-left: 10%;
+}
+
+.imagegallery {
+  float: left;
+  width: 49%;
+  height: 100%;
+  align-items: center;
+  text-align: center;
+}
+
+.currentImage {
+  width: 100%;
+}
+
+.thumbnailView {
+  width: 100%;
+  overflow: scroll;
+  margin-bottom: 5px;
+}
+
+.carousel {
+  height: 50px;
+  width: 50px;
+  margin: 5px;
+}
+
+.button {
+  margin: 5px;
+}
+
+.right {
+  float: right;
+  width: 49%;
+  height: 100%;
+}
+
+.productDetails {
+  height: 35%;
+  width: 100%;
+  text-align: center;
+  overflow: scroll;
+}
+
+.productDetails h2 {
+  font-weight: normal;
+  font-size: 20px;
+  text-decoration: underline;
+}
+
+#overview {
+  width: 100%;
+  height: 10%;
+  overflow: scroll;
+}
+
+#nonPrice {
+  color: red;
+  text-decoration: line-through;
+  float: left;
+  text-align: right;
+  font-size: 20px;
+  width: 48%;
+  height: 100%;
+}
+
+#price {
+  font-size: 20px;
+}
+
+#salesPrice {
+  float: right;
+  text-align: left;
+  font-size: 20px;
+  width: 48%;
+  height: 100%;
+}
+
+.saleOutlay {
+  height: 15%;
+  border: solid black 1px;
+}
+
+.styleSelector {
+  float: center;
+  width: 100%;
+  text-align: center;
+  height: 45%;
+  margin-left: 5%;
+}
+
+.styleOption {
+  float: left;
+  text-align: center;
+  align-items: center;
+  font-style: italic;
+  height: 80px;
+  width: 80px;
+  margin: 2%;
+}
+
+#styleOverlay {
+  margin-left: 15px;
+  margin-top: 10px;
+  position: absolute;
+  height: 50px;
+  width: 50px;
+  z-index: 50;
+}
+
+.styleOption img {
+  height: 100%;
+  width: 100%;
+  border-radius: 50%;
+  z-index: 1;
+}
+
+.addToCart {
+  float: right;
+  text-align: center;
+  margin: 5px;
+  width: 100%;
+  height: 10%;
+}
+
+.outOfStock {
+  float: right;
+  text-align: center;
+  margin: 5px;
+  width: 500px;
+  height: 50px;
+}
+
+.sizeOptions {
+  margin: 5px;
+}
+
+.amountOption {
+  margin: 5px;
+}
+
+.cartButton {
+  margin: 5px;
+}
+
+.sizeAlert {
+  color: red;
+}
