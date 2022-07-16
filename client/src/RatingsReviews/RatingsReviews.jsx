@@ -43,7 +43,7 @@ class RatingsReviews extends React.Component {
         },
       })
         .then((response) => {
-          console.log('successfully fetched reviews');
+          // console.log('successfully fetched reviews');
           this.setState({ reviews: response.data.results });
         })
         .catch((err) => console.log('error fetching reviews', err));
@@ -112,8 +112,8 @@ class RatingsReviews extends React.Component {
       },
     })
       .then((response) => {
-        console.log('successfully fetched ratings');
-        console.log(response.data);
+        // console.log('successfully fetched ratings');
+        // console.log(response.data);
         const sum = getTotalRatings(response.data.ratings)[0];
         const totalRatings = getTotalRatings(response.data.ratings)[1];
         this.setState(
