@@ -7,3 +7,4 @@ node_modules
 .jest/*
 client/public/bundle.js
 package-lock.json
+yarn.lock
