@@ -164,13 +164,13 @@ class RatingsReviews extends React.Component {
 
   render() {
     return (
-      <StyledMain>
-        <StyledTitle>
+      <StyledMain id="ratings-reviews">
+        <StyledTitle id="inner-title">
           <div>
             RATINGS & REVIEWS
           </div>
         </StyledTitle>
-        <StyledInner>
+        <StyledInner id="inner-main">
           <Ratings
             meta={this.state.meta}
             isLoaded={this.state.isLoaded}
@@ -232,8 +232,7 @@ const StyledMain = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80%;
-  height: 90%;
+  width: 70%;
   color: #1c1c1c;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
@@ -245,7 +244,7 @@ const StyledInner = styled.div`
   justify-content: space-between;
   align-items: top;
   min-width: 700px;
-  width: 90%;
+  width: 100%;
   border-top: 1px solid black;
   padding-top: 1%;
   height: 100%
