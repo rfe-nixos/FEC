@@ -3,9 +3,10 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
 import React from 'react';
+import lightblue from './assets/lightblue.png';
 // import styled from 'styled-components';
 
-function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
+function ImageGallery({ currentStyle, currentImage, setCurrentImage, currentThumbnail, setCurrentThumbnail }) {
   /* const StyledCarousel = styled.div`
     display: flex,
     flex-direction: column,
@@ -23,11 +24,22 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
     setCurrentImage(event.target.src);
   };
 
-  currentStyle.photos.forEach((photo) => {
-    galleryList.push(
-      <img src={photo.thumbnail_url} key={galleryList.length} alt={currentStyle.name} className="carousel" onClick={handleClick} />,
-    );
-  });
+  for (let i = 0; i < currentStyle.photos.length; i += 1) {
+    if (i === currentThumbnail) {
+      galleryList.push(
+        <div className="carousel" key={galleryList.length}>
+          <img src={lightblue} id="currentThumbnail" alt="thumbnailOverlay" />
+          <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} onClick={handleClick} />
+        </div>,
+      );
+    } else {
+      galleryList.push(
+        <div className="carousel" key={galleryList.length}>
+          <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} onClick={handleClick} />
+        </div>,
+      );
+    }
+  }
 
   if (galleryList.length > 7) {
     return (
@@ -37,7 +49,9 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
           {galleryList}
           <button className="button" type="button">next</button>
         </div>
-        {mainImage}
+        <div className="mainImageContainer">
+          {mainImage}
+        </div>
       </div>
     );
   }
@@ -46,7 +60,9 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage }) {
       <div className="thumbnailView">
         {galleryList}
       </div>
-      {mainImage}
+      <div className="mainImageContainer">
+        {mainImage}
+      </div>
     </div>
   );
 }

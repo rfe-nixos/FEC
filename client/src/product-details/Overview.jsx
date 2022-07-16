@@ -16,6 +16,7 @@ function Overview() {
   const [currentImage, setCurrentImage] = useState('');
   const [sizeAlert, setSizeAlert] = useState('');
   const [productReviews, setProductReviews] = useState({});
+  const [currentThumbnail, setCurrentThumbnail] = useState(0);
 
   const productId = '37311';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
@@ -107,7 +108,7 @@ function Overview() {
   if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0) {
     return (
       <div className="overview">
-        <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} />
+        <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />

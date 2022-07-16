@@ -1,10 +1,10 @@
 /* eslint-disable radix */
 /* eslint-disable react/prop-types */
 import React from 'react';
+import Star from '../RatingsReviews/Ratings/Star';
 
 function ProductDetails({ product, currentStyle, productReviews }) {
   if (Object.keys(productReviews.ratings).length > 0) {
-    let starRating = '*';
 
     let averageRating = 0;
     let totalRatings = 0;
@@ -21,7 +21,12 @@ function ProductDetails({ product, currentStyle, productReviews }) {
         <div className="productDetails">
           <p id="category">{product.category}</p>
           <h1 id="title">{product.name}</h1>
-          <h2 id="rating">{`${averageRating} stars. Read all ${totalRatings} review(s)`}</h2>
+          <div id="rating">
+            <div className="starRating">
+              <Star average={averageRating} />
+            </div>
+            <h3 className="totalRatings">Read all {totalRatings} review(s)</h3>
+          </div>
           <div className="saleOutlay">
             <h3 id="nonPrice">{'$' + currentStyle.original_price}</h3>
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
@@ -37,7 +42,12 @@ function ProductDetails({ product, currentStyle, productReviews }) {
       <div className="productDetails">
         <p id="category">{product.category}</p>
         <h1 id="title">{product.name}</h1>
-        <h2 id="rating">{`${averageRating} stars. Read all ${totalRatings} review(s)`}</h2>
+        <div id="rating">
+          <div className="starRating">
+            <Star average={averageRating} />
+          </div>
+          <h3 className="totalRatings">Read all {totalRatings} review(s)</h3>
+        </div>
         <h3 id="price">{'$' + currentStyle.original_price}</h3>
         <p id="overview">{product.description}</p>
         <button id="Facebook" type="button">Facebook</button>
