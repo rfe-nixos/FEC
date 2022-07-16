@@ -1,1 +1,19 @@
-// 2 buttons for more reviews add a reviews
+import React from 'react';
+import { Stack, Divider } from '@mui/material';
+
+function Options({ children }) {
+  return (
+    <Stack
+      direction="row"
+      divider={<Divider orientation="vertical" flexItem sx={{ borderRightWidth: 1, borderColor: '#77787a' }} />}
+      spacing={1.5}
+      fontSize="14px"
+      padding="10px 0"
+      color="#77787a"
+    >
+      {children}
+    </Stack>
+  );
+}
+
+export default Options;

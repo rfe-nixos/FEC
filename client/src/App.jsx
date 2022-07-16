@@ -1,16 +1,13 @@
 import React from 'react';
-<<<<<<< HEAD
+import QuestionAnswer from './questionsAnswers/QuestionAnswers';
 import RelatedItems from './related-items/related-items.jsx';
 
 // Huzzah for jsx!
 function App() {
-  return <RelatedItems />;
-=======
-
-// Huzzah for jsx!
-function App() {
-  return <h1>Hello World</h1>
->>>>>>> main
+  return (
+    <RelatedItems />
+    <QuestionAnswer productId={37313} />
+  );
 }
 
 export default App;
