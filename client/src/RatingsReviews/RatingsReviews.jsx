@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import Ratings from './Ratings/Ratings.jsx';
 import Reviews from './Reviews/Reviews.jsx';
-import getTotalRatings from './lib/getTotalRatings.js';
+import getTotalRatings from './lib/getTotalRatings';
 
 class RatingsReviews extends React.Component {
   constructor(props) {

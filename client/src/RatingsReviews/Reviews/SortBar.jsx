@@ -23,6 +23,7 @@ const StyledSortBar = styled.div`
   flex-direction: row;
   font-weight: bold;
   font-size: 15px;
+  width: 100%;
 `;
 
 const StyledDropDown = styled.select`

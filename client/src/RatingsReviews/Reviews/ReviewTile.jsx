@@ -52,9 +52,12 @@ class ReviewTile extends React.Component {
               </h5>
               )}
             {this.props.review.photos.length > 0
-              && (
-                <StyledImg src={this.props.review.photos[0]['url']} />
-              )
+              && <PhotoDiv>
+                {this.props.review.photos.map((photo, index) => {
+                  return <StyledImg key={index} src={photo['url']} />
+                })}
+                </PhotoDiv>
+
             }
             {this.props.review.response
               && (
@@ -79,6 +82,14 @@ class ReviewTile extends React.Component {
     );
   }
 }
+
+const PhotoDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  overflow-x: auto;
+`
 
 const TileContainer = styled.div`
   display: flex;
