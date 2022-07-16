@@ -1,7 +1,7 @@
 .overview {
   display: inline-block;
   height: 800px;
-  width: 100%;
+  width: 80%;
   min-width: 800px;
   max-width: 1000px;
   border: solid black 3px;
@@ -30,28 +30,22 @@
 
 .thumbnailView {
   width: 100%;
-  overflow: scroll;
+  height: 55px;
   margin-bottom: 5px;
-}
-
-#currentThumnail {
-  position: absolute;
-  height: 50px;
-  width: 50px;
-  z-index: 50;
-  background-color: aqua;
-  color: aqua;
+  float: left;
 }
 
 .carousel {
   height: 50px;
   width: 50px;
-  margin: 5px;
+  float: left;
+  margin: auto 3px;
 }
 
 .carousel img {
   height: 100%;
   width: 100%;
+  z-index: 1;
 }
 
 .button {

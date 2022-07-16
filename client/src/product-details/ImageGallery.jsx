@@ -3,7 +3,6 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
 import React from 'react';
-import lightblue from './assets/lightblue.png';
 // import styled from 'styled-components';
 
 function ImageGallery({ currentStyle, currentImage, setCurrentImage, currentThumbnail, setCurrentThumbnail }) {
@@ -21,21 +20,23 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage, currentThum
 
   const handleClick = (event) => {
     event.preventDefault();
+    // console.log('click!');
     setCurrentImage(event.target.src);
+    setCurrentThumbnail(event.target.alt);
   };
 
   for (let i = 0; i < currentStyle.photos.length; i += 1) {
-    if (i === currentThumbnail) {
+    // console.log(i, currentThumbnail);
+    if (i === parseInt(currentThumbnail)) {
       galleryList.push(
         <div className="carousel" key={galleryList.length}>
-          <img src={lightblue} id="currentThumbnail" alt="thumbnailOverlay" />
-          <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} onClick={handleClick} />
+          <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} style={{ opacity: 0.7 }} onClick={handleClick} />
         </div>,
       );
     } else {
       galleryList.push(
         <div className="carousel" key={galleryList.length}>
-          <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} onClick={handleClick} />
+          <img src={currentStyle.photos[i].thumbnail_url} alt={i} onClick={handleClick} />
         </div>,
       );
     }
