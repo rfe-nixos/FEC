@@ -18,7 +18,7 @@ function Product({ formattedCard }) {
       setPicIndex((prev) => prev - 1);
     }
   };
-  console.log(formattedCard);
+  // console.log(formattedCard);
   return (
     <>
       <StyledCard>
