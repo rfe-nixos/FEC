@@ -17,7 +17,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
     averageRating = averageRating.toFixed(2);
 
     if (currentStyle.sales_price) {
-      console.log('1');
       return (
         <div className="productDetails">
           <p id="category">{product.category}</p>
@@ -34,7 +33,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
         </div>
       );
     }
-    console.log('2');
     return (
       <div className="productDetails">
         <p id="category">{product.category}</p>
@@ -50,7 +48,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
   }
 
   if (currentStyle.sales_price) {
-    console.log('3');
     return (
       <div className="productDetails">
         <p id="category">{product.category}</p>
