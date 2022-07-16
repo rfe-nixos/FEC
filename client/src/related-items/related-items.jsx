@@ -83,9 +83,7 @@ function RelatedItems() {
     }
     Promise.all(promises)
       .then((prodObjArr) => {
-        setRelatedProductReviews(() =>
-          prodObjArr.map((product) => product.data)
-        );
+        setRelatedProductReviews(() => prodObjArr.map((product) => product.data));
         return prodObjArr.map((product) => product.data);
       })
       .catch((err) => console.log('Error:', err));

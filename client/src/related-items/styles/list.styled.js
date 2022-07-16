@@ -1,7 +1,12 @@
 import styled from 'styled-components';
 
 export const StyledList = styled.div`
-  display: grid;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: scroll;
+  gap: 2rem;
+  align-items: flex-start;
+  /* display: grid;
   margin-top: 5em;
   margin-bottom: 5em;
   grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
@@ -9,9 +14,9 @@ export const StyledList = styled.div`
   gap: 2rem;
   align-items: flex-start;
   justify-content: center;
-  position: relative;
+  position: relative; */
   .slider {
-    background-color: gray;
+    /* background-color: gray;
     position: absolute;
     z-index: 1.5;
     background: none;
@@ -19,17 +24,22 @@ export const StyledList = styled.div`
     font-size: 1.5rem;
     top: 50%;
     cursor: pointer;
-    border-radius: 0.25rem;
+    border-radius: 0.25rem; */
+    width: 5rem;
+    font-size:1.5rem;
+    transform: translateY(400%);
   }
   .leftSlider {
-    left: 2.5rem;
   }
   .rightSlider {
-    right: 2.5rem;
   }
 `;
 
 export const StyledCard = styled.div`
+  flex: 0 0 25%;
+  min-width: 200px;
+  max-width:250px;
+  margin:2px;
   font-size: 1rem;
   background: white;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
