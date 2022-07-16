@@ -24,7 +24,7 @@ function QuestionAnswers({ productId }) {
         page,
       },
       headers: {
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.AUTH_KEY,
       },
     };
 
@@ -45,7 +45,7 @@ function QuestionAnswers({ productId }) {
       method: 'GET',
       url: `${process.env.API_URL}/products/${productId}`,
       headers: {
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.AUTH_KEY,
       },
     };
 

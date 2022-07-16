@@ -23,7 +23,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         count,
       },
       headers: {
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.AUTH_KEY,
       },
     };
     axios(requestConfig)
@@ -51,7 +51,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         photos,
       },
       headers: {
-        Authorization: process.env.AUTH_TOKEN,
+        Authorization: process.env.AUTH_KEY,
       },
     };
     axios(requestConfig)

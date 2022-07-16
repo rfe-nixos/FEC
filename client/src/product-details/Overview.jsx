@@ -17,10 +17,10 @@ function Overview() {
   const [sizeAlert, setSizeAlert] = useState('');
   const [productReviews, setProductReviews] = useState({});
 
-  const productId = '37314';
+  const productId = '37311';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
-  const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${37311}`;
+  const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${productId}`;
 
   const requestConfig1 = {
     method: 'GET',
