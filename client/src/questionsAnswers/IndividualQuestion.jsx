@@ -8,7 +8,6 @@ import AnswerList from './AnswerList';
 import Options from './Options';
 
 function IndividualQuestion({ productName, question, renderQuestions }) {
-  console.log(question);
   const [showModal, setShowModal] = useState(false);
   const [answerList, setAnswerList] = useState(sortAnswers(question.answers));
   const [hasMore, setHasMore] = useState(true);
