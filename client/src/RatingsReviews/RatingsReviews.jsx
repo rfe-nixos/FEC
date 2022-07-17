@@ -7,7 +7,7 @@ import Reviews from './Reviews/Reviews.jsx';
 import getTotalRatings from './lib/getTotalRatings';
 import { useCurrentProductUpdate, useCurrentProductContext } from '../context.jsx';
 
-function RatingsReviews({ productId }) {
+function RatingsReviews() {
   const [meta, setMeta] = useState({});
   const [totalRatings, setTotalRatings] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -22,7 +22,7 @@ function RatingsReviews({ productId }) {
   const [sortOption, setSortOption] = useState('');
   const [sorted, setSorted] = useState(false);
 
-  // const productId = useCurrentProductContext();
+  const productId = useCurrentProductContext();
 
   const getReviews = () => {
     axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=500`, {
@@ -38,14 +38,10 @@ function RatingsReviews({ productId }) {
       .catch((err) => console.log('error fetching reviews', err));
   };
 
-  const moreReviews = () => {
-    setPage(page + 1);
-  };
-
   useEffect(() => {
-    console.log('page changed!!!');
+    getRatings();
     getReviews();
-  }, [page]);
+  }, [productId]);
 
   const getRatings = () => {
     axios.get(`${process.env.API_URL}/reviews/meta?product_id=${productId}`, {
@@ -149,6 +145,21 @@ function RatingsReviews({ productId }) {
     }
   }, [sorted, sortOption]);
 
+  const moreReviews = () => {
+    setPage(page + 1);
+  };
+
+  useEffect(() => {
+    console.log('page changed!!!');
+    getReviews();
+  }, [page]);
+
+  const scrollMore = () => { // only works when its not filtered by rating.
+    if (!this.state.filteredByRating) {
+      setPage(page + 1);
+    }
+  };
+
   return (
     <StyledMain id="ratings-reviews">
       <StyledTitle id="inner-title">
@@ -172,6 +183,7 @@ function RatingsReviews({ productId }) {
             reviews={filtered}
             moreReviews={moreReviews}
             setSort={sort}
+            getReviews={getReviews}
           />
         )}
         {(!filteredByRating) && (
@@ -181,6 +193,7 @@ function RatingsReviews({ productId }) {
             reviews={reviews}
             moreReviews={moreReviews}
             setSort={sort}
+            getReviews={getReviews}
           />
         )}
       </StyledInner>

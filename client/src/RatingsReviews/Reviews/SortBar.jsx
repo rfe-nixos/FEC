@@ -8,6 +8,7 @@ function SortBar(props) {
   };
 
   let currentProductId = useCurrentProductContext();
+  console.log(currentProductId);
 
   return (
     <StyledSortBar>
