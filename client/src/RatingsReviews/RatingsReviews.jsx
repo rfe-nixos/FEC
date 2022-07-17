@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
+import { format, parseISO, compareAsc } from 'date-fns';
 import Ratings from './Ratings/Ratings.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import getTotalRatings from './lib/getTotalRatings';
@@ -13,15 +14,15 @@ function RatingsReviews({ productId }) {
   const [filteredByRating, setFilteredByRating] = useState(false);
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
-  const [sortOption, setSortOption] = useState('');
-  const [sorted, setSorted] = useState(false);
   const [filtered, setFiltered] = useState([]);
   const [average, setAverage] = useState(0);
   const [ratings, setRatings] = useState([]);
   const [ratingFilter, setRatingFilter] = useState([]);
   const [sortedReviews, setSortedReviews] = useState([]);
+  const [sortOption, setSortOption] = useState('');
+  const [sorted, setSorted] = useState(false);
 
-  //const productId = useCurrentProductContext();
+  // const productId = useCurrentProductContext();
 
   const getReviews = () => {
     axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=500`, {
@@ -42,7 +43,7 @@ function RatingsReviews({ productId }) {
   };
 
   useEffect(() => {
-    console.log('page changed!!!')
+    console.log('page changed!!!');
     getReviews();
   }, [page]);
 
@@ -70,35 +71,15 @@ function RatingsReviews({ productId }) {
   }, []);
 
   const setRatingsFilter = (rating) => {
-    // const temp = ratingFilter;
-    // let index = temp.indexOf(rating); //get index
-    // if (index === -1) {//if rating clicked doesnt exist in array,
-    //   temp.push(rating);
-    // } else {
-    //   //if it exists, splice it out
-    //   temp.splice(index, 1);
-    // }
-    // console.log('clicked, heres the updated filter', temp);
-    let index = ratingFilter.indexOf(rating);
+    const index = ratingFilter.indexOf(rating);
     if (index === -1) {
       setRatingFilter((a) => [...a, rating]);
     } else {
-      let temp = ratingFilter;
+      const temp = ratingFilter;
       temp.splice(index, 1);
-      setRatingFilter((a) => [...temp]);
+      setRatingFilter(() => [...temp]);
     }
-    // if there is not a single true in rating filter,
-    // set filteredbyrating to false.
-    // cant have this here because setratingffilter takes time! ----- ***
-    // if (ratingFilter.length > 0) {
-    //   console.log('filtered by rating true')
-    //   setFilteredByRating(true);
-    // } else {
-    //   console.log('NOT filtered by rating')
-    //   setFilteredByRating(false);
-    //   setFiltered([]);
-    // }
-  }
+  };
 
   const getByRating = () => {
     // set temp as current list of reviews,
@@ -107,11 +88,9 @@ function RatingsReviews({ productId }) {
     const temp = reviews;
     const arr = ratingFilter;
     const filteredReviews = temp.filter((review) => {
-      //if review.rating is found in array, return that review.
-      let index = arr.indexOf(review.rating+'');
-      console.log(index);
-      if(index !== -1) {
-        console.log('review found!');
+      // if review.rating is found in array, return that review.
+      const index = arr.indexOf(`${review.rating}`);
+      if (index !== -1) {
         return review;
       }
     });
@@ -120,11 +99,11 @@ function RatingsReviews({ productId }) {
 
   useEffect(() => {
     console.log('ratingfilter is changing');
-    if(ratingFilter.length > 0) { //once ratingfilter updates, is longer than 0
+    if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
       getByRating();
       setFilteredByRating(true);
       console.log('snatchhh filtered by ratings');
-    } else {  //if its not longer than 0, empty array, just get regular reviews.
+    } else { // if its not longer than 0, empty array, just get regular reviews.
       getReviews();
       setFilteredByRating(false);
       setFiltered([]);
@@ -133,28 +112,42 @@ function RatingsReviews({ productId }) {
   }, [ratingFilter]);
 
   const setSort = (sort_option) => {
-    setSorted(true); //set sorted to true.
-    setSortOption(sort_option); //set the sort option
-    console.log('sort option is', sort_option);
-  }
+    setSorted(true); // set sorted to true.
+    setSortOption(sort_option); // set the sort option
+    // console.log('sort option is', sort_option);
+  };
 
   const sort = (sortMethod) => {
-    const temp = reviews;
-    let sorted = temp.filter((review) => {
-      if (review.rating === 1) {
-        console.log(review);
-        return review;
-      }
-    });
-    console.log('sorted reviews,', sorted);
-    setSortedReviews(sorted);
-  }
+    setSorted(false);
+    let temp = reviews;
+    console.log('sortmethod is,', sortMethod);
+    if (sortMethod === 'helpful') {
+      temp.sort((a, b) => b.helpfulness - a.helpfulness);
+      console.log('sorted reviews by helpfulness,');
+      setSortedReviews(() => temp);
+      setSortOption(sortMethod);
+      setSorted(true);
+    }
+    if (sortMethod === 'newest') {
+      temp.sort((a, b) => compareAsc(parseISO(b.date), parseISO(a.date)));
+      console.log('sorted reviews by newest,');
+      setSortedReviews(() => temp);
+      setSortOption(sortMethod);
+      setSorted(true);
+    }
+    if (sortMethod === 'relevance') { // relevance, just reset sort and get og reviews
+      setSorted(false);
+      setSortedReviews([]);
+      getReviews();
+    }
+  };
 
   useEffect(() => {
-    console.log('fetching by sort');
-    //getReviews(); //should be sort
-    sort();
-  }, [sortOption])
+    console.log('USE EFFECT reviews are now sorted');
+    if (sorted) {
+      setReviews[sortedReviews];
+    }
+  }, [sorted, sortOption]);
 
   return (
     <StyledMain id="ratings-reviews">
@@ -178,25 +171,16 @@ function RatingsReviews({ productId }) {
             totalRatings={totalRatings}
             reviews={filtered}
             moreReviews={moreReviews}
-            setSort={setSort}
+            setSort={sort}
           />
         )}
-        {(sorted) && (
-          <Reviews
-            productId={productId}
-            totalRatings={totalRatings}
-            reviews={sortedReviews}
-            moreReviews={moreReviews}
-            setSort={setSort}
-          />
-        )}
-        {(!filteredByRating && !sorted) && (
+        {(!filteredByRating) && (
           <Reviews
             productId={productId}
             totalRatings={totalRatings}
             reviews={reviews}
             moreReviews={moreReviews}
-            setSort={setSort}
+            setSort={sort}
           />
         )}
       </StyledInner>
