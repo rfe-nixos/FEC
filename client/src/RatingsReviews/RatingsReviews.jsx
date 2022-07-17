@@ -14,10 +14,12 @@ function RatingsReviews({ productId }) {
   const [reviews, setReviews] = useState([]);
   const [page, setPage] = useState(1);
   const [sortOption, setSortOption] = useState('');
-  const [sorted, setSorted] = useState('false');
+  const [sorted, setSorted] = useState(false);
   const [filtered, setFiltered] = useState([]);
   const [average, setAverage] = useState(0);
   const [ratings, setRatings] = useState([]);
+  const [ratingFilter, setRatingFilter] = useState({});
+  const [sortedReviews, setSortedReviews] = useState([]);
 
   const getReviews = () => {
     axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=${page * 2}`, {
@@ -35,7 +37,7 @@ function RatingsReviews({ productId }) {
 
   const moreReviews = () => {
     setPage(page + 1);
-  }
+  };
 
   useEffect(() => {
     console.log('page changed!!!')
@@ -65,6 +67,71 @@ function RatingsReviews({ productId }) {
     getRatings();
   }, []);
 
+  const setRatingsFilter = (rating) => {
+    const temp = ratingFilter;
+    if (!temp[rating]) {
+      temp[rating] = true;
+    } else {
+      temp[rating] = false;
+    }
+    // if there is not a single true in rating filter,
+    // set filteredbyrating to false.
+    if (Object.values(temp).indexOf(true) !== -1) {
+      setFilteredByRating(true);
+      setRatingFilter(temp);
+    } else {
+      setFilteredByRating(false);
+      setRatingFilter(temp);
+      setFiltered([]);
+    }
+  }
+
+  const getByRating = () => {
+    // set temp as current list of reviews,
+    // filter temp to fit ratings filter,
+    // set state reviews to be temp.
+    const temp = reviews;
+    const obj = ratingFilter;
+    const filteredReviews = temp.filter((review) => {
+      if (obj[`${review.rating}`]) {
+        return review;
+      }
+    });
+    setFiltered(filteredReviews);
+  }
+
+  useEffect(() => {
+    //getByRating();
+    console.log('snatchhhhh');
+  }, [filteredByRating, ratingFilter]);
+
+  const setSort = (sort_option) => {
+    setSortOption(sort_option);
+    console.log('sort option is', sort_option);
+  }
+
+  useEffect(() => {
+    console.log('fetching by sort');
+    //getReviews(); //should be sort
+    sort();
+  }, [sortOption])
+
+  const sort = (new_option) => {
+    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&sort=${new_option}&count=${page * 2}`, {
+      headers: {
+        Authorization: process.env.AUTH_KEY,
+      },
+    })
+      .then((response) => {
+        console.log('successfully fetched reviews');
+        // this.setState({
+        //   reviews: response.data.results,
+        // });
+        setReviews(response.data.results);
+      })
+      .catch((err) => console.log('error fetching reviews', err));
+  }
+
   return (
     <StyledMain id="ratings-reviews">
       <StyledTitle id="inner-title">
@@ -78,192 +145,30 @@ function RatingsReviews({ productId }) {
           isLoaded={isLoaded}
           average={average}
           totalRatings={totalRatings}
+          setRatingFilter={setRatingsFilter}
+          setSortOption={setSortOption}
         />
-        <Reviews
-          productId={productId}
-          totalRatings={totalRatings}
-          reviews={reviews}
-          moreReviews={moreReviews}
-        />
+        {(sorted) && (
+          <Reviews
+            productId={productId}
+            totalRatings={totalRatings}
+            reviews={sortedReviews}
+            moreReviews={moreReviews}
+          />
+        )}
+        {(!sorted) && (
+          <Reviews
+            productId={productId}
+            totalRatings={totalRatings}
+            reviews={reviews}
+            moreReviews={moreReviews}
+            setSortOption={setSort}
+          />
+        )}
       </StyledInner>
     </StyledMain>
   );
 }
-
-//   getReviews() {
-//     if (!this.state.sorted) {
-//       axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.productId}&count=${this.state.page * 2}`, {
-//         headers: {
-//           Authorization: process.env.AUTH_KEY,
-//         },
-//       })
-//         .then((response) => {
-//           // console.log('successfully fetched reviews');
-//           this.setState({ reviews: response.data.results });
-//         })
-//         .catch((err) => console.log('error fetching reviews', err));
-//     } else {
-//       this.sort(this.state.sort_option);
-//     }
-//   }
-
-//   moreReviews() {
-//     let { page } = this.state;
-//     page += 1;
-//     this.setState({
-//       page, filteredByRating: false, filtered: [], ratingFilter: {},
-//     }, () => {
-//       console.log(page, 'page of more results');
-//       this.getReviews();
-//     });
-//   }
-
-//   scrollMore() { // only works when its not filtered by rating.
-//     if (!this.state.filteredByRating) {
-//       let { page } = this.state;
-//       page += 1;
-//       this.setState({ page }, () => {
-//         console.log(page, 'page of more results');
-//         this.getReviews();
-//       });
-//     }
-//   }
-
-//   setSortOption(new_option) {
-//     if (new_option !== this.state.sort_option) {
-//       console.log('sorting by', new_option);
-//       this.setState({
-//         page: 1,
-//         sort_option: new_option,
-//         sorted: true,
-//         filteredByRating: false,
-//         filtered: [],
-//         ratingFilter: {},
-//       }, () => {
-//         this.sort(new_option);
-//       });
-//     }
-//   }
-
-//   sort(new_option) {
-//     axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.productId}&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
-//       headers: {
-//         Authorization: process.env.AUTH_KEY,
-//       },
-//     })
-//       .then((response) => {
-//         console.log('successfully fetched reviews');
-//         this.setState({
-//           reviews: response.data.results,
-//         });
-//       })
-//       .catch((err) => console.log('error fetching reviews', err));
-//   }
-
-//   getRatings() {
-//     axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.props.productId}`, {
-//       headers: {
-//         Authorization: process.env.AUTH_KEY,
-//       },
-//     })
-//       .then((response) => {
-//         const sum = getTotalRatings(response.data.ratings)[0];
-//         const totalRatings = getTotalRatings(response.data.ratings)[1];
-//         this.setState(
-//           {
-//             meta: response.data,
-//             average: (sum / totalRatings).toFixed(2),
-//             ratings: response.data.ratings,
-//             totalRatings,
-//             isLoaded: true,
-//           },
-//         );
-//       })
-//       .catch((err) => console.log('error fetching ratings', err));
-//   }
-
-//   setRatingFilter(rating) {
-//     const temp = this.state.ratingFilter;
-//     if (!temp[rating]) {
-//       temp[rating] = true;
-//     } else {
-//       temp[rating] = false;
-//     }
-//     // if there is not a single true in rating filter,
-//     // set filteredbyrating to false.
-//     if (Object.values(temp).indexOf(true) !== -1) {
-//       this.setState({ filteredByRating: true, ratingFilter: temp }, () => {
-//         this.getByRating();
-//       });
-//     } else {
-//       this.setState({ filteredByRating: false, ratingFilter: temp, filtered: [] }, () => {
-//       });
-//     }
-//   }
-
-//   getByRating() {
-//     // set temp as current list of reviews,
-//     // filter temp to fit ratings filter,
-//     // set state reviews to be temp.
-//     const temp = this.state.reviews;
-//     const obj = this.state.ratingFilter;
-//     const filtered = temp.filter((review) => {
-//       if (obj[`${review.rating}`]) {
-//         return review;
-//       }
-//     });
-//     this.setState({ filtered });
-//   }
-
-//   render() {
-//     return (
-//       <StyledMain id="ratings-reviews">
-//         <StyledTitle id="inner-title">
-//           <div>
-//             RATINGS & REVIEWS
-//           </div>
-//         </StyledTitle>
-//         <StyledInner id="inner-main">
-//           <Ratings
-//             meta={this.state.meta}
-//             isLoaded={this.state.isLoaded}
-//             average={this.state.average}
-//             totalRatings={this.state.totalRatings}
-//             setRatingFilter={this.setRatingFilter}
-//             ratingFilter={this.state.ratingFilter}
-//           />
-//           {!this.state.filteredByRating && (
-//             <Reviews
-//               productId={this.props.productId}
-//               totalRatings={this.state.totalRatings}
-//               ratingFilter={this.state.ratingFilter}
-//               filteredByRating={this.state.filteredByRating}
-//               moreReviews={this.moreReviews}
-//               reviews={this.state.reviews}
-//               sort={this.sort}
-//               getReviews={this.getReviews}
-//               scrollMore={this.scrollMore}
-//               setSortOption={this.setSortOption}
-//             />
-//           )}
-//           {this.state.filteredByRating && (
-//             <Reviews
-//               totalRatings={this.state.totalRatings}
-//               ratingFilter={this.state.ratingFilter}
-//               filteredByRating={this.state.filteredByRating}
-//               moreReviews={this.moreReviews}
-//               reviews={this.state.filtered}
-//               sort={this.sort}
-//               getReviews={this.getReviews}
-//               scrollMore={this.scrollMore}
-//               setSortOption={this.setSortOption}
-//             />
-//           )}
-//         </StyledInner>
-//       </StyledMain>
-//     );
-//   }
-// }
 
 const StyledButton = styled.button`
   width: auto;
