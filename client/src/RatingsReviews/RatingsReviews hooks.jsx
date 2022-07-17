@@ -21,7 +21,7 @@ function RatingsReviews() {
   const [sortedReviews, setSortedReviews] = useState([]);
   const [sortOption, setSortOption] = useState('');
   const [sorted, setSorted] = useState(false);
-  const [sortCount, setSortCount] = useState(0);
+  const [sortCount, setSortcount] = useState(0);
 
   const productId = useCurrentProductContext();
 
@@ -34,11 +34,11 @@ function RatingsReviews() {
       .then((response) => {
         console.log('successfully fetched reviews');
         setReviews(response.data.results);
-      })
-      .then(() => {
-        if(sorted) {
-          sort(sortOption);
-        }
+        // if(sorted) {
+        //   setSortOption('');
+        //   sort(SortOption);
+        // }
+
       })
       .catch((err) => console.log('error fetching reviews', err));
   };
@@ -127,7 +127,6 @@ function RatingsReviews() {
       console.log('sorted reviews by helpfulness,');
       setSortedReviews(() => temp);
       setSortOption(sortMethod);
-      setSortCount(sortCount + 1); //trigger effect
       setSorted(true);
     }
     if (sortMethod === 'newest') {
@@ -135,7 +134,6 @@ function RatingsReviews() {
       console.log('sorted reviews by newest,');
       setSortedReviews(() => temp);
       setSortOption(sortMethod);
-      setSortCount(sortCount + 1); //trigger effect
       setSorted(true);
     }
     if (sortMethod === 'relevance') { // relevance, just reset sort and get og reviews
@@ -148,10 +146,9 @@ function RatingsReviews() {
   useEffect(() => {
     console.log('USE EFFECT reviews are now sorted');
     if (sorted) {
-      console.log('setting reviews to sorted reviews');
       setReviews[sortedReviews];
     }
-  }, [sortCount]);
+  }, [sortOption]);
 
   const moreReviews = () => {
     setPage(page + 1);
