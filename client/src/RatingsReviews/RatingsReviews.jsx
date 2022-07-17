@@ -18,11 +18,13 @@ function RatingsReviews({ productId }) {
   const [filtered, setFiltered] = useState([]);
   const [average, setAverage] = useState(0);
   const [ratings, setRatings] = useState([]);
-  const [ratingFilter, setRatingFilter] = useState({});
+  const [ratingFilter, setRatingFilter] = useState([]);
   const [sortedReviews, setSortedReviews] = useState([]);
 
+  //const productId = useCurrentProductContext();
+
   const getReviews = () => {
-    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=${page * 2}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=500`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -68,22 +70,34 @@ function RatingsReviews({ productId }) {
   }, []);
 
   const setRatingsFilter = (rating) => {
-    const temp = ratingFilter;
-    if (!temp[rating]) {
-      temp[rating] = true;
+    // const temp = ratingFilter;
+    // let index = temp.indexOf(rating); //get index
+    // if (index === -1) {//if rating clicked doesnt exist in array,
+    //   temp.push(rating);
+    // } else {
+    //   //if it exists, splice it out
+    //   temp.splice(index, 1);
+    // }
+    // console.log('clicked, heres the updated filter', temp);
+    let index = ratingFilter.indexOf(rating);
+    if (index === -1) {
+      setRatingFilter((a) => [...a, rating]);
     } else {
-      temp[rating] = false;
+      let temp = ratingFilter;
+      temp.splice(index, 1);
+      setRatingFilter((a) => [...temp]);
     }
     // if there is not a single true in rating filter,
     // set filteredbyrating to false.
-    if (Object.values(temp).indexOf(true) !== -1) {
-      setFilteredByRating(true);
-      setRatingFilter(temp);
-    } else {
-      setFilteredByRating(false);
-      setRatingFilter(temp);
-      setFiltered([]);
-    }
+    // cant have this here because setratingffilter takes time! ----- ***
+    // if (ratingFilter.length > 0) {
+    //   console.log('filtered by rating true')
+    //   setFilteredByRating(true);
+    // } else {
+    //   console.log('NOT filtered by rating')
+    //   setFilteredByRating(false);
+    //   setFiltered([]);
+    // }
   }
 
   const getByRating = () => {
@@ -91,23 +105,49 @@ function RatingsReviews({ productId }) {
     // filter temp to fit ratings filter,
     // set state reviews to be temp.
     const temp = reviews;
-    const obj = ratingFilter;
+    const arr = ratingFilter;
     const filteredReviews = temp.filter((review) => {
-      if (obj[`${review.rating}`]) {
+      //if review.rating is found in array, return that review.
+      let index = arr.indexOf(review.rating+'');
+      console.log(index);
+      if(index !== -1) {
+        console.log('review found!');
         return review;
       }
     });
     setFiltered(filteredReviews);
-  }
+  };
 
   useEffect(() => {
-    //getByRating();
-    console.log('snatchhhhh');
-  }, [filteredByRating, ratingFilter]);
+    console.log('ratingfilter is changing');
+    if(ratingFilter.length > 0) { //once ratingfilter updates, is longer than 0
+      getByRating();
+      setFilteredByRating(true);
+      console.log('snatchhh filtered by ratings');
+    } else {  //if its not longer than 0, empty array, just get regular reviews.
+      getReviews();
+      setFilteredByRating(false);
+      setFiltered([]);
+      console.log('regular reviews');
+    }
+  }, [ratingFilter]);
 
   const setSort = (sort_option) => {
-    setSortOption(sort_option);
+    setSorted(true); //set sorted to true.
+    setSortOption(sort_option); //set the sort option
     console.log('sort option is', sort_option);
+  }
+
+  const sort = (sortMethod) => {
+    const temp = reviews;
+    let sorted = temp.filter((review) => {
+      if (review.rating === 1) {
+        console.log(review);
+        return review;
+      }
+    });
+    console.log('sorted reviews,', sorted);
+    setSortedReviews(sorted);
   }
 
   useEffect(() => {
@@ -115,22 +155,6 @@ function RatingsReviews({ productId }) {
     //getReviews(); //should be sort
     sort();
   }, [sortOption])
-
-  const sort = (new_option) => {
-    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&sort=${new_option}&count=${page * 2}`, {
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    })
-      .then((response) => {
-        console.log('successfully fetched reviews');
-        // this.setState({
-        //   reviews: response.data.results,
-        // });
-        setReviews(response.data.results);
-      })
-      .catch((err) => console.log('error fetching reviews', err));
-  }
 
   return (
     <StyledMain id="ratings-reviews">
@@ -145,24 +169,34 @@ function RatingsReviews({ productId }) {
           isLoaded={isLoaded}
           average={average}
           totalRatings={totalRatings}
-          setRatingFilter={setRatingsFilter}
+          setRatingFilter={setRatingsFilter} // diff name from hook
           setSortOption={setSortOption}
         />
+        {(filteredByRating) && (
+          <Reviews
+            productId={productId}
+            totalRatings={totalRatings}
+            reviews={filtered}
+            moreReviews={moreReviews}
+            setSort={setSort}
+          />
+        )}
         {(sorted) && (
           <Reviews
             productId={productId}
             totalRatings={totalRatings}
             reviews={sortedReviews}
             moreReviews={moreReviews}
+            setSort={setSort}
           />
         )}
-        {(!sorted) && (
+        {(!filteredByRating && !sorted) && (
           <Reviews
             productId={productId}
             totalRatings={totalRatings}
             reviews={reviews}
             moreReviews={moreReviews}
-            setSortOption={setSort}
+            setSort={setSort}
           />
         )}
       </StyledInner>

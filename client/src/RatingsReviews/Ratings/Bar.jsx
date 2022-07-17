@@ -45,6 +45,7 @@ class Bar extends React.Component {
   }
 
   setRatingFilter() {
+    //console.log('clicked bar, should set rating filter');
     this.props.setRatingFilter(this.props.star);
   }
 

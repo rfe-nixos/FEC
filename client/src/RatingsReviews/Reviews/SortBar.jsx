@@ -4,11 +4,10 @@ import { useCurrentProductContext } from '../../context.jsx';
 
 function SortBar(props) {
   const sort = (e) => {
-    props.setSortOption(e.target.value);
+    props.setSort(e.target.value);
   };
 
   let currentProductId = useCurrentProductContext();
-  console.log('current product:', currentProductId);
 
   return (
     <StyledSortBar>
