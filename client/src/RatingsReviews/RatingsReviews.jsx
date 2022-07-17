@@ -4,9 +4,9 @@ import styled from 'styled-components';
 import Ratings from './Ratings/Ratings.jsx';
 import Reviews from './Reviews/Reviews.jsx';
 import getTotalRatings from './lib/getTotalRatings';
-import { useCurrentProductUpdate, useCurrentProductContext } from '../context.jsx'
+import { useCurrentProductUpdate, useCurrentProductContext } from '../context.jsx';
 
-function RatingsReviews ({ productId }) {
+function RatingsReviews({ productId }) {
   const [meta, setMeta] = useState({});
   const [totalRatings, setTotalRatings] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -16,10 +16,11 @@ function RatingsReviews ({ productId }) {
   const [sortOption, setSortOption] = useState('');
   const [sorted, setSorted] = useState('false');
   const [filtered, setFiltered] = useState([]);
-  const [averge, setAverage] = useState(0);
+  const [average, setAverage] = useState(0);
+  const [ratings, setRatings] = useState([]);
 
   const getReviews = () => {
-    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}`, {
+    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=${page * 2}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -27,10 +28,19 @@ function RatingsReviews ({ productId }) {
       .then((response) => {
         console.log('successfully fetched reviews');
         setReviews(response.data.results);
-        //this.setState({ reviews: response.data.results });
+        // this.setState({ reviews: response.data.results });
       })
       .catch((err) => console.log('error fetching reviews', err));
+  };
+
+  const moreReviews = () => {
+    setPage(page + 1);
   }
+
+  useEffect(() => {
+    console.log('page changed!!!')
+    getReviews();
+  }, [page]);
 
   const getRatings = () => {
     axios.get(`${process.env.API_URL}/reviews/meta?product_id=${productId}`, {
@@ -48,14 +58,12 @@ function RatingsReviews ({ productId }) {
         setIsLoaded(true);
       })
       .catch((err) => console.log('error fetching ratings', err));
-  }
-
+  };
 
   useEffect(() => {
     getReviews();
     getRatings();
   }, []);
-
 
   return (
     <StyledMain id="ratings-reviews">
@@ -64,39 +72,23 @@ function RatingsReviews ({ productId }) {
           RATINGS & REVIEWS
         </div>
       </StyledTitle>
+      <StyledInner id="inner-main">
+        <Ratings
+          meta={meta}
+          isLoaded={isLoaded}
+          average={average}
+          totalRatings={totalRatings}
+        />
+        <Reviews
+          productId={productId}
+          totalRatings={totalRatings}
+          reviews={reviews}
+          moreReviews={moreReviews}
+        />
+      </StyledInner>
     </StyledMain>
   );
 }
-
-// class RatingsReviews extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       meta: {},
-//       totalRatings: 0,
-//       isLoaded: false,
-//       ratingFilter: {},
-//       filteredByRating: false,
-//       reviews: [],
-//       page: 1,
-//       sort_option: '',
-//       sorted: false,
-//       filtered: [],
-
-//     };
-//     this.getRatings = this.getRatings.bind(this);
-//     this.setRatingFilter = this.setRatingFilter.bind(this);
-//     this.getReviews = this.getReviews.bind(this);
-//     this.moreReviews = this.moreReviews.bind(this);
-//     this.sort = this.sort.bind(this);
-//     this.scrollMore = this.scrollMore.bind(this);
-//     this.setSortOption = this.setSortOption.bind(this);
-//   }
-
-//   componentDidMount() {
-//     this.getRatings();
-//     this.getReviews();
-//   }
 
 //   getReviews() {
 //     if (!this.state.sorted) {
