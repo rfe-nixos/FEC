@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import axios from 'axios';
 import SearchList from './SearchList.jsx';
 
-function SearchThing(props) {
+function SearchThing({ toggleSearch }) {
   const [query, setQuery] = useState('');
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
@@ -48,13 +48,19 @@ function SearchThing(props) {
     }
   };
 
+  const handleBgClick = (e) => {
+    if (e.target.id === 'searchmain-bg') {
+      toggleSearch();
+    }
+  };
+
   return (
-    <StyledForm>
-      <StyledInner>
+    <StyledForm onClick={handleBgClick} id="searchmain-bg">
+      <StyledInner id="searchmain-inner">
         SEARCH FOR AN ITEM HERE
         <StyledInput placeholder="i.e. shoes" name="searchthing" onChange={handleChange} />
-        {(filter) && <SearchList query={filter} products={filtered} toggleSearch={props.toggleSearch} />}
-        <StyledButton onClick={props.toggleSearch}>CLOSE</StyledButton>
+        {(filter) && <SearchList query={filter} products={filtered} toggleSearch={toggleSearch} />}
+        <StyledButton onClick={toggleSearch}>CLOSE</StyledButton>
       </StyledInner>
     </StyledForm>
   );
