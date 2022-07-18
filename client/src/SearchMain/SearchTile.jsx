@@ -1,9 +1,17 @@
 import React from 'react';
 import styled from 'styled-components';
+import {useCurrentProductUpdate} from '../context.jsx'
 
 function SearchTile(props) {
+  const setCurrentProduct = useCurrentProductUpdate();
+
+  const handleClick = () => {
+    setCurrentProduct(props.product.id);
+    props.toggleSearch();
+  }
+
   return (
-    <StyledDiv onClick={props.toggleSearch}>
+    <StyledDiv onClick={handleClick}>
       {props.product.name}
     </StyledDiv>
   );
