@@ -79,20 +79,31 @@ class ReviewTile extends React.Component {
               </Seller>
               )}
           </div>
-          <div>
-            <small>
-              Helpful? :
-              {' '}
-              {`${this.props.review.helpfulness} `}
-            </small>
-            <StyledButton onClick={this.markHelpful}>YES</StyledButton>
-            <StyledButton onClick={this.report}>report</StyledButton>
-          </div>
+          <TileBot>
+            <span>
+              Helpful?
+            </span>
+              <Spanny onClick={this.markHelpful}><u>Yes</u></Spanny>
+            <span>
+              {`(${this.props.review.helpfulness})    |  `}
+            </span>
+            <Spanny onClick={this.report}><u>Report</u></Spanny>
+          </TileBot>
         </TileMain>
       </TileContainer>
     );
   }
 }
+
+const Spanny = styled.span`
+  font-size: x-small;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+  margin-left: 2%;
+  margin-right: 1%;
+`
 
 const Seller = styled.div`
   width: 90%;
@@ -129,6 +140,16 @@ const TileTop = styled.div`
   justify-content: space-between;
   font-size: x-small;
   align-items: center;
+`;
+
+const TileBot = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: x-small;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 3%;
 `;
 
 const TileMain = styled.div`
