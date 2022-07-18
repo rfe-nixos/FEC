@@ -78,7 +78,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       <DivQuestion>
         <QContainer>
           <Title>Q:</Title>
-          <b>{question.question_body}</b>
+          <BoldBody>{question.question_body}</BoldBody>
         </QContainer>
         <Options>
           <Helpful
@@ -136,5 +136,9 @@ const Title = styled.span`
 
 const QContainer = styled.div`
   display: flex;
-  width: 70%;
+  width: 65%;
+`;
+
+const BoldBody = styled.b`
+  width: 100%;
 `;

@@ -51,9 +51,9 @@ const DivAnswer = styled.div`
 
 const Scroller = styled.div`
   max-height: 30vh;
-  width: 70%;
   overflow-y: auto;
   height: 300;
+  padding-right: 10px;
   display: 'flex';
   flex-direction: 'column-reverse';
 `;

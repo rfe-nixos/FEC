@@ -5,8 +5,10 @@ import Search from './searchBar/Search';
 import QuestionList from './questionAnswersList/QuestionList';
 import MoreQuestions from './buttons/MoreQuestions';
 import AddQuestion from './buttons/AddQuestion';
+import { useCurrentProductContext } from '../context';
 
-function QuestionAnswers({ productId }) {
+function QuestionAnswers() {
+  const productId = useCurrentProductContext();
   const [questionList, setQuestionList] = useState([]);
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});

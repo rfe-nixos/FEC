@@ -10,12 +10,23 @@ const AnswerDiv = styled.div`
 `;
 
 function Answer({ answer, renderAnswers }) {
+  console.log(answer);
   const answerInfo = (
     <span>
       {answer.answerer_name.toLowerCase() === 'seller' ? <span>by <b>Seller</b></span> : <span>by {answer.answerer_name} </span>}
       {', '}
       {format(new Date(answer.date), 'MMMM d, yyyy')}
     </span>
+  );
+  const images = answer.photos.length > 0 && (
+    <PhotoDiv>
+      {answer.photos.map((photo, index) => (
+        <StyledImg
+          key={index}
+          src={photo}
+        />
+      ))}
+    </PhotoDiv>
   );
   const helpful = (
     <Helpful id={answer.answer_id} type="answer"
@@ -36,6 +47,7 @@ function Answer({ answer, renderAnswers }) {
   return (
     <AnswerDiv className="answer">
       <div className="answer-text">{answer.body}</div>
+      {images}
       <Options>
         {answerInfo}
         {helpful}
@@ -46,3 +58,23 @@ function Answer({ answer, renderAnswers }) {
 }
 
 export default Answer;
+
+const PhotoDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 100%;
+  overflow-x: auto;
+  margin: 5px 0;
+`
+
+const StyledImg = styled.img`
+  max-height: 100px;
+  margin: 0 1px;
+  scale: auto;
+  border: 1px solid #d9d9d9;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
