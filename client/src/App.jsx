@@ -8,11 +8,25 @@ import { CurrentProductProvider } from './context.jsx';
 //import nixatelier from './nixatelier.png';
 
 function App() {
+
+  const refresh = () => {
+    window.location.reload();
+  }
+
   return (
     <MainDiv>
       <CurrentProductProvider>
 
-        <TitleDiv><TitleImg src="public/icons/nixatelier.png" alt="nixatelier" /></TitleDiv>
+        <TitleDiv>
+          <TitleImg
+            src="public/icons/nixatelier.png"
+            alt="nixatelier"
+            onClick={refresh}
+          />
+          <Link href="https://github.com/rfe-nixos/FEC">
+            <TitleInner>ABOUT</TitleInner>
+          </Link>
+        </TitleDiv>
         <Overview />
         <RelatedItems />
         <QuestionAnswer productId={37311} />
@@ -22,22 +36,38 @@ function App() {
   );
 }
 
+const Link = styled.a`
+  &:link { text-decoration: none; }
+  &:visited { text-decoration: none; }
+  &:hover { cursor: pointer; opacity: 60%;}
+  &:active { text-decoration: none; }
+  margin-right: 5%;
+`;
+
 const MainDiv = styled.div`
   width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  align-self: center;
 `;
 
 const TitleImg = styled.img`
+  position: absolute;
+  left: 50%;
   max-height: 30px;
   size: auto;
-`
+  align-self: center;
+  transform: translate(-50%, 0%);
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
 
-const Logo = styled.div`
-  font-size: 50px;
-  font-weight: 100;
-  margin-right: 1%;
+const TitleInner = styled.div`
+  font-size: 10px;
+  margin-right: 10%;
 `
 
 const TitleDiv = styled.div`
@@ -45,7 +75,7 @@ const TitleDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
   max-height: 5%;
   font-weight: 200;
   padding: 1%;
