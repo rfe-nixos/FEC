@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable no-else-return */
 /* eslint-disable arrow-body-style */
 /* eslint-disable radix */
@@ -81,6 +82,8 @@ function ImageGallery({
     }
   }
 
+  // <div className="slider leftSlider">&#9001;</div>
+
   if (modal === 'on') {
     return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} handlePrevClick={handlePrevClick} handleNextClick={handleNextClick} />;
   } else if (galleryList.length > 7) {
@@ -89,7 +92,7 @@ function ImageGallery({
         <div className="imagegallery">
           <div className="thumbnailView">
             {galleryList.slice(range[0], range[1])}
-            <button className="button" type="button" onClick={handleNextClick} style={{ float: 'right' }}>n</button>
+            <div style={{ float: 'right', margin: 10, width: 20, color: 'white'}} onClick={handleNextClick}>&#9002;</div>
           </div>
           <div className="mainImageContainer">
             {mainImage}
@@ -100,7 +103,7 @@ function ImageGallery({
       return (
         <div className="imagegallery">
           <div className="thumbnailView">
-            <button className="button" type="button" onClick={handlePrevClick} style={{ float: 'left' }}>b</button>
+            <div style={{ float: 'left', margin: 10, width: 20, color: 'white' }} onClick={handlePrevClick}>&#9001;</div>
             {galleryList.slice(range[0], range[1])}
           </div>
           <div className="mainImageContainer">
@@ -112,9 +115,9 @@ function ImageGallery({
       return (
         <div className="imagegallery">
           <div className="thumbnailView">
-            <button className="button" type="button" onClick={handlePrevClick} style={{ float: 'left' }}>b</button>
+            <div style={{ float: 'left', margin: 10, width: 20, color: 'white' }} onClick={handlePrevClick}>&#9001;</div>
             {galleryList.slice(range[0], range[1])}
-            <button className="button" type="button" onClick={handleNextClick} style={{ float: 'right' }}>n</button>
+            <div style={{ float: 'right', margin: 10, width: 20, color: 'white' }} onClick={handleNextClick}>&#9002;</div>
           </div>
           <div className="mainImageContainer">
             {mainImage}
