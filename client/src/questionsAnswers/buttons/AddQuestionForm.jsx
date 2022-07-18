@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormInput from '../lib/FormInput';
+import InvalidError from '../lib/InvalidError';
 
 function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
   if (!show) return null;
@@ -121,18 +122,10 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
         </Header>
         {!isFormValid
         && (
-        <Invalid>
-          {Boolean(emptyFields.length)
-          && (
-            <li>
-              You must enter the following:
-              <ul>
-                {emptyFields.map((field) => <li>{field}</li>)}
-              </ul>
-            </li>
-          )}
-          {invalidMessage.map((message) => <li>{message}</li>)}
-        </Invalid>
+        <InvalidError
+          emptyFields={emptyFields}
+          invalidMessage={invalidMessage}
+        />
         )}
 
         {inputs.map(({config, comment, changeHandler}) => (

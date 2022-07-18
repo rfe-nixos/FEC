@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormInput from '../../lib/FormInput';
+import FormButton from '../../lib/FormButton';
 import ImageInput from './ImageInput';
 import InvalidError from '../../lib/InvalidError';
 
@@ -141,14 +142,10 @@ function AddAnswerForm({ show, setShowModal, question, submitHandler, productNam
           formValue={formValue}
           setFormValue={setFormValue}
         />
-        <DivButton className="form-buttons">
-          <ButtonStyled type="submit" onClick={handleSubmit} data-testid="form-button-test">
-            Submit
-          </ButtonStyled>
-          <ButtonStyled onClick={handleClose}>
-            Close
-          </ButtonStyled>
-        </DivButton>
+        <FormButton
+          handleSubmit={handleSubmit}
+          handleClose={handleClose}
+        />
       </PopupForm>
     </Modal>
   );
@@ -176,18 +173,6 @@ const PopupForm = styled.form`
   padding: 1.7142857143rem 1.1428571429rem;
   background-color: #fff;
   border-radius: .2857142857rem;
-`;
-
-const ButtonStyled = styled.button`
-  padding: 2px;
-  width: 30%;
-  margin: 20px 0;
-  border-radius: 1px;
-`;
-
-const DivButton = styled.div`
-  display: flex;
-  justify-content: space-evenly;
 `;
 
 const Header = styled.div`

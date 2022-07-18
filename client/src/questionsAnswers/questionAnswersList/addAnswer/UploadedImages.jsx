@@ -14,14 +14,14 @@ export default function UploadedImages({ photos, resetPhotos }) {
       {!photos && <p>No files selected.</p>}
       {photos && photos.map((photo, index) => (
         <FlexCol key={photo.file}>
-            <Thumbnail
-              className="obj"
-              src={photo.file}
-            />
-            <FlexRow>
-              {photo.name}
-              <DeleteButton onClick={deleteImage} value={index}>x</DeleteButton>
-            </FlexRow>
+          <Thumbnail
+            className="obj"
+            src={photo.file}
+          />
+          <FlexRow>
+            {photo.name}
+            <DeleteButton onClick={deleteImage} value={index}>x</DeleteButton>
+          </FlexRow>
         </FlexCol>
       ))}
     </ThumbnailContainer>
