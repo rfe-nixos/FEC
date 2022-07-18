@@ -14,7 +14,7 @@ function AnswerList({ answerList, renderAnswers, Title }) {
           <Scroller id="scrollableDiv">
             {filteredAnswerList.map((answer) => (
               <Answer
-                key={answer.answer_id}
+                key={answer.id}
                 answer={answer}
                 renderAnswers={renderAnswers}
               />

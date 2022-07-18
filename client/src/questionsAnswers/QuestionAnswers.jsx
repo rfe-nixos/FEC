@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Search from './Search';
-import QuestionList from './QuestionList';
-import MoreQuestions from './MoreQuestions';
-import AddQuestion from './AddQuestion';
+import Search from './searchBar/Search';
+import QuestionList from './questionAnswersList/QuestionList';
+import MoreQuestions from './buttons/MoreQuestions';
+import AddQuestion from './buttons/AddQuestion';
 
 function QuestionAnswers({ productId }) {
   const [questionList, setQuestionList] = useState([]);

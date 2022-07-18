@@ -1,9 +1,9 @@
 import React from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
-import Helpful from './Helpful';
-import Report from './Report';
-import Options from './Options';
+import Helpful from '../lib/Helpful';
+import Report from '../lib/Report';
+import Options from '../lib/Options';
 
 const AnswerDiv = styled.div`
   padding-bottom: 10px;

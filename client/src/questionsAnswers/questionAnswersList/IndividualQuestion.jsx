@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import _ from 'underscore';
-import Helpful from './Helpful';
+import Helpful from '../lib/Helpful';
 import AddAnswerForm from './AddAnswerForm';
 import AnswerList from './AnswerList';
-import Options from './Options';
+import Options from '../lib/Options';
 
 function IndividualQuestion({ productName, question, renderQuestions }) {
   const [showModal, setShowModal] = useState(false);

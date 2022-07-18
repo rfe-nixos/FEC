@@ -1,15 +1,18 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import FormInput from './FormInput';
+import FormInput from '../lib/FormInput';
 
-function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
+function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHandler, productName }) {
   if (!show) return null;
+  const reader = new FileReader();
+
   const [isFormValid, setIsFormValid] = useState(true);
+  const [imageInvalid, setImageInvalid] = useState(false);
   const [emptyFields, setEmptyFields] = useState();
   const [invalidMessage, setInvalidMessage] = useState([]);
   const [formValue, setFormValue] = useState({});
 
-  const onChange = (e) => {
+  const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormValue({
       ...formValue,
@@ -17,47 +20,68 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
     });
   };
 
+  const fileChangeHandler = (e) => {
+    const uploadedFile = e.target.files[0];
+
+    reader.onload = (event) => {
+      const img = new Image();
+      img.onload = () => {
+        const newImages = formValue.photos ? [...formValue.photos] : [];
+        newImages.push({
+          name: uploadedFile[0].name,
+          url: URL.createObjectURL(uploadedFile[0]),
+        });
+        setFormValue({
+          ...formValue,
+          photos: newImages,
+        });
+      };
+      img.onerror = () => {
+        setImageInvalid(true);
+      };
+      img.src = event.target.result;
+    };
+    reader.readAsDataURL(uploadedFile);
+  };
+
   const inputs = [
     {
       config: {
-        label: 'Your Question',
+        label: 'Your Answer',
         type: 'textarea',
         name: 'body',
-        value: formValue.body || '',
+        value: formValue.body,
         placeholder: '',
-        mandatory: 'true',
         maxLength: 1000,
-        onChange,
+        mandatory: true,
       },
-      comment: 'For privacy reasons, do not use your full name or email address',
-      changeHandler: onChange,
+      changeHandler: inputChangeHandler,
     },
     {
       config: {
         label: 'What is your nickname',
-        type: 'username',
+        type: 'text',
         name: 'name',
-        value: formValue.name || '',
-        placeholder: 'Example: jackson11!',
-        mandatory: 'true',
+        value: formValue.name,
+        placeholder: 'Example: jack543!',
         maxLength: 60,
-        onChange,
+        mandatory: true,
       },
-      comment: 'For authentication reasons, you will not be emailed',
-      changeHandler: onChange
+      comment: 'For privacy reasons, do not use your full name or email address',
+      changeHandler: inputChangeHandler,
     },
     {
       config: {
         label: 'Your email',
         type: 'email',
         name: 'email',
-        value: formValue.email || '',
+        value: formValue.email,
         placeholder: 'Example: jack@email.com',
-        mandatory: 'true',
         maxLength: 60,
-        onChange,
+        mandatory: true,
       },
-      changeHandler: onChange,
+      comment: 'For authentication reasons, you will not be emailed',
+      changeHandler: inputChangeHandler,
     },
   ];
 
@@ -69,6 +93,7 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
   const validateForm = () => {
     let result = true;
     const invalid = [];
+    const newInvalidMessage = [];
     inputs.forEach(({ config }) => {
       const target = config.name;
       if (Boolean(config.mandatory) && !formValue[target]) {
@@ -84,12 +109,11 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
         result = false;
       }
       if (config.type === 'email' && !validateEmail(formValue[config.name])) {
-        setInvalidMessage([
-          'Email is invalid.',
-        ]);
+        newInvalidMessage.push('Email is invalid.');
         result = false;
       }
     });
+    setInvalidMessage(newInvalidMessage);
     setEmptyFields(invalid);
     setIsFormValid(result);
     return result;
@@ -116,13 +140,14 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
     <Modal>
       <PopupForm id={`${questionId}-popup`}>
         <Header>
-          <Title>Ask Your Question</Title>
-          <Subtitle>{'About the ' + productName}</Subtitle>
+          <Title>Submit your Answer</Title>
+          <Subtitle>{`${productName}:`}</Subtitle>
+          <Subtitle>{questionBody}</Subtitle>
         </Header>
         {!isFormValid
         && (
         <Invalid>
-          {Boolean(emptyFields.length)
+          {emptyFields.length > 0
           && (
             <li>
               You must enter the following:
@@ -135,16 +160,45 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
         </Invalid>
         )}
 
-        {inputs.map(({config, comment, changeHandler}) => (
+        {inputs.map(({ config, comment, changeHandler }) => (
           <div>
             <FormInput
-              key={config.name}
+              key={config.label}
               attribute={config}
               changeHandler={changeHandler}
             />
             {comment && `*${comment}`}
           </div>
         ))}
+        <div>
+          <FormInput
+            attribute={{
+              label: 'Upload your photos (choose up to 5 photos)',
+              type: 'file',
+              name: 'photos',
+              placeholder: '',
+            }}
+            changeHandler={fileChangeHandler}
+          />
+          <ThumbnailContainer>
+            {imageInvalid && <div style={{ color: 'red' }}>Invalid image content.</div> }
+            {!formValue.photos && <p>No files selected.</p>}
+            {formValue.photos && formValue.photos.map((photo) => (
+              <FlexRowDiv>
+                <div style={{ width: '50%' }}>
+                  <Thumbnail
+                    className="obj"
+                    key={photo.url}
+                    src={photo.url}
+                  />
+                </div>
+                <div style={{ width: '50%' }}>
+                  {photo.name}
+                </div>
+              </FlexRowDiv>
+            ))}
+          </ThumbnailContainer>
+        </div>
         <DivButton className="form-buttons">
           <ButtonStyled type="submit" onClick={handleSubmit} data-testid="form-button-test">
             Submit
@@ -158,7 +212,7 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
   );
 }
 
-export default AddQuestionForm;
+export default AddAnswerForm;
 
 const Modal = styled.div`
   position: fixed;
@@ -207,9 +261,25 @@ const Subtitle = styled.div`
   padding: 2px 0;
 `;
 
-
 const Invalid = styled.ul`
   color: red;
+`;
+
+const ThumbnailContainer = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px 0;
+`;
+
+const Thumbnail = styled.img`
+  max-width:100px;
+  max-height: 100px;
+  padding-right:10px;
+`;
+
+const FlexRowDiv = styled.div`
+  display: flex;
+  flex-direction: row;
 `;
 
 const PaddedDiv = styled.div`
