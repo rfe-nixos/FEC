@@ -4,15 +4,26 @@ import React from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import Star from '../Ratings/Star.jsx';
+import PhotoPopup from './PhotoPopup.jsx';
 
 class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       reviewed: [],
+      openPhotoPop: false,
+      photo: ''
     };
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
+    this.togglePhotoPop = this.togglePhotoPop.bind(this);
+  }
+
+  togglePhotoPop(e) {
+    console.log(e.target.src);
+    !this.state.openPhotoPop
+    ? this.setState({ openPhotoPop: true, photo: e.target.src })
+    : this.setState({ openPhotoPop: false });
   }
 
   markHelpful(e) {
@@ -54,11 +65,11 @@ class ReviewTile extends React.Component {
             {this.props.review.photos.length > 0
               && <PhotoDiv>
                 {this.props.review.photos.map((photo, index) => {
-                  return <StyledImg key={index} src={photo['url']} />
+                  return <StyledImg key={index} src={photo['url']} onClick={this.togglePhotoPop} />
                 })}
                 </PhotoDiv>
-
             }
+            {(this.state.openPhotoPop) && (<PhotoPopup photoUrl={this.state.photo} togglePhotoPop={this.togglePhotoPop} />)}
             {this.props.review.response
               && (
               <h4>
