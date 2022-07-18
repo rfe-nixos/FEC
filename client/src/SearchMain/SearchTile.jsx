@@ -2,17 +2,17 @@ import React from 'react';
 import styled from 'styled-components';
 import {useCurrentProductUpdate} from '../context.jsx'
 
-function SearchTile(props) {
+function SearchTile({ product, toggleSearch }) {
   const setCurrentProduct = useCurrentProductUpdate();
 
   const handleClick = () => {
-    setCurrentProduct(props.product.id);
-    props.toggleSearch();
+    setCurrentProduct(product.id);
+    toggleSearch();
   };
 
   return (
     <StyledDiv onClick={handleClick}>
-      {props.product.name}
+      {product.name}
     </StyledDiv>
   );
 }
@@ -31,16 +31,6 @@ const StyledDiv = styled.div`
   &:hover {
     opacity: 60%;
     cursor: pointer;
-  }
-`;
-
-const StyledImg = styled.img`
-  max-height: 48px;
-  scale: auto;
-  border: 1px solid #d9d9d9;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
   }
 `;
 
