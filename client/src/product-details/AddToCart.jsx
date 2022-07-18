@@ -81,11 +81,13 @@ function AddToCart({
           Authorization: process.env.AUTH_KEY,
         },
       };
-      axios(cartConfig)
-        .then(() => {
-          setSizeAlert('');
-        })
-        .catch((err) => console.log(err));
+      for (let i = 0; i < currentAmount; i += 1) {
+        axios(cartConfig)
+          .then(() => {
+            setSizeAlert('');
+          })
+          .catch((err) => console.log(err));
+      }
     }
   };
 

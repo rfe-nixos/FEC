@@ -39,7 +39,6 @@ function ImageGallery({
     event.preventDefault();
     setZoom(false);
   };
-
   const mainImage = <img src={currentStyle.photos[currentIndex].url} alt={currentStyle.name} className="currentImage" onClick={handleImageGalleryModal} onMouseEnter={handleDefaultViewMouseEnter} onMouseLeave={handleDefaultViewMouseLeave} style={style} />;
 
   const handleClick = (event) => {
@@ -52,7 +51,7 @@ function ImageGallery({
     if (i === currentIndex) {
       galleryList.push(
         <div className="carousel" key={galleryList.length}>
-          <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} style={{ opacity: 0.7 }} onClick={handleClick} />
+          <img src={currentStyle.photos[i].thumbnail_url} alt={i} style={{ opacity: 0.7 }} onClick={handleClick} />
         </div>,
       );
     } else {
@@ -63,16 +62,16 @@ function ImageGallery({
       );
     }
   }
-
+  console.log(galleryList.length);
   if (modal === 'on') {
-    return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} />;
+    return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} modalZoom={modalZoom} setModalZoom={setModalZoom} />;
   } else if (galleryList.length > 7) {
     return (
       <div className="imagegallery">
         <div className="thumbnailView">
-          <button className="button" type="button">back</button>
-          {galleryList}
-          <button className="button" type="button">next</button>
+          <button className="button" type="button" style={{ float: 'left' }}>b</button>
+          {galleryList.slice(0, 7)}
+          <button className="button" type="button" style={{ float: 'right' }}>n</button>
         </div>
         <div className="mainImageContainer">
           {mainImage}

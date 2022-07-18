@@ -8,6 +8,7 @@ import ProductDetails from './ProductDetails';
 import StyleSelector from './StyleSelector';
 
 function Overview() {
+  // STATE
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
   const [currentStyle, setCurrentStyle] = useState({});
@@ -21,7 +22,8 @@ function Overview() {
   const [zoom, setZoom] = useState('');
   const [modalZoom, setModalZoom] = useState('');
 
-  const productId = '37311';
+  // API INTERACTION
+  const productId = '37315';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
   const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${productId}`;
@@ -78,18 +80,16 @@ function Overview() {
       });
   }
 
+  // SET STATE
   useEffect(() => {
     getProduct();
   }, []);
-
   useEffect(() => {
     getStyles();
   }, []);
-
   useEffect(() => {
     getReviews();
   }, []);
-
   useEffect(() => {
     if (styles.length > 0 && Object.keys(currentStyle).length === 0) {
       setCurrentStyle(styles[0]);
@@ -110,7 +110,6 @@ function Overview() {
       setModalZoom(false);
     }
   });
-
   useEffect(() => {
     if (Object.keys(currentStyle).length > 0) {
       const thumbnails = [];
@@ -122,17 +121,17 @@ function Overview() {
       }
     }
   });
-
   useEffect(() => {
     if (currentThumbnail === '') {
       setCurrentThumbnail('0');
     }
   });
 
+  // RENDER
   if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail !== '') {
     return (
       <div className="overview">
-        <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} />
+        <ImageGallery currentStyle={currentStyle} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />

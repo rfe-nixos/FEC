@@ -1,7 +1,7 @@
 .overview {
   display: inline-block;
   height: 800px;
-  width: 80%;
+  width: 90%;
   min-width: 800px;
   max-width: 1000px;
   border: solid black 3px;
@@ -43,18 +43,24 @@
 }
 
 .thumbnailView {
-  width: 100%;
+  min-width: 390px;
+  max-width: 480px;
+  width: 43%;
   height: 55px;
   margin-bottom: 5px;
-  float: left;
+  float: center;
   position: absolute;
 }
 
 .carousel {
-  height: 50px;
-  width: 50px;
+  min-height: 40px;
+  max-height: 55px;
+  height: 11%;
+  min-width: 40px;
+  max-width: 55px;
+  width: 11%;
   float: left;
-  margin: auto 3px;
+  margin: auto 0.4%;
 }
 
 .carousel img {
@@ -64,7 +70,7 @@
 }
 
 .button {
-  margin: 5px;
+  margin: auto 1.2%;
 }
 
 .right {

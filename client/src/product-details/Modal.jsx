@@ -29,11 +29,11 @@ function Modal({
       <div className="thumbnailView">
         {galleryList}
       </div>
-      <div className="mainImageContainerModal" onClick={handleModalClick} style={{ 'max-width': modalZoom ? 2500 : 1000, 'min-width': modalZoom ? 2000 : 800 }}>
+      <div className="mainImageContainerModal" onClick={handleModalClick} style={{ maxWidth: modalZoom ? 2500 : 1000, minWidth: modalZoom ? 2000 : 800 }}>
         {mainImage}
       </div>
     </div>
   );
-};
+}
 
 export default Modal;

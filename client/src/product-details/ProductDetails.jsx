@@ -1,3 +1,4 @@
+/* eslint-disable react/self-closing-comp */
 /* eslint-disable radix */
 /* eslint-disable react/prop-types */
 import React from 'react';
@@ -5,7 +6,6 @@ import Star from '../RatingsReviews/Ratings/Star';
 
 function ProductDetails({ product, currentStyle, productReviews }) {
   if (Object.keys(productReviews.ratings).length > 0) {
-
     let averageRating = 0;
     let totalRatings = 0;
     for (let i = 1; i <= 5; i += 1) {
@@ -32,9 +32,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
           </div>
           <p id="overview">{product.description}</p>
-          <button id="Facebook" type="button">Facebook</button>
-          <button id="Twitter" type="button">Twitter</button>
-          <button id="Pinterest" type="button">Pinterest</button>
+          <div className="sharethis-inline-share-buttons"></div>
         </div>
       );
     }
@@ -50,9 +48,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
         </div>
         <h3 id="price">{'$' + currentStyle.original_price}</h3>
         <p id="overview">{product.description}</p>
-        <button id="Facebook" type="button">Facebook</button>
-        <button id="Twitter" type="button">Twitter</button>
-        <button id="Pinterest" type="button">Pinterest</button>
+        <div className="sharethis-inline-share-buttons"></div>
       </div>
     );
   }
@@ -67,9 +63,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
           <h3 id="salesPrice">{currentStyle.sales_price}</h3>
         </div>
         <p id="overview">{product.description}</p>
-        <button id="Facebook" type="button">Facebook</button>
-        <button id="Twitter" type="button">Twitter</button>
-        <button id="Pinterest" type="button">Pinterest</button>
+        <div className="sharethis-inline-share-buttons"></div>
       </div>
     );
   }
@@ -80,9 +74,7 @@ function ProductDetails({ product, currentStyle, productReviews }) {
       <h1 id="title">{product.name}</h1>
       <h3 id="price">{'$' + currentStyle.original_price}</h3>
       <p id="overview">{product.description}</p>
-      <button id="Facebook" type="button">Facebook</button>
-      <button id="Twitter" type="button">Twitter</button>
-      <button id="Pinterest" type="button">Pinterest</button>
+      <div className="sharethis-inline-share-buttons"></div>
     </div>
   );
 }
