@@ -31,7 +31,7 @@ function App() {
             <TitleInner>ABOUT</TitleInner>
           </Link>
           <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
-          {(searching) && (<SearchThing toggleSearch={toggleSearch}/>)}
+          {(searching) && (<SearchThing toggleSearch={toggleSearch} />)}
         </TitleDiv>
         <Overview />
         <RelatedItems />

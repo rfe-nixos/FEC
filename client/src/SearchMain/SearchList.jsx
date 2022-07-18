@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import SearchTile from './SearchTile.jsx';
 
-function SearchList({ products, query }) {
+function SearchList({ products, query, toggleSearch }) {
   const filteredProducts = products
     .filter((product) => {
       product.name.match(new RegExp(query, 'i'));
@@ -16,7 +16,7 @@ function SearchList({ products, query }) {
     <div>
       search list here
       {(products.map((product, index) => {
-        return <SearchTile product={product} key={index} />
+        return <SearchTile product={product} key={index} toggleSearch={toggleSearch}/>
       }))}
     </div>
 

@@ -120,7 +120,7 @@ function SearchThing(props) {
       <StyledInner>
         SEARCH FOR AN ITEM HERE
         <StyledInput placeholder="search for item here" name="searchthing" onChange={handleChange} />
-        {(filter) && <SearchList query={filter} products={filtered} />}
+        {(filter) && <SearchList query={filter} products={filtered} toggleSearch={props.toggleSearch} />}
         <StyledButton onClick={props.toggleSearch}>CLOSE</StyledButton>
       </StyledInner>
     </StyledForm>
