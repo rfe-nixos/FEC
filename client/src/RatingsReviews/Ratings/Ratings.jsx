@@ -1,44 +1,43 @@
 import React from 'react';
+import styled from 'styled-components';
 import Breakdown from './Breakdown.jsx';
 import Characteristics from './Characteristics.jsx';
 import Summary from './Summary.jsx';
-import styled from 'styled-components';
 
-class Ratings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      meta: {},
-      ratings: {},
-      totalRatings: 0,
-      isLoaded: false,
-    };
-    // this.getRatings = this.getRatings.bind(this);
-  }
-
-  render() {
-    return (
-      <RatingsContainer>
-        <Summary
-          meta={this.props.meta}
-          average={this.props.average}
-          totalRatings={this.props.totalRatings}
-          isLoaded={this.props.isLoaded}
-        />
-        <Breakdown
-          meta={this.props.meta}
-          isLoaded={this.props.isLoaded}
-          totalRatings={this.props.totalRatings}
-          setRatingFilter={this.props.setRatingFilter}
-          ratingFilter={this.props.ratingFilter}
-        />
-        <Characteristics
-          meta={this.props.meta}
-          isLoaded={this.props.isLoaded}
-        />
-      </RatingsContainer>
-    );
-  }
+// class Ratings extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       meta: {},
+//       ratings: {},
+//       totalRatings: 0,
+//       isLoaded: false,
+//     };
+//   }
+function Ratings(props) {
+  // render() {
+  return (
+    <RatingsContainer>
+      <Summary
+        meta={props.meta}
+        average={props.average}
+        totalRatings={props.totalRatings}
+        isLoaded={props.isLoaded}
+      />
+      <Breakdown
+        meta={props.meta}
+        isLoaded={props.isLoaded}
+        totalRatings={props.totalRatings}
+        setRatingFilter={props.setRatingFilter}
+        ratingFilter={props.ratingFilter}
+      />
+      <Characteristics
+        meta={props.meta}
+        isLoaded={props.isLoaded}
+      />
+    </RatingsContainer>
+  );
+  // }
 }
 
 const RatingsContainer = styled.div`
@@ -47,6 +46,6 @@ const RatingsContainer = styled.div`
   padding: 1%;
   margin-top: -1%;
   width: auto;
-`
+`;
 
 export default Ratings;
