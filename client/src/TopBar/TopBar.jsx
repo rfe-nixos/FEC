@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SearchThing from './SearchThing.jsx';
 
@@ -14,7 +14,7 @@ function TopBar() {
   };
 
   return (
-    <TitleDiv>
+    <TitleDiv id="top-bar">
       <TitleImg
         src="public/icons/nixatelier.png"
         alt="nixatelier"

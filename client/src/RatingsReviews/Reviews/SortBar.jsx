@@ -13,11 +13,11 @@ function SortBar(props) {
   return (
     <StyledSortBar>
       {props.page * 5} of {props.totalRatings} reviews, sorted by
-      <StyledDropDown id="sort" onChange={sort}>
+      <Select id="sort" onChange={sort}>
         <option value="relevance">Relevance</option>
         <option value="newest">Newest</option>
         <option value="helpful">Helpfulness</option>
-      </StyledDropDown>
+      </Select>
     </StyledSortBar>
   );
 }
@@ -31,7 +31,7 @@ const StyledSortBar = styled.div`
   align-items: baseline;
 `;
 
-const StyledDropDown = styled.select`
+const Select = styled.select`
   margin-left: 1.5%;
   font-weight: bold;
   background: white;
