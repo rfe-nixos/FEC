@@ -10,7 +10,6 @@ const AnswerDiv = styled.div`
 `;
 
 function Answer({ answer, renderAnswers }) {
-  console.log(answer);
   const answerInfo = (
     <span>
       {answer.answerer_name.toLowerCase() === 'seller' ? <span>by <b>Seller</b></span> : <span>by {answer.answerer_name} </span>}
@@ -23,7 +22,7 @@ function Answer({ answer, renderAnswers }) {
       {answer.photos.map((photo, index) => (
         <StyledImg
           key={index}
-          src={photo}
+          src={typeof photo === 'object' ? photo.url : photo}
         />
       ))}
     </PhotoDiv>

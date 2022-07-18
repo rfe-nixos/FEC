@@ -1,13 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import FormInput from '../lib/FormInput';
+import FormInput from '../../lib/FormInput';
+import ImageInput from './ImageInput';
+import InvalidError from '../../lib/InvalidError';
 
-function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHandler, productName }) {
+function AddAnswerForm({ show, setShowModal, question, submitHandler, productName }) {
   if (!show) return null;
-  const reader = new FileReader();
-
+  const questionId = question.question_id;
+  const questionBody = question.question_body;
   const [isFormValid, setIsFormValid] = useState(true);
-  const [imageInvalid, setImageInvalid] = useState(false);
   const [emptyFields, setEmptyFields] = useState();
   const [invalidMessage, setInvalidMessage] = useState([]);
   const [formValue, setFormValue] = useState({});
@@ -18,30 +19,6 @@ function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHan
       ...formValue,
       [name]: value,
     });
-  };
-
-  const fileChangeHandler = (e) => {
-    const uploadedFile = e.target.files[0];
-
-    reader.onload = (event) => {
-      const img = new Image();
-      img.onload = () => {
-        const newImages = formValue.photos ? [...formValue.photos] : [];
-        newImages.push({
-          name: uploadedFile[0].name,
-          url: URL.createObjectURL(uploadedFile[0]),
-        });
-        setFormValue({
-          ...formValue,
-          photos: newImages,
-        });
-      };
-      img.onerror = () => {
-        setImageInvalid(true);
-      };
-      img.src = event.target.result;
-    };
-    reader.readAsDataURL(uploadedFile);
   };
 
   const inputs = [
@@ -146,59 +123,24 @@ function AddAnswerForm({ show, setShowModal, questionId, questionBody, submitHan
         </Header>
         {!isFormValid
         && (
-        <Invalid>
-          {emptyFields.length > 0
-          && (
-            <li>
-              You must enter the following:
-              <ul>
-                {emptyFields.map((field) => <li>{field}</li>)}
-              </ul>
-            </li>
-          )}
-          {invalidMessage.map((message) => <li>{message}</li>)}
-        </Invalid>
+        <InvalidError
+          emptyFields={emptyFields}
+          invalidMessage={invalidMessage}
+        />
         )}
-
         {inputs.map(({ config, comment, changeHandler }) => (
-          <div>
+          <div key={config.label}>
             <FormInput
-              key={config.label}
               attribute={config}
               changeHandler={changeHandler}
             />
             {comment && `*${comment}`}
           </div>
         ))}
-        <div>
-          <FormInput
-            attribute={{
-              label: 'Upload your photos (choose up to 5 photos)',
-              type: 'file',
-              name: 'photos',
-              placeholder: '',
-            }}
-            changeHandler={fileChangeHandler}
-          />
-          <ThumbnailContainer>
-            {imageInvalid && <div style={{ color: 'red' }}>Invalid image content.</div> }
-            {!formValue.photos && <p>No files selected.</p>}
-            {formValue.photos && formValue.photos.map((photo) => (
-              <FlexRowDiv>
-                <div style={{ width: '50%' }}>
-                  <Thumbnail
-                    className="obj"
-                    key={photo.url}
-                    src={photo.url}
-                  />
-                </div>
-                <div style={{ width: '50%' }}>
-                  {photo.name}
-                </div>
-              </FlexRowDiv>
-            ))}
-          </ThumbnailContainer>
-        </div>
+        <ImageInput
+          formValue={formValue}
+          setFormValue={setFormValue}
+        />
         <DivButton className="form-buttons">
           <ButtonStyled type="submit" onClick={handleSubmit} data-testid="form-button-test">
             Submit
@@ -259,30 +201,4 @@ const Title = styled.div`
 const Subtitle = styled.div`
   font-size: 1.1rem;
   padding: 2px 0;
-`;
-
-const Invalid = styled.ul`
-  color: red;
-`;
-
-const ThumbnailContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  margin: 10px 0;
-`;
-
-const Thumbnail = styled.img`
-  max-width:100px;
-  max-height: 100px;
-  padding-right:10px;
-`;
-
-const FlexRowDiv = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const PaddedDiv = styled.div`
-  padding: 10px;
-  margin: 10px;
 `;

@@ -3,7 +3,7 @@ import axios from 'axios';
 import styled from 'styled-components';
 import _ from 'underscore';
 import Helpful from '../lib/Helpful';
-import AddAnswerForm from './AddAnswerForm';
+import AddAnswerForm from './addAnswer/AddAnswerForm';
 import AnswerList from './AnswerList';
 import Options from '../lib/Options';
 
@@ -39,8 +39,32 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       });
   };
 
-  const addAnswer = (formValues) => {
-    const { body, name, email, photos } = formValues;
+  const getImageUrl = (formValue) => {
+    const { photos } = formValue;
+    let photoUploadPromise = [];
+    photos.forEach((photo) => {
+      const postImageConfig = {
+        method: 'POST',
+        url: `https://api.cloudinary.com/v1_1/dl9zxpaoq/upload`,
+        data: {
+          file: photo.file,
+          upload_preset: 'upload_preset_atelier',
+        }
+      };
+      photoUploadPromise.push(axios(postImageConfig));
+    })
+
+    return Promise.all(photoUploadPromise)
+      .then((result) => {
+        formValue.photos = result.map((photo) => photo.data.url);
+        return formValue;
+      })
+      .catch((err) => {
+        console.log('error uploading images', err);
+      });
+  };
+
+  const postAnswer = ({ body, name, email, photos }) => {
     const requestConfig = {
       method: 'POST',
       url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
@@ -55,7 +79,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       },
     };
     axios(requestConfig)
-      .then(() => {
+      .then((response) => {
         getAnswers();
       })
       .catch((err) => {
@@ -63,9 +87,16 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       });
   };
 
-  // useEffect(() => {
-  //   getAnswers();
-  // }, []);
+
+  const addAnswer = (formValue) => {
+    getImageUrl(formValue)
+      .then((result) => {
+        postAnswer(result);
+      })
+      .catch((err) => {
+        console.log('error adding answer');
+      });
+  };
 
   useEffect(() => {
     if (answerList.length >= count) {
@@ -100,8 +131,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         hasMore={hasMore}
       />
       <AddAnswerForm
-        questionId={question.question_id}
-        questionBody={question.question_body}
+        question={question}
         submitHandler={addAnswer}
         productName={productName}
         show={showModal}
@@ -127,6 +157,7 @@ const DivQuestion = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 5px 0;
+  padding-right: 10px;
 `;
 
 const Title = styled.span`
