@@ -69,7 +69,7 @@ function SearchThing({ toggleSearch }) {
 const StyledInput = styled.input`
   width: 200px;
   margin: 2%;
-  transition: 0.3s;
+  transition: 1s;
   height: auto;
   font-size: 20px;
   color: #acacac;
