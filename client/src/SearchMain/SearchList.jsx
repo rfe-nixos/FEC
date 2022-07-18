@@ -1,0 +1,26 @@
+import React, { useState, useEffect } from 'react';
+import styled from 'styled-components';
+import SearchTile from './SearchTile.jsx';
+
+function SearchList({ products, query }) {
+  const filteredProducts = products
+    .filter((product) => {
+      product.name.match(new RegExp(query, 'i'));
+    });
+
+  useEffect(() => {
+    console.log('search list loaded');
+  }, [])
+
+  return (
+    <div>
+      search list here
+      {(products.map((product, index) => {
+        return <SearchTile product={product} key={index} />
+      }))}
+    </div>
+
+  );
+}
+
+export default SearchList;

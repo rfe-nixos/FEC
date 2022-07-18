@@ -1,15 +1,22 @@
-import React from 'react';
+import React, { setState, useState } from 'react';
 import styled from 'styled-components';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import QuestionAnswer from './questionsAnswers/QuestionAnswers';
 import RelatedItems from './related-items/related-items.jsx';
 import Overview from './product-details/Overview.jsx';
+import SearchThing from './SearchMain/SearchThing.jsx';
 import { CurrentProductProvider } from './context.jsx';
 
 function App() {
+  const [searching, setSearching] = useState(false);
+
   const refresh = () => {
     window.location.reload();
   };
+
+  const toggleSearch = () => {
+    !searching ? setSearching(true) : setSearching(false);
+  }
 
   return (
     <MainDiv>
@@ -23,7 +30,8 @@ function App() {
           <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
             <TitleInner>ABOUT</TitleInner>
           </Link>
-          <TitleInner>SEARCH</TitleInner>
+          <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
+          {(searching) && (<SearchThing toggleSearch={toggleSearch}/>)}
         </TitleDiv>
         <Overview />
         <RelatedItems />
