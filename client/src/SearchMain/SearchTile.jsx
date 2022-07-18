@@ -8,7 +8,7 @@ function SearchTile(props) {
   const handleClick = () => {
     setCurrentProduct(props.product.id);
     props.toggleSearch();
-  }
+  };
 
   return (
     <StyledDiv onClick={handleClick}>
@@ -24,7 +24,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   font-size: small;
   font-weight: medium;
-  width: 100%;
+  width: 90%;
   padding: 2%;
   margin: 1%;
   border: .5px solid #d9d9d9;

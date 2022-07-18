@@ -93,7 +93,9 @@ function SearchThing(props) {
   const filterProducts = () => {
     let filtered = products
       .filter((product) => {
-        return (product.name.match(new RegExp(query, 'i')))
+        return (product.name.match(new RegExp(query, 'i'))
+          || product.description.match(new RegExp(query, 'i'))
+          || product.category.match(new RegExp(query, 'i')))
       });
     setFiltered(filtered);
   };
@@ -129,6 +131,7 @@ function SearchThing(props) {
 
 const StyledInput = styled.input`
   width: 200px;
+  margin: 2%;
 `;
 
 export default SearchThing;

@@ -13,14 +13,20 @@ function SearchList({ products, query, toggleSearch }) {
   }, [])
 
   return (
-    <div>
-      search list here
+    <StyledList>
       {(products.map((product, index) => {
         return <SearchTile product={product} key={index} toggleSearch={toggleSearch}/>
       }))}
-    </div>
+    </StyledList>
 
   );
 }
+
+const StyledList = styled.div`
+  margin: 2%;
+  max-height: 300px;
+  max-width: 50%;
+  overflow-y: auto;
+`
 
 export default SearchList;
