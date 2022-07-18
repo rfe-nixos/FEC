@@ -58,7 +58,7 @@ function RatingsReviews() {
         const sum = getTotalRatings(response.data.ratings)[0];
         const totalRatings = getTotalRatings(response.data.ratings)[1];
         setMeta(response.data);
-        setAverage((sum / totalRatings).toFixed(2));
+        setAverage((sum / totalRatings).toFixed(1));
         setRatings(response.data.ratings);
         setTotalRatings(totalRatings);
         setIsLoaded(true);

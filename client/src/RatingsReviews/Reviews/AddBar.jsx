@@ -45,15 +45,15 @@ const StyledButton = styled.button`
   width: auto;
   font-size: small;
   margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
+  padding: 15px;
+  border: 1px solid #3d3c3c;
+  background-color: white;
+  margin-right: 10px;
+  font-weight:500px;
   &:hover {
     cursor: pointer;
     opacity: 60%;
   }
-`
+`;
 
 export default AddBar;

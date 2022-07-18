@@ -4,18 +4,7 @@ import Breakdown from './Breakdown.jsx';
 import Characteristics from './Characteristics.jsx';
 import Summary from './Summary.jsx';
 
-// class Ratings extends React.Component {
-//   constructor(props) {
-//     super(props);
-//     this.state = {
-//       meta: {},
-//       ratings: {},
-//       totalRatings: 0,
-//       isLoaded: false,
-//     };
-//   }
 function Ratings(props) {
-  // render() {
   return (
     <RatingsContainer>
       <Summary
@@ -37,7 +26,6 @@ function Ratings(props) {
       />
     </RatingsContainer>
   );
-  // }
 }
 
 const RatingsContainer = styled.div`

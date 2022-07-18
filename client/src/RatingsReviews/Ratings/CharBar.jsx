@@ -47,9 +47,9 @@ const InnerBar = styled.div`
   white-space: nowrap;
   overflow: hidden;
   width:auto;
-  height: 20px;
-  font-size:x-small;
-  transform: translate(-50%, -50%);
+  height: 23px;
+  font-size:small;
+  transform: translate(-50%, -49%);
   &:before {
     content: "▼";
   }
