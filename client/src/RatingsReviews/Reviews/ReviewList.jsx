@@ -30,7 +30,7 @@ function ReviewList(props) {
       onScroll={onScroll}
       ref={listInnerRef}
     >
-      {props.reviews.map((review, index) => (
+      {props.reviews.slice(0, props.page * 5).map((review, index) => (
         <ReviewTile
           review={review}
           key={index}

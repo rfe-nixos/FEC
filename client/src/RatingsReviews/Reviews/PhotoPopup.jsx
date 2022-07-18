@@ -78,7 +78,7 @@ const StyledButton = styled.button`
 
 const StyledImg = styled.img`
   size: auto;
-  max-width: 50%;
+  max-width: 80%;
 `
 
 function PhotoPopup({ photoUrl, togglePhotoPop }) {

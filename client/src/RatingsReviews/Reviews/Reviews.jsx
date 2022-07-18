@@ -21,6 +21,8 @@ class Reviews extends React.Component {
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
     this.refresh = this.refresh.bind(this);
+    this.moreReviews = this.moreReviews.bind(this);
+    this.scrollMore = this.scrollMore.bind(this);
   }
 
   addReview(reviewBody) {
@@ -39,6 +41,20 @@ class Reviews extends React.Component {
 
   refresh() {
     window.location.reload();
+  }
+
+  moreReviews() {
+    let page = this.state.page;
+    page++;
+    this.setState({ page });
+  }
+
+  scrollMore() { // only works when its not filtered by rating.
+    if (!this.state.filteredByRating) {
+      let { page } = this.state;
+      page += 1;
+      this.setState({ page });
+    }
   }
 
   report(reviewId) {
@@ -87,6 +103,7 @@ class Reviews extends React.Component {
           markHelpful={this.markHelpful}
           report={this.report}
           scrollMore={this.props.scrollMore}
+          page={this.props.page}
         />
         <AddBar
           reviews={this.props.reviews}

@@ -146,6 +146,11 @@ function RatingsReviews() {
   };
 
   useEffect(() => {
+    //listen to sortoption, if sortoption changes, reset page to 1.
+    setPage(1);
+  }, [sortOption])
+
+  useEffect(() => {
     console.log('USE EFFECT reviews are now sorted');
     if (sorted) {
       console.log('setting reviews to sorted reviews');
@@ -153,17 +158,16 @@ function RatingsReviews() {
     }
   }, [sortCount]);
 
-  const moreReviews = () => {
-    setPage(page + 1);
-  };
-
   useEffect(() => {
     console.log('page changed!!!');
     getReviews();
   }, [page]);
 
+  const moreReviews = () => {
+    setPage(page + 1);
+  }
   const scrollMore = () => { // only works when its not filtered by rating.
-    if (!this.state.filteredByRating) {
+    if (!filteredByRating) {
       setPage(page + 1);
     }
   };
@@ -192,6 +196,8 @@ function RatingsReviews() {
             moreReviews={moreReviews}
             setSort={sort}
             getReviews={getReviews}
+            scrollMore={scrollMore}
+            page={page}
           />
         )}
         {(!filteredByRating) && (
@@ -202,6 +208,8 @@ function RatingsReviews() {
             moreReviews={moreReviews}
             setSort={sort}
             getReviews={getReviews}
+            scrollMore={scrollMore}
+            page={page}
           />
         )}
       </StyledInner>
