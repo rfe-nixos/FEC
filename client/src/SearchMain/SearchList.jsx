@@ -18,7 +18,7 @@ function SearchList({ products, query, toggleSearch }) {
 const StyledList = styled.div`
   margin: 2%;
   max-height: 300px;
-  max-width: 50%;
+  width: 80%;
   overflow-y: auto;
 `;
 

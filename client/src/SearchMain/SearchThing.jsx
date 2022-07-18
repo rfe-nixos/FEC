@@ -92,7 +92,9 @@ const StyledInner = styled.div`
   overflow-y: auto;
   background: #ffffff;
   border: 1px solid black;
-  font-size:small;
+  font-size: small;
+  font-weight: 500;
+  letter-spacing: 0px;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;

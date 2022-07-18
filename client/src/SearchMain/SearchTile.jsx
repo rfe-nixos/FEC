@@ -24,7 +24,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   font-size: small;
   font-weight: medium;
-  width: 90%;
+  width: 80%;
   padding: 2%;
   margin: 1%;
   border: .5px solid #d9d9d9;
