@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import styled from 'styled-components';
 import SearchThing from './SearchThing.jsx';
+import Nav from './Nav.jsx';
 
 function TopBar() {
   const [searching, setSearching] = useState(false);
@@ -20,14 +21,25 @@ function TopBar() {
         alt="nixatelier"
         onClick={refresh}
       />
-      <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
-        <TitleInner>ABOUT</TitleInner>
-      </Link>
-      <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
+      <Div>
+        <Nav />
+      </Div>
+      <Div>
+        <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
+          <TitleInner>ABOUT</TitleInner>
+        </Link>
+        <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
+      </Div>
+
       {(searching) && (<SearchThing toggleSearch={toggleSearch} />)}
     </TitleDiv>
   );
 };
+const Div = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+`
 
 const Link = styled.a`
   &:link { text-decoration: none; }
@@ -53,11 +65,13 @@ const TitleImg = styled.img`
 const TitleInner = styled.div`
   font-size: 10px;
   letter-spacing: 5px;
-  margin-right: 10%;
+  margin-right: 50px;
   &:hover{
     cursor: pointer;
     opacity: 60%;
   }
+  align-items: center;
+  justify-content: center;
 `;
 
 const TitleDiv = styled.div`
@@ -65,14 +79,14 @@ const TitleDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
-  max-height: 5%;
+  justify-content: space-between;
+  height: 50px;
   font-weight: 200;
   padding: 2%;
   font-size: 30px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
-  margin-bottom: 2%;
+  margin-bottom: 1%;
   margin-top: 1%;
 `;
 

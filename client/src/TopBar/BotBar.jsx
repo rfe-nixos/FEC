@@ -2,35 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 
 function BotBar() {
-  const refresh = () => {
-    window.location.reload();
-  };
-
   return (
     <TitleDiv>
-      <TitleInner onClick={refresh}>© 2022 NIX ATELIER</TitleInner>
+      <TitleInner
+        onClick={() => {
+          window.scrollTo({ top: 0, left: 0, behavior: 'smooth' });
+        }}
+      >
+        © 2022 NIX ATELIER
+      </TitleInner>
     </TitleDiv>
-  )
+  );
 }
-
-const Link = styled.a`
-  &:link { text-decoration: none; }
-  &:visited { text-decoration: none; }
-  &:hover { cursor: pointer; opacity: 60%;}
-  &:active { text-decoration: none; }
-  margin-right: 5%;
-`;
-
-const TitleImg = styled.img`
-  max-height: 20px;
-  size: auto;
-  align-self: center;
-  transform: translate(-50%, 0%);
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
 
 const TitleInner = styled.div`
   font-size: 10px;
