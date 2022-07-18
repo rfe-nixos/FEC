@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
+import { getQuestions, getProductInfo } from './API/githubAPI';
 import Search from './searchBar/Search';
 import QuestionList from './questionAnswersList/QuestionList';
-import MoreQuestions from './buttons/MoreQuestions';
-import AddQuestion from './buttons/AddQuestion';
+import MoreQuestions from './moreButton/MoreQuestions';
+import AddQuestion from './moreButton/AddQuestion';
 import { useCurrentProductContext } from '../context';
 
 function QuestionAnswers() {
@@ -16,53 +16,22 @@ function QuestionAnswers() {
   const [count, setCount] = useState(200);
   const [page, setPage] = useState(1);
 
-  const getAllQuestions = () => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/qa/questions`,
-      params: {
-        product_id: productId,
-        count,
-        page,
-      },
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-
-    axios(requestConfig)
+  const renderQuestions = () => {
+    getQuestions(productId, page, count)
       .then((result) => {
         if (result.data.results.length === 0) {
           return;
         }
         setQuestionList(result.data.results);
-      })
-      .catch((err) => {
-        console.log('failed fetching all questions from API.', err);
-      });
-  };
-
-  const getProductInfo = () => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/products/${productId}`,
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-
-    axios(requestConfig)
-      .then((result) => {
-        setProductInfo(result.data);
-      })
-      .catch((err) => {
-        console.log('failed fetching product info.', err);
       });
   };
 
   useEffect(() => {
-    getAllQuestions();
-    getProductInfo();
+    renderQuestions();
+    getProductInfo(productId)
+      .then((result) => {
+        setProductInfo(result.data);
+      });
   }, []);
 
   useEffect(() => {
@@ -77,7 +46,7 @@ function QuestionAnswers() {
       <Search setFilter={setFilteredKeyword} />
       <QuestionList
         questions={questionList}
-        renderQuestions={getAllQuestions}
+        renderQuestions={renderQuestions}
         keyword={filteredKeyword}
         productName={productInfo.name}
         expanded={expanded}
@@ -91,7 +60,7 @@ function QuestionAnswers() {
         />
         <AddQuestion
           id={productId}
-          renderQuestions={getAllQuestions}
+          renderQuestions={renderQuestions}
           Button={Button}
           productName={productInfo.name}
         />

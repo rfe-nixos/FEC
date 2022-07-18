@@ -1,33 +1,18 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
+import { updateHelpful } from '../API/githubAPI';
 
 function Helpful({ id, type, currentCount, renderComponent }) {
   const [clicked, setClicked] = useState(false);
-  let path;
-  if (type === 'question') path = 'qa/questions';
-  if (type === 'answer') path = 'qa/answers';
-  if (type === 'review') path = 'review';
 
   const handleClick = () => {
     if (clicked) {
       return;
     }
-    const requestConfig = {
-      method: 'PUT',
-      url: `${process.env.API_URL}/${path}/${id}/helpful`,
-      headers: {
-        Authorization: process.env.AUTH_TOKEN,
-      },
-    };
-
-    axios(requestConfig)
+    updateHelpful(type, id)
       .then(() => {
         setClicked(true);
         renderComponent();
-      })
-      .catch((err) => {
-        console.log(`Failed PUT request for marking ${type} of id ${id} helpful.`, err);
       });
   };
 

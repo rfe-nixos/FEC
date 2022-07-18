@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import _ from 'underscore';
+import { getAnswers, postAnswer } from '../API/githubAPI';
+import getImageUrl from '../API/cloudinaryAPI';
 import Helpful from '../lib/Helpful';
 import AddAnswerForm from './addAnswer/AddAnswerForm';
 import AnswerList from './AnswerList';
@@ -14,88 +15,34 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(100);
 
-  const getAnswers = () => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
-      params: {
-        page,
-        count,
-      },
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-    axios(requestConfig)
+  const renderAnswers = () => {
+    getAnswers(question.question_id, page, count)
       .then((result) => {
         if (result.data.results.length === 0) {
           setHasMore(false);
           return;
         }
         setAnswerList(sortAnswers(result.data.results));
-      })
-      .catch((err) => {
-        console.log('failed to get answers', err);
       });
   };
 
-  const getImageUrl = (formValue) => {
-    const { photos } = formValue;
-    let photoUploadPromise = [];
-    photos.forEach((photo) => {
-      const postImageConfig = {
-        method: 'POST',
-        url: `https://api.cloudinary.com/v1_1/dl9zxpaoq/upload`,
-        data: {
-          file: photo.file,
-          upload_preset: 'upload_preset_atelier',
-        }
-      };
-      photoUploadPromise.push(axios(postImageConfig));
-    })
-
-    return Promise.all(photoUploadPromise)
-      .then((result) => {
-        formValue.photos = result.map((photo) => photo.data.url);
-        return formValue;
-      })
-      .catch((err) => {
-        console.log('error uploading images', err);
-      });
-  };
-
-  const postAnswer = ({ body, name, email, photos }) => {
-    const requestConfig = {
-      method: 'POST',
-      url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
-      data: {
-        body,
-        name,
-        email,
-        photos,
-      },
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-    axios(requestConfig)
-      .then((response) => {
-        getAnswers();
-      })
-      .catch((err) => {
-        console.log('failed posting answer.', err);
-      });
-  };
-
-
-  const addAnswer = (formValue) => {
-    getImageUrl(formValue)
-      .then((result) => {
-        postAnswer(result);
-      })
-      .catch((err) => {
-        console.log('error adding answer');
-      });
+  const addAnswer = (formValues) => {
+    if (formValues.photos) {
+      const photoUrlPromise = formValues.photos.map((photo) => getImageUrl(photo.file))
+      Promise.all(photoUrlPromise)
+        .then((result) => {
+          formValues.photos = result;
+          postAnswer(question.question_id, formValues)
+            .then((response) => {
+              renderAnswers();
+            });
+        });
+    } else {
+      postAnswer(question.question_id, formValues)
+        .then((response) => {
+          renderAnswers();
+        });
+    }
   };
 
   useEffect(() => {
@@ -126,7 +73,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       </DivQuestion>
       <AnswerList
         answerList={answerList}
-        renderAnswers={getAnswers}
+        renderAnswers={renderAnswers}
         Title={Title}
         hasMore={hasMore}
       />

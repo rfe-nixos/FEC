@@ -28,7 +28,8 @@ function Answer({ answer, renderAnswers }) {
     </PhotoDiv>
   );
   const helpful = (
-    <Helpful id={answer.answer_id} type="answer"
+    <Helpful id={answer.answer_id || answer.id}
+      type="answer"
       currentCount={answer.helpfulness}
       renderComponent={renderAnswers}
     />
@@ -36,8 +37,8 @@ function Answer({ answer, renderAnswers }) {
   const report = (
     <span>
       <Report
-        id={answer.answer_id}
-        type={answer}
+        id={answer.answer_id || answer.id}
+        type="answer"
         renderComponent={renderAnswers}
       />
     </span>
