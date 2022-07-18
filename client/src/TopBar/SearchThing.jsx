@@ -23,12 +23,12 @@ function SearchThing(props) {
   };
 
   const filterProducts = () => {
-    const filtered = products
+    const f = products
       .filter((product) => (product.name.match(new RegExp(query, 'i'))
           || product.description.match(new RegExp(query, 'i'))
           || product.category.match(new RegExp(query, 'i'))
           || product.slogan.match(new RegExp(query, 'i'))));
-    setFiltered(filtered);
+    setFiltered(f);
   };
 
   useEffect(() => {

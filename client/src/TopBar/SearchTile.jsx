@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import {useCurrentProductUpdate} from '../context.jsx'
+import { useCurrentProductUpdate } from '../context.jsx'
 
 function SearchTile({ product, toggleSearch }) {
   const setCurrentProduct = useCurrentProductUpdate();
@@ -24,6 +24,7 @@ const StyledDiv = styled.div`
   justify-content: space-between;
   font-size: small;
   font-weight: medium;
+  font-
   width: 80%;
   padding: 2%;
   margin: 1%;
