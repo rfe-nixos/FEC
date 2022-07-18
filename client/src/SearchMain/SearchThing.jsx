@@ -78,7 +78,7 @@ function SearchThing(props) {
   const [filter, setFilter] = useState('');
 
   const getProducts = () => {
-    axios.get(`${process.env.API_URL}/products?count=100`, { //max 1011, but just get 100 for now
+    axios.get(`${process.env.API_URL}/products?count=100`, { // max 1011, but just get 100 for now
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -91,12 +91,11 @@ function SearchThing(props) {
   };
 
   const filterProducts = () => {
-    let filtered = products
-      .filter((product) => {
-        return (product.name.match(new RegExp(query, 'i'))
+    const filtered = products
+      .filter((product) => (product.name.match(new RegExp(query, 'i'))
           || product.description.match(new RegExp(query, 'i'))
-          || product.category.match(new RegExp(query, 'i')))
-      });
+          || product.category.match(new RegExp(query, 'i'))
+          || product.slogan.match(new RegExp(query, 'i'))));
     setFiltered(filtered);
   };
 
