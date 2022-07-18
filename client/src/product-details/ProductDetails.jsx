@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable radix */
 /* eslint-disable react/prop-types */
@@ -32,7 +33,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
           </div>
           <p id="overview">{product.description}</p>
-          <div className="sharethis-inline-share-buttons"></div>
         </div>
       );
     }
@@ -48,7 +48,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
         </div>
         <h3 id="price">{'$' + currentStyle.original_price}</h3>
         <p id="overview">{product.description}</p>
-        <div className="sharethis-inline-share-buttons"></div>
       </div>
     );
   }
@@ -63,7 +62,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
           <h3 id="salesPrice">{currentStyle.sales_price}</h3>
         </div>
         <p id="overview">{product.description}</p>
-        <div className="sharethis-inline-share-buttons"></div>
       </div>
     );
   }
@@ -74,7 +72,6 @@ function ProductDetails({ product, currentStyle, productReviews }) {
       <h1 id="title">{product.name}</h1>
       <h3 id="price">{'$' + currentStyle.original_price}</h3>
       <p id="overview">{product.description}</p>
-      <div className="sharethis-inline-share-buttons"></div>
     </div>
   );
 }

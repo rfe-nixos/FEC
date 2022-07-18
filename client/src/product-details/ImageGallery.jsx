@@ -10,7 +10,7 @@ import Modal from './Modal';
 // import styled from 'styled-components';
 
 function ImageGallery({
-  currentStyle, setCurrentImage, currentThumbnail, setCurrentThumbnail, modal, setModal, zoom, setZoom, modalZoom, setModalZoom,
+  currentStyle, setCurrentImage, currentThumbnail, setCurrentThumbnail, modal, setModal, zoom, setZoom, modalZoom, setModalZoom, range, setRange,
 }) {
   const defaultStyle = { cursor: zoom ? 'zoom-in' : 'auto' };
   const modalStyle = { cursor: modalZoom ? '-webkit-zoom-out' : 'zoom-in' };
@@ -47,6 +47,24 @@ function ImageGallery({
     setCurrentThumbnail(event.target.alt);
   };
 
+  const handlePrevClick = (event) => {
+    event.preventDefault();
+    if (range[0] - 7 < 0) {
+      setRange([0, 7]);
+    } else {
+      setRange([range[0] - 7, range[0]]);
+    }
+  };
+
+  const handleNextClick = (event) => {
+    event.preventDefault();
+    if (range[1] + 7 > galleryList.length - 1) {
+      setRange([range[1], galleryList.length - 1]);
+    } else {
+      setRange([range[1], range[1] + 7]);
+    }
+  };
+
   for (let i = 0; i < currentStyle.photos.length; i += 1) {
     if (i === currentIndex) {
       galleryList.push(
@@ -62,22 +80,48 @@ function ImageGallery({
       );
     }
   }
-  console.log(galleryList.length);
+
   if (modal === 'on') {
-    return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} modalZoom={modalZoom} setModalZoom={setModalZoom} />;
+    return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} handlePrevClick={handlePrevClick} handleNextClick={handleNextClick} />;
   } else if (galleryList.length > 7) {
-    return (
-      <div className="imagegallery">
-        <div className="thumbnailView">
-          <button className="button" type="button" style={{ float: 'left' }}>b</button>
-          {galleryList.slice(0, 7)}
-          <button className="button" type="button" style={{ float: 'right' }}>n</button>
+    if (range[0] === 0) {
+      return (
+        <div className="imagegallery">
+          <div className="thumbnailView">
+            {galleryList.slice(range[0], range[1])}
+            <button className="button" type="button" onClick={handleNextClick} style={{ float: 'right' }}>n</button>
+          </div>
+          <div className="mainImageContainer">
+            {mainImage}
+          </div>
         </div>
-        <div className="mainImageContainer">
-          {mainImage}
+      );
+    } else if (range[1] === galleryList.length - 1) {
+      return (
+        <div className="imagegallery">
+          <div className="thumbnailView">
+            <button className="button" type="button" onClick={handlePrevClick} style={{ float: 'left' }}>b</button>
+            {galleryList.slice(range[0], range[1])}
+          </div>
+          <div className="mainImageContainer">
+            {mainImage}
+          </div>
         </div>
-      </div>
-    );
+      );
+    } else {
+      return (
+        <div className="imagegallery">
+          <div className="thumbnailView">
+            <button className="button" type="button" onClick={handlePrevClick} style={{ float: 'left' }}>b</button>
+            {galleryList.slice(range[0], range[1])}
+            <button className="button" type="button" onClick={handleNextClick} style={{ float: 'right' }}>n</button>
+          </div>
+          <div className="mainImageContainer">
+            {mainImage}
+          </div>
+        </div>
+      );
+    }
   } else {
     return (
       <div className="imagegallery">

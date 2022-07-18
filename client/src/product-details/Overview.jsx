@@ -21,6 +21,7 @@ function Overview() {
   const [modal, setModal] = useState('');
   const [zoom, setZoom] = useState('');
   const [modalZoom, setModalZoom] = useState('');
+  const [range, setRange] = useState([]);
 
   // API INTERACTION
   const productId = '37315';
@@ -126,12 +127,17 @@ function Overview() {
       setCurrentThumbnail('0');
     }
   });
+  useEffect(() => {
+    if (range.length === 0) {
+      setRange([0, 7]);
+    }
+  });
 
   // RENDER
-  if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail !== '') {
+  if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail !== '' && range.length > 0) {
     return (
       <div className="overview">
-        <ImageGallery currentStyle={currentStyle} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} />
+        <ImageGallery currentStyle={currentStyle} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
