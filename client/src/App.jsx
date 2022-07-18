@@ -22,7 +22,7 @@ function App() {
             alt="nixatelier"
             onClick={refresh}
           />
-          <Link href="https://github.com/rfe-nixos/FEC">
+          <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
             <TitleInner>ABOUT</TitleInner>
           </Link>
         </TitleDiv>

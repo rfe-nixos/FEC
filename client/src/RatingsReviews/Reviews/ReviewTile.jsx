@@ -12,7 +12,7 @@ class ReviewTile extends React.Component {
     this.state = {
       reviewed: [],
       openPhotoPop: false,
-      photo: ''
+      photo: '',
     };
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
@@ -22,8 +22,8 @@ class ReviewTile extends React.Component {
   togglePhotoPop(e) {
     console.log(e.target.src);
     !this.state.openPhotoPop
-    ? this.setState({ openPhotoPop: true, photo: e.target.src })
-    : this.setState({ openPhotoPop: false });
+      ? this.setState({ openPhotoPop: true, photo: e.target.src })
+      : this.setState({ openPhotoPop: false });
   }
 
   markHelpful(e) {
@@ -63,20 +63,20 @@ class ReviewTile extends React.Component {
               </h5>
               )}
             {this.props.review.photos.length > 0
-              && <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => {
-                  return <StyledImg key={index} src={photo['url']} onClick={this.togglePhotoPop} />
-                })}
-                </PhotoDiv>
-            }
+              && (
+              <PhotoDiv>
+                {this.props.review.photos.map((photo, index) => <StyledImg key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
+              </PhotoDiv>
+              )}
             {(this.state.openPhotoPop) && (<PhotoPopup photoUrl={this.state.photo} togglePhotoPop={this.togglePhotoPop} />)}
             {this.props.review.response
               && (
-              <h4>
-                from the seller:
+              <Seller>
+                <b>Response:</b>
+                <br />
                 {' '}
                 {this.props.review.response}
-              </h4>
+              </Seller>
               )}
           </div>
           <div>
@@ -94,13 +94,24 @@ class ReviewTile extends React.Component {
   }
 }
 
+const Seller = styled.div`
+  width: 90%;
+  height: auto;
+  padding: 1.5%;
+  padding-left: 4%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  background-color: #eaeaea;
+  line-height: 200%;
+`;
+
 const PhotoDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
   width: 100%;
   overflow-x: auto;
-`
+`;
 
 const TileContainer = styled.div`
   display: flex;
@@ -125,7 +136,7 @@ const TileMain = styled.div`
   font-size: small;
   flex-direction: column;
   margin-top: -2%;
-  max-width: 400px
+  max-width: 600px
 `;
 
 const StyledButton = styled.button`

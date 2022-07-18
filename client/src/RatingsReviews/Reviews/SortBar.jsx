@@ -12,7 +12,7 @@ function SortBar(props) {
 
   return (
     <StyledSortBar>
-      {props.reviews.length} of {props.totalRatings} reviews, sorted by
+      {props.page * 5} of {props.totalRatings} reviews, sorted by
       <StyledDropDown id="sort" onChange={sort}>
         <option value="relevance">Relevance</option>
         <option value="newest">Newest</option>

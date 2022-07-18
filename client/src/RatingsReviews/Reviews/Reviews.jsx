@@ -97,6 +97,7 @@ class Reviews extends React.Component {
           reviews={this.props.reviews}
           setSort={this.props.setSort}
           totalRatings={this.props.totalRatings}
+          page={this.props.page}
         />
         <ReviewList
           reviews={this.props.reviews}
@@ -115,6 +116,19 @@ class Reviews extends React.Component {
     )
   }
 }
+
+const reviewBody = { //sample review data with image, and seller response
+  review_id: 1275524,
+  helpfulness: 20,
+  date: "2022-07-17T00:00:00.000Z",
+  rating: 5,
+  summary: 'sample summary here',
+  body: 'sample body. lots of text go here. at leeast 60 characters',
+  recommend: true,
+  reviewer_name: 'iu',
+  photos: [{id: 1, url: "https://res.cloudinary.com/joehan/image/upload/v1658093409/c07wxsxe4wiu5ionvqtv.png"}],
+  response: 'Thank you for your review! we are please to hear that you enjoyed the item.',
+};
 
 const ReviewsContainer = styled.div`
   display: flex;

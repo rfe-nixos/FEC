@@ -8,7 +8,7 @@ const StyledList = styled.div`
   justify-content: flex-start;
   width: 100%;
   min-height: 300px;
-  max-height: 470px;
+  max-height: 600px;
   overflow-y: auto;
 `;
 

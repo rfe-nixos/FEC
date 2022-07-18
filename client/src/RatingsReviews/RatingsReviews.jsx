@@ -167,9 +167,9 @@ function RatingsReviews() {
     setPage(page + 1);
   }
   const scrollMore = () => { // only works when its not filtered by rating.
-    if (!filteredByRating) {
+    // if (!filteredByRating) {
       setPage(page + 1);
-    }
+    // }
   };
 
   return (

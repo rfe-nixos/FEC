@@ -20,10 +20,10 @@ const StyledForm = styled.div`
 const StyledInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-evenly;
   align-items: center;
   width: 400px;
-  height: 50%;
+  height: auto;
   padding: 1.5%;
   overflow-y: auto;
   background: #2d2d2d;
@@ -35,30 +35,6 @@ const StyledInner = styled.div`
   transition: all 0.5s ease-in-out;
 `;
 
-const StyledCat = styled.div`
-  font-weight: bold;
-  font-size: small;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  margin-top: 1%;
-  width: 100%;
-`;
-
-const StyledClose = styled.button`
-  color: #1c1c1c;
-  font-size: 15px;
-  background-color: white;
-  width: auto;
-  font-weight: light;
-  padding: .25em .5em;
-  border-radius: 3px;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
 const StyledButton = styled.button`
   width: auto;
   max-width: 100px;
@@ -82,7 +58,6 @@ const StyledImg = styled.img`
 `
 
 function PhotoPopup({ photoUrl, togglePhotoPop }) {
-
   return (
     <StyledForm>
       <StyledInner>
