@@ -10,6 +10,9 @@ const StyledList = styled.div`
   min-height: 300px;
   max-height: 600px;
   overflow-y: auto;
+  &::-webkit-scrollbar {
+    display: none;
+  }
 `;
 
 function ReviewList(props) {

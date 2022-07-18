@@ -52,7 +52,7 @@ function SearchThing(props) {
     <StyledForm>
       <StyledInner>
         SEARCH FOR AN ITEM HERE
-        <StyledInput placeholder="search for item here" name="searchthing" onChange={handleChange} />
+        <StyledInput placeholder="i.e. shoes" name="searchthing" onChange={handleChange} />
         {(filter) && <SearchList query={filter} products={filtered} toggleSearch={props.toggleSearch} />}
         <StyledButton onClick={props.toggleSearch}>CLOSE</StyledButton>
       </StyledInner>
@@ -63,6 +63,11 @@ function SearchThing(props) {
 const StyledInput = styled.input`
   width: 200px;
   margin: 2%;
+  transition: 0.3s;
+  height: auto;
+  font-size: 20px;
+  color: #acacac;
+
 `;
 
 const StyledForm = styled.div`
@@ -84,7 +89,7 @@ const StyledForm = styled.div`
 const StyledInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
   width: 500px;
   height: auto;
@@ -117,10 +122,8 @@ const StyledButton = styled.button`
   width: auto;
   max-width: 100px;
   font-size: small;
-  margin: 5%;
-  margin-right: 3%;
+  margin: 3%;
   padding: 0.25em 1em;
-  border-radius: 3px;
   background: white;
   color: black;
   border: 1px solid black;

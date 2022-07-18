@@ -1,10 +1,11 @@
-import React, { setState, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import QuestionAnswer from './questionsAnswers/QuestionAnswers';
 import RelatedItems from './related-items/related-items.jsx';
 import Overview from './product-details/Overview.jsx';
 import TopBar from './TopBar/TopBar.jsx';
+import BotBar from './TopBar/BotBar.jsx';
 import { CurrentProductProvider } from './context.jsx';
 
 function App() {
@@ -16,6 +17,7 @@ function App() {
         <RelatedItems />
         <QuestionAnswer productId={37311} />
         <RatingsReviews productId={37311} />
+        <BotBar />
       </CurrentProductProvider>
     </MainDiv>
   );

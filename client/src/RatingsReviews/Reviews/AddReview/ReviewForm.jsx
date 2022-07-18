@@ -136,6 +136,7 @@ class ReviewForm extends React.Component {
     this.togglePhotoForm = this.togglePhotoForm.bind(this);
     this.addPhoto = this.addPhoto.bind(this);
     this.addUrl = this.addUrl.bind(this);
+    this.handleBgClick = this.handleBgClick.bind(this);
   }
 
   setChar(char, rating) {
@@ -147,7 +148,7 @@ class ReviewForm extends React.Component {
   }
 
   closeForm() {
-    window.location.reload();
+    this.props.toggleForm();
   }
 
   addReview(e) {
@@ -226,10 +227,16 @@ class ReviewForm extends React.Component {
     }
   }
 
+  handleBgClick(e) {
+    if(e.target.id === 'addreview-bg') {
+      this.props.toggleForm();
+    }
+  }
+
   render() {
     return (
-      <StyledForm>
-        <StyledInner>
+      <StyledForm onClick={this.handleBgClick} id="addreview-bg">
+        <StyledInner id="addreview-inner">
           <InnerTop>
             <div>Write a Review.</div>
             <StyledClose onClick={this.closeForm}>X</StyledClose>

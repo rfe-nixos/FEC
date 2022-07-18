@@ -221,6 +221,7 @@ const StyledMain = styled.div`
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  border-bottom: .5px solid black;
 `;
 const StyledInner = styled.div`
   display: flex;

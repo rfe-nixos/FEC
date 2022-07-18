@@ -26,7 +26,7 @@ const StyledInner = styled.div`
   height: auto;
   padding: 1.5%;
   overflow-y: auto;
-  background: #2d2d2d;
+  background: #ffffff;
   border: 1px solid black;
   font-size:small;
   -webkit-transition: all 0.5s ease-in-out;
@@ -39,10 +39,8 @@ const StyledButton = styled.button`
   width: auto;
   max-width: 100px;
   font-size: small;
-  margin: 5%;
-  margin-right: 3%;
+  margin: 2%;
   padding: 0.25em 1em;
-  border-radius: 3px;
   background: white;
   color: black;
   border: 1px solid black;
@@ -58,9 +56,16 @@ const StyledImg = styled.img`
 `;
 
 function PhotoPopup({ photoUrl, togglePhotoPop }) {
+  const handleClick = (e) => {
+    console.log(e.target.id);
+    if (e.target.id === 'photopop') {
+      togglePhotoPop(e);
+    }
+  };
+
   return (
-    <StyledForm>
-      <StyledInner>
+    <StyledForm onClick={handleClick} id="photopop">
+      <StyledInner id="photopop-inner">
         <StyledImg src={photoUrl} />
         <StyledButton onClick={togglePhotoPop}>CLOSE</StyledButton>
       </StyledInner>

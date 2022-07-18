@@ -1,33 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import SearchThing from './SearchThing.jsx';
 
-function TopBar() {
-  const [searching, setSearching] = useState(false);
-
+function BotBar() {
   const refresh = () => {
     window.location.reload();
   };
 
-  const toggleSearch = () => {
-    !searching ? setSearching(true) : setSearching(false);
-  };
-
   return (
     <TitleDiv>
-      <TitleImg
-        src="public/icons/nixatelier.png"
-        alt="nixatelier"
-        onClick={refresh}
-      />
-      <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
-        <TitleInner>ABOUT</TitleInner>
-      </Link>
-      <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
-      {(searching) && (<SearchThing toggleSearch={toggleSearch} />)}
+      <TitleInner onClick={refresh}>© 2022 NIX ATELIER</TitleInner>
     </TitleDiv>
-  );
-};
+  )
+}
 
 const Link = styled.a`
   &:link { text-decoration: none; }
@@ -38,9 +22,7 @@ const Link = styled.a`
 `;
 
 const TitleImg = styled.img`
-  position: absolute;
-  left: 50%;
-  max-height: 50px;
+  max-height: 20px;
   size: auto;
   align-self: center;
   transform: translate(-50%, 0%);
@@ -53,7 +35,7 @@ const TitleImg = styled.img`
 const TitleInner = styled.div`
   font-size: 10px;
   letter-spacing: 5px;
-  margin-right: 10%;
+  margin-right: 0%;
   &:hover{
     cursor: pointer;
     opacity: 60%;
@@ -65,7 +47,7 @@ const TitleDiv = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-evenly;
   max-height: 5%;
   font-weight: 200;
   padding: 2%;
@@ -76,5 +58,4 @@ const TitleDiv = styled.div`
   margin-top: 1%;
 `;
 
-export default TopBar;
-
+export default BotBar;

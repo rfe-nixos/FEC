@@ -12,7 +12,8 @@ function SearchTile({ product, toggleSearch }) {
 
   return (
     <StyledDiv onClick={handleClick}>
-      {product.name}
+      <div>{product.name}</div>
+      <div>{product.default_price}</div>
     </StyledDiv>
   );
 }
@@ -28,6 +29,7 @@ const StyledDiv = styled.div`
   width: 80%;
   padding: 2%;
   margin: 1%;
+  color: #2b2b2b;
   border: .5px solid #d9d9d9;
   &:hover {
     opacity: 60%;
