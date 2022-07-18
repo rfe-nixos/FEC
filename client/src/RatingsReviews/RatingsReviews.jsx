@@ -36,7 +36,7 @@ function RatingsReviews() {
         setReviews(response.data.results);
       })
       .then(() => {
-        if(sorted) {
+        if (sorted) {
           sort(sortOption);
         }
       })
@@ -112,22 +112,16 @@ function RatingsReviews() {
     }
   }, [ratingFilter]);
 
-  // const setSort = (sort_option) => {
-  //   setSorted(true); // set sorted to true.
-  //   setSortOption(sort_option); // set the sort option
-  //   // console.log('sort option is', sort_option);
-  // };
-
   const sort = (sortMethod) => {
-    //setSorted(false);
-    let temp = reviews;
+    // setSorted(false);
+    const temp = reviews;
     console.log('sortmethod is,', sortMethod);
     if (sortMethod === 'helpful') {
       temp.sort((a, b) => b.helpfulness - a.helpfulness);
       console.log('sorted reviews by helpfulness,');
       setSortedReviews(() => temp);
       setSortOption(sortMethod);
-      setSortCount(sortCount + 1); //trigger effect
+      setSortCount(sortCount + 1); // trigger effect
       setSorted(true);
     }
     if (sortMethod === 'newest') {
@@ -135,7 +129,7 @@ function RatingsReviews() {
       console.log('sorted reviews by newest,');
       setSortedReviews(() => temp);
       setSortOption(sortMethod);
-      setSortCount(sortCount + 1); //trigger effect
+      setSortCount(sortCount + 1); // trigger effect
       setSorted(true);
     }
     if (sortMethod === 'relevance') { // relevance, just reset sort and get og reviews
@@ -146,9 +140,9 @@ function RatingsReviews() {
   };
 
   useEffect(() => {
-    //listen to sortoption, if sortoption changes, reset page to 1.
+    // listen to sortoption, if sortoption changes, reset page to 1.
     setPage(1);
-  }, [sortOption])
+  }, [sortOption]);
 
   useEffect(() => {
     console.log('USE EFFECT reviews are now sorted');
@@ -165,10 +159,10 @@ function RatingsReviews() {
 
   const moreReviews = () => {
     setPage(page + 1);
-  }
+  };
   const scrollMore = () => { // only works when its not filtered by rating.
     // if (!filteredByRating) {
-      setPage(page + 1);
+    setPage(page + 1);
     // }
   };
 
@@ -187,6 +181,7 @@ function RatingsReviews() {
           totalRatings={totalRatings}
           setRatingFilter={setRatingsFilter} // diff name from hook
           setSortOption={setSortOption}
+          ratingFilter={ratingFilter}
         />
         {(filteredByRating) && (
           <Reviews
@@ -216,22 +211,6 @@ function RatingsReviews() {
     </StyledMain>
   );
 }
-
-const StyledButton = styled.button`
-  width: auto;
-  font-size: small;
-  margin: 1%;
-  margin-right: 3%;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
 
 const StyledMain = styled.div`
   display: flex;
