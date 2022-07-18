@@ -37,7 +37,7 @@ function PhotoForm(props) {
         }}
         addUrl={props.addUrl}
        />
-      <button onClick={uploadPhoto}>upload photo</button>
+      {(selectedPhoto) && (<StyledButton onClick={uploadPhoto}>upload photo</StyledButton>)}
       <div>uploaded images:</div>
       {(props.photos.length > 0) &&
         (props.photos.map((photo, index) => (
@@ -49,6 +49,23 @@ function PhotoForm(props) {
     </StyledDiv>
   )
 }
+
+const StyledButton = styled.button`
+  width: auto;
+  max-width: 180px;
+  font-size: small;
+  margin: 1%;
+  margin-right: 3%;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
 
 const StyledDiv = styled.div`
   display: flex;

@@ -19,13 +19,15 @@ function PhotoUpload({ onFileSelect, addUrl }) {
     <div>
       <input type="file" onChange={handleFileInput} />
       {(!selectedPhoto) && (<div>please select a photo</div>)}
-      {(selectedPhoto) && (<div>{selectedPhoto.name}</div>)}
-      <div> or select from the following: </div>
-      <StyledImg onClick={handlePhotoSelection} src="https://www.imcgrupo.com/wp-content/uploads/2021/06/This-True-IU-Kpop-Story-Will-Inspire-You-02.jpeg" />
-      <StyledImg onClick={handlePhotoSelection} src="https://media.gq.com/photos/619d44c7f3b9613312e5a58d/16:9/w_2560%2Cc_limit/story%2520dnc%2520259207888_4588755407868444_1734975685078234037_n.jpeg" />
-      <StyledImg onClick={handlePhotoSelection} src="https://cdn.whatsonthestar.com/uploads/t_20200708145548.jpg" />
-      <StyledImg onClick={handlePhotoSelection} src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Michael_Jordan_crying.jpg/220px-Michael_Jordan_crying.jpg" />
-      <StyledImg onClick={handlePhotoSelection} src="https://6.viki.io/image/04e3e839af9d4fcd937661fe2bc1e1cf/dummy.jpeg?s=900x600&e=t" />
+      {(selectedPhoto) && (<div>{selectedPhoto.name}, click button below to upload</div>)}
+      {(!selectedPhoto) && (<div><div> or select from the following: </div>
+        <StyledImg onClick={handlePhotoSelection} src="https://res.cloudinary.com/joehan/image/upload/v1658003181/o0t1cymcaggj2g3hgbjj.jpg" />
+        <StyledImg onClick={handlePhotoSelection} src="https://media.gq.com/photos/619d44c7f3b9613312e5a58d/16:9/w_2560%2Cc_limit/story%2520dnc%2520259207888_4588755407868444_1734975685078234037_n.jpeg" />
+        <StyledImg onClick={handlePhotoSelection} src="https://cdn.whatsonthestar.com/uploads/t_20200708145548.jpg" />
+        <StyledImg onClick={handlePhotoSelection} src="https://upload.wikimedia.org/wikipedia/en/thumb/c/c7/Michael_Jordan_crying.jpg/220px-Michael_Jordan_crying.jpg" />
+        <StyledImg onClick={handlePhotoSelection} src="https://6.viki.io/image/04e3e839af9d4fcd937661fe2bc1e1cf/dummy.jpeg?s=900x600&e=t" />
+      </div>
+      )}
     </div>
   );
 }

@@ -8,10 +8,9 @@ import { CurrentProductProvider } from './context.jsx';
 //import nixatelier from './nixatelier.png';
 
 function App() {
-
   const refresh = () => {
     window.location.reload();
-  }
+  };
 
   return (
     <MainDiv>
@@ -68,7 +67,7 @@ const TitleImg = styled.img`
 const TitleInner = styled.div`
   font-size: 10px;
   margin-right: 10%;
-`
+`;
 
 const TitleDiv = styled.div`
   width: 100%;
@@ -86,6 +85,6 @@ const TitleDiv = styled.div`
   -webkit-font-smoothing: antialiased;
   /* border-bottom: .5px solid black; */
   margin-bottom: 1%;
+`;
 
-`
 export default App;

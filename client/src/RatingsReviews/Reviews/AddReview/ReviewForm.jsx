@@ -288,8 +288,7 @@ class ReviewForm extends React.Component {
           <p><em>For authentication reasons, you will not be emailed.</em></p>
           <StyledCat>
             <div>Photos</div>
-
-            <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>
+            {(!this.state.openPhotoForm) && <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>}
             {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto} addUrl={this.addUrl} />}
           </StyledCat>
           <InnerBot>

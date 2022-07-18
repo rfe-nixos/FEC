@@ -14,6 +14,9 @@ class AddBar extends React.Component {
 
   moreReviews(e) {
     e.preventDefault();
+    console.log(e);
+    let time = new Date().toLocaleTimeString();
+    console.log(time);
     this.props.moreReviews();
   }
 
