@@ -1,33 +1,55 @@
+/* eslint-disable no-else-return */
+/* eslint-disable arrow-body-style */
+/* eslint-disable radix */
 /* eslint-disable react/prop-types */
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
 import React from 'react';
+import Modal from './Modal';
 // import styled from 'styled-components';
 
-function ImageGallery({ currentStyle, currentImage, setCurrentImage, currentThumbnail, setCurrentThumbnail }) {
-  /* const StyledCarousel = styled.div`
-    display: flex,
-    flex-direction: column,
-    width: 50px,
-    height: 250px,
-    border: solid black 5px
-    `; */
+function ImageGallery({
+  currentStyle, setCurrentImage, currentThumbnail, setCurrentThumbnail, modal, setModal, zoom, setZoom, modalZoom, setModalZoom,
+}) {
+  const defaultStyle = { cursor: zoom ? 'zoom-in' : 'auto' };
+  const modalStyle = { cursor: modalZoom ? '-webkit-zoom-out' : 'zoom-in' };
+  let style;
+  if (modal === 'on') {
+    style = modalStyle;
+  } else {
+    style = defaultStyle;
+  }
 
   const galleryList = [];
+  const currentIndex = parseInt(currentThumbnail);
 
-  const mainImage = <img src={currentImage} alt={currentStyle.name} className="currentImage" />;
+  const handleImageGalleryModal = (event) => {
+    event.preventDefault();
+    setZoom(false);
+    setModal('on');
+  };
+
+  const handleDefaultViewMouseEnter = (event) => {
+    event.preventDefault();
+    setZoom(true);
+  };
+
+  const handleDefaultViewMouseLeave = (event) => {
+    event.preventDefault();
+    setZoom(false);
+  };
+
+  const mainImage = <img src={currentStyle.photos[currentIndex].url} alt={currentStyle.name} className="currentImage" onClick={handleImageGalleryModal} onMouseEnter={handleDefaultViewMouseEnter} onMouseLeave={handleDefaultViewMouseLeave} style={style} />;
 
   const handleClick = (event) => {
     event.preventDefault();
-    // console.log('click!');
     setCurrentImage(event.target.src);
     setCurrentThumbnail(event.target.alt);
   };
 
   for (let i = 0; i < currentStyle.photos.length; i += 1) {
-    // console.log(i, currentThumbnail);
-    if (i === parseInt(currentThumbnail)) {
+    if (i === currentIndex) {
       galleryList.push(
         <div className="carousel" key={galleryList.length}>
           <img src={currentStyle.photos[i].thumbnail_url} alt={currentStyle.name} style={{ opacity: 0.7 }} onClick={handleClick} />
@@ -42,7 +64,9 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage, currentThum
     }
   }
 
-  if (galleryList.length > 7) {
+  if (modal === 'on') {
+    return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} />;
+  } else if (galleryList.length > 7) {
     return (
       <div className="imagegallery">
         <div className="thumbnailView">
@@ -55,17 +79,18 @@ function ImageGallery({ currentStyle, currentImage, setCurrentImage, currentThum
         </div>
       </div>
     );
+  } else {
+    return (
+      <div className="imagegallery">
+        <div className="thumbnailView">
+          {galleryList}
+        </div>
+        <div className="mainImageContainer">
+          {mainImage}
+        </div>
+      </div>
+    );
   }
-  return (
-    <div className="imagegallery">
-      <div className="thumbnailView">
-        {galleryList}
-      </div>
-      <div className="mainImageContainer">
-        {mainImage}
-      </div>
-    </div>
-  );
 }
 
 export default ImageGallery;

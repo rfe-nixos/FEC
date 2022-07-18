@@ -16,7 +16,10 @@ function Overview() {
   const [currentImage, setCurrentImage] = useState('');
   const [sizeAlert, setSizeAlert] = useState('');
   const [productReviews, setProductReviews] = useState({});
-  const [currentThumbnail, setCurrentThumbnail] = useState(0);
+  const [currentThumbnail, setCurrentThumbnail] = useState('');
+  const [modal, setModal] = useState('');
+  const [zoom, setZoom] = useState('');
+  const [modalZoom, setModalZoom] = useState('');
 
   const productId = '37311';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
@@ -92,6 +95,21 @@ function Overview() {
       setCurrentStyle(styles[0]);
     }
   });
+  useEffect(() => {
+    if (modal === '') {
+      setModal('off');
+    }
+  });
+  useEffect(() => {
+    if (zoom === '') {
+      setZoom(false);
+    }
+  });
+  useEffect(() => {
+    if (modalZoom === '') {
+      setModalZoom(false);
+    }
+  });
 
   useEffect(() => {
     if (Object.keys(currentStyle).length > 0) {
@@ -105,10 +123,16 @@ function Overview() {
     }
   });
 
-  if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0) {
+  useEffect(() => {
+    if (currentThumbnail === '') {
+      setCurrentThumbnail('0');
+    }
+  });
+
+  if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail !== '') {
     return (
       <div className="overview">
-        <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} />
+        <ImageGallery currentStyle={currentStyle} currentImage={currentImage} setCurrentImage={setCurrentImage} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
