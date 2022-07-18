@@ -28,6 +28,7 @@ const StyledSortBar = styled.div`
   font-weight: bold;
   font-size: 15px;
   width: 100%;
+  align-items: baseline;
 `;
 
 const StyledDropDown = styled.select`
@@ -38,7 +39,7 @@ const StyledDropDown = styled.select`
   border: none;
   border-bottom: 1px solid black;
   align-self: flex-end;
-  margin-bottom: .4%;
+  margin-bottom: .1%;
 `;
 
 export default SortBar;

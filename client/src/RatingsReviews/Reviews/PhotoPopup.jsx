@@ -20,9 +20,9 @@ const StyledForm = styled.div`
 const StyledInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
-  width: 400px;
+  width: 500px;
   height: auto;
   padding: 1.5%;
   overflow-y: auto;
@@ -39,7 +39,7 @@ const StyledButton = styled.button`
   width: auto;
   max-width: 100px;
   font-size: small;
-  margin: 1%;
+  margin: 5%;
   margin-right: 3%;
   padding: 0.25em 1em;
   border-radius: 3px;
@@ -55,18 +55,17 @@ const StyledButton = styled.button`
 const StyledImg = styled.img`
   size: auto;
   max-width: 80%;
-`
+`;
 
 function PhotoPopup({ photoUrl, togglePhotoPop }) {
   return (
     <StyledForm>
       <StyledInner>
         <StyledImg src={photoUrl} />
-        <StyledButton onClick={togglePhotoPop}>X</StyledButton>
+        <StyledButton onClick={togglePhotoPop}>CLOSE</StyledButton>
       </StyledInner>
     </StyledForm>
   );
-
 }
 
 export default PhotoPopup;

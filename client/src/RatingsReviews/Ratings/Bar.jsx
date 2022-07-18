@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ratingToPercentage from '../lib/ratingToPercentage.js';
 
@@ -16,13 +16,14 @@ const OuterBar = styled.div`
   position: relative;
   width: 100%;
   height: 10px;
-  border: ${props => props.isClicked ? '1px solid black' : 'none'};
+  border: ${(props) => (props.isClicked ? '1px solid black' : 'none')};
   background-color: #d9d9d9;
   margin-left: 5%;
   &:hover{
     opacity:70%;
     cursor: pointer;
   }
+  transition:  opacity .2s;
 `;
 
 const InnerBar = styled.div`
@@ -45,31 +46,16 @@ function Bar(props) {
     !isClicked ? setIsClicked(true) : setIsClicked(false);
   };
 
-  useEffect(() => {
-    console.log('isClicked is toggled, need to adjust display');
-
-  }, [isClicked]);
-
-  const checkRatingFilter = () => {
-    if(props.ratingFilter.indexOf(props.star)) {
-      console.log('yo i ');
-    }
-  }
-
   return (
     <BarContainer>
       <StarCount>{props.star}</StarCount>
-      <OuterBar id={'bar-' + props.star} isClicked={isClicked} onClick={setRatingFilter}><InnerBar width={props.percentage} /></OuterBar>
+      <OuterBar id={`bar-${props.star}`} isClicked={isClicked} onClick={setRatingFilter}><InnerBar width={props.percentage} /></OuterBar>
     </BarContainer>
   );
 }
 
 const StarCount = styled.div`
   border-bottom: .5px solid black;
-  /* &:hover{
-    opacity:70%;
-    cursor: pointer;
-  } */
 `;
 
 export default Bar;

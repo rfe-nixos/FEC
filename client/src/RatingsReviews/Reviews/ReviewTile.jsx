@@ -162,6 +162,7 @@ const StyledImg = styled.img`
     cursor: pointer;
     opacity: 60%;
   }
+  transition: opacity .4s;
 `;
 
 export default ReviewTile;
