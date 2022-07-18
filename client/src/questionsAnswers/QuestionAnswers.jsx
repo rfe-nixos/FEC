@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { getQuestions, getProductInfo } from './API/githubAPI';
-import Search from './searchBar/Search';
-import QuestionList from './questionAnswersList/QuestionList';
-import MoreQuestions from './moreButton/MoreQuestions';
-import AddQuestion from './moreButton/AddQuestion';
+import { getQuestions, getProductInfo } from './lib/api/githubAPI';
+import Search from './SearchBar/Search';
+import QuestionList from './QuestionList/QuestionList/QuestionList';
+import MoreQuestions from './OptionButtons/MoreQuestions';
+import AddQuestion from './OptionButtons/AddQuestion';
 import { useCurrentProductContext } from '../context';
 
 function QuestionAnswers() {

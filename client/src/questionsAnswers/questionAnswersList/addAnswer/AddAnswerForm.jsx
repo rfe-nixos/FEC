@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import FormInput from '../../lib/FormInput';
-import FormButton from '../../lib/FormButton';
+import FormInput from '../../utils/FormInput';
+import FormButton from '../../utils/FormButton';
 import ImageInput from './ImageInput';
-import InvalidError from '../../lib/InvalidError';
+import InvalidError from '../../utils/InvalidError';
 
 function AddAnswerForm({ show, setShowModal, question, submitHandler, productName }) {
   if (!show) return null;

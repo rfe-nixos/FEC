@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import FormInput from '../utils/FormInput';
-import FormButton from '../utils/FormButton';
-import InvalidError from '../utils/InvalidError';
+import FormInput from '../components/FormInput';
+import FormButton from '../components/FormButton';
+import InvalidError from '../components/InvalidError';
 
 function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
   if (!show) return null;

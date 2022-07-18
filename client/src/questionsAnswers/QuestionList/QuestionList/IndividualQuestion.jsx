@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import _ from 'underscore';
-import { getAnswers, postAnswer } from '../API/githubAPI';
-import getImageUrl from '../API/cloudinaryAPI';
-import Helpful from '../utils/Helpful';
-import AddAnswerForm from './addAnswer/AddAnswerForm';
-import AnswerList from './AnswerList';
-import Options from '../utils/Options';
+import { getAnswers, postAnswer } from '../../lib/api/githubAPI';
+import getImageUrl from '../../lib/api/cloudinaryAPI';
+import Helpful from '../../components/Helpful';
+import AddAnswerForm from '../AddAnswer/AddAnswerForm';
+import AnswerList from '../AnswerList/AnswerList';
+import Options from '../../components/Options';
 
 function IndividualQuestion({ productName, question, renderQuestions }) {
   const [showModal, setShowModal] = useState(false);

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import FormInput from '../../utils/FormInput';
+import FormInput from '../../components/FormInput';
 import UploadedImages from './UploadedImages';
 
 export default function ImageInput({ formValue, setFormValue }) {

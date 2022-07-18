@@ -1,17 +1,20 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import FormInput from '../utils/FormInput';
-import FormButton from '../utils/FormButton';
-import InvalidError from '../utils/InvalidError';
+import FormInput from '../../components/FormInput';
+import FormButton from '../../components/FormButton';
+import ImageInput from './ImageInput';
+import InvalidError from '../../components/InvalidError';
 
-function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
+function AddAnswerForm({ show, setShowModal, question, submitHandler, productName }) {
   if (!show) return null;
+  const questionId = question.question_id;
+  const questionBody = question.question_body;
   const [isFormValid, setIsFormValid] = useState(true);
   const [emptyFields, setEmptyFields] = useState();
   const [invalidMessage, setInvalidMessage] = useState([]);
   const [formValue, setFormValue] = useState({});
 
-  const onChange = (e) => {
+  const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormValue({
       ...formValue,
@@ -22,44 +25,41 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
   const inputs = [
     {
       config: {
-        label: 'Your Question',
+        label: 'Your Answer',
         type: 'textarea',
         name: 'body',
-        value: formValue.body || '',
+        value: formValue.body,
         placeholder: '',
-        mandatory: 'true',
         maxLength: 1000,
-        onChange,
+        mandatory: true,
       },
-      comment: 'For privacy reasons, do not use your full name or email address',
-      changeHandler: onChange,
+      changeHandler: inputChangeHandler,
     },
     {
       config: {
         label: 'What is your nickname',
-        type: 'username',
+        type: 'text',
         name: 'name',
-        value: formValue.name || '',
-        placeholder: 'Example: jackson11!',
-        mandatory: 'true',
+        value: formValue.name,
+        placeholder: 'Example: jack543!',
         maxLength: 60,
-        onChange,
+        mandatory: true,
       },
-      comment: 'For authentication reasons, you will not be emailed',
-      changeHandler: onChange
+      comment: 'For privacy reasons, do not use your full name or email address',
+      changeHandler: inputChangeHandler,
     },
     {
       config: {
         label: 'Your email',
         type: 'email',
         name: 'email',
-        value: formValue.email || '',
+        value: formValue.email,
         placeholder: 'Example: jack@email.com',
-        mandatory: 'true',
         maxLength: 60,
-        onChange,
+        mandatory: true,
       },
-      changeHandler: onChange,
+      comment: 'For authentication reasons, you will not be emailed',
+      changeHandler: inputChangeHandler,
     },
   ];
 
@@ -71,6 +71,7 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
   const validateForm = () => {
     let result = true;
     const invalid = [];
+    const newInvalidMessage = [];
     inputs.forEach(({ config }) => {
       const target = config.name;
       if (Boolean(config.mandatory) && !formValue[target]) {
@@ -86,12 +87,11 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
         result = false;
       }
       if (config.type === 'email' && !validateEmail(formValue[config.name])) {
-        setInvalidMessage([
-          'Email is invalid.',
-        ]);
+        newInvalidMessage.push('Email is invalid.');
         result = false;
       }
     });
+    setInvalidMessage(newInvalidMessage);
     setEmptyFields(invalid);
     setIsFormValid(result);
     return result;
@@ -118,8 +118,9 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
     <Modal>
       <PopupForm id={`${questionId}-popup`}>
         <Header>
-          <Title>Ask Your Question</Title>
-          <Subtitle>{'About the ' + productName}</Subtitle>
+          <Title>Submit your Answer</Title>
+          <Subtitle>{`${productName}:`}</Subtitle>
+          <Subtitle>{questionBody}</Subtitle>
         </Header>
         {!isFormValid
         && (
@@ -128,9 +129,8 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
           invalidMessage={invalidMessage}
         />
         )}
-
-        {inputs.map(({config, comment, changeHandler}) => (
-          <div key={config.name}>
+        {inputs.map(({ config, comment, changeHandler }) => (
+          <div key={config.label}>
             <FormInput
               attribute={config}
               changeHandler={changeHandler}
@@ -138,6 +138,10 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
             {comment && `*${comment}`}
           </div>
         ))}
+        <ImageInput
+          formValue={formValue}
+          setFormValue={setFormValue}
+        />
         <FormButton
           handleSubmit={handleSubmit}
           handleClose={handleClose}
@@ -147,7 +151,7 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
   );
 }
 
-export default AddQuestionForm;
+export default AddAnswerForm;
 
 const Modal = styled.div`
   position: fixed;
@@ -171,18 +175,6 @@ const PopupForm = styled.form`
   border-radius: .2857142857rem;
 `;
 
-const ButtonStyled = styled.button`
-  padding: 2px;
-  width: 30%;
-  margin: 20px 0;
-  border-radius: 1px;
-`;
-
-const DivButton = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`;
-
 const Header = styled.div`
   margin-bottom: 10px;
 `;
@@ -194,14 +186,4 @@ const Title = styled.div`
 const Subtitle = styled.div`
   font-size: 1.1rem;
   padding: 2px 0;
-`;
-
-
-const Invalid = styled.ul`
-  color: red;
-`;
-
-const PaddedDiv = styled.div`
-  padding: 10px;
-  margin: 10px;
 `;
