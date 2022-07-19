@@ -138,7 +138,7 @@ const ReviewsContainer = styled.div`
   width: 90%;
   min-width: 350px;
   padding: 1%;
-  margin-left: 10%;
+  margin-left: 5%;
   height: 90%;
 `;
 

@@ -53,9 +53,9 @@ class ReviewTile extends React.Component {
           </div>
         </TileTop>
         <TileMain>
-          <div><h5>{this.props.review.summary}</h5></div>
-          <div><small>{this.props.review.body}</small></div>
-          <div>
+          <TileDiv><h5>{this.props.review.summary}</h5></TileDiv>
+          <TileDiv><small>{this.props.review.body}</small></TileDiv>
+          <TileDiv>
             {this.props.review.recommend
               && (
               <h5>
@@ -78,7 +78,7 @@ class ReviewTile extends React.Component {
                 {this.props.review.response}
               </Seller>
               )}
-          </div>
+          </TileDiv>
           <TileBot>
             <span>
               Helpful?
@@ -94,6 +94,10 @@ class ReviewTile extends React.Component {
     );
   }
 }
+
+const TileDiv = styled.div`
+  width: 100%;
+`
 
 const Spanny = styled.span`
   font-size: x-small;
@@ -129,9 +133,9 @@ const TileContainer = styled.div`
   flex-direction: column;
   align-items: top;
   max-width: 400px;
-  border-bottom: 1px solid black;
+  border-bottom: .5px solid #363636;
   padding: 0%;
-  margin-top: 1%;
+  margin-top: 2%;
 `;
 
 const TileTop = styled.div`
@@ -140,6 +144,7 @@ const TileTop = styled.div`
   justify-content: space-between;
   font-size: x-small;
   align-items: center;
+  width: 100%;
 `;
 
 const TileBot = styled.div`
@@ -157,7 +162,7 @@ const TileMain = styled.div`
   font-size: small;
   flex-direction: column;
   margin-top: -2%;
-  max-width: 600px
+  max-width: 100%;
 `;
 
 const StyledButton = styled.button`

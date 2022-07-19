@@ -73,6 +73,7 @@ const StyledInput = styled.input`
   height: auto;
   font-size: 20px;
   color: #acacac;
+  letter-spacing: 0px
 
 `;
 
@@ -102,10 +103,11 @@ const StyledInner = styled.div`
   padding: 1.5%;
   overflow-y: auto;
   background: #ffffff;
+  color: #5c5c5c;
   border: 1px solid black;
   font-size: small;
-  font-weight: 500;
-  letter-spacing: 0px;
+  font-weight: 200;
+  letter-spacing: 5px;
   -webkit-transition: all 0.5s ease-in-out;
   -moz-transition: all 0.5s ease-in-out;
   -o-transition: all 0.5s ease-in-out;

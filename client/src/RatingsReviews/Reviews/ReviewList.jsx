@@ -10,9 +10,9 @@ const StyledList = styled.div`
   min-height: 300px;
   max-height: 600px;
   overflow-y: auto;
-  &::-webkit-scrollbar {
+  /* &::-webkit-scrollbar {
     display: none;
-  }
+  } */
 `;
 
 function ReviewList(props) {
@@ -22,7 +22,6 @@ function ReviewList(props) {
     if (listInnerRef.current) {
       const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
       if (scrollTop + clientHeight + 0.75 > scrollHeight) {
-        console.log('reached bottom, getting more reviews');
         props.scrollMore();
       }
     }

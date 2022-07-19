@@ -20,6 +20,8 @@ const StyledList = styled.div`
   max-height: 300px;
   width: 80%;
   overflow-y: auto;
+  letter-spacing: 0px;
+  font-weight: 500;
 `;
 
 export default SearchList;
