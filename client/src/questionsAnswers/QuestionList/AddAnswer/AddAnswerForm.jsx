@@ -3,16 +3,12 @@ import styled from 'styled-components';
 import FormInput from '../../components/FormInput';
 import FormButton from '../../components/FormButton';
 import ImageInput from './ImageInput';
-import InvalidError from '../../components/InvalidError';
 
 function AddAnswerForm({ show, setShowModal, question, submitHandler, productName }) {
   if (!show) return null;
   const questionId = question.question_id;
   const questionBody = question.question_body;
-  const [isFormValid, setIsFormValid] = useState(true);
-  const [emptyFields, setEmptyFields] = useState();
-  const [invalidMessage, setInvalidMessage] = useState([]);
-  const [formValue, setFormValue] = useState({});
+  const [formValue, setFormValue] = useState({ body: '', name: '', email: '' });
 
   const inputChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -22,128 +18,91 @@ function AddAnswerForm({ show, setShowModal, question, submitHandler, productNam
     });
   };
 
-  const inputs = [
-    {
-      config: {
+  const answerInput = (
+    <FormInput
+      attribute={{
         label: 'Your Answer',
         type: 'textarea',
         name: 'body',
         value: formValue.body,
         placeholder: '',
         maxLength: 1000,
-        mandatory: true,
-      },
-      changeHandler: inputChangeHandler,
-    },
-    {
-      config: {
-        label: 'What is your nickname',
-        type: 'text',
-        name: 'name',
-        value: formValue.name,
-        placeholder: 'Example: jack543!',
-        maxLength: 60,
-        mandatory: true,
-      },
-      comment: 'For privacy reasons, do not use your full name or email address',
-      changeHandler: inputChangeHandler,
-    },
-    {
-      config: {
-        label: 'Your email',
-        type: 'email',
-        name: 'email',
-        value: formValue.email,
-        placeholder: 'Example: jack@email.com',
-        maxLength: 60,
-        mandatory: true,
-      },
-      comment: 'For authentication reasons, you will not be emailed',
-      changeHandler: inputChangeHandler,
-    },
-  ];
+        required: true,
+        onChange: inputChangeHandler,
+        onInvalid: (e) => e.target.setCustomValidity('Answer is required'),
+        onInput: (e) => e.target.setCustomValidity(''),
+      }}
+    />
+  );
 
-  const validateEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  };
+  const usernameInput = (
+    <>
+      <FormInput
+        attribute={{
+          label: 'What is your nickname',
+          type: 'text',
+          name: 'name',
+          value: formValue.name,
+          placeholder: 'Example: jack543!',
+          maxLength: 60,
+          required: true,
+          onChange: inputChangeHandler,
+          onInvalid: (e) => e.target.setCustomValidity('Username is required'),
+          onInput: (e) => e.target.setCustomValidity(''),
+        }}
+      />
+      *For privacy reasons, do not use your full name or email address
+    </>
+  );
 
-  const validateForm = () => {
-    let result = true;
-    const invalid = [];
-    const newInvalidMessage = [];
-    inputs.forEach(({ config }) => {
-      const target = config.name;
-      if (Boolean(config.mandatory) && !formValue[target]) {
-        if (target === 'body') {
-          invalid.push('Question');
-        }
-        if (target === 'name') {
-          invalid.push('Username');
-        }
-        if (target === 'email') {
-          invalid.push('Email');
-        }
-        result = false;
-      }
-      if (config.type === 'email' && !validateEmail(formValue[config.name])) {
-        newInvalidMessage.push('Email is invalid.');
-        result = false;
-      }
-    });
-    setInvalidMessage(newInvalidMessage);
-    setEmptyFields(invalid);
-    setIsFormValid(result);
-    return result;
-  };
+  const emailInput = (
+    <>
+      <FormInput
+        attribute={{
+          label: 'Your email',
+          type: 'email',
+          name: 'email',
+          value: formValue.email,
+          placeholder: 'Example: jack@email.com',
+          maxLength: 60,
+          required: true,
+          onChange: inputChangeHandler,
+          onInvalid: (e) => e.target.setCustomValidity('Valid email is required'),
+          onInput: (e) => e.target.setCustomValidity(''),
+        }}
+      />
+      *For authentication reasons, you will not be emailed
+    </>
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmptyFields([]);
-    if (validateForm()) {
-      submitHandler(formValue);
-      setShowModal(false);
-    }
+    submitHandler(formValue);
+    setShowModal(false);
   };
 
   const handleClose = (e) => {
     e.preventDefault();
-    setFormValue({});
-    setEmptyFields([]);
-    setIsFormValid(true);
+    setFormValue({ body: '', name: '', email: '' });
     setShowModal(false);
   };
 
   return (
     <Modal>
-      <PopupForm id={`${questionId}-popup`}>
+      <PopupForm id={`${questionId}-popup`} onSubmit={handleSubmit}>
         <Header>
           <Title>Submit your Answer</Title>
           <Subtitle>{`${productName}:`}</Subtitle>
           <Subtitle>{questionBody}</Subtitle>
         </Header>
-        {!isFormValid
-        && (
-        <InvalidError
-          emptyFields={emptyFields}
-          invalidMessage={invalidMessage}
-        />
-        )}
-        {inputs.map(({ config, comment, changeHandler }) => (
-          <div key={config.label}>
-            <FormInput
-              attribute={config}
-              changeHandler={changeHandler}
-            />
-            {comment && `*${comment}`}
-          </div>
-        ))}
+        {answerInput}
+        {usernameInput}
+        {emailInput}
         <ImageInput
           formValue={formValue}
           setFormValue={setFormValue}
         />
         <FormButton
-          handleSubmit={handleSubmit}
           handleClose={handleClose}
         />
       </PopupForm>

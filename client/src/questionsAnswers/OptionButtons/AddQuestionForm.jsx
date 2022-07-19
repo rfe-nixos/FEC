@@ -2,14 +2,10 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
-import InvalidError from '../components/InvalidError';
 
 function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
   if (!show) return null;
-  const [isFormValid, setIsFormValid] = useState(true);
-  const [emptyFields, setEmptyFields] = useState();
-  const [invalidMessage, setInvalidMessage] = useState([]);
-  const [formValue, setFormValue] = useState({});
+  const [formValue, setFormValue] = useState({ body: '', name: '', email: '' });
 
   const onChange = (e) => {
     const { name, value } = e.target;
@@ -19,127 +15,91 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
     });
   };
 
-  const inputs = [
-    {
-      config: {
-        label: 'Your Question',
-        type: 'textarea',
-        name: 'body',
-        value: formValue.body || '',
-        placeholder: '',
-        mandatory: 'true',
-        maxLength: 1000,
-        onChange,
-      },
-      comment: 'For privacy reasons, do not use your full name or email address',
-      changeHandler: onChange,
-    },
-    {
-      config: {
-        label: 'What is your nickname',
-        type: 'username',
-        name: 'name',
-        value: formValue.name || '',
-        placeholder: 'Example: jackson11!',
-        mandatory: 'true',
-        maxLength: 60,
-        onChange,
-      },
-      comment: 'For authentication reasons, you will not be emailed',
-      changeHandler: onChange
-    },
-    {
-      config: {
+  const questionInput = (
+    <>
+      <FormInput
+        attribute={{
+          id: 'question-input',
+          label: 'Your Question',
+          type: 'textarea',
+          name: 'body',
+          value: formValue.body || '',
+          placeholder: '',
+          required: true,
+          maxLength: 1000,
+          onChange,
+          onInvalid: (e) => e.target.setCustomValidity('Question is required'),
+          onInput: (e) => e.target.setCustomValidity(''),
+        }}
+      />
+      *For privacy reasons, do not use your full name or email address
+    </>
+  );
+
+  const usernameInput = (
+    <>
+      <FormInput
+        attribute={{
+          id: 'username-input',
+          label: 'What is your nickname',
+          type: 'username',
+          name: 'name',
+          value: formValue.name || '',
+          placeholder: 'Example: jackson11!',
+          required: true,
+          maxLength: 60,
+          onChange,
+          onInvalid: (e) => e.target.setCustomValidity('Username is required'),
+          onInput: (e) => e.target.setCustomValidity(''),
+        }}
+      />
+      *For authentication reasons, you will not be emailed
+    </>
+  );
+
+  const emailInput = (
+    <FormInput
+      attribute={{
+        id: 'email-input',
         label: 'Your email',
         type: 'email',
         name: 'email',
         value: formValue.email || '',
         placeholder: 'Example: jack@email.com',
-        mandatory: 'true',
+        required: true,
         maxLength: 60,
         onChange,
-      },
-      changeHandler: onChange,
-    },
-  ];
-
-  const validateEmail = (email) => {
-    const re = /\S+@\S+\.\S+/;
-    return re.test(email);
-  };
-
-  const validateForm = () => {
-    let result = true;
-    const invalid = [];
-    inputs.forEach(({ config }) => {
-      const target = config.name;
-      if (Boolean(config.mandatory) && !formValue[target]) {
-        if (target === 'body') {
-          invalid.push('Question');
-        }
-        if (target === 'name') {
-          invalid.push('Username');
-        }
-        if (target === 'email') {
-          invalid.push('Email');
-        }
-        result = false;
-      }
-      if (config.type === 'email' && !validateEmail(formValue[config.name])) {
-        setInvalidMessage([
-          'Email is invalid.',
-        ]);
-        result = false;
-      }
-    });
-    setEmptyFields(invalid);
-    setIsFormValid(result);
-    return result;
-  };
+        onInvalid: (e) => e.target.setCustomValidity('Valid email is required'),
+        onInput: (e) => e.target.setCustomValidity(''),
+      }}
+    />
+  );
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    setEmptyFields([]);
-    if (validateForm()) {
-      submitHandler(formValue);
-      setShowModal(false);
-    }
+    // if (validateForm()) {
+    submitHandler(formValue);
+    setShowModal(false);
+    // }
   };
 
   const handleClose = (e) => {
     e.preventDefault();
-    setFormValue({});
-    setEmptyFields([]);
-    setIsFormValid(true);
+    setFormValue({ body: '', name: '', email: '' });
     setShowModal(false);
   };
 
   return (
     <Modal>
-      <PopupForm id={`${questionId}-popup`}>
+      <PopupForm id={`${questionId}-popup`} onSubmit={handleSubmit}>
         <Header>
           <Title>Ask Your Question</Title>
           <Subtitle>{'About the ' + productName}</Subtitle>
         </Header>
-        {!isFormValid
-        && (
-        <InvalidError
-          emptyFields={emptyFields}
-          invalidMessage={invalidMessage}
-        />
-        )}
-
-        {inputs.map(({config, comment, changeHandler}) => (
-          <div key={config.name}>
-            <FormInput
-              attribute={config}
-              changeHandler={changeHandler}
-            />
-            {comment && `*${comment}`}
-          </div>
-        ))}
+        {questionInput}
+        {usernameInput}
+        {emailInput}
         <FormButton
-          handleSubmit={handleSubmit}
           handleClose={handleClose}
         />
       </PopupForm>
@@ -171,18 +131,6 @@ const PopupForm = styled.form`
   border-radius: .2857142857rem;
 `;
 
-const ButtonStyled = styled.button`
-  padding: 2px;
-  width: 30%;
-  margin: 20px 0;
-  border-radius: 1px;
-`;
-
-const DivButton = styled.div`
-  display: flex;
-  justify-content: space-evenly;
-`;
-
 const Header = styled.div`
   margin-bottom: 10px;
 `;
@@ -196,12 +144,11 @@ const Subtitle = styled.div`
   padding: 2px 0;
 `;
 
+// const Invalid = styled.ul`
+//   color: red;
+// `;
 
-const Invalid = styled.ul`
-  color: red;
-`;
-
-const PaddedDiv = styled.div`
-  padding: 10px;
-  margin: 10px;
-`;
+// const PaddedDiv = styled.div`
+//   padding: 10px;
+//   margin: 10px;
+// `;

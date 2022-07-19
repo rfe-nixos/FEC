@@ -11,14 +11,14 @@ function FormInput({ attribute, changeHandler }) {
       {attribute.type === 'textarea'
       && (
         <Textarea
-          onChange={changeHandler}
+          // onChange={changeHandler}
           {...attribute}
         />
       )}
       {attribute.type !== 'textarea'
       && (
         <Input
-        onChange={changeHandler}
+        // onChange={changeHandler}
           {...attribute}
         />
       )}

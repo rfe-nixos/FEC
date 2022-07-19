@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-export default function FormButton({handleSubmit, handleClose}) {
+export default function FormButton({ handleSubmit = () => {}, handleClose }) {
   return (
     <DivButton className="form-buttons">
       <ButtonStyled type="submit" onClick={handleSubmit} data-testid="form-button-test">
