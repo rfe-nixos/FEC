@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { parseISO, compareAsc } from 'date-fns';
@@ -7,7 +7,7 @@ import Reviews from './Reviews/Reviews.jsx';
 import getTotalRatings from './lib/getTotalRatings';
 import { useCurrentProductContext } from '../context.jsx';
 
-function RatingsReviews() {
+const RatingsReviews = forwardRef((props, ref) => {
   const [meta, setMeta] = useState({});
   const [totalRatings, setTotalRatings] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -167,7 +167,7 @@ function RatingsReviews() {
   };
 
   return (
-    <StyledMain id="ratings-reviews">
+    <StyledMain id="ratings-reviews" ref={ref}>
       <StyledTitle id="inner-title">
         <div>
           RATINGS & REVIEWS
@@ -210,7 +210,7 @@ function RatingsReviews() {
       </StyledInner>
     </StyledMain>
   );
-}
+})
 
 const StyledMain = styled.div`
   display: flex;

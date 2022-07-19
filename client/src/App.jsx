@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import styled from 'styled-components';
 import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
 import QuestionAnswer from './questionsAnswers/QuestionAnswers';
@@ -9,14 +9,16 @@ import BotBar from './TopBar/BotBar.jsx';
 import { CurrentProductProvider } from './context.jsx';
 
 function App() {
+  const RatingsReviewsRef = useRef();
+
   return (
     <MainDiv>
       <CurrentProductProvider>
-        <TopBar />
+        <TopBar RatingsReviewsRef={RatingsReviewsRef} />
         <Overview />
         <RelatedItems />
         <QuestionAnswer productId={37311} />
-        <RatingsReviews productId={37311} />
+        <RatingsReviews ref={RatingsReviewsRef} />
         <BotBar />
       </CurrentProductProvider>
     </MainDiv>

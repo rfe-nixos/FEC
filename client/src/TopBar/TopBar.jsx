@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchThing from './SearchThing.jsx';
 import Nav from './Nav.jsx';
 
-function TopBar() {
+function TopBar(props) {
   const [searching, setSearching] = useState(false);
 
   const refresh = () => {
@@ -22,7 +22,7 @@ function TopBar() {
         onClick={refresh}
       />
       <Div>
-        <Nav />
+        <Nav RatingsReviewsRef={props.RatingsReviewsRef} />
       </Div>
       <Div>
         <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
