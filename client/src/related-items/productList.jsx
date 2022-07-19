@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useRef } from 'react';
+import { useRef } from 'react';
 import Product from './product.jsx';
 import { StyledList } from './styles/list.styled.js';
 
@@ -61,12 +61,12 @@ function ProductList({
     if (e.target.scrollLeft === 0) {
       leftSliderRef.current.innerText = ' ';
     } else {
-      leftSliderRef.current.innerHTML = "&#9001"
+      leftSliderRef.current.innerHTML = '&#9001';
     }
     if (e.target.scrollLeft >= e.target.scrollWidth - e.target.clientWidth) {
       rightSliderRef.current.innerText = ' ';
     } else {
-      rightSliderRef.current.innerHTML = " &#9002"
+      rightSliderRef.current.innerHTML = ' &#9002';
     }
   };
 
@@ -92,8 +92,7 @@ function ProductList({
         className="slider leftSlider"
         ref={leftSliderRef}
         onClick={(e) => scroller(e, 'left')}
-      >
-      </button>
+      ></button>
       <div id="relatedList" ref={scrollRef} onScroll={sliderHider}>
         {product}
       </div>
