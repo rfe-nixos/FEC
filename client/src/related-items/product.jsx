@@ -28,16 +28,16 @@ function Product({ formattedCard }) {
 
   return (
     <>
-      <StyledCard onClick={handleGlobalStateClick}>
+      <StyledCard>
         <div className="cardHeader">
           <FaStar className="relatedAction" onClick={() => setOpenModal(true)} />
           <img
             src={
-              formattedCard.image[picIndex].thumbnail_url ||
-              'https://ngca.net/wp-content/uploads/2020/09/image-coming-soon-placeholder.png'
+              formattedCard.image[picIndex].thumbnail_url || 'https://ngca.net/wp-content/uploads/2020/09/image-coming-soon-placeholder.png'
             }
             className="cardImage"
             alt={formattedCard.description}
+            onClick={handleGlobalStateClick}
           />
           <button
             className="btn btnLeft"
@@ -56,15 +56,15 @@ function Product({ formattedCard }) {
         </div>
         <div className="cardBody">
           <h1 className="cardCategory">{formattedCard.category}</h1>
-          <p className="cardName">{formattedCard.name}</p>
+          <p className="cardName" onClick={handleGlobalStateClick} >{formattedCard.name}</p>
           <p className="cardPrice">{formattedCard.price}</p>
           <p className="discountedCardPrice">{formattedCard.discountedPrice}</p>
-          {/* TODO: Rating needs to be updated to show starts up to 1/4  */}
+          {/* TODO: Rating needs to be updated to show stars up to 1/4  */}
           <p className="cardRating">{formattedCard.rating}</p>
         </div>
       </StyledCard>
 
-      {openModal && <Comparison closeModal={setOpenModal} />}
+      {openModal && <Comparison closeModal={setOpenModal} currentProduct={formattedCard} key="99"/>}
     </>
   );
 }

@@ -1,21 +1,25 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/extensions */
 /* eslint-disable no-plusplus */
-import React from 'react';
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Promise } from 'bluebird';
 import ProductList from './productList.jsx';
 import OutfitList from './outfitList.jsx';
 import { useCurrentProductContext } from '../context.jsx';
+import { RelatedItemsStyleContainer } from './styles/list.styled.js';
+
+export const currentProductDataContext = React.createContext();
 
 function RelatedItems() {
   const [productListStateIds, setProductListStateIds] = useState();
-  //const [currentProduct, setCurrentProduct] = useState('37314');
   const [relatedProductStyles, setRelatedProductStyles] = useState();
   const [relatedProduct_ids, setRelatedProduct_ids] = useState();
   const [relatedProductReviews, setRelatedProductReviews] = useState();
   const currentProduct = useCurrentProductContext();
+  const [currentProductData, setCurrentProductData] = useState();
+
+  // Context
   //  TODO: Change default state
   //  Will need to be able to show more than the default and update accordingly
   const getStylesArr = (ids) => {
@@ -30,17 +34,21 @@ function RelatedItems() {
       };
       promises.push(axios(config));
     }
-    Promise.all(promises)
+    return Promise.all(promises)
       .then((prodObjArr) => {
         const unformattedObjArr = prodObjArr.map((prod) => prod.data);
         unformattedObjArr.map((unformattedObj) => {
           let styleArr = unformattedObj.results;
+          console.log(styleArr)
           unformattedObj.results = styleArr.filter(
             (style) => style['default?'] === true
           );
+          if (unformattedObj.results.length === 0) {
+            unformattedObj.results = [styleArr[0]];
+          }
           return unformattedObj;
         });
-        setRelatedProductStyles(() => unformattedObjArr);
+        // setRelatedProductStyles(() => unformattedObjArr);
         return unformattedObjArr;
       })
       .catch((err) => console.log('Error:', err));
@@ -59,9 +67,9 @@ function RelatedItems() {
       };
       promises.push(axios(config));
     }
-    Promise.all(promises)
+    return Promise.all(promises)
       .then((prodObjArr) => {
-        setRelatedProduct_ids(() => prodObjArr.map((product) => product.data));
+        // setRelatedProduct_ids(() => prodObjArr.map((product) => product.data));
         return prodObjArr.map((product) => product.data);
       })
       .catch((err) => console.log('Error:', err));
@@ -83,11 +91,11 @@ function RelatedItems() {
       };
       promises.push(axios(config));
     }
-    Promise.all(promises)
+    return Promise.all(promises)
       .then((prodObjArr) => {
-        setRelatedProductReviews(() =>
-          prodObjArr.map((product) => product.data)
-        );
+        // setRelatedProductReviews(() =>
+        //   prodObjArr.map((product) => product.data),
+        // );
         return prodObjArr.map((product) => product.data);
       })
       .catch((err) => console.log('Error:', err));
@@ -119,6 +127,23 @@ function RelatedItems() {
   //   return formattedCards;
   // };
   //  Feeder for dummy data to setup component.
+  const setOverviewDataState = (id) => {
+    const config = {
+      method: 'get',
+      url: `${process.env.API_URL}/products/${id}`,
+      headers: {
+        Authorization: process.env.AUTH_KEY,
+      },
+    };
+    axios(config)
+      .then((response) => {
+        setCurrentProductData(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
   const getProductIds = () => {
     const config = {
       method: 'get',
@@ -130,33 +155,42 @@ function RelatedItems() {
     axios(config)
       .then((response) => {
         setProductListStateIds(response.data);
-        Promise.all([
+        return Promise.all([
           getStylesArr(response.data),
           get_idsArr(response.data),
           getReviewsArr(response.data),
         ]);
+      })
+      .then((promiseArr) => {
+        setRelatedProductStyles(promiseArr[0]);
+        setRelatedProduct_ids(promiseArr[1]);
+        setRelatedProductReviews(promiseArr[2]);
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  useEffect(() => getProductIds(), []);
+  useEffect(() => getProductIds(), [currentProduct]);
+  useEffect(() => setOverviewDataState(currentProduct), [currentProduct]);
+
   return (
-    <>
-      <h2>Related Items</h2>
-      <ProductList
-        relatedProductStyles={relatedProductStyles}
-        relatedProduct_ids={relatedProduct_ids}
-        relatedProductReviews={relatedProductReviews}
-      />
-      <h2>Your Outfits</h2>
-      <ProductList
-        relatedProductStyles={relatedProductStyles}
-        relatedProduct_ids={relatedProduct_ids}
-        relatedProductReviews={relatedProductReviews}
-      />
-    </>
+    <currentProductDataContext.Provider value={currentProductData}>
+      <RelatedItemsStyleContainer>
+        <h2>Related Items</h2>
+        <ProductList
+          relatedProductStyles={relatedProductStyles}
+          relatedProduct_ids={relatedProduct_ids}
+          relatedProductReviews={relatedProductReviews}
+        />
+        <h2>Your Outfits</h2>
+        <ProductList
+          relatedProductStyles={relatedProductStyles}
+          relatedProduct_ids={relatedProduct_ids}
+          relatedProductReviews={relatedProductReviews}
+        />
+      </RelatedItemsStyleContainer>
+    </currentProductDataContext.Provider>
   );
 }
 export default RelatedItems;
