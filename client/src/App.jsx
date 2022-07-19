@@ -16,7 +16,7 @@ function App() {
   const qaRef = useRef();
   const pdRef = useRef();
   const riRef = useRef();
-  const refs = [ratingsRef, topRef, qaRef, pdRef, riRef]; // TODO: if more refs are created, add them here.
+  const refs = [ratingsRef, topRef, qaRef]; // TODO: if more refs are created, add them here.
   const [clicks, setClicks] = useState([]);
 
   const sendInteraction = (click) => {
