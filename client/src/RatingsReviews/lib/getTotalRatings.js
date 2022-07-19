@@ -10,4 +10,3 @@ function getTotalRatings(r) {
 }
 
 export default getTotalRatings;
-

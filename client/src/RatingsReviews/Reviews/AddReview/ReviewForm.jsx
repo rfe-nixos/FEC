@@ -1,23 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
-import CharButtons from './CharButtons.jsx';
-import StarRatingBar from './StarRatingBar.jsx';
-import PhotoForm from './PhotoForm.jsx';
+import CharButtons from './CharButtons';
+import StarRatingBar from './StarRatingBar';
+import PhotoForm from './PhotoForm';
 
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  position: absolute; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  position: fixed;
+  z-index: 1;
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
+  width: 100%;
+  height: 100%;
   overflow: auto;
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
 `;
 
 const StyledInner = styled.div`
@@ -136,6 +136,7 @@ class ReviewForm extends React.Component {
     this.togglePhotoForm = this.togglePhotoForm.bind(this);
     this.addPhoto = this.addPhoto.bind(this);
     this.addUrl = this.addUrl.bind(this);
+    this.handleBgClick = this.handleBgClick.bind(this);
   }
 
   setChar(char, rating) {
@@ -147,13 +148,13 @@ class ReviewForm extends React.Component {
   }
 
   closeForm() {
-    window.location.reload();
+    this.props.toggleForm();
   }
 
   addReview(e) {
     e.preventDefault();
     const reviewBody = {
-      product_id: parseInt(this.props.product_id),
+      product_id: parseInt(this.props.productId),
       rating: parseInt(this.state.rating),
       summary: this.state.summary,
       body: this.state.body,
@@ -178,15 +179,15 @@ class ReviewForm extends React.Component {
     }
   }
 
-  setRating(rating) {
-    this.setState({ rating });
-  }
-
   handleChange(e) {
     e.preventDefault();
     this.setState({
       [e.target.name]: e.target.value,
     });
+  }
+
+  setRating(rating) {
+    this.setState({ rating });
   }
 
   recommend(e) {
@@ -226,10 +227,16 @@ class ReviewForm extends React.Component {
     }
   }
 
+  handleBgClick(e) {
+    if(e.target.id === 'addreview-bg') {
+      this.props.toggleForm();
+    }
+  }
+
   render() {
     return (
-      <StyledForm>
-        <StyledInner>
+      <StyledForm onClick={this.handleBgClick} id="addreview-bg">
+        <StyledInner id="addreview-inner">
           <InnerTop>
             <div>Write a Review.</div>
             <StyledClose onClick={this.closeForm}>X</StyledClose>
@@ -288,8 +295,7 @@ class ReviewForm extends React.Component {
           <p><em>For authentication reasons, you will not be emailed.</em></p>
           <StyledCat>
             <div>Photos</div>
-
-            <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>
+            {(!this.state.openPhotoForm) && <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>}
             {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto} addUrl={this.addUrl} />}
           </StyledCat>
           <InnerBot>
