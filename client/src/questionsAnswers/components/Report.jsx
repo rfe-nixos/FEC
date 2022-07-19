@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import { updateReport } from '../lib/api/githubAPI';
 
-function Report({ id }) {
+function Report({ id, type }) {
   const [reported, setReported] = useState(false);
   const handleClick = () => {
     if (reported) {
@@ -10,20 +10,9 @@ function Report({ id }) {
 
     const executed = confirm("Are you sure you want to report this?");
     if (executed) {
-      const requestConfig = {
-        method: 'PUT',
-        url: `${process.env.API_URL}/qa/answers/${id}/report`,
-        headers: {
-          Authorization: process.env.AUTH_TOKEN,
-        },
-      };
-
-      axios(requestConfig)
+      updateReport(type, id)
         .then(() => {
           setReported(true);
-        })
-        .catch((err) => {
-          console.log('failed reporting answer', err);
         });
     }
   };

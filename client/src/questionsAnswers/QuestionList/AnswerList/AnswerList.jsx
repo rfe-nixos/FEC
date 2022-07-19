@@ -5,7 +5,6 @@ import Answer from './Answer';
 function AnswerList({ answerList, renderAnswers, Title }) {
   const [collapsed, setCollapsed] = useState(true);
   const filteredAnswerList = collapsed ? answerList.slice(0, 2) : answerList;
-
   if (Array.isArray(answerList) && answerList.length > 0) {
     return answerList.length > 0 && (
       <DivAnswer>
@@ -14,7 +13,7 @@ function AnswerList({ answerList, renderAnswers, Title }) {
           <Scroller id="scrollableDiv">
             {filteredAnswerList.map((answer) => (
               <Answer
-                key={answer.answer_id}
+                key={answer.id || answer.answer_id}
                 answer={answer}
                 renderAnswers={renderAnswers}
               />
@@ -51,13 +50,13 @@ const DivAnswer = styled.div`
 
 const Scroller = styled.div`
   max-height: 30vh;
-  width: 70%;
   overflow-y: auto;
   height: 300;
+  padding-right: 10px;
   display: 'flex';
   flex-direction: 'column-reverse';
 `;
 
 const AnswerListDiv = styled.div`
-  width: 100%;
+  width: 95%;
 `;

@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchThing from './SearchThing';
 import Nav from './Nav';
 
-const TopBar = forwardRef(({ ratingsRef }, ref) => {
+const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
   const [searching, setSearching] = useState(false);
 
   const refresh = () => {
@@ -22,7 +22,7 @@ const TopBar = forwardRef(({ ratingsRef }, ref) => {
         onClick={refresh}
       />
       <Div>
-        <Nav ratingsRef={ratingsRef} />
+        <Nav ratingsRef={ratingsRef} qaRef={qaRef} />
       </Div>
       <Div>
         <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">

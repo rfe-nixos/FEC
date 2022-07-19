@@ -8,11 +8,15 @@ import Overview from './product-details/Overview';
 import TopBar from './TopBar/TopBar';
 import BotBar from './TopBar/BotBar';
 import { CurrentProductProvider } from './context';
+import { QuestionListProvider } from './questionsAnswers/contexts/QuestionListContext';
 
 function App() {
   const ratingsRef = useRef();
   const topRef = useRef();
-  const refs = [ratingsRef, topRef]; // TODO: if more refs are created, add them here.
+  const qaRef = useRef();
+  const pdRef = useRef();
+  const riRef = useRef();
+  const refs = [ratingsRef, topRef, qaRef, pdRef, riRef]; // TODO: if more refs are created, add them here.
   const [clicks, setClicks] = useState([]);
 
   const sendInteraction = (click) => {
@@ -50,10 +54,12 @@ function App() {
   return (
     <MainDiv>
       <CurrentProductProvider>
-        <TopBar ratingsRef={ratingsRef} ref={topRef} />
+        <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} />
         <Overview />
         <RelatedItems />
-        <QuestionAnswer productId={37311} />
+        <QuestionListProvider>
+          <QuestionAnswer ref={qaRef} />
+        </QuestionListProvider>
         <RatingsReviews ref={ratingsRef} />
         <BotBar />
       </CurrentProductProvider>

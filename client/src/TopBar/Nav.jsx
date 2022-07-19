@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Nav({ ratingsRef }) {
+function Nav({ ratingsRef, qaRef }) {
   const [showNav, setShowNav] = useState(false);
 
   const toggleNav = () => {
@@ -16,6 +16,14 @@ function Nav({ ratingsRef }) {
     toggleNav();
   };
 
+  const scrollToQa = () => {
+    window.scrollTo({
+      top: qaRef.current.offsetTop, // scrolls to location of ref
+      behavior: 'smooth',
+    });
+    toggleNav();
+  };
+
   return (
     <NavMain>
       <NavTop onClick={toggleNav}>
@@ -24,7 +32,7 @@ function Nav({ ratingsRef }) {
       <NavBot showNav={showNav} id="nav-bot">
         <Name>PRODUCT</Name>
         <Name>RELATED ITEMS</Name>
-        <Name>Q + A</Name>
+        <Name onClick={scrollToQa}>Q + A</Name>
         <Name onClick={scrollDown}>RATINGS REVIEWS</Name>
       </NavBot>
     </NavMain>

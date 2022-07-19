@@ -12,5 +12,9 @@ package-lock.json
 
 client/public/bundle.js
 
+<<<<<<< HEAD
 coverage
 
+=======
+coverage
+>>>>>>> main
