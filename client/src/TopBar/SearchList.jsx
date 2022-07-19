@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
-import SearchTile from './SearchTile.jsx';
+import SearchTile from './SearchTile';
 
 function SearchList({ products, query, toggleSearch }) {
   useEffect(() => {

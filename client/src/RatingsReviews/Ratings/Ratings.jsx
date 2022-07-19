@@ -4,25 +4,25 @@ import Breakdown from './Breakdown';
 import Characteristics from './Characteristics';
 import Summary from './Summary';
 
-function Ratings(props) {
+function Ratings({ meta, average, totalRatings, isLoaded, setRatingFilter, ratingFilter }) {
   return (
     <RatingsContainer id="ratings-main">
       <Summary
-        meta={props.meta}
-        average={props.average}
-        totalRatings={props.totalRatings}
-        isLoaded={props.isLoaded}
+        meta={meta}
+        average={average}
+        totalRatings={totalRatings}
+        isLoaded={isLoaded}
       />
       <Breakdown
-        meta={props.meta}
-        isLoaded={props.isLoaded}
-        totalRatings={props.totalRatings}
-        setRatingFilter={props.setRatingFilter}
-        ratingFilter={props.ratingFilter}
+        meta={meta}
+        isLoaded={isLoaded}
+        totalRatings={totalRatings}
+        setRatingFilter={setRatingFilter}
+        ratingFilter={ratingFilter}
       />
       <Characteristics
-        meta={props.meta}
-        isLoaded={props.isLoaded}
+        meta={meta}
+        isLoaded={isLoaded}
       />
     </RatingsContainer>
   );

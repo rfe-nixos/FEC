@@ -1,18 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function SortBar(props) {
+function SortBar({ setSort, totalRatings, page }) {
   const sort = (e) => {
-    props.setSort(e.target.value);
+    setSort(e.target.value);
   };
 
   return (
     <StyledSortBar>
-      {props.page * 5}
+      {page * 5}
       {' '}
       of
       {' '}
-      {props.totalRatings}
+      {totalRatings}
       {' '}
       reviews, sorted by
       <Select id="sort" onChange={sort}>

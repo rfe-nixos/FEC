@@ -90,7 +90,6 @@ class Reviews extends React.Component {
     return (
       <ReviewsContainer data-testid="reviews-1">
         <SortBar
-          reviews={this.props.reviews}
           setSort={this.props.setSort}
           totalRatings={this.props.totalRatings}
           page={this.props.page}

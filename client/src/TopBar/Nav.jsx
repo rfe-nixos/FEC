@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 
-function Nav(props) {
+function Nav({ ratingsRef }) {
   const [showNav, setShowNav] = useState(false);
 
   const toggleNav = () => {
@@ -10,7 +10,7 @@ function Nav(props) {
 
   const scrollDown = () => {
     window.scrollTo({
-      top: props.ratingsRef.current.offsetTop, // scrolls to location of ref
+      top: ratingsRef.current.offsetTop, // scrolls to location of ref
       behavior: 'smooth',
     });
     toggleNav();

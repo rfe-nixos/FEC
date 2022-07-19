@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useCurrentProductUpdate } from '../context.jsx'
+import { useCurrentProductUpdate } from '../context'
 
 function SearchTile({ product, toggleSearch }) {
   const setCurrentProduct = useCurrentProductUpdate();

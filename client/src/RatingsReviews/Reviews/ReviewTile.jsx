@@ -10,7 +10,6 @@ class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewed: [],
       openPhotoPop: false,
       photo: '',
     };
@@ -20,7 +19,6 @@ class ReviewTile extends React.Component {
   }
 
   togglePhotoPop(e) {
-    console.log(e.target.src);
     !this.state.openPhotoPop
       ? this.setState({ openPhotoPop: true, photo: e.target.src })
       : this.setState({ openPhotoPop: false });

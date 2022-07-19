@@ -1,9 +1,9 @@
 import React, { useState, forwardRef } from 'react';
 import styled from 'styled-components';
-import SearchThing from './SearchThing.jsx';
-import Nav from './Nav.jsx';
+import SearchThing from './SearchThing';
+import Nav from './Nav';
 
-const TopBar = forwardRef((props, ref) => {
+const TopBar = forwardRef(({ ratingsRef }, ref) => {
   const [searching, setSearching] = useState(false);
 
   const refresh = () => {
@@ -22,7 +22,7 @@ const TopBar = forwardRef((props, ref) => {
         onClick={refresh}
       />
       <Div>
-        <Nav ratingsRef={props.ratingsRef} />
+        <Nav ratingsRef={ratingsRef} />
       </Div>
       <Div>
         <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">

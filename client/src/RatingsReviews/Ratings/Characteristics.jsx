@@ -2,56 +2,56 @@ import React from 'react';
 import styled from 'styled-components';
 import CharBar from './CharBar';
 
-function Characteristics(props) {
+function Characteristics({ meta, isLoaded }) {
   return (
     <CharContainer>
-      {!props.isLoaded && <p>l o a d i n g . . .</p>}
-      {props.isLoaded && (
+      {!isLoaded && <p>l o a d i n g . . .</p>}
+      {isLoaded && (
         <div>
-          {props.meta.characteristics.Fit
+          {meta.characteristics.Fit
           && (
           <CharBar
-            rating={props.meta.characteristics.Fit.value}
+            rating={meta.characteristics.Fit.value}
             char="Fit"
             chars={['small', 'perfect', 'large']}
           />
           )}
-          {props.meta.characteristics.Length
+          {meta.characteristics.Length
           && (
           <CharBar
-            rating={props.meta.characteristics.Length.value}
+            rating={meta.characteristics.Length.value}
             char="Length"
             chars={['short', 'perfect', 'long']}
           />
           )}
-          {props.meta.characteristics.Comfort
+          {meta.characteristics.Comfort
           && (
           <CharBar
-            rating={props.meta.characteristics.Comfort.value}
+            rating={meta.characteristics.Comfort.value}
             char="Comfort"
             chars={['poor', 'ok', 'perfect']}
           />
           )}
-          {props.meta.characteristics.Quality
+          {meta.characteristics.Quality
           && (
           <CharBar
-            rating={props.meta.characteristics.Quality.value}
+            rating={meta.characteristics.Quality.value}
             char="Quality"
             chars={['poor', 'expected', 'perfect']}
           />
           )}
-          {props.meta.characteristics.Size
+          {meta.characteristics.Size
           && (
           <CharBar
-            rating={props.meta.characteristics.Size.value}
+            rating={meta.characteristics.Size.value}
             char="Size"
             chars={['small', 'perfect', 'large']}
           />
           )}
-          {props.meta.characteristics.Width
+          {meta.characteristics.Width
           && (
           <CharBar
-            rating={props.meta.characteristics.Width.value}
+            rating={meta.characteristics.Width.value}
             char="Width"
             chars={['short', 'perfect', 'wide']}
           />

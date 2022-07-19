@@ -2,6 +2,43 @@ import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
 import ReviewTile from './ReviewTile';
 
+function ReviewList({
+  reviews, markHelpful, report, scrollMore, page,
+}) {
+  const listInnerRef = useRef();
+
+  const onScroll = () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
+        scrollMore();
+      }
+    }
+  };
+
+  return (reviews.length > 0) ? (
+    <StyledList
+      onScroll={onScroll}
+      ref={listInnerRef}
+    >
+      {reviews.slice(0, page * 5).map((review, index) => (
+        <ReviewTile
+          review={review}
+          key={index}
+          markHelpful={markHelpful}
+          report={report}
+        />
+      ))}
+    </StyledList>
+  ) : (
+    <StyledList>
+      <h2>
+        There are no reviews currently
+      </h2>
+    </StyledList>
+  );
+}
+
 const StyledList = styled.div`
   display: flex;
   flex-direction: column;
@@ -14,40 +51,5 @@ const StyledList = styled.div`
     display: none;
   } */
 `;
-
-function ReviewList(props) {
-  const listInnerRef = useRef();
-
-  const onScroll = () => {
-    if (listInnerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
-        props.scrollMore();
-      }
-    }
-  };
-
-  return (props.reviews.length > 0) ? (
-    <StyledList
-      onScroll={onScroll}
-      ref={listInnerRef}
-    >
-      {props.reviews.slice(0, props.page * 5).map((review, index) => (
-        <ReviewTile
-          review={review}
-          key={index}
-          markHelpful={props.markHelpful}
-          report={props.report}
-        />
-      ))}
-    </StyledList>
-  ) : (
-    <StyledList>
-      <h2>
-        There are no reviews currently
-      </h2>
-    </StyledList>
-  );
-}
 
 export default ReviewList;

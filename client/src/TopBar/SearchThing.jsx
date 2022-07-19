@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import SearchList from './SearchList.jsx';
+import SearchList from './SearchList';
 
 function SearchThing({ toggleSearch }) {
   const [query, setQuery] = useState('');

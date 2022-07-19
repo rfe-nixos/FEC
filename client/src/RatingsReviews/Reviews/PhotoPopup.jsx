@@ -1,6 +1,23 @@
 import React from 'react';
 import styled from 'styled-components';
 
+function PhotoPopup({ photoUrl, togglePhotoPop }) {
+  const handleClick = (e) => {
+    if (e.target.id === 'photopop') {
+      togglePhotoPop(e);
+    }
+  };
+
+  return (
+    <StyledForm onClick={handleClick} id="photopop">
+      <StyledInner id="photopop-inner">
+        <StyledImg src={photoUrl} />
+        <StyledButton onClick={togglePhotoPop}>CLOSE</StyledButton>
+      </StyledInner>
+    </StyledForm>
+  );
+}
+
 const StyledForm = styled.div`
   display: flex;
   flex-direction: column;
@@ -54,23 +71,5 @@ const StyledImg = styled.img`
   size: auto;
   max-width: 80%;
 `;
-
-function PhotoPopup({ photoUrl, togglePhotoPop }) {
-  const handleClick = (e) => {
-    console.log(e.target.id);
-    if (e.target.id === 'photopop') {
-      togglePhotoPop(e);
-    }
-  };
-
-  return (
-    <StyledForm onClick={handleClick} id="photopop">
-      <StyledInner id="photopop-inner">
-        <StyledImg src={photoUrl} />
-        <StyledButton onClick={togglePhotoPop}>CLOSE</StyledButton>
-      </StyledInner>
-    </StyledForm>
-  );
-}
 
 export default PhotoPopup;
