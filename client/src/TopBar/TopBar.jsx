@@ -76,13 +76,13 @@ const TitleInner = styled.div`
 `;
 
 const TitleDiv = styled.div`
-  width: 100%;
+  width: 90%;
   display: flex;
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
   height: 50px;
-  font-weight: 200;
+  font-weight: 300;
   padding: 2%;
   font-size: 30px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;

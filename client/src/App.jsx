@@ -32,11 +32,11 @@ function App() {
       for (let i = 0; i < refs.length; i++) {
         const currentRef = refs[i];
         if (currentRef.current.contains(event.target)
-        || event.target === ratingsRef.current) {
+        || event.target === currentRef.current) {
           const clickBody = {
             widget: currentRef.current.id,
             time: new Date().toLocaleString(),
-            element: currentRef.current.innerHTML,
+            element: event.target.innerHTML,
           };
           // line below stores clicks to state, useful for debugging
           setClicks((oldClicks) => [...oldClicks, clickBody]);

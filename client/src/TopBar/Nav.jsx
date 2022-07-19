@@ -10,7 +10,7 @@ function Nav(props) {
 
   const scrollDown = () => {
     window.scrollTo({
-      top: props.ratingsRef.current.offsetTop,
+      top: props.ratingsRef.current.offsetTop, // scrolls to location of ref
       behavior: 'smooth',
     });
     toggleNav();
