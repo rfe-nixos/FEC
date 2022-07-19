@@ -2,10 +2,10 @@ import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { parseISO, compareAsc } from 'date-fns';
-import Ratings from './Ratings/Ratings.jsx';
-import Reviews from './Reviews/Reviews.jsx';
+import Ratings from './Ratings/Ratings';
+import Reviews from './Reviews/Reviews';
 import getTotalRatings from './lib/getTotalRatings';
-import { useCurrentProductContext } from '../context.jsx';
+import { useCurrentProductContext } from '../context';
 
 const RatingsReviews = forwardRef((props, ref) => {
   const [meta, setMeta] = useState({});
@@ -32,7 +32,6 @@ const RatingsReviews = forwardRef((props, ref) => {
       },
     })
       .then((response) => {
-        console.log('successfully fetched reviews');
         setReviews(response.data.results);
       })
       .then(() => {
@@ -103,22 +102,18 @@ const RatingsReviews = forwardRef((props, ref) => {
     if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
       getByRating();
       setFilteredByRating(true);
-      console.log('snatchhh filtered by ratings');
     } else { // if its not longer than 0, empty array, just get regular reviews.
       getReviews();
       setFilteredByRating(false);
       setFiltered([]);
-      console.log('regular reviews');
     }
   }, [ratingFilter]);
 
   const sort = (sortMethod) => {
     // setSorted(false);
     const temp = reviews;
-    console.log('sortmethod is,', sortMethod);
     if (sortMethod === 'helpful') {
       temp.sort((a, b) => b.helpfulness - a.helpfulness);
-      console.log('sorted reviews by helpfulness,');
       setSortedReviews(() => temp);
       setSortOption(sortMethod);
       setSortCount(sortCount + 1); // trigger effect
@@ -126,7 +121,6 @@ const RatingsReviews = forwardRef((props, ref) => {
     }
     if (sortMethod === 'newest') {
       temp.sort((a, b) => compareAsc(parseISO(b.date), parseISO(a.date)));
-      console.log('sorted reviews by newest,');
       setSortedReviews(() => temp);
       setSortOption(sortMethod);
       setSortCount(sortCount + 1); // trigger effect
@@ -145,15 +139,12 @@ const RatingsReviews = forwardRef((props, ref) => {
   }, [sortOption]);
 
   useEffect(() => {
-    console.log('USE EFFECT reviews are now sorted');
     if (sorted) {
-      console.log('setting reviews to sorted reviews');
       setReviews[sortedReviews];
     }
   }, [sortCount]);
 
   useEffect(() => {
-    console.log('page changed!!!');
     getReviews();
   }, [page]);
 

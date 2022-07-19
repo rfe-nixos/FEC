@@ -1,13 +1,13 @@
 import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import RatingsReviews from './RatingsReviews/RatingsReviews.jsx';
+import RatingsReviews from './RatingsReviews/RatingsReviews';
 import QuestionAnswer from './questionsAnswers/QuestionAnswers';
-import RelatedItems from './related-items/related-items.jsx';
-import Overview from './product-details/Overview.jsx';
-import TopBar from './TopBar/TopBar.jsx';
-import BotBar from './TopBar/BotBar.jsx';
-import { CurrentProductProvider } from './context.jsx';
+import RelatedItems from './related-items/related-items';
+import Overview from './product-details/Overview';
+import TopBar from './TopBar/TopBar';
+import BotBar from './TopBar/BotBar';
+import { CurrentProductProvider } from './context';
 
 function App() {
   const ratingsRef = useRef();

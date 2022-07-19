@@ -2,9 +2,9 @@
 import React from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import ReviewList from './ReviewList.jsx';
-import AddBar from './AddBar.jsx';
-import SortBar from './SortBar.jsx';
+import ReviewList from './ReviewList';
+import AddBar from './AddBar';
+import SortBar from './SortBar';
 
 class Reviews extends React.Component {
   constructor(props) {

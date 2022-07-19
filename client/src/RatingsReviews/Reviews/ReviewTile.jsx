@@ -3,8 +3,8 @@
 import React from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
-import Star from '../Ratings/Star.jsx';
-import PhotoPopup from './PhotoPopup.jsx';
+import Star from '../Ratings/Star';
+import PhotoPopup from './PhotoPopup';
 
 class ReviewTile extends React.Component {
   constructor(props) {

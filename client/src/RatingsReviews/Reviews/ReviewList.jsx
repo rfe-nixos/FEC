@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import styled from 'styled-components';
-import ReviewTile from './ReviewTile.jsx';
+import ReviewTile from './ReviewTile';
 
 const StyledList = styled.div`
   display: flex;

@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import Breakdown from './Breakdown.jsx';
-import Characteristics from './Characteristics.jsx';
-import Summary from './Summary.jsx';
+import Breakdown from './Breakdown';
+import Characteristics from './Characteristics';
+import Summary from './Summary';
 
 function Ratings(props) {
   return (

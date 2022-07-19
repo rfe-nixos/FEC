@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Bar from './Bar.jsx';
+import Bar from './Bar';
 
 function Breakdown(props) {
   return (

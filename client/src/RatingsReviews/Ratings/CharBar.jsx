@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import Char from './Char.jsx';
+import Char from './Char';
 import ratingToPercentage from '../lib/ratingToPercentage';
 
 function CharBar({ rating, char, chars }) {
@@ -15,7 +15,7 @@ function CharBar({ rating, char, chars }) {
         <InnerBar width={ratingToPercentage(rating)} />
       </OuterBar>
       <CharList>
-        {chars.map((c, index) => <Char char={c} key={index} />)}
+        {chars.map((c) => <Char char={c} key={c} />)}
       </CharList>
     </BarContainer>
   );

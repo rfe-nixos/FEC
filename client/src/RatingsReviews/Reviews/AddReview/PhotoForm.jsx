@@ -1,8 +1,8 @@
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import PhotoTile from './PhotoTile.jsx';
-import PhotoUpload from './PhotoUpload.jsx';
+import PhotoTile from './PhotoTile';
+import PhotoUpload from './PhotoUpload';
 
 function PhotoForm(props) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);

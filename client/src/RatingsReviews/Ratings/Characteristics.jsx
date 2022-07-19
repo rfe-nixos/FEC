@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import CharBar from './CharBar.jsx';
+import CharBar from './CharBar';
 
 function Characteristics(props) {
   return (

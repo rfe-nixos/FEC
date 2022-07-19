@@ -1,8 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
-import CharButtons from './CharButtons.jsx';
-import StarRatingBar from './StarRatingBar.jsx';
-import PhotoForm from './PhotoForm.jsx';
+import CharButtons from './CharButtons';
+import StarRatingBar from './StarRatingBar';
+import PhotoForm from './PhotoForm';
 
 const StyledForm = styled.div`
   display: flex;
