@@ -6,10 +6,12 @@ import QuestionList from './QuestionList/QuestionList/QuestionList';
 import MoreQuestions from './OptionButtons/MoreQuestions';
 import AddQuestion from './OptionButtons/AddQuestion';
 import { useCurrentProductContext } from '../context';
+import { useQuestionList, useUpdateQuestionList } from './contexts/QuestionListContext';
 
 function QuestionAnswers() {
   const productId = useCurrentProductContext();
-  const [questionList, setQuestionList] = useState([]);
+  const questionList = useQuestionList();
+  const setQuestionList = useUpdateQuestionList();
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});
   const [expanded, setExpanded] = useState(false);
@@ -34,18 +36,11 @@ function QuestionAnswers() {
       });
   }, []);
 
-  useEffect(() => {
-    if (questionList.length >= count) {
-      setCount(count * 2);
-    }
-  }, [questionList]);
-
   return (
     <DivContainer id="question-and-answers">
       <Title>QUESTIONS & ANSWERS</Title>
       <Search setFilter={setFilteredKeyword} />
       <QuestionList
-        questions={questionList}
         renderQuestions={renderQuestions}
         keyword={filteredKeyword}
         productName={productInfo.name}
@@ -53,13 +48,11 @@ function QuestionAnswers() {
       />
       <ButtonContainer>
         <MoreQuestions
-          totalQuestionCount={questionList.length}
           expanded={expanded}
           setExpanded={setExpanded}
           Button={Button}
         />
         <AddQuestion
-          id={productId}
           renderQuestions={renderQuestions}
           Button={Button}
           productName={productInfo.name}

@@ -2,9 +2,12 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormInput from '../components/FormInput';
 import FormButton from '../components/FormButton';
+import { postQuestion } from '../lib/api/githubAPI';
+import { useCurrentProductContext } from '../../context';
 
-function AddQuestionForm({ show, setShowModal, questionId, submitHandler, productName }) {
+function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
   if (!show) return null;
+  const productId = useCurrentProductContext();
   const [formValue, setFormValue] = useState({ body: '', name: '', email: '' });
 
   const onChange = (e) => {
@@ -77,10 +80,11 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // if (validateForm()) {
-    submitHandler(formValue);
+    postQuestion(productId, formValue)
+      .then(() => {
+        renderQuestions();
+      });
     setShowModal(false);
-    // }
   };
 
   const handleClose = (e) => {
@@ -91,7 +95,7 @@ function AddQuestionForm({ show, setShowModal, questionId, submitHandler, produc
 
   return (
     <Modal>
-      <PopupForm id={`${questionId}-popup`} onSubmit={handleSubmit}>
+      <PopupForm id={`${productId}-popup`} onSubmit={handleSubmit}>
         <Header>
           <Title>Ask Your Question</Title>
           <Subtitle>{'About the ' + productName}</Subtitle>
