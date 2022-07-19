@@ -38,7 +38,8 @@ class AddBar extends React.Component {
 }
 
 const AddBarMain = styled.div`
-  margin-top: 3%;
+  margin-top: 2%;
+  margin-bottom: 2%;
 `
 
 const StyledButton = styled.button`
