@@ -68,7 +68,7 @@ function SearchThing({ toggleSearch }) {
 
 const StyledInput = styled.input`
   width: 200px;
-  margin: 2%;
+  margin: 4%;
   transition: 1s;
   height: auto;
   font-size: 20px;
@@ -133,8 +133,8 @@ const StyledButton = styled.button`
   margin: 3%;
   padding: 0.25em 1em;
   background: white;
-  color: black;
-  border: 1px solid black;
+  color: #5c5c5c;
+  border: .6px solid #5c5c5c;
   &:hover {
     cursor: pointer;
     opacity: 60%;
