@@ -1,9 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import styled from 'styled-components';
 import SearchThing from './SearchThing.jsx';
 import Nav from './Nav.jsx';
 
-function TopBar(props) {
+const TopBar = forwardRef((props, ref) => {
   const [searching, setSearching] = useState(false);
 
   const refresh = () => {
@@ -15,14 +15,14 @@ function TopBar(props) {
   };
 
   return (
-    <TitleDiv id="top-bar">
+    <TitleDiv id="top-bar" ref={ref}>
       <TitleImg
         src="public/icons/nixatelier.png"
         alt="nixatelier"
         onClick={refresh}
       />
       <Div>
-        <Nav RatingsReviewsRef={props.RatingsReviewsRef} />
+        <Nav ratingsRef={props.ratingsRef} />
       </Div>
       <Div>
         <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
@@ -34,7 +34,8 @@ function TopBar(props) {
       {(searching) && (<SearchThing toggleSearch={toggleSearch} />)}
     </TitleDiv>
   );
-};
+});
+
 const Div = styled.div`
   display: flex;
   flex-direction: row;
