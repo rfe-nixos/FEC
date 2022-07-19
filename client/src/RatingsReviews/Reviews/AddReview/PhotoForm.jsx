@@ -46,7 +46,7 @@ function PhotoForm(props) {
         setUploaded={setUploaded}
       />
       {(selectedPhoto) && (<StyledButton onClick={uploadPhoto}>upload photo</StyledButton>)}
-      {(showSpinner) && (<div><StyledImg id="spinner" src="public/icons/spinner.gif" /></div>)}
+      {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
       <div>uploaded images:</div>
       {(props.photos.length > 0)
         && (props.photos.map((photo, index) => (
@@ -56,9 +56,9 @@ function PhotoForm(props) {
   );
 }
 
-const StyledImg = styled.img`
+const Spinner = styled.img`
   size: auto;
-  max-height: 20px;
+  max-height: 60px;
   background-color: transparent;
 `;
 

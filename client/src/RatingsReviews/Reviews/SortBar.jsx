@@ -1,18 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useCurrentProductContext } from '../../context.jsx';
 
 function SortBar(props) {
   const sort = (e) => {
     props.setSort(e.target.value);
   };
 
-  let currentProductId = useCurrentProductContext();
-  console.log(currentProductId);
-
   return (
     <StyledSortBar>
-      {props.page * 5} of {props.totalRatings} reviews, sorted by
+      {props.page * 5}
+      {' '}
+      of
+      {' '}
+      {props.totalRatings}
+      {' '}
+      reviews, sorted by
       <Select id="sort" onChange={sort}>
         <option value="relevance">Relevance</option>
         <option value="newest">Newest</option>

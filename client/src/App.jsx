@@ -34,9 +34,9 @@ function App() {
         if (currentRef.current.contains(event.target)
         || event.target === ratingsRef.current) {
           const clickBody = {
-            element: currentRef.current.innerHTML,
-            time: new Date().toLocaleString(),
             widget: currentRef.current.id,
+            time: new Date().toLocaleString(),
+            element: currentRef.current.innerHTML,
           };
           // line below stores clicks to state, useful for debugging
           setClicks((oldClicks) => [...oldClicks, clickBody]);
