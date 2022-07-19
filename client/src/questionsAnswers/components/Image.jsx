@@ -13,8 +13,8 @@ export default function Image({ url }) {
       {clicked
       && (
       <ModalOverlay>
-        <CloseButton onClick={() => setClicked(false)}>X</CloseButton>
         <ModalImg src={url} />
+        <CloseButton onClick={() => setClicked(false)}>X</CloseButton>
       </ModalOverlay>
       )}
     </>
@@ -38,8 +38,8 @@ const ModalImg = styled.img`
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  max-width: 100%;
-  max-height: 100%;
+  max-width: 90%;
+  max-height: 90%;
 `;
 
 const ModalOverlay = styled.div`
