@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
 import Options from '../../components/Options';
+import Image from '../../components/Image';
 
 const AnswerDiv = styled.div`
   padding-bottom: 10px;
@@ -20,9 +21,9 @@ function Answer({ answer, renderAnswers }) {
   const images = answer.photos.length > 0 && (
     <PhotoDiv>
       {answer.photos.map((photo, index) => (
-        <StyledImg
+        <Image
           key={index}
-          src={typeof photo === 'object' ? photo.url : photo}
+          url={typeof photo === 'object' ? photo.url : photo}
         />
       ))}
     </PhotoDiv>
@@ -67,14 +68,3 @@ const PhotoDiv = styled.div`
   overflow-x: auto;
   margin: 5px 0;
 `
-
-const StyledImg = styled.img`
-  max-height: 100px;
-  margin: 0 1px;
-  scale: auto;
-  border: 1px solid #d9d9d9;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
