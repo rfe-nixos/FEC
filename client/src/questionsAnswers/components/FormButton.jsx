@@ -4,21 +4,31 @@ import styled from 'styled-components';
 export default function FormButton({ handleSubmit = () => {}, handleClose }) {
   return (
     <DivButton className="form-buttons">
-      <ButtonStyled type="submit" onClick={handleSubmit} data-testid="form-button-test">
+      <StyledButton type="submit" onClick={handleSubmit} data-testid="form-button-test">
         Submit
-      </ButtonStyled>
-      <ButtonStyled onClick={handleClose}>
+      </StyledButton>
+      <StyledButton onClick={handleClose}>
         Close
-      </ButtonStyled>
+      </StyledButton>
     </DivButton>
   );
 }
 
-const ButtonStyled = styled.button`
-  padding: 2px;
-  width: 30%;
-  margin: 20px 0;
-  border-radius: 1px;
+const StyledButton = styled.button`
+  width: auto;
+  max-width: 100px;
+  font-size: small;
+  margin: 1%;
+  margin-right: 3%;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;
 
 const DivButton = styled.div`

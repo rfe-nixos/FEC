@@ -5,7 +5,6 @@ import Answer from './Answer';
 function AnswerList({ answerList, renderAnswers, Title }) {
   const [collapsed, setCollapsed] = useState(true);
   const filteredAnswerList = collapsed ? answerList.slice(0, 2) : answerList;
-
   if (Array.isArray(answerList) && answerList.length > 0) {
     return answerList.length > 0 && (
       <DivAnswer>
@@ -59,5 +58,5 @@ const Scroller = styled.div`
 `;
 
 const AnswerListDiv = styled.div`
-  width: 100%;
+  width: 95%;
 `;

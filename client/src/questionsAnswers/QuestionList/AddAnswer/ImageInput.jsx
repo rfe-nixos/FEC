@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import FormInput from '../../components/FormInput';
 import UploadedImages from './UploadedImages';
 
@@ -44,7 +45,7 @@ export default function ImageInput({ formValue, setFormValue }) {
     <div>
       {(!formValue.photos || formValue.photos.length < 5)
       && (
-        <>
+        <label>
           <FormInput
             attribute={{
               label: 'Upload your photos (choose up to 5 photos)',
@@ -52,12 +53,13 @@ export default function ImageInput({ formValue, setFormValue }) {
               name: 'photos',
               placeholder: '',
               id: 'image-input',
-              style: { color: 'transparent' },
+              style: { display: 'none' },
+              onChange: fileChangeHandler,
             }}
-            changeHandler={fileChangeHandler}
           />
+          <StyledDivButton>Select photo</StyledDivButton>
           {imageInvalid && <div style={{ color: 'red' }}>Invalid image content.</div> }
-        </>
+        </label>
       )}
       <UploadedImages
         photos={formValue.photos}
@@ -66,3 +68,17 @@ export default function ImageInput({ formValue, setFormValue }) {
     </div>
   );
 }
+
+const StyledDivButton = styled.div`
+  max-width: 80px;
+  margin: 1%;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;

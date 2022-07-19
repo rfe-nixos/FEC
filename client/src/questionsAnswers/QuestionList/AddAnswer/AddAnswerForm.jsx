@@ -91,8 +91,11 @@ function AddAnswerForm({ show, setShowModal, question, submitHandler, productNam
     <Modal>
       <PopupForm id={`${questionId}-popup`} onSubmit={handleSubmit}>
         <Header>
-          <Title>Submit your Answer</Title>
-          <Subtitle>{`${productName}:`}</Subtitle>
+          <Title>
+            Submit your Answer
+            <XButton onClick={handleClose}>X</XButton>
+          </Title>
+          <Subtitle size="15px">{`${productName}:`}</Subtitle>
           <Subtitle>{questionBody}</Subtitle>
         </Header>
         {answerInput}
@@ -118,8 +121,7 @@ const Modal = styled.div`
   left: 0;
   width: 100vw;
   height: 100%;
-  z-index: 9998;
-  transition: all .3s ease;
+  z-index: 1;
   background-color: rgba(0,0,0,.7);
   overflow: auto;
 `;
@@ -127,22 +129,51 @@ const Modal = styled.div`
 const PopupForm = styled.form`
   position: relative;
   max-width: 51.0714285714rem;
-  width: 60%;
+  width: 400px;
+  max-height: 80%;
   margin: 5vh auto;
-  padding: 1.7142857143rem 1.1428571429rem;
+  padding: 1.5%;
+  /* padding: 1.7142857143rem 1.1428571429rem; */
   background-color: #fff;
   border-radius: .2857142857rem;
+  font-size: small;
+  overflow: auto;
 `;
 
 const Header = styled.div`
-  margin-bottom: 10px;
+  padding-bottom: 10px;
 `;
+
 const Title = styled.div`
-  font-size: 1.5rem;
-  padding: 10px 0;
+  /* font-size: 1.5rem;
+  padding: 10px 0; */
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: large;
+  font-weight: bold;
+  width: 100% ;
+  border-bottom: .5px solid black;
+  padding-bottom: 1%;
+  margin-bottom: 2%;
 `;
 
 const Subtitle = styled.div`
   font-size: 1.1rem;
   padding: 2px 0;
+  font-size: ${(props) => props.size};
+`;
+
+const XButton = styled.button`
+  color: #1c1c1c;
+  font-size: 13px;
+  background-color: white;
+  width: auto;
+  font-weight: light;
+  border-radius: 3px;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;

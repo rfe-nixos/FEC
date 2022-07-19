@@ -91,12 +91,11 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
 export default IndividualQuestion;
 
 const sortAnswers = (answers) => (
-  _.sortBy(answers, (a, b) => {
-    if (a.answerer_name.toLowerCase() === 'seller') return -1;
-    if (a.helpfulness > b.helpfulness) return -1;
-    if (a.helpfulness < b.helpfulness) return 1;
-    return 0;
-  })
+  _(answers).chain()
+    .sortBy('helpfulness')
+    .sortBy((answer) => answer.answerer_name.toLowerCase() === 'seller')
+    .reverse()
+    .value()
 );
 
 const DivQuestion = styled.div`
