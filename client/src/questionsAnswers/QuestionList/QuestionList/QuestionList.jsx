@@ -1,8 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
 import IndividualQuestion from './IndividualQuestion';
+import { useQuestionList } from '../../contexts/QuestionListContext';
 
-function QuestionList({ questions, renderQuestions, keyword, productName, expanded }) {
+function QuestionList({ renderQuestions, keyword, productName, expanded }) {
+  const questions = useQuestionList();
   if (questions.length === 0) {
     return (
       <NoDataDiv id="question-list">

@@ -1,11 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
 import _ from 'underscore';
-import Helpful from './Helpful';
-import AddAnswerForm from './AddAnswerForm';
-import AnswerList from './AnswerList';
-import Options from './Options';
+import { getAnswers, postAnswer } from '../../lib/api/githubAPI';
+import getImageUrl from '../../lib/api/cloudinaryAPI';
+import Helpful from '../../components/Helpful';
+import AddAnswerForm from '../AddAnswer/AddAnswerForm';
+import AnswerList from '../AnswerList/AnswerList';
+import Options from '../../components/Options';
 
 function IndividualQuestion({ productName, question, renderQuestions }) {
   const [showModal, setShowModal] = useState(false);
@@ -14,58 +15,35 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(100);
 
-  const getAnswers = () => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
-      params: {
-        page,
-        count,
-      },
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-    axios(requestConfig)
+  const renderAnswers = () => {
+    getAnswers(question.question_id, page, count)
       .then((result) => {
         if (result.data.results.length === 0) {
           setHasMore(false);
           return;
         }
         setAnswerList(sortAnswers(result.data.results));
-      })
-      .catch((err) => {
-        console.log('failed to get answers', err);
       });
   };
 
   const addAnswer = (formValues) => {
-    const { body, name, email, photos } = formValues;
-    const requestConfig = {
-      method: 'POST',
-      url: `${process.env.API_URL}/qa/questions/${question.question_id}/answers`,
-      data: {
-        body,
-        name,
-        email,
-        photos,
-      },
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-    axios(requestConfig)
-      .then(() => {
-        getAnswers();
-      })
-      .catch((err) => {
-        console.log('failed posting answer.', err);
-      });
+    if (formValues.photos) {
+      const photoUrlPromise = formValues.photos.map((photo) => getImageUrl(photo.file))
+      Promise.all(photoUrlPromise)
+        .then((result) => {
+          formValues.photos = result;
+          postAnswer(question.question_id, formValues)
+            .then((response) => {
+              renderAnswers();
+            });
+        });
+    } else {
+      postAnswer(question.question_id, formValues)
+        .then((response) => {
+          renderAnswers();
+        });
+    }
   };
-
-  // useEffect(() => {
-  //   getAnswers();
-  // }, []);
 
   useEffect(() => {
     if (answerList.length >= count) {
@@ -78,7 +56,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       <DivQuestion>
         <QContainer>
           <Title>Q:</Title>
-          <b>{question.question_body}</b>
+          <BoldBody>{question.question_body}</BoldBody>
         </QContainer>
         <Options>
           <Helpful
@@ -95,13 +73,12 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
       </DivQuestion>
       <AnswerList
         answerList={answerList}
-        renderAnswers={getAnswers}
+        renderAnswers={renderAnswers}
         Title={Title}
         hasMore={hasMore}
       />
       <AddAnswerForm
-        questionId={question.question_id}
-        questionBody={question.question_body}
+        question={question}
         submitHandler={addAnswer}
         productName={productName}
         show={showModal}
@@ -114,12 +91,11 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
 export default IndividualQuestion;
 
 const sortAnswers = (answers) => (
-  _.sortBy(answers, (a, b) => {
-    if (a.answerer_name.toLowerCase() === 'seller') return -1;
-    if (a.helpfulness > b.helpfulness) return -1;
-    if (a.helpfulness < b.helpfulness) return 1;
-    return 0;
-  })
+  _(answers).chain()
+    .sortBy('helpfulness')
+    .sortBy((answer) => answer.answerer_name.toLowerCase() === 'seller')
+    .reverse()
+    .value()
 );
 
 const DivQuestion = styled.div`
@@ -127,6 +103,7 @@ const DivQuestion = styled.div`
   justify-content: space-between;
   align-items: center;
   margin: 5px 0;
+  padding-right: 10px;
 `;
 
 const Title = styled.span`
@@ -136,5 +113,9 @@ const Title = styled.span`
 
 const QContainer = styled.div`
   display: flex;
-  width: 70%;
+  width: 65%;
+`;
+
+const BoldBody = styled.b`
+  width: 100%;
 `;
