@@ -46,7 +46,7 @@ const InnerBar = styled.div`
   left: ${props => props.width};
   white-space: nowrap;
   overflow: hidden;
-  width:auto;
+  width: auto;
   height: 24px;
   font-size:small;
   transform: translate(-50%, -50%);

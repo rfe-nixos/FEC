@@ -21,15 +21,14 @@ function Nav(props) {
       <NavTop onClick={toggleNav}>
         <Name>NAV</Name>
       </NavTop>
-      {(showNav)
-        && (
-          <NavBot>
+
+          <NavBot showNav={showNav}>
             <Name>PRODUCT</Name>
             <Name>RELATED ITEMS</Name>
             <Name>Q + A</Name>
             <Name onClick={scrollDown}>RATINGS REVIEWS</Name>
           </NavBot>
-        )}
+
     </NavMain>
   );
 }
@@ -70,13 +69,15 @@ const NavBot = styled.div`
   position: absolute;
   transform: translate(0%, 24px);
   width: 200px;
-  height: auto;
+  height: ${props => props.showNav ? '100' : '0'}px;
+  overflow-y: hidden;
+  transition: .5s;
   display:flex;
   flex-direction: column;
   background-color: white;
   padding: 2%;
   align-items: flex-start;
-  border: .5px solid black;
-`
+  border: ${props => props.showNav ? '.5' : '0'}px solid black;
+`;
 
 export default Nav;

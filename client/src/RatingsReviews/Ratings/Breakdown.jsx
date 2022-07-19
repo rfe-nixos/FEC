@@ -31,7 +31,6 @@ const BreakContainer = styled.div`
   font-size: x-small;
   font-weight: light;
   margin-top: 7%;
-  width: 200px;
 `
 
 export default Breakdown;
