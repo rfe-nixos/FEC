@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function SortBar({ setSort, totalRatings, page }) {
+function SortBar({ setSort, totalRatings, page, reviews }) {
   const sort = (e) => {
     setSort(e.target.value);
   };

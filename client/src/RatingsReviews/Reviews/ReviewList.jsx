@@ -21,10 +21,10 @@ function ReviewList({
       onScroll={onScroll}
       ref={listInnerRef}
     >
-      {reviews.slice(0, page * 5).map((review, index) => (
+      {reviews.slice(0, page * 5).map((review) => (
         <ReviewTile
           review={review}
-          key={index}
+          key={review.review_id}
           markHelpful={markHelpful}
           report={report}
         />
