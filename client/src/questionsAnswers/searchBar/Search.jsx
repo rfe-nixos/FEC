@@ -48,12 +48,13 @@ const SearchInput = styled.input`
 `;
 
 const Icon = styled(FontAwesomeIcon)`
-  position: absolute;
   padding: 15px;
-  left: 81vh;
+  position: absolute;
 `;
 
 const InputIcons = styled.div`
-  position:relative;
-  width: 100%
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
 `;

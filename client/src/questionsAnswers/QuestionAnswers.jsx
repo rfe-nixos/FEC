@@ -1,95 +1,59 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import styled from 'styled-components';
-import Search from './Search';
-import QuestionList from './QuestionList';
-import MoreQuestions from './MoreQuestions';
-import AddQuestion from './AddQuestion';
+import { getQuestions, getProductInfo } from './lib/api/githubAPI';
+import Search from './SearchBar/Search';
+import QuestionList from './QuestionList/QuestionList/QuestionList';
+import MoreQuestions from './OptionButtons/MoreQuestions';
+import AddQuestion from './OptionButtons/AddQuestion';
+import { useCurrentProductContext } from '../context';
+import { useQuestionList, useUpdateQuestionList } from './contexts/QuestionListContext';
 
-function QuestionAnswers({ productId }) {
-  const [questionList, setQuestionList] = useState([]);
+function QuestionAnswers() {
+  const productId = useCurrentProductContext();
+  const questionList = useQuestionList();
+  const setQuestionList = useUpdateQuestionList();
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});
   const [expanded, setExpanded] = useState(false);
   const [count, setCount] = useState(200);
   const [page, setPage] = useState(1);
 
-  const getAllQuestions = () => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/qa/questions`,
-      params: {
-        product_id: productId,
-        count,
-        page,
-      },
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-
-    axios(requestConfig)
+  const renderQuestions = () => {
+    getQuestions(productId, page, count)
       .then((result) => {
         if (result.data.results.length === 0) {
           return;
         }
         setQuestionList(result.data.results);
-      })
-      .catch((err) => {
-        console.log('failed fetching all questions from API.', err);
       });
   };
 
-  const getProductInfo = () => {
-    const requestConfig = {
-      method: 'GET',
-      url: `${process.env.API_URL}/products/${productId}`,
-      headers: {
-        Authorization: process.env.AUTH_KEY,
-      },
-    };
-
-    axios(requestConfig)
+  useEffect(() => {
+    renderQuestions();
+    getProductInfo(productId)
       .then((result) => {
         setProductInfo(result.data);
-      })
-      .catch((err) => {
-        console.log('failed fetching product info.', err);
       });
-  };
-
-  useEffect(() => {
-    getAllQuestions();
-    getProductInfo();
   }, []);
-
-  useEffect(() => {
-    if (questionList.length >= count) {
-      setCount(count * 2);
-    }
-  }, [questionList]);
 
   return (
     <DivContainer id="question-and-answers">
       <Title>QUESTIONS & ANSWERS</Title>
       <Search setFilter={setFilteredKeyword} />
       <QuestionList
-        questions={questionList}
-        renderQuestions={getAllQuestions}
+        renderQuestions={renderQuestions}
         keyword={filteredKeyword}
         productName={productInfo.name}
         expanded={expanded}
       />
       <ButtonContainer>
         <MoreQuestions
-          totalQuestionCount={questionList.length}
           expanded={expanded}
           setExpanded={setExpanded}
           Button={Button}
         />
         <AddQuestion
-          id={productId}
-          renderQuestions={getAllQuestions}
+          renderQuestions={renderQuestions}
           Button={Button}
           productName={productInfo.name}
         />
