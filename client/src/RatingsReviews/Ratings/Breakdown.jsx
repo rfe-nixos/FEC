@@ -9,9 +9,9 @@ function Breakdown(props) {
       {props.isLoaded && (
         <BreakContainer>
           <div>
-            {Math.round(100 * (parseInt(props.meta.recommended.true)
+            {`${Math.round(100 * (parseInt(props.meta.recommended.true)
             / parseInt(props.totalRatings)))
-            + "% of reviewers recommend this item."}
+            }% of reviewers recommend this item.`}
           </div>
           <div>
             <Bar star="5" percentage={(props.meta.ratings['5'] / props.totalRatings) * 100} setRatingFilter={props.setRatingFilter} ratingFilter={props.ratingFilter} />
@@ -31,6 +31,6 @@ const BreakContainer = styled.div`
   font-size: x-small;
   font-weight: light;
   margin-top: 7%;
-`
+`;
 
 export default Breakdown;

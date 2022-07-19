@@ -8,7 +8,6 @@ class StarRatingBar extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      rating: '',
       selected: false,
     };
     this.handleHover = this.handleHover.bind(this);
@@ -35,7 +34,6 @@ class StarRatingBar extends React.Component {
     for (let i = 1; i <= 5; i++) {
       const x = `star-${i}`;
       const y = document.getElementById(x);
-      //console.log(y);
       if (i <= parseInt(rating)) {
         y.textContent = '★';
       } else {

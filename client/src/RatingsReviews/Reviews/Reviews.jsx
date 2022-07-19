@@ -6,16 +6,12 @@ import ReviewList from './ReviewList.jsx';
 import AddBar from './AddBar.jsx';
 import SortBar from './SortBar.jsx';
 
-
 class Reviews extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviews: [],
       page: 1,
       markedHelpful: [],
-      sort_option: '',
-      sorted: false,
     };
     this.addReview = this.addReview.bind(this);
     this.markHelpful = this.markHelpful.bind(this);
@@ -44,7 +40,7 @@ class Reviews extends React.Component {
   }
 
   moreReviews() {
-    let page = this.state.page;
+    let { page } = this.state;
     page++;
     this.setState({ page });
   }
@@ -58,7 +54,7 @@ class Reviews extends React.Component {
   }
 
   report(reviewId) {
-    axios.put(`${process.env.API_URL}/reviews/${reviewId}/report`, {review_id: reviewId}, {
+    axios.put(`${process.env.API_URL}/reviews/${reviewId}/report`, { review_id: reviewId }, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
@@ -68,23 +64,23 @@ class Reviews extends React.Component {
         console.log('success reporting review');
         this.props.getReviews();
       })
-      .catch((err) => console.log('error reporting review', err))
+      .catch((err) => console.log('error reporting review', err));
   }
 
   markHelpful(reviewId) {
     if (this.state.markedHelpful.indexOf(reviewId) === -1) {
-      axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, {review_id: reviewId}, {
+      axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, { review_id: reviewId }, {
         headers: {
           Authorization: process.env.AUTH_KEY,
         },
       })
         .then(() => {
-          let markedHelpful = this.state.markedHelpful;
+          const { markedHelpful } = this.state;
           markedHelpful.push(reviewId);
           this.setState({ markedHelpful });
           this.props.getReviews();
         })
-        .catch((err) => console.log('error marking helpful', err))
+        .catch((err) => console.log('error marking helpful', err));
     } else {
       alert('you have already marked this review as helpful');
     }
@@ -113,20 +109,20 @@ class Reviews extends React.Component {
           productId={this.props.productId}
         />
       </ReviewsContainer>
-    )
+    );
   }
 }
 
-const reviewBody = { //sample review data with image, and seller response
+const reviewBody = { // sample review data with image, and seller response
   review_id: 1275524,
   helpfulness: 20,
-  date: "2022-07-17T00:00:00.000Z",
+  date: '2022-07-17T00:00:00.000Z',
   rating: 5,
   summary: 'sample summary here',
   body: 'sample body. lots of text go here. at leeast 60 characters',
   recommend: true,
   reviewer_name: 'iu',
-  photos: [{id: 1, url: "https://res.cloudinary.com/joehan/image/upload/v1658093409/c07wxsxe4wiu5ionvqtv.png"}],
+  photos: [{ id: 1, url: 'https://res.cloudinary.com/joehan/image/upload/v1658093409/c07wxsxe4wiu5ionvqtv.png' }],
   response: 'Thank you for your review! we are please to hear that you enjoyed the item.',
 };
 

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, forwardRef } from 'react';
 import styled from 'styled-components';
 import SearchThing from './SearchThing.jsx';
 import Nav from './Nav.jsx';
@@ -40,7 +40,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-`
+`;
 
 const Link = styled.a`
   &:link { text-decoration: none; }
@@ -92,4 +92,3 @@ const TitleDiv = styled.div`
 `;
 
 export default TopBar;
-

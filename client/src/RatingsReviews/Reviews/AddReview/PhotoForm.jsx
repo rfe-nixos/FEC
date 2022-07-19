@@ -35,16 +35,11 @@ function PhotoForm(props) {
       .catch((err) => console.log('error uploading photo', err));
   };
 
-  // const toggleSpinner = () => {
-  //   !showSpinner ? setShowSpinner(true) : setShowSpinner(false);
-  // };
-
   return (
     <StyledDiv>
       <PhotoUpload
         onFileSelect={(file) => {
           setSelectedPhoto(file);
-          //addToArray((oldPhotos) => [...oldPhotos, file]);
         }}
         addUrl={props.addUrl}
         uploaded={uploaded}

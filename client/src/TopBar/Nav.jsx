@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function Nav(props) {
@@ -6,7 +6,7 @@ function Nav(props) {
 
   const toggleNav = () => {
     !showNav ? setShowNav(true) : setShowNav(false);
-  }
+  };
 
   const scrollDown = () => {
     window.scrollTo({
@@ -21,14 +21,12 @@ function Nav(props) {
       <NavTop onClick={toggleNav}>
         <Name>NAV</Name>
       </NavTop>
-
-          <NavBot showNav={showNav}>
-            <Name>PRODUCT</Name>
-            <Name>RELATED ITEMS</Name>
-            <Name>Q + A</Name>
-            <Name onClick={scrollDown}>RATINGS REVIEWS</Name>
-          </NavBot>
-
+      <NavBot showNav={showNav} id="nav-bot">
+        <Name>PRODUCT</Name>
+        <Name>RELATED ITEMS</Name>
+        <Name>Q + A</Name>
+        <Name onClick={scrollDown}>RATINGS REVIEWS</Name>
+      </NavBot>
     </NavMain>
   );
 }

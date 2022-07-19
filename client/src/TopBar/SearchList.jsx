@@ -9,7 +9,13 @@ function SearchList({ products, query, toggleSearch }) {
 
   return (
     <StyledList>
-      {(products.map((product, index) => <SearchTile product={product} key={index} toggleSearch={toggleSearch} />))}
+      {(products.map((product, index) => (
+        <SearchTile
+          product={product}
+          key={index}
+          toggleSearch={toggleSearch}
+        />
+      )))}
     </StyledList>
 
   );

@@ -12,27 +12,8 @@ import { CurrentProductProvider } from './context.jsx';
 function App() {
   const ratingsRef = useRef();
   const topRef = useRef();
-  const refs = [ratingsRef, topRef];
+  const refs = [ratingsRef, topRef]; // TODO: if more refs are created, add them here.
   const [clicks, setClicks] = useState([]);
-
-  useEffect(() => {
-    window.onclick = (event) => {
-      for (let i = 0; i < refs.length; i++) {
-        let currentRef = refs[i];
-        if (currentRef.current.contains(event.target)
-        || event.target === ratingsRef.current) {
-          const clickBody = {
-            element: currentRef.current.innerHTML,
-            time: new Date().toLocaleString(),
-            widget: currentRef.current.id,
-          };
-          setClicks((oldClicks) => [...oldClicks, clickBody]);
-          sendInteraction(clickBody);
-          break;
-        }
-      }
-    };
-  }, []);
 
   const sendInteraction = (click) => {
     axios.post(`${process.env.API_URL}/interactions`, click, {
@@ -45,6 +26,26 @@ function App() {
       })
       .catch((err) => console.log('error posting interaction', err));
   };
+
+  useEffect(() => {
+    window.onclick = (event) => {
+      for (let i = 0; i < refs.length; i++) {
+        const currentRef = refs[i];
+        if (currentRef.current.contains(event.target)
+        || event.target === ratingsRef.current) {
+          const clickBody = {
+            element: currentRef.current.innerHTML,
+            time: new Date().toLocaleString(),
+            widget: currentRef.current.id,
+          };
+          // line below stores clicks to state, useful for debugging
+          setClicks((oldClicks) => [...oldClicks, clickBody]);
+          sendInteraction(clickBody); // sends axios post call
+          break; // no need to check the rest
+        }
+      }
+    };
+  }, []);
 
   return (
     <MainDiv>

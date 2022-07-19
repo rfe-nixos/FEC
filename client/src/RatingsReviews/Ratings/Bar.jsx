@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import ratingToPercentage from '../lib/ratingToPercentage.js';
 
 const BarContainer = styled.div`
   font-size: xx-small;
@@ -23,7 +22,7 @@ const OuterBar = styled.div`
     opacity:70%;
     cursor: pointer;
   }
-  transition:  opacity .2s;
+  transition: opacity .2s;
 `;
 
 const InnerBar = styled.div`
