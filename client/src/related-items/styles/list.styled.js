@@ -119,7 +119,7 @@ export const StyledCard = styled.div`
 `;
 
 export const StyledModal = styled.div`
-position: : fixed;
+position: : relative;
 top: 0;
 left: 0;
 width:100%;
@@ -154,9 +154,9 @@ export const ModalOverlay = styled.div`
   position: fixed;
   opacity: 0;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
+  bottom:0;
+  left: 0;
   z-index: 1000;
   background-color: rgba(0, 0, 0.25);
 `;

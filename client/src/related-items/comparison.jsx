@@ -61,8 +61,8 @@ function Comparison({ closeModal, currentProduct }) {
     currentProduct.features,
     overviewProductData.features
   );
-
-  return ReactDom.createPortal(
+  //ReactDom.createPortal
+  return (
     <>
       <StyledModal>
         <div className="modal">
@@ -90,11 +90,9 @@ function Comparison({ closeModal, currentProduct }) {
           </div>
         </div>
       </StyledModal>
-      <ModalOverlay onClick={() => closeModal(false)}>
-        <div className="overlay" />
-      </ModalOverlay>
-    </>,
-    document.getElementById('portal')
+      <ModalOverlay onClick={() => closeModal(false)} className="overlay" />
+    </>
+    // document.getElementById('portal')
   );
 }
 
