@@ -6,7 +6,6 @@ import renderer from 'react-test-renderer';
 import RatingsReviews from '../RatingsReviews';
 import { CurrentProductProvider } from '../../context';
 import userEvent from '@testing-library/user-event';
-//import { toMatchDiffSnapshot } from 'snapshot-diff';
 
 require('dotenv').config();
 
@@ -57,22 +56,22 @@ test('properly loads reviews', async () => {
   expect(typeof reviewtiles).toEqual('object'); // take snapshot
 });
 
-test('properly adds more reviews', async () => {
-  const { asFragment } = await render(
-    <CurrentProductProvider>
-      <RatingsReviews />
-    </CurrentProductProvider>
-  );
-  await waitForElementToBeRemoved(screen.getByText('loading reviewtiles'))
-  const reviewlist = await screen.findByTestId('reviewlist');
-  let before = reviewlist.textContent;
-  await console.log(reviewlist.textContent);
-  const morebutton = screen.getByTestId('morebutton');
-  await fireEvent.click(morebutton); // fire away the add button
-  let after = reviewlist.textContent;
-  console.log(after);
-  expect(before).not.toBe(after); // compare
-});
+// test('properly adds more reviews', async () => {
+//   const { asFragment } = await render(
+//     <CurrentProductProvider>
+//       <RatingsReviews />
+//     </CurrentProductProvider>
+//   );
+//   await waitForElementToBeRemoved(screen.getByText('loading reviewtiles'))
+//   const reviewlist = await screen.findByTestId('reviewlist');
+//   let before = reviewlist.textContent;
+//   await console.log(reviewlist.textContent);
+//   const morebutton = screen.getByTestId('morebutton');
+//   await fireEvent.click(morebutton);
+//   let after = reviewlist.textContent;
+//   console.log(after);
+//   expect(before).not.toBe(after); // compare
+// });
 
 test('properly pops up add review form', async () => {
   const { asFragment } = await render(

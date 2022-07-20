@@ -1,13 +1,14 @@
 import React from 'react';
 import {
-  render, screen, cleanup, fireEvent, waitFor, waitForElementToBeRemoved, queryByAttribute, findByText,
+  render, screen, cleanup, fireEvent, waitFor,
+  waitForElementToBeRemoved, queryByAttribute, findByText,
 } from '@testing-library/react';
 import renderer from 'react-test-renderer';
+import userEvent from '@testing-library/user-event';
 import { toBeInTheDocument } from '@testing-library/jest-dom';
 import RatingsReviews from '../RatingsReviews';
 import Reviews from '../Reviews/Reviews';
 import { CurrentProductProvider } from '../../context';
-import userEvent from '@testing-library/user-event';
 
 require('dotenv').config();
 
@@ -42,45 +43,13 @@ test('properly marks a review as helpful', async () => {
   const helpfulCount = await screen.findByTestId('helpful-count-0');
   const reviewlist = await screen.findByTestId('reviewlist');
   const before = reviewlist.textContent;
-  await console.log(reviewlist.textContent, 'before');
-  // const newCount = await screen.findByTestId('helpful-count-0');
-  // await console.log(parseInt(newCount.textContent.slice(1, 3)), 'this is the new count after findingbytext');
   let after;
   await waitFor(async () => {
     fireEvent.click(helpfulButton);
-    console.log('fired button ');
     after = await screen.findByTestId('reviewlist');
   });
-  console.log(after.textContent, 'after');
 
   expect(before).not.toBe(after);
-  // checks if anything changed in reviewlist text. WAIT
-  // let count = parseInt(helpfulCount.textContent.slice(1, 3));
-  // console.log(count, 'this is the count');
-  // count++;
-  // console.log(count, 'this is the new count');
-  // await fireEvent.click(helpfulButton);
-  // const newCount = await screen.findByTestId('helpful-count-0');
-  // console.log(parseInt(newCount.textContent.slice(1, 3)), 'this is the new count after findingbytext');
-  // expect(1).toEqual(1);
-
-  // //console.log(helpfulButton, 'these are the buttons should be an array');
-  // let before = helpfulCount[0].textContent;
-  // console.log(before, 'before');
-  // let newCount;
-  // let after;
-  // await waitFor(() => fireEvent.click(helpfulButton[0]))
-  //   .then(() => {
-  //     console.log('button has been fired!');
-  //     console.log(helpfulCount[0].textContent, 'after firing???');
-  //     //newCount = screen.findAllByTestId('helpful-count');
-  //   })
-  //   .then(() => {
-  //     console.log('new count is found!');
-  //     //newCount = screen.findAllByTestId('helpful-count');
-  //     //after = newCount[0].textContent;
-  //   })
-  // await waitFor(() => expect(before).not.toBe(after));
 });
 
 test('testing if photopop shows', async () => {
@@ -117,7 +86,6 @@ test('reviews component render', async () => {
   />);
   const reviewtiles = await screen.findByTestId('reviewtiles')
   expect(reviewtiles).toBeInTheDocument;
-  //await waitFor(() => expect(setMock).toHaveBeenCalled());
 });
 
 test('add button functioning', async () => {
