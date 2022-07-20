@@ -3,14 +3,16 @@ import { FaStar } from 'react-icons/fa';
 import { useState, useContext } from 'react';
 import { StyledCard } from './styles/list.styled.js';
 import Comparison from './comparison.jsx';
-import {useCurrentProductUpdate} from '../context.jsx'
+import { useCurrentProductUpdate } from '../context.jsx';
+import { ImCancelCircle } from 'react-icons/im';
+import Star from '../RatingsReviews/Ratings/Star';
 
-function Product({ formattedCard }) {
+function Product({ formattedCard, outfit, setLocalStorageState }) {
   // States
   const [picIndex, setPicIndex] = useState(0);
   const [openModal, setOpenModal] = useState(false);
   const setCurrentProduct = useCurrentProductUpdate();
- // const [formattedCardState, setFormattedCard]= useState(formattedCard);
+  // const [formattedCardState, setFormattedCard]= useState(formattedCard);
   const handleRightClick = () => {
     if (picIndex < formattedCard.image.length - 1) {
       setPicIndex((prev) => prev + 1);
@@ -26,11 +28,32 @@ function Product({ formattedCard }) {
     setCurrentProduct(formattedCard.id);
   };
 
+  function handleDeleteOutfit() {
+    const currentStorage = JSON.parse(localStorage.getItem('outfits'));
+    const newStorage = currentStorage.filter((item) => item.id !== formattedCard.id);
+    localStorage.setItem('outfits', JSON.stringify(newStorage));
+    setLocalStorageState(newStorage);
+  }
+  let relatedAction;
+  if (outfit) {
+    relatedAction = (
+      <ImCancelCircle
+        className="relatedOutfit"
+        onClick={handleDeleteOutfit}
+      />
+    );
+  } else {
+    relatedAction = (
+      <FaStar className="relatedAction" onClick={() => setOpenModal(true)} />
+    );
+  }
+
+
   return (
     <>
-      <StyledCard onClick={handleGlobalStateClick}>
+      <StyledCard>
         <div className="cardHeader">
-          <FaStar className="relatedAction" onClick={() => setOpenModal(true)} />
+          {relatedAction}
           <img
             src={
               formattedCard.image[picIndex].thumbnail_url ||
@@ -38,6 +61,7 @@ function Product({ formattedCard }) {
             }
             className="cardImage"
             alt={formattedCard.description}
+            onClick={handleGlobalStateClick}
           />
           <button
             className="btn btnLeft"
@@ -56,15 +80,23 @@ function Product({ formattedCard }) {
         </div>
         <div className="cardBody">
           <h1 className="cardCategory">{formattedCard.category}</h1>
-          <p className="cardName">{formattedCard.name}</p>
+          <p className="cardName" onClick={handleGlobalStateClick}>
+            {formattedCard.name}
+          </p>
           <p className="cardPrice">{formattedCard.price}</p>
           <p className="discountedCardPrice">{formattedCard.discountedPrice}</p>
-          {/* TODO: Rating needs to be updated to show starts up to 1/4  */}
-          <p className="cardRating">{formattedCard.rating}</p>
+          {/* TODO: Rating needs to be updated to show stars up to 1/4  */}
+          <Star average={formattedCard.rating} />
         </div>
       </StyledCard>
 
-      {openModal && <Comparison closeModal={setOpenModal} />}
+      {openModal && (
+        <Comparison
+          closeModal={setOpenModal}
+          currentProduct={formattedCard}
+          key="99"
+        />
+      )}
     </>
   );
 }
