@@ -35,6 +35,14 @@ const QuestionAnswers = forwardRef((props, ref) => {
       });
   }, []);
 
+  useEffect(() => {
+    renderQuestions();
+    getProductInfo(productId)
+      .then((result) => {
+        setProductInfo(result.data);
+      });
+  }, [productId]);
+
   return (
     <DivContainer id="question-and-answers" ref={ref}>
       <Title>QUESTIONS & ANSWERS</Title>

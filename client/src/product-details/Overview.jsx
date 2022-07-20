@@ -139,6 +139,7 @@ function Overview({ productId, ratingsRef }) {
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} ratingsRef={ratingsRef} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
           <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
+          <div class="sharethis-inline-share-buttons"></div>
         </div>
       </div>
     );

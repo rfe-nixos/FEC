@@ -41,7 +41,6 @@ function Nav({ ratingsRef, qaRef }) {
 }
 
 const NavMain = styled.div`
-z-index: 200;
   position: absolute;
   display:flex;
   flex-direction: column;
