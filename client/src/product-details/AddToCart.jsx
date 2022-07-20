@@ -51,13 +51,10 @@ function AddToCart({
   }
 
   const handleSizeChange = (event) => {
-    event.preventDefault();
     setCurrentSize(event.target.value);
   };
 
   const handleAmountChange = (event) => {
-    event.preventDefault();
-    console.log(event.target.value);
     setCurrentAmount(event.target.value);
   };
 
@@ -93,7 +90,6 @@ function AddToCart({
       }
       Promise.all(queries).then(() => {
         setSizeAlert('');
-        console.log('done');
       });
     }
   };
