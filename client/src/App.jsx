@@ -2,12 +2,6 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
-<<<<<<< HEAD
-import QuestionAnswer from './questionsAnswers/QuestionAnswers';
-import RelatedItems from './related-items/related-items.jsx';
-import { CurrentProductProvider } from './context.jsx';
-
-=======
 import QuestionsAnswers from './QuestionsAnswers/QuestionsAnswers';
 import RelatedItems from './related-items/related-items';
 import Overview from './product-details/Overview';
@@ -15,7 +9,6 @@ import TopBar from './TopBar/TopBar';
 import BotBar from './TopBar/BotBar';
 import { CurrentProductProvider } from './context';
 import { QuestionListProvider } from './QuestionsAnswers/contexts/QuestionListContext';
->>>>>>> main
 
 function App() {
   const ratingsRef = useRef();
@@ -59,15 +52,6 @@ function App() {
   }, []);
 
   return (
-<<<<<<< HEAD
-    <CurrentProductProvider>
-      <Overview />
-      <RelatedItems />
-      <QuestionAnswer productId={37311} />
-      <RatingsReviews product_id={37311} />
-    </CurrentProductProvider>
-
-=======
     <MainDiv>
       <CurrentProductProvider>
         <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} />
@@ -80,7 +64,6 @@ function App() {
         <BotBar />
       </CurrentProductProvider>
     </MainDiv>
->>>>>>> main
   );
 }
 
