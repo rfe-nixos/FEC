@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import ReviewForm from './AddReview/ReviewForm.jsx';
+import ReviewForm from './AddReview/ReviewForm';
 
 class AddBar extends React.Component {
   constructor(props) {
@@ -14,6 +14,9 @@ class AddBar extends React.Component {
 
   moreReviews(e) {
     e.preventDefault();
+    console.log(e);
+    let time = new Date().toLocaleTimeString();
+    console.log(time);
     this.props.moreReviews();
   }
 
@@ -25,32 +28,32 @@ class AddBar extends React.Component {
 
   render() {
     return (
-      <div>
+      <AddBarMain>
         <StyledButton onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
         <StyledButton onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
-        {this.state.formShowing && <ReviewForm product_id={this.props.product_id} addReview={this.props.addReview} />}
-      </div>
+        {this.state.formShowing && <ReviewForm productId={this.props.productId} addReview={this.props.addReview} toggleForm={this.toggleForm} />}
+      </AddBarMain>
     );
   }
 }
 
-const AddBarContainer = styled.div`
-
+const AddBarMain = styled.div`
+  margin-top: 2%;
+  margin-bottom: 2%;
 `
 
 const StyledButton = styled.button`
   width: auto;
   font-size: small;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
+  padding: 15px;
+  border: 1px solid #3d3c3c;
+  background-color: white;
+  margin-right: 20px;
+  font-weight: 500;
   &:hover {
     cursor: pointer;
     opacity: 60%;
   }
-`
+`;
 
 export default AddBar;

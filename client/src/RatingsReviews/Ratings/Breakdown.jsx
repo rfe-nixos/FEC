@@ -1,25 +1,24 @@
 import React from 'react';
 import styled from 'styled-components';
-import Bar from './Bar.jsx';
+import Bar from './Bar';
 
-function Breakdown(props) {
+function Breakdown({ meta, isLoaded, totalRatings, ratingFilter, setRatingFilter }) {
   return (
     <div>
-
-      {!props.isLoaded && <p>loading . . .</p>}
-      {props.isLoaded && (
+      {!isLoaded && <p>loading . . .</p>}
+      {isLoaded && (
         <BreakContainer>
           <div>
-            {Math.round(100 * (parseInt(props.meta.recommended.true)
-            / parseInt(props.totalRatings)))
-            + "% of reviewers recommend this item."}
+            {`${Math.round(100 * (parseInt(meta.recommended.true)
+            / parseInt(totalRatings)))
+            }% of reviewers recommend this item.`}
           </div>
           <div>
-            <Bar star="5" percentage={(props.meta.ratings['5'] / props.totalRatings) * 100} setRatingFilter={props.setRatingFilter} />
-            <Bar star="4" percentage={(props.meta.ratings['4'] / props.totalRatings) * 100} setRatingFilter={props.setRatingFilter} />
-            <Bar star="3" percentage={(props.meta.ratings['3'] / props.totalRatings) * 100} setRatingFilter={props.setRatingFilter} />
-            <Bar star="2" percentage={(props.meta.ratings['2'] / props.totalRatings) * 100} setRatingFilter={props.setRatingFilter} />
-            <Bar star="1" percentage={(props.meta.ratings['1'] / props.totalRatings) * 100} setRatingFilter={props.setRatingFilter} />
+            <Bar star="5" percentage={(meta.ratings['5'] / totalRatings) * 100} setRatingFilter={setRatingFilter} ratingFilter={ratingFilter} />
+            <Bar star="4" percentage={(meta.ratings['4'] / totalRatings) * 100} setRatingFilter={setRatingFilter} ratingFilter={ratingFilter} />
+            <Bar star="3" percentage={(meta.ratings['3'] / totalRatings) * 100} setRatingFilter={setRatingFilter} ratingFilter={ratingFilter} />
+            <Bar star="2" percentage={(meta.ratings['2'] / totalRatings) * 100} setRatingFilter={setRatingFilter} ratingFilter={ratingFilter} />
+            <Bar star="1" percentage={(meta.ratings['1'] / totalRatings) * 100} setRatingFilter={setRatingFilter} ratingFilter={ratingFilter} />
           </div>
         </BreakContainer>
       )}
@@ -32,7 +31,6 @@ const BreakContainer = styled.div`
   font-size: x-small;
   font-weight: light;
   margin-top: 7%;
-  width: 200px;
-`
+`;
 
 export default Breakdown;
