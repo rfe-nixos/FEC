@@ -134,6 +134,12 @@ export const StyledCard = styled.div`
     align-items: center;
     text-align:center;
     transform: translateY(450%);
+    cursor:pointer;
+  }
+  //  Add once transform problem is resolved
+  #addOutfitContainer:hover,
+  #addOutfitContainer:focus {
+
   }
 `;
 

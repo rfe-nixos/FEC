@@ -4,9 +4,7 @@ import { StyledModal, ModalOverlay } from './styles/list.styled';
 import { currentProductDataContext } from './related-items';
 
 function Comparison({ closeModal, currentProduct }) {
-  const [comparisonObj, setComparisonObj] = useState();
   const overviewProductData = useContext(currentProductDataContext);
-
   const getComparisonData = (currentObjArr, overviewObjArr) => {
     const featureStore = {};
     let index = 0;

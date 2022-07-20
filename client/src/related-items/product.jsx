@@ -44,7 +44,7 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
     );
   } else {
     relatedAction = (
-      <FaStar className="relatedAction" onClick={() => setOpenModal(true)} />
+      <FaStar className="relatedAction" onClick={() => setOpenModal(true) } />
     );
   }
 
@@ -86,7 +86,6 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
           <p className="cardPrice">{formattedCard.price}</p>
           <p className="discountedCardPrice">{formattedCard.discountedPrice}</p>
           {/* TODO: Rating needs to be updated to show stars up to 1/4  */}
-          {/* <p className="cardRating">{formattedCard.rating}</p> */}
           <Star average={formattedCard.rating} />
         </div>
       </StyledCard>

@@ -12,7 +12,6 @@ import { RelatedItemsStyleContainer } from './styles/list.styled';
 export const currentProductDataContext = React.createContext();
 
 function RelatedItems() {
-  const [productListStateIds, setProductListStateIds] = useState();
   const [relatedProductStyles, setRelatedProductStyles] = useState();
   const [relatedProduct_ids, setRelatedProduct_ids] = useState();
   const [relatedProductReviews, setRelatedProductReviews] = useState();
@@ -39,7 +38,7 @@ function RelatedItems() {
       .then((prodObjArr) => {
         const unformattedObjArr = prodObjArr.map((prod) => prod.data);
         unformattedObjArr.map((unformattedObj) => {
-          let styleArr = unformattedObj.results;
+          const styleArr = unformattedObj.results;
           unformattedObj.results = styleArr.filter(
             (style) => style['default?'] === true
           );
@@ -179,7 +178,6 @@ function RelatedItems() {
     };
     axios(config)
       .then((response) => {
-        setProductListStateIds(response.data);
         return Promise.all([
           getStylesArr(response.data),
           get_idsArr(response.data),

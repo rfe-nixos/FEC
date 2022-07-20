@@ -15,9 +15,6 @@ function OutfitList({
   // console.log(relatedProductStyles,relatedProduct_ids,relatedProductReviews);
   // Combine states using obj to organize by product ID
   const cardFormatter = (reviews, ids, styles) => {
-    console.log(reviews);
-    console.log(ids);
-    console.log(styles);
     //Clean this up, revise so that it reflects the current overview card
     const formattedCards = [];
     const reviewTotal = reviews.results.reduce(
@@ -25,7 +22,6 @@ function OutfitList({
       0
     );
     const reviewAvg = reviewTotal / (reviews.results.length - 1);
-    console.log('REVIEWSSSSS', reviewAvg);
     const formattedCard = {
       id: styles.product_id || null,
       image: styles.results[0].photos || null,
@@ -37,7 +33,6 @@ function OutfitList({
       description: ids.description || null,
       features: ids.features || null,
     };
-    console.log(formattedCard);
     return formattedCard;
   };
 
@@ -58,7 +53,6 @@ function OutfitList({
       relatedProduct_ids,
       relatedProductStyles
     );
-    console.log('EMOJI', overviewObj);
     currentStorage.push(overviewObj);
     localStorage.setItem('outfits', JSON.stringify(currentStorage));
     setLocalStorageState(currentStorage);
@@ -68,7 +62,6 @@ function OutfitList({
     let currentStorage;
     if (localStorage.getItem('outfits')) {
       currentStorage = JSON.parse(localStorage.getItem('outfits'));
-      console.log('CURRENT', currentStorage);
     } else {
       return <div>Choose an Outfit</div>;
     }
