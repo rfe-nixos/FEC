@@ -4,21 +4,19 @@ import styled from 'styled-components';
 function FormInput({ attribute, changeHandler }) {
   return (
     <Label>
-      <div>
+      <div style={{ 'fontWeight': 'bold' }}>
         {attribute.label}
-        {attribute.mandatory && <span style={{ 'fontSize': '0.8rem', display: 'inline' }}> *</span>}
+        {attribute.required && <sup>*</sup>}
       </div>
       {attribute.type === 'textarea'
       && (
         <Textarea
-          onChange={changeHandler}
           {...attribute}
         />
       )}
       {attribute.type !== 'textarea'
       && (
         <Input
-        onChange={changeHandler}
           {...attribute}
         />
       )}
@@ -30,14 +28,14 @@ export default FormInput;
 
 const Label = styled.label`
   display: flex;
-  font-size: 1rem;
   flex-direction: column;
-  padding-top: 20px;
+  padding-top: 10px;
+  font-weigt: bold;
 `;
 
 const Textarea = styled.textarea`
   width: 100%;
-  height: 80px;
+  height: 100px;
 `;
 
 const Input = styled.input`

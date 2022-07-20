@@ -1,6 +1,26 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
-import ratingToPercentage from '../lib/ratingToPercentage.js';
+
+function Bar(props) {
+  const [isClicked, setIsClicked] = useState(false);
+
+  const setRatingFilter = () => {
+    // console.log('clicked bar, should set rating filter');
+    props.setRatingFilter(props.star);
+    !isClicked ? setIsClicked(true) : setIsClicked(false);
+  };
+
+  return (
+    <BarContainer>
+      <StarCount>{props.star}</StarCount>
+      <OuterBar id={`bar-${props.star}`} isClicked={isClicked} onClick={setRatingFilter}><InnerBar width={props.percentage} /></OuterBar>
+    </BarContainer>
+  );
+}
+
+const StarCount = styled.div`
+  border-bottom: .5px solid black;
+`;
 
 const BarContainer = styled.div`
   font-size: xx-small;
@@ -16,12 +36,14 @@ const OuterBar = styled.div`
   position: relative;
   width: 100%;
   height: 10px;
+  border: ${(props) => (props.isClicked ? '1px solid black' : 'none')};
   background-color: #d9d9d9;
   margin-left: 5%;
   &:hover{
     opacity:70%;
     cursor: pointer;
   }
+  transition: opacity .2s;
 `;
 
 const InnerBar = styled.div`
@@ -33,37 +55,6 @@ const InnerBar = styled.div`
   height: 10px;
   width: ${(props) => props.width}%;
   background-color: #1c1c1c;
-`;
-
-class Bar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      resultsFilter: {}
-    }
-    this.setRatingFilter = this.setRatingFilter.bind(this);
-  }
-
-  setRatingFilter() {
-    this.props.setRatingFilter(this.props.star);
-  }
-
-  render() {
-    return (
-      <BarContainer>
-        <StarCount>{this.props.star}</StarCount>
-        <OuterBar onClick={this.setRatingFilter}><InnerBar width={this.props.percentage} /></OuterBar>
-      </BarContainer>
-    );
-  }
-}
-
-const StarCount = styled.div`
-  border-bottom: .5px solid black;
-  /* &:hover{
-    opacity:70%;
-    cursor: pointer;
-  } */
 `;
 
 export default Bar;

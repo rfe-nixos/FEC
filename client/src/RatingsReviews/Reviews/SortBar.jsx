@@ -1,19 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function SortBar(props) {
+function SortBar({ setSort, totalRatings, page, reviews }) {
   const sort = (e) => {
-    props.setSortOption(e.target.value);
+    setSort(e.target.value);
   };
 
   return (
     <StyledSortBar>
-      {props.reviews.length} of {props.totalRatings} reviews, sorted by
-      <StyledDropDown id="sort" onChange={sort}>
+      {page * 5}
+      {' '}
+      of
+      {' '}
+      {totalRatings}
+      {' '}
+      reviews, sorted by
+      <Select id="sort" onChange={sort}>
         <option value="relevance">Relevance</option>
         <option value="newest">Newest</option>
         <option value="helpful">Helpfulness</option>
-      </StyledDropDown>
+      </Select>
     </StyledSortBar>
   );
 }
@@ -24,9 +30,10 @@ const StyledSortBar = styled.div`
   font-weight: bold;
   font-size: 15px;
   width: 100%;
+  align-items: baseline;
 `;
 
-const StyledDropDown = styled.select`
+const Select = styled.select`
   margin-left: 1.5%;
   font-weight: bold;
   background: white;
@@ -34,7 +41,7 @@ const StyledDropDown = styled.select`
   border: none;
   border-bottom: 1px solid black;
   align-self: flex-end;
-  margin-bottom: .4%;
+  margin-bottom: .1%;
 `;
 
 export default SortBar;

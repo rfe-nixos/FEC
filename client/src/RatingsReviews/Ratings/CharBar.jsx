@@ -1,20 +1,21 @@
 import React from 'react';
 import styled from 'styled-components';
-import Char from './Char.jsx';
+import Char from './Char';
 import ratingToPercentage from '../lib/ratingToPercentage';
 
 function CharBar({ rating, char, chars }) {
   return (
     <BarContainer>
-      <StarCount>{char}: </StarCount>
+      <StarCount>
+        {char}
+        :
+        {' '}
+      </StarCount>
       <OuterBar>
-        <InnerBar width={ratingToPercentage(rating)}>
-        </InnerBar>
+        <InnerBar width={ratingToPercentage(rating)} />
       </OuterBar>
       <CharList>
-        {chars.map((c, index) => {
-          return <Char char={c} key={index}/>
-        })}
+        {chars.map((c) => <Char char={c} key={c} />)}
       </CharList>
     </BarContainer>
   );
@@ -42,13 +43,13 @@ const OuterBar = styled.div`
 
 const InnerBar = styled.div`
   position: absolute;
-  top: 50%;
-  left: ${props => props.width};
+  top: 56%;
+  left: ${(props) => props.width};
   white-space: nowrap;
   overflow: hidden;
-  width:auto;
-  height: 20px;
-  font-size:x-small;
+  width: auto;
+  height: 24px;
+  font-size:small;
   transform: translate(-50%, -50%);
   &:before {
     content: "▼";
@@ -60,10 +61,10 @@ const CharList = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-`
+`;
 
 const StarCount = styled.div`
 
-`
+`;
 
 export default CharBar;

@@ -1,44 +1,31 @@
 import React from 'react';
-import Breakdown from './Breakdown.jsx';
-import Characteristics from './Characteristics.jsx';
-import Summary from './Summary.jsx';
 import styled from 'styled-components';
+import Breakdown from './Breakdown';
+import Characteristics from './Characteristics';
+import Summary from './Summary';
 
-class Ratings extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      meta: {},
-      ratings: {},
-      totalRatings: 0,
-      isLoaded: false,
-    };
-    // this.getRatings = this.getRatings.bind(this);
-  }
-
-  render() {
-    return (
-      <RatingsContainer>
-        <Summary
-          meta={this.props.meta}
-          average={this.props.average}
-          totalRatings={this.props.totalRatings}
-          isLoaded={this.props.isLoaded}
-        />
-        <Breakdown
-          meta={this.props.meta}
-          isLoaded={this.props.isLoaded}
-          totalRatings={this.props.totalRatings}
-          setRatingFilter={this.props.setRatingFilter}
-          ratingFilter={this.props.ratingFilter}
-        />
-        <Characteristics
-          meta={this.props.meta}
-          isLoaded={this.props.isLoaded}
-        />
-      </RatingsContainer>
-    );
-  }
+function Ratings({ meta, average, totalRatings, isLoaded, setRatingFilter, ratingFilter }) {
+  return (
+    <RatingsContainer id="ratings-main">
+      <Summary
+        meta={meta}
+        average={average}
+        totalRatings={totalRatings}
+        isLoaded={isLoaded}
+      />
+      <Breakdown
+        meta={meta}
+        isLoaded={isLoaded}
+        totalRatings={totalRatings}
+        setRatingFilter={setRatingFilter}
+        ratingFilter={ratingFilter}
+      />
+      <Characteristics
+        meta={meta}
+        isLoaded={isLoaded}
+      />
+    </RatingsContainer>
+  );
 }
 
 const RatingsContainer = styled.div`
@@ -46,7 +33,7 @@ const RatingsContainer = styled.div`
   flex-direction: column;
   padding: 1%;
   margin-top: -1%;
-  width: auto;
-`
+  width: 40%;
+`;
 
 export default Ratings;

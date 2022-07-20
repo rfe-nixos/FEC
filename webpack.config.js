@@ -13,7 +13,7 @@ module.exports = {
   // [output] is a configuration object to determine how and where to bundle our code
   output: {
     // [path] is where to output
-    path: path.join(__dirname, '/client/public'),
+    path: path.join(__dirname, 'client/public'),
     // [filename] is the name of the file
     filename: 'bundle.js',
   },
