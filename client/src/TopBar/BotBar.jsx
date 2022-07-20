@@ -86,12 +86,16 @@ const RightDiv = styled.div`
 `;
 
 const TitleInner = styled.div`
+<<<<<<< HEAD
   display: flex;
   width: 90%;
   height: 100%;
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
+=======
+z-index: 200;
+>>>>>>> main
   font-size: 10px;
   letter-spacing: 5px;
   margin-right: 0%;
@@ -103,8 +107,13 @@ const TitleInner = styled.div`
 `;
 
 const TitleDiv = styled.div`
+<<<<<<< HEAD
   width: 70%;
   height: 30px;
+=======
+z-index: 200;
+  width: 100%;
+>>>>>>> main
   display: flex;
   flex-direction: row;
   align-items: center;
