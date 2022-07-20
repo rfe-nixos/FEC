@@ -13,7 +13,7 @@ import { QuestionListProvider } from '../contexts/QuestionListContext';
 require('dotenv').config();
 
 it('matches snapshot', async () => {
-  const { asFragment } = await render(
+  const { getAllByText } = await render(
     <CurrentProductProvider>
       <QuestionListProvider>
         <QuestionsAnswers />
@@ -22,6 +22,5 @@ it('matches snapshot', async () => {
   );
 
   await waitForElementToBeRemoved(screen.getByText('No Questions Available.'));
-  expect(asFragment()).toMatchSnapshot();
-  screen.debug();
+  expect(getAllByText('Q:').length > 0).toBe(true);
 });

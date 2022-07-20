@@ -5,7 +5,7 @@ import RatingsReviews from './RatingsReviews/RatingsReviews';
 import QuestionsAnswers from './QuestionsAnswers/QuestionsAnswers';
 import RelatedItems from './related-items/related-items';
 import { CurrentProductProvider } from './context';
-import { QuestionListProvider } from './questionsAnswers/contexts/QuestionListContext';
+import { QuestionListProvider } from './QuestionsAnswers/contexts/QuestionListContext';
 
 function App() {
   return (
