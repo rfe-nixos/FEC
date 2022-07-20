@@ -22,6 +22,7 @@ function AddAnswerForm({ show, setShowModal, question, submitHandler, productNam
     <FormInput
       attribute={{
         label: 'Your Answer',
+        'data-testid': 'answer-input',
         type: 'textarea',
         name: 'body',
         value: formValue.body,
@@ -40,6 +41,7 @@ function AddAnswerForm({ show, setShowModal, question, submitHandler, productNam
       <FormInput
         attribute={{
           label: 'What is your nickname',
+          'data-testid': 'username-input',
           type: 'text',
           name: 'name',
           value: formValue.name,
@@ -60,6 +62,7 @@ function AddAnswerForm({ show, setShowModal, question, submitHandler, productNam
       <FormInput
         attribute={{
           label: 'Your email',
+          'data-testid': 'email-input',
           type: 'email',
           name: 'email',
           value: formValue.email,

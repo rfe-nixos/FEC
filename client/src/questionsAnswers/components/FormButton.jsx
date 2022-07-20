@@ -7,7 +7,7 @@ export default function FormButton({ handleSubmit = () => {}, handleClose }) {
       <StyledButton type="submit" onClick={handleSubmit} data-testid="form-button-test">
         Submit
       </StyledButton>
-      <StyledButton onClick={handleClose}>
+      <StyledButton onClick={handleClose} data-testid="close-button-test">
         Close
       </StyledButton>
     </DivButton>

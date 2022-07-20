@@ -19,7 +19,7 @@ export default function UploadedImages({ photos, resetPhotos }) {
             src={photo.file}
           />
           <FlexRow>
-            <DeleteButton onClick={deleteImage} value={index}>x</DeleteButton>
+            <DeleteButton onClick={deleteImage} value={index} data-testid="delete-button">x</DeleteButton>
             {photo.name}
           </FlexRow>
         </FlexCol>

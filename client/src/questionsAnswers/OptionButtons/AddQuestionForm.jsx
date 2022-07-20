@@ -23,6 +23,7 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
       <FormInput
         attribute={{
           id: 'question-input',
+          'data-testid': 'question-input',
           label: 'Your Question',
           type: 'textarea',
           name: 'body',
@@ -44,6 +45,7 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
       <FormInput
         attribute={{
           id: 'username-input',
+          'data-testid': 'username-input',
           label: 'What is your nickname',
           type: 'username',
           name: 'name',
@@ -64,6 +66,7 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
     <FormInput
       attribute={{
         id: 'email-input',
+        'data-testid': 'email-input',
         label: 'Your email',
         type: 'email',
         name: 'email',
@@ -95,7 +98,7 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
 
   return (
     <Modal>
-      <PopupForm id={`${productId}-popup`} onSubmit={handleSubmit}>
+      <PopupForm id={`${productId}-popup`} data-testid='add-question-form' onSubmit={handleSubmit}>
         <Header>
           <Title>
             Ask Your Question

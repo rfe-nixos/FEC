@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import FormInput from '../../components/FormInput';
 import UploadedImages from './UploadedImages';
 
-export default function ImageInput({ formValue, setFormValue }) {
+export default function ImageInput({ formValue, setFormValue, testFunc }) {
   const [imageInvalid, setImageInvalid] = useState(false);
   const reader = new FileReader();
 
@@ -27,6 +27,7 @@ export default function ImageInput({ formValue, setFormValue }) {
         setImageInvalid(false);
       };
       img.onerror = () => {
+        testFunc();
         setImageInvalid(true);
       };
       img.src = event.target.result;
@@ -53,11 +54,12 @@ export default function ImageInput({ formValue, setFormValue }) {
               name: 'photos',
               placeholder: '',
               id: 'image-input',
+              'data-testid': 'image-input',
               style: { display: 'none' },
               onChange: fileChangeHandler,
             }}
           />
-          <StyledDivButton>Select photo</StyledDivButton>
+          <StyledDivButton data-testid="photo-uploader">Select photo</StyledDivButton>
           {imageInvalid && <div style={{ color: 'red' }}>Invalid image content.</div> }
         </label>
       )}
