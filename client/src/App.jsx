@@ -2,13 +2,13 @@ import React, { useRef, useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import RatingsReviews from './RatingsReviews/RatingsReviews';
-import QuestionAnswer from './questionsAnswers/QuestionAnswers';
+import QuestionsAnswers from './QuestionsAnswers/QuestionsAnswers';
 import RelatedItems from './related-items/related-items';
 import Overview from './product-details/Overview';
 import TopBar from './TopBar/TopBar';
 import BotBar from './TopBar/BotBar';
 import { CurrentProductProvider } from './context';
-import { QuestionListProvider } from './questionsAnswers/contexts/QuestionListContext';
+import { QuestionListProvider } from './QuestionsAnswers/contexts/QuestionListContext';
 
 function App() {
   const ratingsRef = useRef();
@@ -58,7 +58,7 @@ function App() {
         <Overview />
         <RelatedItems />
         <QuestionListProvider>
-          <QuestionAnswer ref={qaRef} />
+          <QuestionsAnswers ref={qaRef} />
         </QuestionListProvider>
         <RatingsReviews ref={ratingsRef} />
         <BotBar />
