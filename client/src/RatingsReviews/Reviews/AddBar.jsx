@@ -14,9 +14,6 @@ class AddBar extends React.Component {
 
   moreReviews(e) {
     e.preventDefault();
-    console.log(e);
-    let time = new Date().toLocaleTimeString();
-    console.log(time);
     this.props.moreReviews();
   }
 
@@ -28,9 +25,9 @@ class AddBar extends React.Component {
 
   render() {
     return (
-      <AddBarMain>
-        <StyledButton onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
-        <StyledButton onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
+      <AddBarMain data-testid="addbar-1">
+        <StyledButton data-testid="morebutton" onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
+        <StyledButton data-testid="addbutton" onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
         {this.state.formShowing && <ReviewForm productId={this.props.productId} addReview={this.props.addReview} toggleForm={this.toggleForm} />}
       </AddBarMain>
     );

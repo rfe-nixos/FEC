@@ -7,7 +7,7 @@ function SortBar({ setSort, totalRatings, page, reviews }) {
   };
 
   return (
-    <StyledSortBar>
+    <StyledSortBar data-testid="sortbar-1">
       {page * 5}
       {' '}
       of
@@ -15,9 +15,9 @@ function SortBar({ setSort, totalRatings, page, reviews }) {
       {totalRatings}
       {' '}
       reviews, sorted by
-      <Select id="sort" onChange={sort}>
-        <option value="relevance">Relevance</option>
-        <option value="newest">Newest</option>
+      <Select data-testid="sortoptions" id="sort" onChange={sort}>
+        <option data-testid="relevance" value="relevance">Relevance</option>
+        <option data-testid="newest-option" value="newest">Newest</option>
         <option value="helpful">Helpfulness</option>
       </Select>
     </StyledSortBar>

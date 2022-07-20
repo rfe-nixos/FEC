@@ -10,7 +10,7 @@ function PhotoPopup({ photoUrl, togglePhotoPop }) {
 
   return (
     <StyledForm onClick={handleClick} id="photopop">
-      <StyledInner id="photopop-inner">
+      <StyledInner id="photopop-inner" data-testid="photopop">
         <StyledImg src={photoUrl} />
         <StyledButton onClick={togglePhotoPop}>CLOSE</StyledButton>
       </StyledInner>

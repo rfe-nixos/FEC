@@ -63,7 +63,7 @@ class ReviewTile extends React.Component {
             {this.props.review.photos.length > 0
               && (
               <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => <StyledImg key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
+                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
               </PhotoDiv>
               )}
             {(this.state.openPhotoPop) && (<PhotoPopup photoUrl={this.state.photo} togglePhotoPop={this.togglePhotoPop} />)}
@@ -78,11 +78,11 @@ class ReviewTile extends React.Component {
               )}
           </TileDiv>
           <TileBot>
-            <span>
+            <span data-testid="review-helpful">
               Helpful?
             </span>
-              <Spanny onClick={this.markHelpful}><u>Yes</u></Spanny>
-            <span>
+            <Spanny data-testid={`helpful-button-${this.props.index}`} onClick={this.markHelpful}><u>Yes</u></Spanny>
+            <span data-testid={`helpful-count-${this.props.index}`}>
               {`(${this.props.review.helpfulness})    |  `}
             </span>
             <Spanny onClick={this.report}><u>Report</u></Spanny>
@@ -95,7 +95,7 @@ class ReviewTile extends React.Component {
 
 const TileDiv = styled.div`
   width: 100%;
-`
+`;
 
 const Spanny = styled.span`
   font-size: x-small;
@@ -105,7 +105,7 @@ const Spanny = styled.span`
   }
   margin-left: 2%;
   margin-right: 1%;
-`
+`;
 
 const Seller = styled.div`
   width: 90%;

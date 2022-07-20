@@ -98,7 +98,6 @@ const RatingsReviews = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    console.log('ratingfilter is changing');
     if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
       getByRating();
       setFilteredByRating(true);
@@ -184,6 +183,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             getReviews={getReviews}
             scrollMore={scrollMore}
             page={page}
+            isLoaded={isLoaded}
           />
         )}
         {(!filteredByRating) && (
@@ -196,6 +196,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             getReviews={getReviews}
             scrollMore={scrollMore}
             page={page}
+            isLoaded={isLoaded}
           />
         )}
       </StyledInner>

@@ -166,7 +166,7 @@ class ReviewForm extends React.Component {
     };
     if (!reviewBody.rating) {
       alert('please enter rating');
-    } else if (reviewBody.body.length < 20) {
+    } else if (reviewBody.body.length < 5) {
       alert('body must be at least 20 characters');
     } else if (!reviewBody.email) {
       alert('please enter email');
@@ -176,6 +176,7 @@ class ReviewForm extends React.Component {
       alert('please enter nickname');
     } else {
       this.props.addReview(reviewBody);
+      this.props.toggleForm();
     }
   }
 
@@ -205,7 +206,6 @@ class ReviewForm extends React.Component {
     if(this.state.photoUrls.length >= 5) {
       alert('you have reached the maximum number of photos');
     } else {
-      console.log(photo);
       let temp = [...this.state.photos, photo];
       this.setState({photos: temp});
     }
@@ -235,7 +235,7 @@ class ReviewForm extends React.Component {
 
   render() {
     return (
-      <StyledForm onClick={this.handleBgClick} id="addreview-bg">
+      <StyledForm onClick={this.handleBgClick} id="addreview-bg" data-testid="addreviewform">
         <StyledInner id="addreview-inner">
           <InnerTop>
             <div>Write a Review.</div>
@@ -253,14 +253,14 @@ class ReviewForm extends React.Component {
               Review Headline
               <sup>*</sup>
             </div>
-            <StyledTextArea placeholder="Example: Best purchase ever!" name="summary" onChange={this.handleChange} />
+            <StyledTextArea data-testid="summary-input" placeholder="Example: Best purchase ever!" name="summary" onChange={this.handleChange} />
           </StyledCat>
           <StyledCat>
             <div>
               Comments
               <sup>*</sup>
             </div>
-            <StyledTextArea placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
+            <StyledTextArea data-testid="body-input" placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
           </StyledCat>
           <StyledCat>
             <div>
@@ -285,21 +285,21 @@ class ReviewForm extends React.Component {
           </StyledCat>
           <StyledCat>
             <div>Nickname</div>
-            <StyledInput placeholder="Example: snoibly123" name="name" onChange={this.handleChange} />
+            <StyledInput data-testid="name-input" placeholder="Example: snoibly123" name="name" onChange={this.handleChange} />
           </StyledCat>
           <p><em>For privacy reasons, do not use your full name or email address</em></p>
           <StyledCat>
             <div>Email*</div>
-            <StyledInput placeholder="Example: snoibly@snois.com" name="email" onChange={this.handleChange} />
+            <StyledInput data-testid="email-input" placeholder="Example: snoibly@snois.com" name="email" onChange={this.handleChange} />
           </StyledCat>
           <p><em>For authentication reasons, you will not be emailed.</em></p>
           <StyledCat>
             <div>Photos</div>
-            {(!this.state.openPhotoForm) && <StyledButton onClick={this.togglePhotoForm}>upload</StyledButton>}
+            {(!this.state.openPhotoForm) && <StyledButton id="uploadphoto" onClick={this.togglePhotoForm}>upload</StyledButton>}
             {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto} addUrl={this.addUrl} />}
           </StyledCat>
           <InnerBot>
-            <StyledButton onClick={this.addReview}>SUBMIT</StyledButton>
+            <StyledButton data-testid="submit-button" onClick={this.addReview}>SUBMIT</StyledButton>
             <StyledButton onClick={this.closeForm}>BACK</StyledButton>
           </InnerBot>
 

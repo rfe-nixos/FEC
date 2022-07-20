@@ -10,7 +10,7 @@ function Summary({ average, totalRatings, isLoaded }) {
         && (
         <div>
           <StyledSummary>
-            <BigRating>{`${average}`}</BigRating>
+            <BigRating data-testid="averagerating">{`${average}`}</BigRating>
             <Star average={average} />
           </StyledSummary>
           <div>
