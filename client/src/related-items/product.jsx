@@ -5,6 +5,7 @@ import { StyledCard } from './styles/list.styled.js';
 import Comparison from './comparison.jsx';
 import { useCurrentProductUpdate } from '../context.jsx';
 import { ImCancelCircle } from 'react-icons/im';
+import Star from '../RatingsReviews/Ratings/Star';
 
 function Product({ formattedCard, outfit, setLocalStorageState }) {
   // States
@@ -85,7 +86,8 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
           <p className="cardPrice">{formattedCard.price}</p>
           <p className="discountedCardPrice">{formattedCard.discountedPrice}</p>
           {/* TODO: Rating needs to be updated to show stars up to 1/4  */}
-          <p className="cardRating">{formattedCard.rating}</p>
+          {/* <p className="cardRating">{formattedCard.rating}</p> */}
+          <Star average={formattedCard.rating} />
         </div>
       </StyledCard>
 
