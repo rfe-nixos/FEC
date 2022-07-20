@@ -16,6 +16,7 @@ function BotBar() {
 }
 
 const TitleInner = styled.div`
+z-index: 200;
   font-size: 10px;
   letter-spacing: 5px;
   margin-right: 0%;
@@ -26,6 +27,7 @@ const TitleInner = styled.div`
 `;
 
 const TitleDiv = styled.div`
+z-index: 200;
   width: 100%;
   display: flex;
   flex-direction: row;

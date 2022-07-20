@@ -22,6 +22,7 @@ function SearchList({ products, query, toggleSearch }) {
 }
 
 const StyledList = styled.div`
+z-index: 200;
   margin: 2%;
   max-height: 300px;
   width: 80%;
