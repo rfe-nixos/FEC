@@ -1,14 +1,15 @@
 import React from 'react';
-import { render, screen, cleanup, fireEvent, queryByAttribute, waitFor } from '@testing-library/react';
+import {
+  render, screen, cleanup, fireEvent, queryByAttribute, waitFor,
+} from '@testing-library/react';
 import renderer from 'react-test-renderer';
-import ReviewForm from '../Reviews/AddReview/ReviewForm';
 import { toBeInTheDocument } from '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
-import {jest} from '@jest/globals';
+import { jest } from '@jest/globals';
+import ReviewForm from '../Reviews/AddReview/ReviewForm';
 
 test('renders reviewform correctly', () => {
   const reviewForm = renderer.create(<ReviewForm />);
-
   expect(typeof reviewForm).toEqual('object');
 });
 
@@ -16,36 +17,35 @@ const getById = queryByAttribute.bind(null, 'id');
 
 test('star rating bar does something when clicked', () => {
   const reviewForm = render(<ReviewForm />);
-  //const fivestar = screen.getByTestId('fivestar');
   const fivestar = getById(reviewForm.container, 'star-5');
-  let before = fivestar.textContent;
+  const before = fivestar.textContent;
   console.log(before);
   fireEvent.click(fivestar);
-  let after = fivestar.textContent;
+  const after = fivestar.textContent;
   console.log(after, 'after');
   expect(before).not.toBe(after);
-})
+});
 
 test('star rating bar does something when clicked', () => {
   const reviewForm = render(<ReviewForm />);
   const fivestar = getById(reviewForm.container, 'star-5');
   const fourstar = getById(reviewForm.container, 'star-4');
   fireEvent.click(fivestar); // fivestar should be solid now
-  let before = fivestar.textContent;
+  const before = fivestar.textContent;
   console.log(before);
   fireEvent.click(fourstar); // clicking fourstar should make fivestar white.
-  let after = fivestar.textContent;
+  const after = fivestar.textContent;
   console.log(after, 'after');
   expect(before).not.toBe(after);
-})
+});
 
 test('characteristics ratings does something when clicked', () => {
   const reviewForm = render(<ReviewForm />);
   const charbutton = getById(reviewForm.container, '125031-3');
-  let before = charbutton.style.backgroundColor;
+  const before = charbutton.style.backgroundColor;
   console.log(before);
   fireEvent.click(charbutton);
-  let after = charbutton.style.backgroundColor;
+  const after = charbutton.style.backgroundColor;
   console.log(after, 'after');
   expect(before).not.toBe(after);
 });
@@ -55,11 +55,9 @@ test('button should change when other button is clicked', () => {
   const charbutton = getById(reviewForm.container, '125031-3');
   const charbutton2 = getById(reviewForm.container, '125031-2');
   fireEvent.click(charbutton);
-  let before = charbutton.style.backgroundColor;
-  console.log(before);
+  const before = charbutton.style.backgroundColor;
   fireEvent.click(charbutton2);
-  let after = charbutton.style.backgroundColor;
-  console.log(after, 'after');
+  const after = charbutton.style.backgroundColor;
   expect(before).not.toBe(after);
 });
 
@@ -71,35 +69,33 @@ test('clicking uploadphoto button should load photoform', () => {
   const photouploadform = screen.getByTestId('photouploadform');
 
   expect(photouploadform).toBeInTheDocument();
-})
+});
 
 const setMock = jest.fn();
 afterEach(() => {
   jest.clearAllMocks();
 });
 
-test ('should modify input value', async () => {
-
+test('should modify input value', async () => {
   const reviewForm = render(<ReviewForm
     addReview={() => {}}
     productId={37311}
-    toggleForm={()=>{}}
-    />);
+    toggleForm={() => {}}
+  />);
   const input = screen.getByTestId('name-input');
   await userEvent.type(input, 'name');
 
   expect(input.value).toBe('name');
+});
 
-})
-
-test ('submit form after inputs', async () => {
-  const jsdomAlert = window.alert;  // remember the jsdom alert
-  window.alert = () => {};  // provide an empty implementation for window.alert
+test('submit form after inputs', async () => {
+  const jsdomAlert = window.alert; // remember the jsdom alert
+  window.alert = () => {}; // provide an empty implementation for window.alert
   const reviewForm = render(<ReviewForm
     addReview={() => {}}
     productId={37311}
     toggleForm={setMock}
-    />);
+  />);
 
   const summaryInput = screen.getByTestId('summary-input');
   const nameInput = screen.getByTestId('name-input');
@@ -128,4 +124,4 @@ test ('submit form after inputs', async () => {
   await waitFor(() => expect(setMock).toHaveBeenCalled());
 
   window.alert = jsdomAlert;
-})
+});

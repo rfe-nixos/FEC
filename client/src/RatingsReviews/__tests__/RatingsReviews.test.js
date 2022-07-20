@@ -102,7 +102,7 @@ test('shoul;d uh simulate select', async () => {
       <RatingsReviews />
     </CurrentProductProvider>
   );
-  const firstRender = asFragment();
+  //const firstRender = asFragment();
   let newest = screen.findByTestId('newest-option');
   await userEvent.selectOptions(screen.getByTestId('sortoptions'), screen.getByTestId('newest-option'));
   expect(screen.getByTestId('newest-option').selected).toBeTruthy();

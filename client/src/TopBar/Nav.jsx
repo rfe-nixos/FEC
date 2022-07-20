@@ -26,7 +26,7 @@ function Nav({ ratingsRef, qaRef }) {
 
   return (
     <NavMain>
-      <NavTop onClick={toggleNav}>
+      <NavTop id="nav-top" onClick={toggleNav}>
         <Name>NAV</Name>
       </NavTop>
       <NavBot showNav={showNav} id="nav-bot">

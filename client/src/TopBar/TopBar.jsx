@@ -16,20 +16,25 @@ const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
 
   return (
     <TitleDiv id="top-bar" ref={ref}>
-      <TitleImg
-        src="public/icons/nixatelier.png"
-        alt="nixatelier"
-        onClick={refresh}
-      />
+
       <Div>
         <Nav ratingsRef={ratingsRef} qaRef={qaRef} />
       </Div>
       <Div>
-        <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
-          <TitleInner>ABOUT</TitleInner>
-        </Link>
-        <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
+        <TitleImg
+          src="public/icons/nixatelier.png"
+          alt="nixatelier"
+          onClick={refresh}
+        />
       </Div>
+      <RightDiv>
+        <Div>
+          <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
+            ABOUT
+          </Link>
+        </Div>
+        <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
+      </RightDiv>
 
       {(searching) && (<SearchThing toggleSearch={toggleSearch} />)}
     </TitleDiv>
@@ -39,15 +44,33 @@ const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
 const Div = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  font-size: 10px;
+  letter-spacing: 5px;
   align-items: center;
+  width: 30%;
+  height: 100%;
+`;
+
+const RightDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
+  height: 100%;
 `;
 
 const Link = styled.a`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 30%;
+  height: 100%;
   &:link { text-decoration: none; }
   &:visited { text-decoration: none; }
   &:hover { cursor: pointer; opacity: 60%;}
   &:active { text-decoration: none; }
-  margin-right: 5%;
 `;
 
 const TitleImg = styled.img`
@@ -64,15 +87,20 @@ const TitleImg = styled.img`
 `;
 
 const TitleInner = styled.div`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
   font-size: 10px;
   letter-spacing: 5px;
-  margin-right: 50px;
   &:hover{
     cursor: pointer;
     opacity: 60%;
   }
   align-items: center;
   justify-content: center;
+  width: 30%;
+  height: 100%;
+  margin-left: 10%;
 `;
 
 const TitleDiv = styled.div`
