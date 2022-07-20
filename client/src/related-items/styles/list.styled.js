@@ -1,45 +1,57 @@
 import styled from 'styled-components';
 
 export const StyledList = styled.div`
+
+#relatedList, #outfitList {
   display: flex;
-  flex-wrap: nowrap;
+  flex-direction:row;
   overflow: scroll;
+  scroll-behavior: smooth;
+  border-radius: 8px;
+  /* box-shadow: 0px 0px 4px; */
   gap: 2rem;
-  align-items: flex-start;
-  /* display: grid;
-  margin-top: 5em;
-  margin-bottom: 5em;
-  grid-template-columns: repeat(auto-fit, minmax(auto, 200px));
-  grid-template-rows: repeat(auto-fit, minmax(12rem, auto));
-  gap: 2rem;
-  align-items: flex-start;
-  justify-content: center;
-  position: relative; */
+  margin-left: 2em;
+  ::-webkit-scrollbar {
+  display: none;
+  }
+
+}
+
+
+display: flex;
+flex-direction: row;
+flex-wrap: nowrap;
+align-items: flex-start;
+position: relative;
+
   .slider {
-    /* background-color: gray;
-    position: absolute;
-    z-index: 1.5;
-    background: none;
-    border: none;
-    font-size: 1.5rem;
-    top: 50%;
-    cursor: pointer;
-    border-radius: 0.25rem; */
+    /* position: relative; */
     width: 5rem;
     font-size:1.5rem;
     transform: translateY(400%);
+    cursor: pointer;
+    /* padding-left: .5em;
+    padding-right: .5em; */
+    border: none;
+    background: none;
+
   }
+
   .leftSlider {
+    padding-right: .5em;
   }
+
   .rightSlider {
+    padding-left: .5em;
   }
 `;
 
 export const StyledCard = styled.div`
   flex: 0 0 25%;
-  min-width: 200px;
-  max-width:250px;
-  margin:2px;
+  min-width: 250px;
+  max-width: 250px;
+  min-height:400px;
+  margin: 2px;
   font-size: 1rem;
   background: white;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
@@ -73,8 +85,20 @@ export const StyledCard = styled.div`
     top: 0;
     color: gold;
   }
+  .relatedOutfit {
+    position: absolute;
+    padding: 0.25rem;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    color: black;
+  }
   .relatedAction:hover {
     color: yellow;
+    cursor: pointer;
+  }
+  .relatedOutfit:hover {
+    color: rgb(70,70,70);
     cursor: pointer;
   }
   .btn {
@@ -105,19 +129,30 @@ export const StyledCard = styled.div`
   .btnLeft {
     left: 0.25rem;
   }
+  #addOutfitContainer {
+    position:relative;
+    align-items: center;
+    text-align:center;
+    transform: translateY(450%);
+    cursor:pointer;
+  }
+  //  Add once transform problem is resolved
+  #addOutfitContainer:hover,
+  #addOutfitContainer:focus {
+
+  }
 `;
 
 export const StyledModal = styled.div`
-position: : absolute;
-top: 50%;
-left: 50%;
-transform: translate(-50%, -50%);
+position: relative;
+top: 0;
+left: 0;
+width:100%;
+height:100%;
+//transform: translate(50%, -800%);
 border: 1px solid black;
 border-radius: 1rem;
-z-index: 10;
-background-color: white;
-width: 500px;
-max-width:80%;
+z-index: 100;
 background-color: white;
 .modalHeader {
   padding:10 15px;
@@ -142,10 +177,16 @@ outline:none
 
 export const ModalOverlay = styled.div`
   position: fixed;
-  opacity:0;
+  opacity: 0;
   top: 0;
-  left: 0;
-  bottom: 0;
   right: 0;
-  background-color: white;
+  bottom:0;
+  left: 0;
+  z-index: 1000;
+  background-color: rgba(0, 0, 0.25);
+`;
+
+export const RelatedItemsStyleContainer = styled.div`
+  /* height: 70%; */
+  width: 70%;
 `;
