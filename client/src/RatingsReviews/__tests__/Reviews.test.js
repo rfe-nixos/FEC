@@ -100,9 +100,8 @@ test('add button functioning', async () => {
     page={1}
     isLoaded={true}
   />);
-  const morebutton = await screen.findByTestId('morebutton')
+  const morebutton = await screen.findByTestId('morebutton');
   expect(morebutton).toBeInTheDocument;
   await userEvent.click(morebutton);
   await waitFor(() => expect(setMock).toHaveBeenCalled());
-
 });
