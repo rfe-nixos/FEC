@@ -64,8 +64,8 @@ function Modal({
     } else {
       return (
         <div className="imageGalleryModal">
-          <div className="closeImageGalleryModal">
-            <button type="button" onClick={handleImageGalleryModalClose}>X</button>
+          <div className="closeImageGalleryModal" onClick={handleImageGalleryModalClose}>
+            <button type="button">X</button>
           </div>
           <div className="thumbnailView">
             <div className="imageGalleryPrev" onClick={handlePrevClick}>&#9001;</div>

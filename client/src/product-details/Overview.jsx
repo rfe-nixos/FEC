@@ -8,7 +8,7 @@ import AddToCart from './AddToCart';
 import ProductDetails from './ProductDetails';
 import StyleSelector from './StyleSelector';
 
-function Overview(productId, ratingsRef) {
+function Overview({ productId, ratingsRef }) {
   // STATE
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
@@ -24,7 +24,7 @@ function Overview(productId, ratingsRef) {
   const [range, setRange] = useState([]);
 
   // API INTERACTION
-  productId = '37311';
+  productId = productId || '37311';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
   const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${productId}`;

@@ -83,8 +83,6 @@ function ImageGallery({
     }
   }
 
-  // <div className="slider leftSlider">&#9001;</div>
-
   if (modal === 'on') {
     return <Modal mainImage={mainImage} galleryList={galleryList} setModal={setModal} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} handlePrevClick={handlePrevClick} handleNextClick={handleNextClick} />;
   } else if (galleryList.length > 7) {
