@@ -12,12 +12,10 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
     const [showNav, setShowNav] = useState(false);
 
     const toggleNav = (event) => {
-      event.preventDefault();
       !showNav ? setShowNav(true) : setShowNav(false);
     };
 
     const scrollDown = (event) => {
-      event.preventDefault();
       window.scrollTo({
         top: ratingsRef.current.offsetTop, // scrolls to location of ref
         behavior: 'smooth',

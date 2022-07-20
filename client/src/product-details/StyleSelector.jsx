@@ -9,7 +9,6 @@ import checkmark from './assets/checkmark.png';
 
 function StyleSelector({ styles, currentStyle, setCurrentStyle }) {
   const handleClick = (event) => {
-    event.preventDefault();
     const styleList = Object.values(styles);
     let newStyle;
     styleList.forEach((style) => {
