@@ -57,6 +57,7 @@ function AddToCart({
 
   const handleAmountChange = (event) => {
     event.preventDefault();
+    console.log(event.target.value);
     setCurrentAmount(event.target.value);
   };
 
@@ -82,13 +83,18 @@ function AddToCart({
           Authorization: process.env.AUTH_KEY,
         },
       };
+
+      const queries = [];
       for (let i = 0; i < currentAmount; i += 1) {
-        axios(cartConfig)
-          .then(() => {
-            setSizeAlert('');
-          })
-          .catch((err) => console.log(err));
+        queries.push(
+          axios(cartConfig)
+            .catch((err) => console.log(err)),
+        );
       }
+      Promise.all(queries).then(() => {
+        setSizeAlert('');
+        console.log('done');
+      });
     }
   };
 

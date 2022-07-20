@@ -49,6 +49,7 @@ function ImageGallery({
 
   const handlePrevClick = (event) => {
     event.preventDefault();
+    setCurrentThumbnail(range[0] - 7);
     if (range[0] - 7 < 0) {
       setRange([0, 7]);
     } else {
@@ -58,6 +59,7 @@ function ImageGallery({
 
   const handleNextClick = (event) => {
     event.preventDefault();
+    setCurrentThumbnail(range[1]);
     if (range[1] + 7 > galleryList.length - 1) {
       setRange([range[1], galleryList.length - 1]);
     } else {

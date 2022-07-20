@@ -44,7 +44,6 @@ describe('render tests', () => {
     expect(tree).toMatchSnapshot();
   });
 
-
   test('Modal renders correctly 1', () => {
     const tree = renderer
       .create(<Modal mainImage={<div></div>} galleryList={[<div></div>]} setModal={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} handlePrevClick={console.log()} handleNextClick={console.log()} />)

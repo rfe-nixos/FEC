@@ -1,3 +1,5 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable react/jsx-one-expression-per-line */
 /* eslint-disable react/self-closing-comp */
 /* eslint-disable radix */
@@ -8,19 +10,22 @@ import Star from '../RatingsReviews/Ratings/Star';
 function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
   if (Object.keys(productReviews.ratings).length > 0) {
     const [showNav, setShowNav] = useState(false);
+    console.log(ratingsRef);
 
-    /* const toggleNav = () => {
+    const toggleNav = (event) => {
+      event.preventDefault();
       !showNav ? setShowNav(true) : setShowNav(false);
     };
 
-    const scrollDown = () => {
+    const scrollDown = (event) => {
+      event.preventDefault();
       console.log('ratings!');
       window.scrollTo({
         top: ratingsRef.current.offsetTop, // scrolls to location of ref
         behavior: 'smooth',
       });
       toggleNav();
-    }; */
+    };
     let averageRating = 0;
     let totalRatings = 0;
     for (let i = 1; i <= 5; i += 1) {
@@ -40,7 +45,7 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
             <div className="starRating">
               <Star average={averageRating} />
             </div>
-            <div /* onClick={scrollDown} */>
+            <div onClick={scrollDown}>
               <h3 className="totalRatings">Read all {totalRatings} review(s)</h3>
             </div>
           </div>
@@ -60,7 +65,7 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
           <div className="starRating">
             <Star average={averageRating} />
           </div>
-          <div /* onClick={scrollDown} */>
+          <div onClick={scrollDown} >
             <h3 className="totalRatings">Read all {totalRatings} review(s)</h3>
           </div>
         </div>

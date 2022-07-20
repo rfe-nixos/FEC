@@ -24,7 +24,7 @@ function Overview(productId, ratingsRef) {
   const [range, setRange] = useState([]);
 
   // API INTERACTION
-  productId = '37315';
+  productId = '37311';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
   const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${productId}`;
