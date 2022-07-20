@@ -44,7 +44,7 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
     );
   } else {
     relatedAction = (
-      <FaStar className="relatedAction" onClick={() => setOpenModal(true) } />
+      <FaStar className="relatedAction" onClick={() => setOpenModal(true) data-testid="Star"} />
     );
   }
 
