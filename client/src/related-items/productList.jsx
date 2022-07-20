@@ -1,7 +1,7 @@
 import React from 'react';
 import { useRef } from 'react';
-import Product from './product.jsx';
-import { StyledList } from './styles/list.styled.js';
+import Product from './product';
+import { StyledList } from './styles/list.styled';
 
 function ProductList({
   relatedProductStyles,
@@ -12,7 +12,6 @@ function ProductList({
   const cardFormatter = (reviews, ids, styles) => {
     const formattedCards = [];
     for (let i = 0; i < ids.length; i++) {
-      console.log(reviews[i], ids[i]);
       const reviewTotal = reviews[i].results.reduce(
         (total, item) => total + parseInt(item.rating, 10),
         0
@@ -52,12 +51,13 @@ function ProductList({
         break;
       case 'right':
         scrollRef.current.scrollBy(500, 0);
+        break;
+      default:
+        console.log('error');
     }
     sliderHider();
-    // ref.current.scrollBy(100, 0);
   };
   const sliderHider = (e) => {
-    console.log(e.target.scrollWidth);
     if (e.target.scrollLeft === 0) {
       leftSliderRef.current.innerText = ' ';
     } else {

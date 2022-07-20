@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react';
 import ReactDom from 'react-dom';
-import { StyledModal, ModalOverlay } from './styles/list.styled.js';
-import { currentProductDataContext } from './related-items.jsx';
+import { StyledModal, ModalOverlay } from './styles/list.styled';
+import { currentProductDataContext } from './related-items';
 
 function Comparison({ closeModal, currentProduct }) {
   const [comparisonObj, setComparisonObj] = useState();

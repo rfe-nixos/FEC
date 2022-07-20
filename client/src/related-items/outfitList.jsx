@@ -1,44 +1,88 @@
-import React from 'react';
-import { useRef } from 'react';
-import Product from './product.jsx';
-import { StyledList } from './styles/list.styled.js';
+import React, { useState, useRef, useEffect } from 'react';
+import Product from './product';
+import { StyledList } from './styles/list.styled';
+import AddOutfit from './addOutfit';
 
 function OutfitList({
   relatedProductStyles,
   relatedProduct_ids,
   relatedProductReviews,
 }) {
+  // State
+  const [localStorageState, setLocalStorageState] = useState();
+  useEffect(() => {}, [localStorageState]);
+
+  // console.log(relatedProductStyles,relatedProduct_ids,relatedProductReviews);
   // Combine states using obj to organize by product ID
   const cardFormatter = (reviews, ids, styles) => {
+    console.log(reviews);
+    console.log(ids);
+    console.log(styles);
+    //Clean this up, revise so that it reflects the current overview card
     const formattedCards = [];
-    for (let i = 0; i < ids.length; i++) {
-      console.log(reviews[i], ids[i]);
-      const reviewTotal = reviews[i].results.reduce(
-        (total, item) => total + parseInt(item.rating, 10),
-        0
-      );
-      const reviewAvg = reviewTotal / (reviews[i].results.length - 1);
-      const formattedCard = {
-        id: styles[i].product_id || null,
-        image: styles[i].results[0].photos || null,
-        category: ids[i].category || null,
-        name: ids[i].name || null,
-        price: styles[i].results[0].original_price || null,
-        discountedPrice: styles[i].results[0].sale_price || null,
-        rating: reviewAvg,
-        description: ids[i].description || null,
-        features: ids[i].features || null,
-      };
-      formattedCards.push(
+    const reviewTotal = reviews.results.reduce(
+      (total, item) => total + parseInt(item.rating, 10),
+      0
+    );
+    const reviewAvg = reviewTotal / (reviews.results.length - 1);
+    console.log('REVIEWSSSSS', reviewAvg);
+    const formattedCard = {
+      id: styles.product_id || null,
+      image: styles.results[0].photos || null,
+      category: ids.category || null,
+      name: ids.name || null,
+      price: styles.results[0].original_price || null,
+      discountedPrice: styles.results[0].sale_price || null,
+      rating: reviewAvg,
+      description: ids.description || null,
+      features: ids.features || null,
+    };
+    console.log(formattedCard);
+    return formattedCard;
+  };
+
+  // Local storage manipulation
+
+  function handleAddOutfit() {
+    if (!localStorage.getItem('outfits')) {
+      localStorage.setItem('outfits', JSON.stringify([]));
+    }
+    let currentStorage = JSON.parse(localStorage.getItem('outfits'));
+    for (let i = 0; i < currentStorage.length; i++) {
+      if (relatedProductStyles.product_id === currentStorage[i].id) {
+        return null;
+      }
+    }
+    const overviewObj = cardFormatter(
+      relatedProductReviews,
+      relatedProduct_ids,
+      relatedProductStyles
+    );
+    console.log('EMOJI', overviewObj);
+    currentStorage.push(overviewObj);
+    localStorage.setItem('outfits', JSON.stringify(currentStorage));
+    setLocalStorageState(currentStorage);
+  }
+
+  function renderOutfitList() {
+    let currentStorage;
+    if (localStorage.getItem('outfits')) {
+      currentStorage = JSON.parse(localStorage.getItem('outfits'));
+      console.log('CURRENT', currentStorage);
+    } else {
+      return <div>Choose an Outfit</div>;
+    }
+    return currentStorage.map((cardObj) => {
+      return (
         <Product
-          formattedCard={formattedCard}
-          id={formattedCard.id}
-          key={formattedCard.id}
+          formattedCard={cardObj}
+          outfit={true}
+          setLocalStorageState={setLocalStorageState}
+          key={cardObj.id}
         />
       );
-    }
-    return formattedCards;
-  };
+    });
+  }
 
   const scrollRef = useRef();
   const leftSliderRef = useRef();
@@ -57,7 +101,6 @@ function OutfitList({
     // ref.current.scrollBy(100, 0);
   };
   const sliderHider = (e) => {
-    console.log(e.target.scrollWidth);
     if (e.target.scrollLeft === 0) {
       leftSliderRef.current.innerText = ' ';
     } else {
@@ -69,18 +112,13 @@ function OutfitList({
       rightSliderRef.current.innerHTML = ' &#9002';
     }
   };
-
   let product;
   if (
     !!relatedProductReviews &&
     !!relatedProduct_ids &&
     !!relatedProductStyles
   ) {
-    product = cardFormatter(
-      relatedProductReviews,
-      relatedProduct_ids,
-      relatedProductStyles
-    );
+    product = renderOutfitList();
   } else {
     product = null;
   }
@@ -93,7 +131,8 @@ function OutfitList({
         ref={leftSliderRef}
         onClick={(e) => scroller(e, 'left')}
       ></button>
-      <div id="relatedList" ref={scrollRef} onScroll={sliderHider}>
+      <AddOutfit handleAddOutfit={handleAddOutfit} />
+      <div id="outfitList" ref={scrollRef} onScroll={sliderHider}>
         {product}
       </div>
       <button
@@ -107,6 +146,5 @@ function OutfitList({
     </StyledList>
   );
 }
-
 
 export default OutfitList;

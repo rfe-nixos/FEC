@@ -4,10 +4,10 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Promise } from 'bluebird';
-import ProductList from './productList.jsx';
-import OutfitList from './outfitList.jsx';
-import { useCurrentProductContext } from '../context.jsx';
-import { RelatedItemsStyleContainer } from './styles/list.styled.js';
+import ProductList from './productList';
+import OutfitList from './outfitList';
+import { useCurrentProductContext } from '../context';
+import { RelatedItemsStyleContainer } from './styles/list.styled';
 
 export const currentProductDataContext = React.createContext();
 

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const StyledList = styled.div`
 
-#relatedList {
+#relatedList, #outfitList {
   display: flex;
   flex-direction:row;
   overflow: scroll;
@@ -10,7 +10,7 @@ export const StyledList = styled.div`
   border-radius: 8px;
   /* box-shadow: 0px 0px 4px; */
   gap: 2rem;
-
+  margin-left: 2em;
   ::-webkit-scrollbar {
   display: none;
   }
@@ -48,8 +48,9 @@ position: relative;
 
 export const StyledCard = styled.div`
   flex: 0 0 25%;
-  min-width: 200px;
+  min-width: 250px;
   max-width: 250px;
+  min-height:400px;
   margin: 2px;
   font-size: 1rem;
   background: white;
@@ -84,8 +85,20 @@ export const StyledCard = styled.div`
     top: 0;
     color: gold;
   }
+  .relatedOutfit {
+    position: absolute;
+    padding: 0.25rem;
+    z-index: 3;
+    right: 0;
+    top: 0;
+    color: black;
+  }
   .relatedAction:hover {
     color: yellow;
+    cursor: pointer;
+  }
+  .relatedOutfit:hover {
+    color: rgb(70,70,70);
     cursor: pointer;
   }
   .btn {
@@ -116,10 +129,16 @@ export const StyledCard = styled.div`
   .btnLeft {
     left: 0.25rem;
   }
+  #addOutfitContainer {
+    position:relative;
+    align-items: center;
+    text-align:center;
+    transform: translateY(450%);
+  }
 `;
 
 export const StyledModal = styled.div`
-position: : relative;
+position: relative;
 top: 0;
 left: 0;
 width:100%;
