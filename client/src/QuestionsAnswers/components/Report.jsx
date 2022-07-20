@@ -7,7 +7,6 @@ function Report({ id, type }) {
     if (reported) {
       return;
     }
-
     const executed = confirm("Are you sure you want to report this?");
     if (executed) {
       updateReport(type, id)

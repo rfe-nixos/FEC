@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import FormInput from '../components/FormInput';
-import FormButton from '../components/FormButton';
-import { postQuestion } from '../lib/api/githubAPI';
-import { useCurrentProductContext } from '../../context';
+import FormInput from '../../components/FormInput';
+import FormButton from '../../components/FormButton';
+import ImageInput from './ImageInput';
 
-function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
+function AddAnswerForm({ show, setShowModal, question, submitHandler, productName }) {
   if (!show) return null;
-  const productId = useCurrentProductContext();
+  const questionId = question.question_id;
+  const questionBody = question.question_body;
   const [formValue, setFormValue] = useState({ body: '', name: '', email: '' });
 
-  const onChange = (e) => {
+  const inputChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormValue({
       ...formValue,
@@ -18,20 +18,38 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
     });
   };
 
-  const questionInput = (
+  const answerInput = (
+    <FormInput
+      attribute={{
+        label: 'Your Answer',
+        'data-testid': 'answer-input',
+        type: 'textarea',
+        name: 'body',
+        value: formValue.body,
+        placeholder: '',
+        maxLength: 1000,
+        required: true,
+        onChange: inputChangeHandler,
+        onInvalid: (e) => e.target.setCustomValidity('Answer is required'),
+        onInput: (e) => e.target.setCustomValidity(''),
+      }}
+    />
+  );
+
+  const usernameInput = (
     <>
       <FormInput
         attribute={{
-          id: 'question-input',
-          label: 'Your Question',
-          type: 'textarea',
-          name: 'body',
-          value: formValue.body || '',
-          placeholder: '',
+          label: 'What is your nickname',
+          'data-testid': 'username-input',
+          type: 'text',
+          name: 'name',
+          value: formValue.name,
+          placeholder: 'Example: jack543!',
+          maxLength: 60,
           required: true,
-          maxLength: 1000,
-          onChange,
-          onInvalid: (e) => e.target.setCustomValidity('Question is required'),
+          onChange: inputChangeHandler,
+          onInvalid: (e) => e.target.setCustomValidity('Username is required'),
           onInput: (e) => e.target.setCustomValidity(''),
         }}
       />
@@ -39,20 +57,20 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
     </>
   );
 
-  const usernameInput = (
+  const emailInput = (
     <>
       <FormInput
         attribute={{
-          id: 'username-input',
-          label: 'What is your nickname',
-          type: 'username',
-          name: 'name',
-          value: formValue.name || '',
-          placeholder: 'Example: jackson11!',
-          required: true,
+          label: 'Your email',
+          'data-testid': 'email-input',
+          type: 'email',
+          name: 'email',
+          value: formValue.email,
+          placeholder: 'Example: jack@email.com',
           maxLength: 60,
-          onChange,
-          onInvalid: (e) => e.target.setCustomValidity('Username is required'),
+          required: true,
+          onChange: inputChangeHandler,
+          onInvalid: (e) => e.target.setCustomValidity('Valid email is required'),
           onInput: (e) => e.target.setCustomValidity(''),
         }}
       />
@@ -60,30 +78,9 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
     </>
   );
 
-  const emailInput = (
-    <FormInput
-      attribute={{
-        id: 'email-input',
-        label: 'Your email',
-        type: 'email',
-        name: 'email',
-        value: formValue.email || '',
-        placeholder: 'Example: jack@email.com',
-        required: true,
-        maxLength: 60,
-        onChange,
-        onInvalid: (e) => e.target.setCustomValidity('Valid email is required'),
-        onInput: (e) => e.target.setCustomValidity(''),
-      }}
-    />
-  );
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    postQuestion(productId, formValue)
-      .then(() => {
-        renderQuestions();
-      });
+    submitHandler(formValue);
     setShowModal(false);
   };
 
@@ -94,18 +91,23 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
   };
 
   return (
-    <Modal>
-      <PopupForm id={`${productId}-popup`} onSubmit={handleSubmit}>
+    <Modal data-testid="add-answer-modal">
+      <PopupForm id={`${questionId}-popup`} onSubmit={handleSubmit}>
         <Header>
           <Title>
-            Ask Your Question
+            Submit your Answer
             <XButton onClick={handleClose}>X</XButton>
           </Title>
-          <Subtitle>{'About the ' + productName}</Subtitle>
+          <Subtitle size="15px">{`${productName}:`}</Subtitle>
+          <Subtitle>{questionBody}</Subtitle>
         </Header>
-        {questionInput}
+        {answerInput}
         {usernameInput}
         {emailInput}
+        <ImageInput
+          formValue={formValue}
+          setFormValue={setFormValue}
+        />
         <FormButton
           handleClose={handleClose}
         />
@@ -114,7 +116,7 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
   );
 }
 
-export default AddQuestionForm;
+export default AddAnswerForm;
 
 const Modal = styled.div`
   position: fixed;
@@ -167,11 +169,10 @@ const Subtitle = styled.div`
 
 const XButton = styled.button`
   color: #1c1c1c;
-  font-size: 15px;
+  font-size: 13px;
   background-color: white;
   width: auto;
   font-weight: light;
-  padding: .25em .5em;
   border-radius: 3px;
   border: 1px solid black;
   &:hover {

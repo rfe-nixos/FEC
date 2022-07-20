@@ -10,7 +10,6 @@ import { useQuestionList, useUpdateQuestionList } from './contexts/QuestionListC
 
 const QuestionAnswers = forwardRef((props, ref) => {
   const productId = useCurrentProductContext();
-  const questionList = useQuestionList();
   const setQuestionList = useUpdateQuestionList();
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});

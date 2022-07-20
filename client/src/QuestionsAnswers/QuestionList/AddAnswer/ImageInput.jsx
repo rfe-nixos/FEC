@@ -2,17 +2,18 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import FormInput from '../../components/FormInput';
 import UploadedImages from './UploadedImages';
+import fileValidation from '../../lib/helpers/fileValidation';
 
 export default function ImageInput({ formValue, setFormValue }) {
   const [imageInvalid, setImageInvalid] = useState(false);
-  const reader = new FileReader();
 
   const fileChangeHandler = (e) => {
     if (!e.target.files[0]) return;
     const uploadedFile = e.target.files[0];
     e.target.value = '';
 
-    reader.onload = (event) => {
+    const reader = new FileReader();
+    reader.onload = () => {
       const img = new Image();
       img.onload = () => {
         const newImages = formValue.photos ? [...formValue.photos] : [];
@@ -26,11 +27,13 @@ export default function ImageInput({ formValue, setFormValue }) {
         });
         setImageInvalid(false);
       };
+
       img.onerror = () => {
         setImageInvalid(true);
       };
       img.src = event.target.result;
     };
+
     reader.readAsDataURL(uploadedFile);
   };
 
@@ -53,11 +56,12 @@ export default function ImageInput({ formValue, setFormValue }) {
               name: 'photos',
               placeholder: '',
               id: 'image-input',
+              'data-testid': 'image-input',
               style: { display: 'none' },
               onChange: fileChangeHandler,
             }}
           />
-          <StyledDivButton>Select photo</StyledDivButton>
+          <StyledDivButton data-testid="photo-uploader">Select photo</StyledDivButton>
           {imageInvalid && <div style={{ color: 'red' }}>Invalid image content.</div> }
         </label>
       )}

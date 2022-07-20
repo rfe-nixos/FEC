@@ -7,10 +7,10 @@ function MoreQuestions({ expanded, setExpanded, Button }) {
   };
 
   return (
-    <div id="add-question-btn">
+    <div>
       {!expanded
       && (
-        <Button type="submit" onClick={handleClick}>
+        <Button type="submit" onClick={handleClick} data-testid="more-question-btn">
           MORE ANSWERED QUESTIONS
         </Button>
       )}

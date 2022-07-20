@@ -11,7 +11,6 @@ import Options from '../../components/Options';
 function IndividualQuestion({ productName, question, renderQuestions }) {
   const [showModal, setShowModal] = useState(false);
   const [answerList, setAnswerList] = useState(sortAnswers(question.answers));
-  const [hasMore, setHasMore] = useState(true);
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(100);
 
@@ -19,7 +18,6 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
     getAnswers(question.question_id, page, count)
       .then((result) => {
         if (result.data.results.length === 0) {
-          setHasMore(false);
           return;
         }
         setAnswerList(sortAnswers(result.data.results));
@@ -75,7 +73,6 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         answerList={answerList}
         renderAnswers={renderAnswers}
         Title={Title}
-        hasMore={hasMore}
       />
       <AddAnswerForm
         question={question}
