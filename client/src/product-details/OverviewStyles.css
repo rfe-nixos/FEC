@@ -37,6 +37,30 @@
   overflow: scroll;
 }
 
+.imageGalleryPrev {
+  background-color: white;
+  color: black;
+  float: left;
+  margin: 10px;
+  width: 15px;
+  height: 20px;
+  border-radius: 20px;
+  padding-right: 9px;
+  padding-bottom: 3px;
+}
+
+.imageGalleryNext {
+  background-color: white;
+  color: black;
+  float: right;
+  margin: 10px;
+  width: 15px;
+  height: 20px;
+  border-radius: 20px;
+  padding-left: 9px;
+  padding-bottom: 3px;
+}
+
 .currentImage {
   margin: auto;
   width: 100%;
@@ -44,6 +68,7 @@
 }
 
 .thumbnailView {
+  z-index: 150;
   min-width: 390px;
   max-width: 480px;
   width: 48%;
@@ -64,7 +89,7 @@
   max-width: 80px;
   width: 11%;
   float: left;
-  margin: auto 0.4%;
+  margin: auto 0.8%;
 }
 
 .carousel img {

@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/mouse-events-have-key-events */
 /* eslint-disable no-else-return */
 /* eslint-disable no-shadow */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
@@ -7,11 +8,13 @@
 /* eslint-disable jsx-a11y/no-noninteractive-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 /* eslint-disable max-len */
-import React from 'react';
+import React, { useState } from 'react';
 
 function Modal({
   mainImage, galleryList, setModal, modalZoom, setModalZoom, range, handlePrevClick, handleNextClick,
 }) {
+  const [mouse, setMouse] = useState([0, 0]);
+
   const handleImageGalleryModalClose = (event) => {
     event.preventDefault();
     setModalZoom(false);
@@ -23,6 +26,10 @@ function Modal({
     setModalZoom((modalZoom) => !modalZoom);
   };
 
+  const handleModalMove = (event) => {
+    setMouse([event.pageX, event.pageY]);
+  };
+
   if (galleryList.length > 7) {
     if (range[0] === 0) {
       return (
@@ -32,9 +39,9 @@ function Modal({
           </div>
           <div className="thumbnailView">
             {galleryList.slice(range[0], range[1])}
-            <div style={{ float: 'right', margin: 10, width: 20, color: 'white' }} onClick={handleNextClick}>&#9002;</div>
+            <div className="imageGalleryNext" onClick={handleNextClick}>&#9002;</div>
           </div>
-          <div className="mainImageContainerModal" onClick={handleModalClick} style={{ maxWidth: modalZoom ? 2500 : 1000, minWidth: modalZoom ? 2000 : 800 }}>
+          <div className="mainImageContainerModal" onClick={handleModalClick} onMouseMove={handleModalMove} style={{ transform: modalZoom ? 'scale(2.5)' : 'scale(1)', transformOrigin: modalZoom ? `${mouse[0]}px ${mouse[1]}px` : 'center' }}>
             {mainImage}
           </div>
         </div>
@@ -46,10 +53,10 @@ function Modal({
             <button type="button" onClick={handleImageGalleryModalClose}>X</button>
           </div>
           <div className="thumbnailView">
-            <div style={{ float: 'left', margin: 10, width: 20, color: 'white' }} onClick={handlePrevClick}>&#9001;</div>
+            <div className="imageGalleryPrev" onClick={handlePrevClick}>&#9001;</div>
             {galleryList.slice(range[0], range[1])}
           </div>
-          <div className="mainImageContainerModal" onClick={handleModalClick} style={{ maxWidth: modalZoom ? 2500 : 1000, minWidth: modalZoom ? 2000 : 800 }}>
+          <div className="mainImageContainerModal" onClick={handleModalClick} onMouseMove={handleModalMove} style={{ transform: modalZoom ? 'scale(2.5)' : 'scale(1)', transformOrigin: modalZoom ? `${mouse[0]}px ${mouse[1]}px` : 'center' }}>
             {mainImage}
           </div>
         </div>
@@ -61,11 +68,11 @@ function Modal({
             <button type="button" onClick={handleImageGalleryModalClose}>X</button>
           </div>
           <div className="thumbnailView">
-            <div style={{ float: 'left', margin: 10, width: 20, color: 'white' }} onClick={handlePrevClick}>&#9001;</div>
+            <div className="imageGalleryPrev" onClick={handlePrevClick}>&#9001;</div>
             {galleryList.slice(range[0], range[1])}
-            <div style={{ float: 'right', margin: 10, width: 20, color: 'white' }} onClick={handleNextClick}>&#9002;</div>
+            <div className="imageGalleryNext" onClick={handleNextClick}>&#9002;</div>
           </div>
-          <div className="mainImageContainerModal" onClick={handleModalClick} style={{ maxWidth: modalZoom ? 2500 : 1000, minWidth: modalZoom ? 2000 : 800 }}>
+          <div className="mainImageContainerModal" onClick={handleModalClick} onMouseMove={handleModalMove} style={{ transform: modalZoom ? 'scale(2.5)' : 'scale(1)', transformOrigin: modalZoom ? `${mouse[0]}px ${mouse[1]}px` : 'center' }}>
             {mainImage}
           </div>
         </div>
@@ -80,7 +87,7 @@ function Modal({
         <div className="thumbnailView">
           {galleryList}
         </div>
-        <div className="mainImageContainerModal" onClick={handleModalClick} style={{ maxWidth: modalZoom ? 2500 : 1000, minWidth: modalZoom ? 2000 : 800 }}>
+        <div className="mainImageContainerModal" onClick={handleModalClick} onMouseMove={handleModalMove} style={{ transform: modalZoom ? 'scale(2.5)' : 'scale(1)', transformOrigin: modalZoom ? `${mouse[0]}px ${mouse[1]}px` : 'center' }}>
           {mainImage}
         </div>
       </div>

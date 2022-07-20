@@ -11,7 +11,7 @@ import Modal from './Modal';
 // import styled from 'styled-components';
 
 function ImageGallery({
-  currentStyle, setCurrentImage, currentThumbnail, setCurrentThumbnail, modal, setModal, zoom, setZoom, modalZoom, setModalZoom, range, setRange,
+  currentStyle, currentThumbnail, setCurrentThumbnail, modal, setModal, zoom, setZoom, modalZoom, setModalZoom, range, setRange,
 }) {
   const defaultStyle = { cursor: zoom ? 'zoom-in' : 'auto' };
   const modalStyle = { cursor: modalZoom ? '-webkit-zoom-out' : 'zoom-in' };
@@ -44,7 +44,6 @@ function ImageGallery({
 
   const handleClick = (event) => {
     event.preventDefault();
-    setCurrentImage(event.target.src);
     setCurrentThumbnail(event.target.alt);
   };
 
@@ -92,7 +91,7 @@ function ImageGallery({
         <div className="imagegallery">
           <div className="thumbnailView">
             {galleryList.slice(range[0], range[1])}
-            <div style={{ float: 'right', margin: 10, width: 20, color: 'white'}} onClick={handleNextClick}>&#9002;</div>
+            <div className="imageGalleryNext" onClick={handleNextClick}>&#9002;</div>
           </div>
           <div className="mainImageContainer">
             {mainImage}
@@ -103,7 +102,7 @@ function ImageGallery({
       return (
         <div className="imagegallery">
           <div className="thumbnailView">
-            <div style={{ float: 'left', margin: 10, width: 20, color: 'white' }} onClick={handlePrevClick}>&#9001;</div>
+            <div className="imageGalleryPrev" onClick={handlePrevClick}>&#9001;</div>
             {galleryList.slice(range[0], range[1])}
           </div>
           <div className="mainImageContainer">
@@ -115,9 +114,9 @@ function ImageGallery({
       return (
         <div className="imagegallery">
           <div className="thumbnailView">
-            <div style={{ float: 'left', margin: 10, width: 20, color: 'white' }} onClick={handlePrevClick}>&#9001;</div>
+            <div className="imageGalleryPrev" onClick={handlePrevClick}>&#9001;</div>
             {galleryList.slice(range[0], range[1])}
-            <div style={{ float: 'right', margin: 10, width: 20, color: 'white' }} onClick={handleNextClick}>&#9002;</div>
+            <div className="imageGalleryNext" onClick={handleNextClick}>&#9002;</div>
           </div>
           <div className="mainImageContainer">
             {mainImage}

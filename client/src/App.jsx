@@ -9,7 +9,7 @@ import { CurrentProductProvider } from './context';
 function App() {
   return (
     <CurrentProductProvider>
-      <Overview />
+      <Overview productId={CurrentProductProvider} />
       <RelatedItems />
       <QuestionAnswer productId={37311} />
       <RatingsReviews product_id={37311} />

@@ -1,0 +1,169 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`render tests AddToCart renders correctly 1`] = `
+<div
+  className="outOfStock"
+>
+  <select
+    className="sizeOptions"
+    isDisabled={true}
+  >
+    <option>
+      OUT OF STOCK
+    </option>
+  </select>
+  <select
+    className="amountOptions"
+  >
+    <option
+      value="-"
+    >
+      -
+    </option>
+  </select>
+</div>
+`;
+
+exports[`render tests Modal renders correctly 1`] = `
+<div
+  className="imageGalleryModal"
+>
+  <div
+    className="closeImageGalleryModal"
+  >
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+  </div>
+  <div
+    className="thumbnailView"
+  >
+    <div />
+  </div>
+  <div
+    className="mainImageContainerModal"
+    onClick={[Function]}
+    onMouseMove={[Function]}
+    style={
+      Object {
+        "transform": "scale(1)",
+        "transformOrigin": "center",
+      }
+    }
+  >
+    <div />
+  </div>
+</div>
+`;
+
+exports[`render tests Overview renders correctly 1`] = `null`;
+
+exports[`render tests ProductDetails renders correctly 1`] = `
+<div
+  className="productDetails"
+>
+  <p
+    id="category"
+  />
+  <h1
+    id="title"
+  />
+  <div
+    id="rating"
+  >
+    <div
+      className="starRating"
+    >
+      <div
+        className="sc-bczRLJ bSgFhy"
+      >
+        <div
+          className="sc-gsnTZi bRVXLD"
+        >
+          <div
+            className="sc-dkzDqf gGtFEz"
+            width="NaN%"
+          />
+        </div>
+      </div>
+    </div>
+    <h3
+      className="totalRatings"
+    >
+      Read all 
+      NaN
+       review(s)
+    </h3>
+  </div>
+  <h3
+    id="price"
+  >
+    $undefined
+  </h3>
+  <p
+    id="overview"
+  />
+</div>
+`;
+
+exports[`render tests StyleSelector renders correctly 1`] = `
+<div
+  className="styleSelector"
+>
+  <p
+    className="currentStyleSelector"
+  />
+</div>
+`;
+
+exports[`render tests renders correctly 1`] = `null`;
+
+exports[`render tests renders correctly 2`] = `
+<div
+  className="imageGalleryModal"
+>
+  <div
+    className="closeImageGalleryModal"
+  >
+    <button
+      onClick={[Function]}
+      type="button"
+    >
+      X
+    </button>
+  </div>
+  <div
+    className="thumbnailView"
+  >
+    <div />
+  </div>
+  <div
+    className="mainImageContainerModal"
+    onClick={[Function]}
+    onMouseMove={[Function]}
+    style={
+      Object {
+        "transform": "scale(1)",
+        "transformOrigin": "center",
+      }
+    }
+  >
+    <div />
+  </div>
+</div>
+`;
+
+exports[`render tests renders correctly 3`] = `
+<div
+  className="styleSelector"
+>
+  <p
+    className="currentStyleSelector"
+  />
+</div>
+`;
+
+exports[`renders correctly 1`] = `null`;
