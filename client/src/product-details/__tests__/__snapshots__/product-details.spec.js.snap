@@ -701,9 +701,9 @@ exports[`render tests Modal renders correctly 3 1`] = `
 >
   <div
     className="closeImageGalleryModal"
+    onClick={[Function]}
   >
     <button
-      onClick={[Function]}
       type="button"
     >
       X
@@ -797,9 +797,9 @@ exports[`render tests Modal renders correctly 5 1`] = `
 >
   <div
     className="closeImageGalleryModal"
+    onClick={[Function]}
   >
     <button
-      onClick={[Function]}
       type="button"
     >
       X
@@ -871,7 +871,9 @@ exports[`render tests ProductDetails renders correctly 1 1`] = `
         </div>
       </div>
     </div>
-    <div>
+    <div
+      onClick={[Function]}
+    >
       <h3
         className="totalRatings"
       >
@@ -942,7 +944,9 @@ exports[`render tests ProductDetails renders correctly 3 1`] = `
         </div>
       </div>
     </div>
-    <div>
+    <div
+      onClick={[Function]}
+    >
       <h3
         className="totalRatings"
       >

@@ -19,6 +19,7 @@ function SearchTile({ product, toggleSearch }) {
 }
 
 const StyledDiv = styled.div`
+z-index: 200;
   display: flex;
   flex-direction: row;
   align-items: center;

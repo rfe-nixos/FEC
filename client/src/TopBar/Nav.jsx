@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 
 function Nav({ ratingsRef, qaRef }) {
+  console.log(ratingsRef);
   const [showNav, setShowNav] = useState(false);
 
   const toggleNav = () => {
@@ -40,6 +41,7 @@ function Nav({ ratingsRef, qaRef }) {
 }
 
 const NavMain = styled.div`
+z-index: 200;
   position: absolute;
   display:flex;
   flex-direction: column;

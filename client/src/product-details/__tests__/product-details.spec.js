@@ -14,7 +14,7 @@ import checkmark from '../assets/checkmark.png';
 describe('render tests', () => {
   test('Overview renders correctly', () => {
     const tree = renderer
-      .create(<Overview productId="37315" />)
+      .create(<Overview productId="37315" ratingsRef={{}} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
@@ -177,9 +177,3 @@ describe('format test', () => {
     expect(typeof component).toEqual('object');
   });
 });
-
-/* describe('instance test', () => {
-  test('Overview instance of Overview', () => {
-    expect(<Overview />).toBeInstanceOf(Overview());
-  });
-}); */
