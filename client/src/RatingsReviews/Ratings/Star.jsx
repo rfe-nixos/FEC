@@ -2,6 +2,14 @@ import React from 'react';
 import styled from 'styled-components';
 import ratingToPercentage from '../lib/ratingToPercentage';
 
+function Star({ average }) {
+  return (
+    <StarContainer>
+      <OuterStar><InnerStar width={ratingToPercentage(average)} /></OuterStar>
+    </StarContainer>
+  );
+}
+
 const StarContainer = styled.div`
   font-size: small;
   margin-top: 3%;
@@ -26,13 +34,5 @@ const InnerStar = styled.div`
     content: "★★★★★";
   }
 `;
-
-function Star({ average }) {
-  return (
-    <StarContainer>
-      <OuterStar><InnerStar width={ratingToPercentage(average)} /></OuterStar>
-    </StarContainer>
-  );
-}
 
 export default Star;

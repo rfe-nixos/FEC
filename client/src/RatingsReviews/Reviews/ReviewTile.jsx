@@ -3,16 +3,25 @@
 import React from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
-import Star from '../Ratings/Star.jsx';
+import Star from '../Ratings/Star';
+import PhotoPopup from './PhotoPopup';
 
 class ReviewTile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      reviewed: [],
+      openPhotoPop: false,
+      photo: '',
     };
     this.markHelpful = this.markHelpful.bind(this);
     this.report = this.report.bind(this);
+    this.togglePhotoPop = this.togglePhotoPop.bind(this);
+  }
+
+  togglePhotoPop(e) {
+    !this.state.openPhotoPop
+      ? this.setState({ openPhotoPop: true, photo: e.target.src })
+      : this.setState({ openPhotoPop: false });
   }
 
   markHelpful(e) {
@@ -42,9 +51,9 @@ class ReviewTile extends React.Component {
           </div>
         </TileTop>
         <TileMain>
-          <div><h5>{this.props.review.summary}</h5></div>
-          <div><small>{this.props.review.body}</small></div>
-          <div>
+          <TileDiv><h5>{this.props.review.summary}</h5></TileDiv>
+          <TileDiv><small>{this.props.review.body}</small></TileDiv>
+          <TileDiv>
             {this.props.review.recommend
               && (
               <h5>
@@ -52,36 +61,62 @@ class ReviewTile extends React.Component {
               </h5>
               )}
             {this.props.review.photos.length > 0
-              && <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => {
-                  return <StyledImg key={index} src={photo['url']} />
-                })}
-                </PhotoDiv>
-
-            }
+              && (
+              <PhotoDiv>
+                {this.props.review.photos.map((photo, index) => <StyledImg key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
+              </PhotoDiv>
+              )}
+            {(this.state.openPhotoPop) && (<PhotoPopup photoUrl={this.state.photo} togglePhotoPop={this.togglePhotoPop} />)}
             {this.props.review.response
               && (
-              <h4>
-                from the seller:
+              <Seller>
+                <b>Response:</b>
+                <br />
                 {' '}
                 {this.props.review.response}
-              </h4>
+              </Seller>
               )}
-          </div>
-          <div>
-            <small>
-              Helpful? :
-              {' '}
-              {`${this.props.review.helpfulness} `}
-            </small>
-            <StyledButton onClick={this.markHelpful}>YES</StyledButton>
-            <StyledButton onClick={this.report}>report</StyledButton>
-          </div>
+          </TileDiv>
+          <TileBot>
+            <span>
+              Helpful?
+            </span>
+              <Spanny onClick={this.markHelpful}><u>Yes</u></Spanny>
+            <span>
+              {`(${this.props.review.helpfulness})    |  `}
+            </span>
+            <Spanny onClick={this.report}><u>Report</u></Spanny>
+          </TileBot>
         </TileMain>
       </TileContainer>
     );
   }
 }
+
+const TileDiv = styled.div`
+  width: 100%;
+`
+
+const Spanny = styled.span`
+  font-size: x-small;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+  margin-left: 2%;
+  margin-right: 1%;
+`
+
+const Seller = styled.div`
+  width: 90%;
+  height: auto;
+  padding: 1.5%;
+  padding-left: 4%;
+  margin-top: 2%;
+  margin-bottom: 2%;
+  background-color: #eaeaea;
+  line-height: 200%;
+`;
 
 const PhotoDiv = styled.div`
   display: flex;
@@ -89,16 +124,16 @@ const PhotoDiv = styled.div`
   justify-content: flex-start;
   width: 100%;
   overflow-x: auto;
-`
+`;
 
 const TileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: top;
   max-width: 400px;
-  border-bottom: 1px solid black;
+  border-bottom: .5px solid #363636;
   padding: 0%;
-  margin-top: 1%;
+  margin-top: 2%;
 `;
 
 const TileTop = styled.div`
@@ -107,6 +142,17 @@ const TileTop = styled.div`
   justify-content: space-between;
   font-size: x-small;
   align-items: center;
+  width: 100%;
+`;
+
+const TileBot = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  font-size: x-small;
+  align-items: center;
+  margin-top: 3%;
+  margin-bottom: 3%;
 `;
 
 const TileMain = styled.div`
@@ -114,7 +160,7 @@ const TileMain = styled.div`
   font-size: small;
   flex-direction: column;
   margin-top: -2%;
-  max-width: 400px
+  max-width: 100%;
 `;
 
 const StyledButton = styled.button`
@@ -140,6 +186,7 @@ const StyledImg = styled.img`
     cursor: pointer;
     opacity: 60%;
   }
+  transition: opacity .4s;
 `;
 
 export default ReviewTile;

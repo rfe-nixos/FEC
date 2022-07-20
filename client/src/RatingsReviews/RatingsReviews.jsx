@@ -1,243 +1,218 @@
-import React from 'react';
+import React, { useState, useEffect, useRef, forwardRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
-import Ratings from './Ratings/Ratings.jsx';
-import Reviews from './Reviews/Reviews.jsx';
+import { parseISO, compareAsc } from 'date-fns';
+import Ratings from './Ratings/Ratings';
+import Reviews from './Reviews/Reviews';
 import getTotalRatings from './lib/getTotalRatings';
+import { useCurrentProductContext } from '../context';
 
-class RatingsReviews extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      meta: {},
-      totalRatings: 0,
-      isLoaded: false,
-      ratingFilter: {},
-      filteredByRating: false,
-      reviews: [],
-      page: 1,
-      sort_option: '',
-      sorted: false,
-      filtered: [],
+const RatingsReviews = forwardRef((props, ref) => {
+  const [meta, setMeta] = useState({});
+  const [totalRatings, setTotalRatings] = useState(0);
+  const [isLoaded, setIsLoaded] = useState(false);
+  const [filteredByRating, setFilteredByRating] = useState(false);
+  const [reviews, setReviews] = useState([]);
+  const [page, setPage] = useState(1);
+  const [filtered, setFiltered] = useState([]);
+  const [average, setAverage] = useState(0);
+  const [ratings, setRatings] = useState([]);
+  const [ratingFilter, setRatingFilter] = useState([]);
+  const [sortedReviews, setSortedReviews] = useState([]);
+  const [sortOption, setSortOption] = useState('');
+  const [sorted, setSorted] = useState(false);
+  const [sortCount, setSortCount] = useState(0);
 
-    };
-    this.getRatings = this.getRatings.bind(this);
-    this.setRatingFilter = this.setRatingFilter.bind(this);
-    this.getReviews = this.getReviews.bind(this);
-    this.moreReviews = this.moreReviews.bind(this);
-    this.sort = this.sort.bind(this);
-    this.scrollMore = this.scrollMore.bind(this);
-    this.setSortOption = this.setSortOption.bind(this);
-  }
+  const productId = useCurrentProductContext();
 
-  componentDidMount() {
-    this.getRatings();
-    this.getReviews();
-  }
-
-  getReviews() {
-    if (!this.state.sorted) {
-      axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.product_id}&count=${this.state.page * 2}`, {
-        headers: {
-          Authorization: process.env.AUTH_KEY,
-        },
-      })
-        .then((response) => {
-          // console.log('successfully fetched reviews');
-          this.setState({ reviews: response.data.results });
-        })
-        .catch((err) => console.log('error fetching reviews', err));
-    } else {
-      this.sort(this.state.sort_option);
-    }
-  }
-
-  moreReviews() {
-    let { page } = this.state;
-    page += 1;
-    this.setState({
-      page, filteredByRating: false, filtered: [], ratingFilter: {},
-    }, () => {
-      console.log(page, 'page of more results');
-      this.getReviews();
-    });
-  }
-
-  scrollMore() { // only works when its not filtered by rating.
-    if (!this.state.filteredByRating) {
-      let { page } = this.state;
-      page += 1;
-      this.setState({ page }, () => {
-        console.log(page, 'page of more results');
-        this.getReviews();
-      });
-    }
-  }
-
-  setSortOption(new_option) {
-    if (new_option !== this.state.sort_option) {
-      console.log('sorting by', new_option);
-      this.setState({
-        page: 1,
-        sort_option: new_option,
-        sorted: true,
-        filteredByRating: false,
-        filtered: [],
-        ratingFilter: {},
-      }, () => {
-        this.sort(new_option);
-      });
-    }
-  }
-
-  sort(new_option) {
-    axios.get(`${process.env.API_URL}/reviews?product_id=${this.props.product_id}&sort=${this.state.sort_option}&count=${this.state.page * 2}`, {
+  const getReviews = () => {
+    axios.get(`${process.env.API_URL}/reviews?product_id=${productId}&count=500`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
     })
       .then((response) => {
-        console.log('successfully fetched reviews');
-        this.setState({
-          reviews: response.data.results,
-        });
+        setReviews(response.data.results);
+      })
+      .then(() => {
+        if (sorted) {
+          sort(sortOption);
+        }
       })
       .catch((err) => console.log('error fetching reviews', err));
-  }
+  };
 
-  getRatings() {
-    axios.get(`${process.env.API_URL}/reviews/meta?product_id=${this.props.product_id}`, {
+  useEffect(() => {
+    getRatings();
+    getReviews();
+  }, [productId]);
+
+  const getRatings = () => {
+    axios.get(`${process.env.API_URL}/reviews/meta?product_id=${productId}`, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },
     })
       .then((response) => {
-        // console.log('successfully fetched ratings');
-        // console.log(response.data);
         const sum = getTotalRatings(response.data.ratings)[0];
         const totalRatings = getTotalRatings(response.data.ratings)[1];
-        this.setState(
-          {
-            meta: response.data,
-            average: (sum / totalRatings).toFixed(2),
-            ratings: response.data.ratings,
-            totalRatings,
-            isLoaded: true,
-          },
-        );
+        setMeta(response.data);
+        setAverage((sum / totalRatings).toFixed(1));
+        setRatings(response.data.ratings);
+        setTotalRatings(totalRatings);
+        setIsLoaded(true);
       })
       .catch((err) => console.log('error fetching ratings', err));
-  }
+  };
 
-  setRatingFilter(rating) {
-    const temp = this.state.ratingFilter;
-    if (!temp[rating]) {
-      temp[rating] = true;
-    } else {
-      temp[rating] = false;
-    }
-    // if there is not a single true in rating filter,
-    // set filteredbyrating to false.
-    if (Object.values(temp).indexOf(true) !== -1) {
-      this.setState({ filteredByRating: true, ratingFilter: temp }, () => {
-        this.getByRating();
-      });
-    } else {
-      this.setState({ filteredByRating: false, ratingFilter: temp, filtered: [] }, () => {
-      });
-    }
-  }
+  useEffect(() => {
+    getReviews();
+    getRatings();
+  }, []);
 
-  getByRating() {
+  const setRatingsFilter = (rating) => {
+    const index = ratingFilter.indexOf(rating);
+    if (index === -1) {
+      setRatingFilter((a) => [...a, rating]);
+    } else {
+      const temp = ratingFilter;
+      temp.splice(index, 1);
+      setRatingFilter(() => [...temp]);
+    }
+  };
+
+  const getByRating = () => {
     // set temp as current list of reviews,
     // filter temp to fit ratings filter,
     // set state reviews to be temp.
-    const temp = this.state.reviews;
-    const obj = this.state.ratingFilter;
-    const filtered = temp.filter((review) => {
-      if (obj[`${review.rating}`]) {
+    const temp = reviews;
+    const arr = ratingFilter;
+    const filteredReviews = temp.filter((review) => {
+      // if review.rating is found in array, return that review.
+      const index = arr.indexOf(`${review.rating}`);
+      if (index !== -1) {
         return review;
       }
     });
-    this.setState({ filtered });
-  }
+    setFiltered(filteredReviews);
+  };
 
-  render() {
-    return (
-      <StyledMain>
-        <StyledTitle>
-          <div>
-            RATINGS & REVIEWS
-          </div>
-        </StyledTitle>
-        <StyledInner>
-          <Ratings
-            meta={this.state.meta}
-            isLoaded={this.state.isLoaded}
-            average={this.state.average}
-            totalRatings={this.state.totalRatings}
-            setRatingFilter={this.setRatingFilter}
-            ratingFilter={this.state.ratingFilter}
+  useEffect(() => {
+    console.log('ratingfilter is changing');
+    if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
+      getByRating();
+      setFilteredByRating(true);
+    } else { // if its not longer than 0, empty array, just get regular reviews.
+      getReviews();
+      setFilteredByRating(false);
+      setFiltered([]);
+    }
+  }, [ratingFilter]);
+
+  const sort = (sortMethod) => {
+    // setSorted(false);
+    const temp = reviews;
+    if (sortMethod === 'helpful') {
+      temp.sort((a, b) => b.helpfulness - a.helpfulness);
+      setSortedReviews(() => temp);
+      setSortOption(sortMethod);
+      setSortCount(sortCount + 1); // trigger effect
+      setSorted(true);
+    }
+    if (sortMethod === 'newest') {
+      temp.sort((a, b) => compareAsc(parseISO(b.date), parseISO(a.date)));
+      setSortedReviews(() => temp);
+      setSortOption(sortMethod);
+      setSortCount(sortCount + 1); // trigger effect
+      setSorted(true);
+    }
+    if (sortMethod === 'relevance') { // relevance, just reset sort and get og reviews
+      setSorted(false);
+      setSortedReviews([]);
+      getReviews();
+    }
+  };
+
+  useEffect(() => {
+    // listen to sortoption, if sortoption changes, reset page to 1.
+    setPage(1);
+  }, [sortOption]);
+
+  useEffect(() => {
+    if (sorted) {
+      setReviews[sortedReviews];
+    }
+  }, [sortCount]);
+
+  useEffect(() => {
+    getReviews();
+  }, [page]);
+
+  const moreReviews = () => {
+    setPage(page + 1);
+  };
+  const scrollMore = () => { // only works when its not filtered by rating.
+    // if (!filteredByRating) {
+    setPage(page + 1);
+    // }
+  };
+
+  return (
+    <StyledMain id="ratings-reviews" ref={ref}>
+      <StyledTitle id="inner-title">
+        <div>
+          RATINGS & REVIEWS
+        </div>
+      </StyledTitle>
+      <StyledInner id="inner-main">
+        <Ratings
+          meta={meta}
+          isLoaded={isLoaded}
+          average={average}
+          totalRatings={totalRatings}
+          setRatingFilter={setRatingsFilter} // diff name from hook
+          setSortOption={setSortOption}
+          ratingFilter={ratingFilter}
+        />
+        {(filteredByRating) && (
+          <Reviews
+            productId={productId}
+            totalRatings={totalRatings}
+            reviews={filtered}
+            moreReviews={moreReviews}
+            setSort={sort}
+            getReviews={getReviews}
+            scrollMore={scrollMore}
+            page={page}
           />
-          {!this.state.filteredByRating && (
-            <Reviews
-              product_id={this.props.product_id}
-              totalRatings={this.state.totalRatings}
-              ratingFilter={this.state.ratingFilter}
-              filteredByRating={this.state.filteredByRating}
-              moreReviews={this.moreReviews}
-              reviews={this.state.reviews}
-              sort={this.sort}
-              getReviews={this.getReviews}
-              scrollMore={this.scrollMore}
-              setSortOption={this.setSortOption}
-            />
-          )}
-          {this.state.filteredByRating && (
-            <Reviews
-              totalRatings={this.state.totalRatings}
-              ratingFilter={this.state.ratingFilter}
-              filteredByRating={this.state.filteredByRating}
-              moreReviews={this.moreReviews}
-              reviews={this.state.filtered}
-              sort={this.sort}
-              getReviews={this.getReviews}
-              scrollMore={this.scrollMore}
-              setSortOption={this.setSortOption}
-            />
-          )}
-        </StyledInner>
-      </StyledMain>
-    );
-  }
-}
-
-const StyledButton = styled.button`
-  width: auto;
-  font-size: small;
-  margin: 1%;
-  margin-right: 3%;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
+        )}
+        {(!filteredByRating) && (
+          <Reviews
+            productId={productId}
+            totalRatings={totalRatings}
+            reviews={reviews}
+            moreReviews={moreReviews}
+            setSort={sort}
+            getReviews={getReviews}
+            scrollMore={scrollMore}
+            page={page}
+          />
+        )}
+      </StyledInner>
+    </StyledMain>
+  );
+})
 
 const StyledMain = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 80%;
-  height: 90%;
+  width: 70%;
   color: #1c1c1c;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  border-bottom: .5px solid black;
 `;
 const StyledInner = styled.div`
   display: flex;
@@ -245,7 +220,7 @@ const StyledInner = styled.div`
   justify-content: space-between;
   align-items: top;
   min-width: 700px;
-  width: 90%;
+  width: 100%;
   border-top: 1px solid black;
   padding-top: 1%;
   height: 100%

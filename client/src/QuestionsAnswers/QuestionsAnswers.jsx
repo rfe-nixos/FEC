@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import styled from 'styled-components';
 import { getQuestions, getProductInfo } from './lib/api/githubAPI';
 import Search from './SearchBar/Search';
@@ -8,7 +8,7 @@ import AddQuestion from './OptionButtons/AddQuestion';
 import { useCurrentProductContext } from '../context';
 import { useQuestionList, useUpdateQuestionList } from './contexts/QuestionListContext';
 
-function QuestionAnswers() {
+const QuestionAnswers = forwardRef((props, ref) => {
   const productId = useCurrentProductContext();
   const setQuestionList = useUpdateQuestionList();
   const [filteredKeyword, setFilteredKeyword] = useState('');
@@ -36,7 +36,7 @@ function QuestionAnswers() {
   }, []);
 
   return (
-    <DivContainer id="question-and-answers">
+    <DivContainer id="question-and-answers" ref={ref}>
       <Title>QUESTIONS & ANSWERS</Title>
       <Search setFilter={setFilteredKeyword} />
       <QuestionList
@@ -59,7 +59,7 @@ function QuestionAnswers() {
       </ButtonContainer>
     </DivContainer>
   );
-}
+})
 
 export default QuestionAnswers;
 
