@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import resizeThumbnail from '../../RatingsReviews/lib/resizeThumbnail';
 
 export default function Image({ url }) {
   const [clicked, setClicked] = useState(false);
@@ -7,13 +8,13 @@ export default function Image({ url }) {
   return (
     <>
       <StyledImg
-        src={url}
+        src={resizeThumbnail(url, 100)}
         onClick={() => setClicked(true)}
       />
       {clicked
       && (
       <ModalOverlay>
-        <ModalImg src={url} />
+        <ModalImg src={resizeThumbnail(url, window.innerHeight)} />
         <CloseButton onClick={() => setClicked(false)}>X</CloseButton>
       </ModalOverlay>
       )}
@@ -22,7 +23,7 @@ export default function Image({ url }) {
 }
 
 const StyledImg = styled.img`
-  max-height: 100px;
+  height: 100px;
   margin: 0 1px;
   scale: auto;
   border: 1px solid #d9d9d9;
