@@ -1,7 +1,7 @@
 /* eslint-disable radix */
 /* eslint-disable react/prop-types */
 /* eslint-disable max-len */
-import React, { useState, useEffect, useCallback } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 function AddToCart({
