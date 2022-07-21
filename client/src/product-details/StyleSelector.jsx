@@ -7,7 +7,9 @@
 import React from 'react';
 import checkmark from './assets/checkmark.png';
 
-function StyleSelector({ styles, currentStyle, setCurrentStyle }) {
+function StyleSelector({
+  styles, currentStyle, setCurrentStyle,
+}) {
   const handleClick = (event) => {
     const styleList = Object.values(styles);
     let newStyle;
@@ -27,7 +29,6 @@ function StyleSelector({ styles, currentStyle, setCurrentStyle }) {
         <div key={style.name} className="styleOption">
           <img src={checkmark} alt="checkmark" id="styleOverlay" />
           <img src={style.photos[0].thumbnail_url} alt={style.style_id} onClick={handleClick} />
-
         </div>,
       );
     } else {
