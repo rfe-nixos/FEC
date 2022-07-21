@@ -43,13 +43,13 @@ const OuterBar = styled.div`
 
 const InnerBar = styled.div`
   position: absolute;
-  top: 56%;
+  top: 45%;
   left: ${(props) => props.width};
   white-space: nowrap;
   overflow: hidden;
   width: auto;
   height: 24px;
-  font-size: small;
+  font-size: 15px;
   transform: translate(-50%, -50%);
   &:before {
     content: "▼";

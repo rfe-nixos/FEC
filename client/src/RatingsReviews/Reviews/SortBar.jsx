@@ -37,7 +37,7 @@ const Select = styled.select`
   margin-left: 1.5%;
   font-weight: bold;
   background: white;
-  font-size: 14px;
+  font-size: 16px;
   border: none;
   border-bottom: 1px solid black;
   align-self: flex-end;
