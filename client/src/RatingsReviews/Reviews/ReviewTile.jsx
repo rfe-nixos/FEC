@@ -5,6 +5,7 @@ import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import Star from '../Ratings/Star';
 import PhotoPopup from './PhotoPopup';
+import resizeThumbnail from '../lib/resizeThumbnail';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -40,33 +41,37 @@ class ReviewTile extends React.Component {
 
   render() {
     return (
-      <TileContainer>
+      <TileContainer id={`tile-container-${this.props.index}`}>
         <TileTop>
-          <div>
+          <Stars>
             <Star average={this.props.review.rating} />
-          </div>
+          </Stars>
           <div>
             {`${this.props.review.reviewer_name}, `}
             {`${format(parseISO(this.props.review.date), 'MMMM dd, yyyy')} `}
           </div>
         </TileTop>
         <TileMain>
-          <TileDiv><h5>{this.props.review.summary}</h5></TileDiv>
-          <TileDiv><small>{this.props.review.body}</small></TileDiv>
-          <TileDiv>
-            {this.props.review.recommend
+          <Summary>{this.props.review.summary}</Summary>
+          <TileDiv>{this.props.review.body}</TileDiv>
+          {this.props.review.recommend
               && (
-              <h5>
-                I recommend this product &#10003;
-              </h5>
+                <TileDiv><b>I recommend this product &#10003;</b></TileDiv>
               )}
+          <TileDiv>
             {this.props.review.photos.length > 0
               && (
               <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => <StyledImg key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
+                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={resizeThumbnail(photo.url, 100)} onClick={this.togglePhotoPop} />)}
               </PhotoDiv>
               )}
-            {(this.state.openPhotoPop) && (<PhotoPopup photoUrl={this.state.photo} togglePhotoPop={this.togglePhotoPop} />)}
+            {(this.state.openPhotoPop)
+            && (
+            <PhotoPopup
+              photoUrl={this.state.photo}
+              togglePhotoPop={this.togglePhotoPop}
+            />
+            )}
             {this.props.review.response
               && (
               <Seller>
@@ -78,11 +83,11 @@ class ReviewTile extends React.Component {
               )}
           </TileDiv>
           <TileBot>
-            <span>
+            <span data-testid="review-helpful">
               Helpful?
             </span>
-              <Spanny onClick={this.markHelpful}><u>Yes</u></Spanny>
-            <span>
+            <Spanny data-testid={`helpful-button-${this.props.index}`} onClick={this.markHelpful}><u>Yes</u></Spanny>
+            <span data-testid={`helpful-count-${this.props.index}`}>
               {`(${this.props.review.helpfulness})    |  `}
             </span>
             <Spanny onClick={this.report}><u>Report</u></Spanny>
@@ -95,17 +100,26 @@ class ReviewTile extends React.Component {
 
 const TileDiv = styled.div`
   width: 100%;
-`
+  font-size: 13px;
+  margin-top: 3%;
+  color: #4a4a4a;
+`;
+
+const Summary = styled.div`
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 5%;
+`;
 
 const Spanny = styled.span`
-  font-size: x-small;
+  font-size: 12px;
   &:hover {
     cursor: pointer;
     opacity: 60%;
   }
   margin-left: 2%;
   margin-right: 1%;
-`
+`;
 
 const Seller = styled.div`
   width: 90%;
@@ -130,7 +144,7 @@ const TileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: top;
-  max-width: 400px;
+  max-width: 600px;
   border-bottom: .5px solid #363636;
   padding: 0%;
   margin-top: 2%;
@@ -140,19 +154,21 @@ const TileTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: x-small;
+  font-size: 12px;
   align-items: center;
   width: 100%;
+  color: #484848;
 `;
 
 const TileBot = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  font-size: x-small;
+  font-size: 12px;
   align-items: center;
   margin-top: 3%;
   margin-bottom: 3%;
+  color: #484848;
 `;
 
 const TileMain = styled.div`
@@ -179,7 +195,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledImg = styled.img`
-  max-height: 100px;
+  height: 100px;
+  width: auto;
   scale: auto;
   border: 1px solid #d9d9d9;
   &:hover {
@@ -187,6 +204,10 @@ const StyledImg = styled.img`
     opacity: 60%;
   }
   transition: opacity .4s;
+`;
+
+const Stars = styled.div`
+  font-size: 15px;
 `;
 
 export default ReviewTile;

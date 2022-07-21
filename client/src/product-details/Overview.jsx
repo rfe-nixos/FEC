@@ -1,6 +1,6 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
-import React, { useState, useEffect, useContext} from 'react';
+import React, { useState, useEffect, useContext, forwardRef } from 'react';
 import axios from 'axios';
 import { useCurrentProductContext } from '../context';
 import './OverviewStyles.css';
@@ -9,7 +9,7 @@ import AddToCart from './AddToCart';
 import ProductDetails from './ProductDetails';
 import StyleSelector from './StyleSelector';
 
-function Overview({ ratingsRef }) {
+const Overview = forwardRef(({ ratingsRef }, ref) => {
   // STATE
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
@@ -129,7 +129,7 @@ function Overview({ ratingsRef }) {
   // RENDER
   if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail.length > 0 && range.length > 0) {
     return (
-      <div className="overview">
+      <div className="overview" ref={ref}>
         <ImageGallery currentStyle={currentStyle} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} ratingsRef={ratingsRef} />
@@ -139,6 +139,6 @@ function Overview({ ratingsRef }) {
       </div>
     );
   }
-}
+});
 
 export default Overview;

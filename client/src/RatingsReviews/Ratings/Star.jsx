@@ -11,8 +11,8 @@ function Star({ average }) {
 }
 
 const StarContainer = styled.div`
-  font-size: small;
-  margin-top: 3%;
+  color: black;
+  align-items: center;
 `;
 
 const OuterStar = styled.div`

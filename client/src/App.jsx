@@ -16,7 +16,7 @@ function App() {
   const qaRef = useRef();
   const pdRef = useRef();
   const riRef = useRef();
-  const refs = [ratingsRef, topRef, qaRef]; // TODO: if more refs are created, add them here.
+  const refs = [ratingsRef, topRef, qaRef, pdRef, riRef];
   const [clicks, setClicks] = useState([]);
 
   const sendInteraction = (click) => {
@@ -54,9 +54,9 @@ function App() {
   return (
     <MainDiv>
       <CurrentProductProvider>
-        <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} />
-        <Overview ratingsRef={ratingsRef} />
-        <RelatedItems />
+        <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} pdRef={pdRef} riRef={riRef} />
+        <Overview ratingsRef={ratingsRef} ref={pdRef} />
+        <RelatedItems ref={riRef} />
         <QuestionListProvider>
           <QuestionsAnswers ref={qaRef} />
         </QuestionListProvider>
@@ -73,6 +73,7 @@ const MainDiv = styled.div`
   flex-direction: column;
   align-items: center;
   align-self: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 
 export default App;

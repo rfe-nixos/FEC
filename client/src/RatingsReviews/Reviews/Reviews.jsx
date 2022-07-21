@@ -30,7 +30,7 @@ class Reviews extends React.Component {
       .then((response) => {
         console.log('success adding review', response);
         alert('thank you for your submission');
-        this.refresh();
+        this.props.getReviews();
       })
       .catch((err) => console.log('error adding review', err));
   }
@@ -68,7 +68,8 @@ class Reviews extends React.Component {
   }
 
   markHelpful(reviewId) {
-    if (this.state.markedHelpful.indexOf(reviewId) === -1) {
+    if (true) {
+    //if (this.state.markedHelpful.indexOf(reviewId) === -1) {
       axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, { review_id: reviewId }, {
         headers: {
           Authorization: process.env.AUTH_KEY,
@@ -101,6 +102,7 @@ class Reviews extends React.Component {
           report={this.report}
           scrollMore={this.props.scrollMore}
           page={this.props.page}
+          isLoaded={this.props.isLoaded}
         />
         <AddBar
           reviews={this.props.reviews}

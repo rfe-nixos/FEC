@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ReviewTile from './ReviewTile';
 
 function ReviewList({
-  reviews, markHelpful, report, scrollMore, page,
+  reviews, markHelpful, report, scrollMore, page, isLoaded,
 }) {
   const listInnerRef = useRef();
 
@@ -16,25 +16,28 @@ function ReviewList({
     }
   };
 
-  return (reviews.length > 0) ? (
+  return (
+
     <StyledList
       onScroll={onScroll}
       ref={listInnerRef}
+      data-testid="reviewlist"
     >
-      {reviews.slice(0, page * 5).map((review) => (
-        <ReviewTile
-          review={review}
-          key={review.review_id}
-          markHelpful={markHelpful}
-          report={report}
-        />
-      ))}
-    </StyledList>
-  ) : (
-    <StyledList>
-      <h2>
-        There are no reviews currently
-      </h2>
+      {!isLoaded && <h4 data-testid="reviewlistload">loading reviewtiles</h4>}
+      {isLoaded
+      && (
+      <div data-testid="reviewtiles">
+        {reviews.slice(0, page * 3).map((review, index) => (
+          <ReviewTile
+            review={review}
+            key={review.review_id}
+            index={index}
+            markHelpful={markHelpful}
+            report={report}
+          />
+        ))}
+      </div>
+      )}
     </StyledList>
   );
 }
