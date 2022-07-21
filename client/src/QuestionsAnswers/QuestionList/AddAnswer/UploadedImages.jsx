@@ -20,7 +20,6 @@ export default function UploadedImages({ photos, resetPhotos }) {
           />
           <FlexRow>
             <DeleteButton onClick={deleteImage} value={index} data-testid="delete-button">x</DeleteButton>
-            {photo.name}
           </FlexRow>
         </FlexCol>
       ))}
@@ -37,8 +36,10 @@ const ThumbnailContainer = styled.div`
 `;
 
 const Thumbnail = styled.img`
-  max-height: 100px;
-  padding-right:10px;
+  height: 100px;
+  width: 100px;
+  object-fit: cover;
+  padding-right: 2px;
 `;
 
 const DeleteButton = styled.button`
@@ -59,11 +60,15 @@ const DeleteButton = styled.button`
     cursor: pointer;
     opacity: 60%;
   }
+  position: absolute;
+  top: 0;
+  z-index: 201;
 `;
 
 const FlexCol = styled.div`
   display: flex;
   flex-direction: column;
+  position: relative;
 `;
 
 const FlexRow = styled.div`
