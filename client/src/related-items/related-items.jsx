@@ -1,7 +1,7 @@
 /* eslint-disable camelcase */
 /* eslint-disable import/extensions */
 /* eslint-disable no-plusplus */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import axios from 'axios';
 import { Promise } from 'bluebird';
 import ProductList from './productList';
@@ -10,8 +10,7 @@ import { useCurrentProductContext } from '../context';
 import { RelatedItemsStyleContainer } from './styles/list.styled';
 
 export const currentProductDataContext = React.createContext();
-
-function RelatedItems() {
+const RelatedItems = forwardRef((props, ref) => {
   const [relatedProductStyles, setRelatedProductStyles] = useState();
   const [relatedProduct_ids, setRelatedProduct_ids] = useState();
   const [relatedProductReviews, setRelatedProductReviews] = useState();
@@ -199,7 +198,7 @@ function RelatedItems() {
 
   return (
     <currentProductDataContext.Provider value={currentProductData}>
-      <RelatedItemsStyleContainer>
+      <RelatedItemsStyleContainer ref={ref}>
         <h2>Related Items</h2>
         <ProductList
           relatedProductStyles={relatedProductStyles}
@@ -215,5 +214,5 @@ function RelatedItems() {
       </RelatedItemsStyleContainer>
     </currentProductDataContext.Provider>
   );
-}
+});
 export default RelatedItems;
