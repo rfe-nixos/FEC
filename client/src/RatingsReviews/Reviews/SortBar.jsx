@@ -31,6 +31,7 @@ const StyledSortBar = styled.div`
   font-size: 16px;
   width: 100%;
   align-items: baseline;
+  margin-bottom: 1.5%;
 `;
 
 const Select = styled.select`

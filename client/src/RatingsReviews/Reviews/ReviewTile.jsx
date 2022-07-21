@@ -40,7 +40,7 @@ class ReviewTile extends React.Component {
 
   render() {
     return (
-      <TileContainer id="tile-container">
+      <TileContainer id={"tile-container-" + this.props.index}>
         <TileTop>
           <Stars>
             <Star average={this.props.review.rating} />
