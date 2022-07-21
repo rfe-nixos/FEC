@@ -7,7 +7,7 @@ function AddOutfit({ handleAddOutfit }) {
     <StyledCard>
       <div id="addOutfitContainer" onClick={handleAddOutfit} >
         <GrCoatCheck />
-        <div>Add to Outfit</div>
+        <div data-testid="addOutfit">Add to Outfit</div>
       </div>
     </StyledCard>
   );

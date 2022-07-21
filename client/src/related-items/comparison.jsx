@@ -70,6 +70,7 @@ function Comparison({ closeModal, currentProduct }) {
               className="close"
               type="button"
               onClick={() => closeModal(false)}
+              data-testid="closeModal"
             >
               &times;
             </button>

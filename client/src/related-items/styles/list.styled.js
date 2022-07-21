@@ -189,4 +189,10 @@ export const ModalOverlay = styled.div`
 export const RelatedItemsStyleContainer = styled.div`
   /* height: 70%; */
   width: 70%;
+  border-bottom: .5px solid black;
+  padding-bottom: 2em;
 `;
+
+export const ModalWrapper = styled.div`
+position:relative;
+`
