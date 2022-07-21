@@ -7,8 +7,9 @@ import ImageGallery from './ImageGallery';
 import AddToCart from './AddToCart';
 import ProductDetails from './ProductDetails';
 import StyleSelector from './StyleSelector';
+import { useCurrentProductContext } from '../context';
 
-const Overview = forwardRef(({ productId, ratingsRef }, ref) => {
+const Overview = forwardRef(({ ratingsRef }, ref) => {
   // STATE
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
@@ -24,7 +25,8 @@ const Overview = forwardRef(({ productId, ratingsRef }, ref) => {
   const [range, setRange] = useState([]);
 
   // API INTERACTION
-  productId = productId || '37311';
+  //productId = productId || '37311';
+  const productId = useCurrentProductContext();
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
   const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${productId}`;
@@ -84,13 +86,14 @@ const Overview = forwardRef(({ productId, ratingsRef }, ref) => {
   // SET STATE
   useEffect(() => {
     getProduct();
-  }, []);
-  useEffect(() => {
     getStyles();
-  }, []);
-  useEffect(() => {
     getReviews();
   }, []);
+  useEffect(() => {
+    getProduct();
+    getStyles();
+    getReviews();
+  }, [productId]);
   useEffect(() => {
     if (styles.length > 0 && Object.keys(currentStyle).length === 0) {
       setCurrentStyle(styles[0]);
