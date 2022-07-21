@@ -40,7 +40,7 @@ class ReviewTile extends React.Component {
 
   render() {
     return (
-      <TileContainer>
+      <TileContainer id="tile-container">
         <TileTop>
           <div>
             <Star average={this.props.review.rating} />
@@ -51,15 +51,13 @@ class ReviewTile extends React.Component {
           </div>
         </TileTop>
         <TileMain>
-          <TileDiv><h5>{this.props.review.summary}</h5></TileDiv>
-          <TileDiv><small>{this.props.review.body}</small></TileDiv>
-          <TileDiv>
-            {this.props.review.recommend
+          <Summary>{this.props.review.summary}</Summary>
+          <TileDiv>{this.props.review.body}</TileDiv>
+          {this.props.review.recommend
               && (
-              <h5>
-                I recommend this product &#10003;
-              </h5>
+                <TileDiv><b>I recommend this product &#10003;</b></TileDiv>
               )}
+          <TileDiv>
             {this.props.review.photos.length > 0
               && (
               <PhotoDiv>
@@ -95,10 +93,19 @@ class ReviewTile extends React.Component {
 
 const TileDiv = styled.div`
   width: 100%;
+  font-size: 13px;
+  margin-top: 3%;
+  color: #4a4a4a;
+`;
+
+const Summary = styled.div`
+  font-size: 15px;
+  font-weight: bold;
+  margin-top: 5%;
 `;
 
 const Spanny = styled.span`
-  font-size: x-small;
+  font-size: 12px;
   &:hover {
     cursor: pointer;
     opacity: 60%;
@@ -130,7 +137,7 @@ const TileContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: top;
-  max-width: 400px;
+  max-width: 600px;
   border-bottom: .5px solid #363636;
   padding: 0%;
   margin-top: 2%;
@@ -140,19 +147,21 @@ const TileTop = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: space-between;
-  font-size: x-small;
+  font-size: 12px;
   align-items: center;
   width: 100%;
+  color: #5d5d5d;
 `;
 
 const TileBot = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  font-size: x-small;
+  font-size: 12px;
   align-items: center;
   margin-top: 3%;
   margin-bottom: 3%;
+  color: #5d5d5d;
 `;
 
 const TileMain = styled.div`

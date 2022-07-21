@@ -28,7 +28,7 @@ const StyledSortBar = styled.div`
   display: flex;
   flex-direction: row;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 16px;
   width: 100%;
   align-items: baseline;
 `;
