@@ -4,8 +4,11 @@ const path = require('path');
 require('dotenv').config();
 
 const app = express();
-app.use(express.static(path.join(__dirname, '../client/public')));
-
+app.use(express.static(path.join(__dirname, '../client/public'), {
+  setHeaders: function (res, path, stat) {
+    res.set('Cache-Control', 'max-age=31536000')
+  }
+}));
 app.listen(process.env.PORT, () => {
   console.log(`listening on port ${process.env.PORT}`);
 });
