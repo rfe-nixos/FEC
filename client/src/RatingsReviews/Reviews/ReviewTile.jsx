@@ -5,6 +5,7 @@ import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import Star from '../Ratings/Star';
 import PhotoPopup from './PhotoPopup';
+import resizeThumbnail from '../lib/resizeThumbnail';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -61,7 +62,7 @@ class ReviewTile extends React.Component {
             {this.props.review.photos.length > 0
               && (
               <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
+                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={resizeThumbnail(photo.url, 100)} onClick={this.togglePhotoPop} />)}
               </PhotoDiv>
               )}
             {(this.state.openPhotoPop)
