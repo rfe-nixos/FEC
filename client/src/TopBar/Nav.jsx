@@ -82,7 +82,7 @@ const NavMain = styled.div`
   position: absolute;
   display:flex;
   flex-direction: column;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 5px;
   background: white;
   background-color: white;

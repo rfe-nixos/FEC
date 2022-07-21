@@ -6,11 +6,11 @@ import ratingToPercentage from '../lib/ratingToPercentage';
 function CharBar({ rating, char, chars }) {
   return (
     <BarContainer>
-      <StarCount>
+      <CharName>
         {char}
         :
         {' '}
-      </StarCount>
+      </CharName>
       <OuterBar>
         <InnerBar width={ratingToPercentage(rating)} />
       </OuterBar>
@@ -22,7 +22,7 @@ function CharBar({ rating, char, chars }) {
 }
 
 const BarContainer = styled.div`
-  font-size: xx-small;
+  font-size: small;
   margin-top: 3%;
   width: 100%;
   display: flex;
@@ -49,7 +49,7 @@ const InnerBar = styled.div`
   overflow: hidden;
   width: auto;
   height: 24px;
-  font-size:small;
+  font-size: small;
   transform: translate(-50%, -50%);
   &:before {
     content: "▼";
@@ -57,14 +57,16 @@ const InnerBar = styled.div`
 `;
 
 const CharList = styled.div`
-  font-size: xxx  -small;
+  font-size: x-small;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  color: #626262;
 `;
 
-const StarCount = styled.div`
-
+const CharName = styled.div`
+  font-weight: 400;
+  color: #626262;
 `;
 
 export default CharBar;

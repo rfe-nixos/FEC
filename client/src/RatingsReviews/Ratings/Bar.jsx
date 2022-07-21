@@ -23,7 +23,7 @@ const StarCount = styled.div`
 `;
 
 const BarContainer = styled.div`
-  font-size: xx-small;
+  font-size: small;
   margin-top: 3%;
   width: 100%;
   display: flex;

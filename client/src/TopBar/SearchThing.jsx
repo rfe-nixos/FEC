@@ -72,8 +72,8 @@ const StyledInput = styled.input`
   margin: 4%;
   transition: 1s;
   height: auto;
-  font-size: 20px;
-  color: #acacac;
+  font-size: 30px;
+  color: #828282;
   letter-spacing: 0px
 
 `;

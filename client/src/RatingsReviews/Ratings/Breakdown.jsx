@@ -28,7 +28,7 @@ function Breakdown({ meta, isLoaded, totalRatings, ratingFilter, setRatingFilter
 
 const BreakContainer = styled.div`
   display: block;
-  font-size: x-small;
+  font-size: small;
   font-weight: light;
   margin-top: 7%;
 `;

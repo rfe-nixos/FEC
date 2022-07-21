@@ -42,9 +42,9 @@ class ReviewTile extends React.Component {
     return (
       <TileContainer id="tile-container">
         <TileTop>
-          <div>
+          <Stars>
             <Star average={this.props.review.rating} />
-          </div>
+          </Stars>
           <div>
             {`${this.props.review.reviewer_name}, `}
             {`${format(parseISO(this.props.review.date), 'MMMM dd, yyyy')} `}
@@ -150,7 +150,7 @@ const TileTop = styled.div`
   font-size: 12px;
   align-items: center;
   width: 100%;
-  color: #5d5d5d;
+  color: #484848;
 `;
 
 const TileBot = styled.div`
@@ -161,7 +161,7 @@ const TileBot = styled.div`
   align-items: center;
   margin-top: 3%;
   margin-bottom: 3%;
-  color: #5d5d5d;
+  color: #484848;
 `;
 
 const TileMain = styled.div`
@@ -197,5 +197,9 @@ const StyledImg = styled.img`
   }
   transition: opacity .4s;
 `;
+
+const Stars = styled.div`
+  font-size: 15px;
+`
 
 export default ReviewTile;

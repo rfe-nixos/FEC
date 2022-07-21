@@ -46,7 +46,7 @@ const Link = styled.a`
 
 const Icon = styled.img`
   size: auto;
-  width: 17px;
+  width: 20px;
   &:hover{
     cursor: pointer;
     opacity: 60%;
@@ -68,8 +68,6 @@ const LeftDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  font-size: 10px;
-  letter-spacing: 5px;
   align-items: center;
 
 `;
@@ -80,8 +78,6 @@ const RightDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-end;
-  font-size: 10px;
-  letter-spacing: 5px;
   align-items: center;
 
 `;
@@ -93,7 +89,7 @@ const TitleInner = styled.div`
   flex-direction: row;
   justify-content: flex-end;
   align-items: center;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 5px;
   margin-right: 0%;
   &:hover{

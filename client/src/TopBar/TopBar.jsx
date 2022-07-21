@@ -44,7 +44,7 @@ const Div = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: flex-start;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 5px;
   align-items: center;
   width: 30%;
@@ -89,7 +89,7 @@ const TitleInner = styled.div`
   display: flex;
   flex-direction: row;
   align-items: center;
-  font-size: 10px;
+  font-size: 12px;
   letter-spacing: 5px;
   &:hover{
     cursor: pointer;
@@ -104,6 +104,7 @@ const TitleInner = styled.div`
 
 const TitleDiv = styled.div`
   width: 70%;
+  min-width: 700px;
   display: flex;
   flex-direction: row;
   align-items: center;
