@@ -16,13 +16,11 @@ function Modal({
   const [mouse, setMouse] = useState([0, 0]);
 
   const handleImageGalleryModalClose = (event) => {
-    event.preventDefault();
     setModalZoom(false);
     setModal('off');
   };
 
   const handleModalClick = (event) => {
-    event.preventDefault();
     setModalZoom((modalZoom) => !modalZoom);
   };
 

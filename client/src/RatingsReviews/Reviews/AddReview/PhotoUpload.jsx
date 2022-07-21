@@ -19,7 +19,7 @@ function PhotoUpload({
   };
 
   return (
-    <div>
+    <div data-testid="photouploadform">
       <input type="file" onChange={handleFileInput} />
       {(!selectedPhoto) && (<div>please select a photo</div>)}
       {(selectedPhoto && !uploaded) && (

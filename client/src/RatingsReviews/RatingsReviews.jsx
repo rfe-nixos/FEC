@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { parseISO, compareAsc } from 'date-fns';
@@ -98,7 +98,6 @@ const RatingsReviews = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    console.log('ratingfilter is changing');
     if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
       getByRating();
       setFilteredByRating(true);
@@ -184,6 +183,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             getReviews={getReviews}
             scrollMore={scrollMore}
             page={page}
+            isLoaded={isLoaded}
           />
         )}
         {(!filteredByRating) && (
@@ -196,6 +196,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             getReviews={getReviews}
             scrollMore={scrollMore}
             page={page}
+            isLoaded={isLoaded}
           />
         )}
       </StyledInner>
@@ -208,6 +209,7 @@ const StyledMain = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 70%;
+  min-width: 500px;
   color: #1c1c1c;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
@@ -221,7 +223,6 @@ const StyledInner = styled.div`
   align-items: top;
   min-width: 700px;
   width: 100%;
-  border-top: 1px solid black;
   padding-top: 1%;
   height: 100%
 `;
@@ -231,8 +232,8 @@ const StyledTitle = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-left: 2%;
-  font-size: small;
+  margin-left: 1%;
+  font-size: 16px;
   font-weight: 400;
   margin-bottom: 1%;
 

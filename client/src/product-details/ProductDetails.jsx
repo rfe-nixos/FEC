@@ -5,6 +5,8 @@
 /* eslint-disable radix */
 /* eslint-disable react/prop-types */
 import React, { useState } from 'react';
+// import { ShareSocial } from 'react-share-social';
+import { FacebookShareButton, FacebookIcon, PinterestShareButton, PinterestIcon, TwitterShareButton, TwitterIcon } from 'react-share';
 import Star from '../RatingsReviews/Ratings/Star';
 
 function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
@@ -12,12 +14,10 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
     const [showNav, setShowNav] = useState(false);
 
     const toggleNav = (event) => {
-      event.preventDefault();
       !showNav ? setShowNav(true) : setShowNav(false);
     };
 
     const scrollDown = (event) => {
-      event.preventDefault();
       window.scrollTo({
         top: ratingsRef.current.offsetTop, // scrolls to location of ref
         behavior: 'smooth',
@@ -53,6 +53,15 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
           </div>
           <p id="overview">{product.description}</p>
+          <FacebookShareButton url="" className="share">
+            <FacebookIcon className="share" />
+          </FacebookShareButton>
+          <TwitterShareButton url="" className="share">
+            <TwitterIcon className="share" />
+          </TwitterShareButton>
+          <PinterestShareButton url="" media="" className="share">
+            <PinterestIcon className="share" />
+          </PinterestShareButton>
         </div>
       );
     }
@@ -70,6 +79,15 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
         </div>
         <h3 id="price">{'$' + currentStyle.original_price}</h3>
         <p id="overview">{product.description}</p>
+        <FacebookShareButton url="" className="share">
+          <FacebookIcon className="share" />
+        </FacebookShareButton>
+        <TwitterShareButton url="" className="share">
+          <TwitterIcon className="share" />
+        </TwitterShareButton>
+        <PinterestShareButton url="" media="" className="share">
+          <PinterestIcon className="share" />
+        </PinterestShareButton>
       </div>
     );
   }
@@ -84,6 +102,15 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
           <h3 id="salesPrice">{currentStyle.sales_price}</h3>
         </div>
         <p id="overview">{product.description}</p>
+        <FacebookShareButton url="" className="share">
+          <FacebookIcon className="share" />
+        </FacebookShareButton>
+        <TwitterShareButton url="" className="share">
+          <TwitterIcon className="share" />
+        </TwitterShareButton>
+        <PinterestShareButton url="" media="" className="share">
+          <PinterestIcon className="share" />
+        </PinterestShareButton>
       </div>
     );
   }
@@ -94,6 +121,15 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
       <h1 id="title">{product.name}</h1>
       <h3 id="price">{'$' + currentStyle.original_price}</h3>
       <p id="overview">{product.description}</p>
+      <FacebookShareButton url="" className="share">
+        <FacebookIcon className="share" />
+      </FacebookShareButton>
+      <TwitterShareButton url="" className="share">
+        <TwitterIcon className="share" />
+      </TwitterShareButton>
+      <PinterestShareButton url="" media="" className="share">
+        <PinterestIcon className="share" />
+      </PinterestShareButton>
     </div>
   );
 }

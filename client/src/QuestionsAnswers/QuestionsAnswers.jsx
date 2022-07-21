@@ -35,6 +35,14 @@ const QuestionAnswers = forwardRef((props, ref) => {
       });
   }, []);
 
+  useEffect(() => {
+    renderQuestions();
+    getProductInfo(productId)
+      .then((result) => {
+        setProductInfo(result.data);
+      });
+  }, [productId]);
+
   return (
     <DivContainer id="question-and-answers" ref={ref}>
       <Title>QUESTIONS & ANSWERS</Title>
@@ -72,6 +80,7 @@ const DivContainer = styled.div`
   font-size: 15px;
   padding: 20px 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  border-bottom: 0.5px solid black;
 `;
 
 const Button = styled.button`
@@ -90,4 +99,5 @@ const ButtonContainer = styled.div`
 const Title = styled.div`
   font-size: small;
   padding: 17px 0;
+  margin-left: 2%;
 `;

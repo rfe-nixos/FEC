@@ -191,6 +191,8 @@ export const RelatedItemsStyleContainer = styled.div`
   width: 70%;
   border-bottom: .5px solid black;
   padding-bottom: 2em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  -webkit-font-smoothing: antialiased;
 `;
 
 export const ModalWrapper = styled.div`

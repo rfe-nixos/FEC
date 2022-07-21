@@ -23,7 +23,7 @@ const StarCount = styled.div`
 `;
 
 const BarContainer = styled.div`
-  font-size: xx-small;
+  font-size: small;
   margin-top: 3%;
   width: 100%;
   display: flex;
@@ -35,7 +35,7 @@ const OuterBar = styled.div`
   display: inline-block;
   position: relative;
   width: 100%;
-  height: 10px;
+  height: 12px;
   border: ${(props) => (props.isClicked ? '1px solid black' : 'none')};
   background-color: #d9d9d9;
   margin-left: 5%;
@@ -52,7 +52,7 @@ const InnerBar = styled.div`
   left: 0;
   white-space: nowrap;
   overflow: hidden;
-  height: 10px;
+  height: 12px;
   width: ${(props) => props.width}%;
   background-color: #1c1c1c;
 `;

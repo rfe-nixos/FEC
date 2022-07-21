@@ -7,17 +7,17 @@ function SortBar({ setSort, totalRatings, page, reviews }) {
   };
 
   return (
-    <StyledSortBar>
-      {page * 5}
+    <StyledSortBar data-testid="sortbar-1">
+      {page * 3}
       {' '}
       of
       {' '}
       {totalRatings}
       {' '}
       reviews, sorted by
-      <Select id="sort" onChange={sort}>
-        <option value="relevance">Relevance</option>
-        <option value="newest">Newest</option>
+      <Select data-testid="sortoptions" id="sort" onChange={sort}>
+        <option data-testid="relevance" value="relevance">Relevance</option>
+        <option data-testid="newest-option" value="newest">Newest</option>
         <option value="helpful">Helpfulness</option>
       </Select>
     </StyledSortBar>
@@ -28,20 +28,25 @@ const StyledSortBar = styled.div`
   display: flex;
   flex-direction: row;
   font-weight: bold;
-  font-size: 15px;
+  font-size: 16px;
   width: 100%;
   align-items: baseline;
+  margin-bottom: 1.5%;
 `;
 
 const Select = styled.select`
   margin-left: 1.5%;
   font-weight: bold;
   background: white;
-  font-size: 14px;
+  font-size: 16px;
   border: none;
   border-bottom: 1px solid black;
   align-self: flex-end;
   margin-bottom: .1%;
+  &:hover{
+    cursor: pointer;
+    opacity: 70%;
+  }
 `;
 
 export default SortBar;

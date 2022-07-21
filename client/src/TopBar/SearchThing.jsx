@@ -67,25 +67,25 @@ function SearchThing({ toggleSearch }) {
 }
 
 const StyledInput = styled.input`
-z-index: 200;
+  z-index: 200;
   width: 200px;
   margin: 4%;
   transition: 1s;
   height: auto;
-  font-size: 20px;
-  color: #acacac;
+  font-size: 30px;
+  color: #828282;
   letter-spacing: 0px
 
 `;
 
 const StyledForm = styled.div`
-z-index: 200;
+  z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 1;
+  z-index: 200;
   left: 0;
   top: 0;
   width: 100%;
@@ -95,8 +95,9 @@ z-index: 200;
   background-color: rgba(0,0,0,0.4);
 `;
 
-const StyledInner = styled.div`\
-z-index: 200;
+const StyledInner = styled.div`
+  z-index: 200;
+  position: absolute;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -117,21 +118,8 @@ z-index: 200;
   transition: all 0.5s ease-in-out;
 `;
 
-const InnerTop = styled.div`
-z-index: 200;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: large;
-  font-weight: bold;
-  width: 100% ;
-  border-bottom: .5px solid black;
-  padding-bottom: 1%;
-  margin-bottom: 2%;
-`;
-
 const StyledButton = styled.button`
-z-index: 200;
+  z-index: 200;
   width: auto;
   max-width: 100px;
   font-size: small;
