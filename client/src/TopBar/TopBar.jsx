@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchThing from './SearchThing';
 import Nav from './Nav';
 
-const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
+const TopBar = forwardRef(({ ratingsRef, qaRef, pdRef, riRef }, ref) => {
   console.log(ratingsRef);
   const [searching, setSearching] = useState(false);
 
@@ -17,21 +17,24 @@ const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
 
   return (
     <TitleDiv id="top-bar" ref={ref}>
-      <TitleImg
-        src="public/icons/nixatelier.png"
-        alt="nixatelier"
-        onClick={refresh}
-      />
       <Div>
-        <Nav ratingsRef={ratingsRef} qaRef={qaRef} />
+        <Nav ratingsRef={ratingsRef} qaRef={qaRef} pdRef={pdRef} riRef={riRef} />
       </Div>
       <Div>
-        <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
-          <TitleInner>ABOUT</TitleInner>
-        </Link>
+        <TitleImg
+          src="public/icons/nixatelier.png"
+          alt="nixatelier"
+          onClick={refresh}
+        />
+      </Div>
+      <RightDiv>
+        <Div>
+          <Link href="https://github.com/rfe-nixos/FEC" target="_blank" rel="noopener noreferrer">
+            ABOUT
+          </Link>
+        </Div>
         <TitleInner onClick={toggleSearch}>SEARCH</TitleInner>
-      </Div>
-
+      </RightDiv>
       {(searching) && (<SearchThing toggleSearch={toggleSearch} />)}
     </TitleDiv>
   );
@@ -40,15 +43,33 @@ const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
 const Div = styled.div`
   display: flex;
   flex-direction: row;
+  justify-content: flex-start;
+  font-size: 12px;
+  letter-spacing: 5px;
   align-items: center;
+  width: 30%;
+  height: 100%;
+`;
+
+const RightDiv = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  align-items: center;
+  width: 30%;
+  height: 100%;
 `;
 
 const Link = styled.a`
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 30%;
+  height: 100%;
   &:link { text-decoration: none; }
   &:visited { text-decoration: none; }
   &:hover { cursor: pointer; opacity: 60%;}
   &:active { text-decoration: none; }
-  margin-right: 5%;
 `;
 
 const TitleImg = styled.img`
@@ -65,19 +86,25 @@ const TitleImg = styled.img`
 `;
 
 const TitleInner = styled.div`
-  font-size: 10px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  font-size: 12px;
   letter-spacing: 5px;
-  margin-right: 50px;
   &:hover{
     cursor: pointer;
     opacity: 60%;
   }
   align-items: center;
   justify-content: center;
+  width: 30%;
+  height: 100%;
+  margin-left: 10%;
 `;
 
 const TitleDiv = styled.div`
-  width: 90%;
+  width: 70%;
+  min-width: 700px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -90,6 +117,7 @@ const TitleDiv = styled.div`
   -webkit-font-smoothing: antialiased;
   margin-bottom: 1%;
   margin-top: 1%;
+  border-bottom: .5px solid black;
 `;
 
 export default TopBar;

@@ -51,7 +51,7 @@ class StarRatingBar extends React.Component {
         <Star id="star-2" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
         <Star id="star-3" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
         <Star id="star-4" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
-        <Star id="star-5" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
+        <div data-testid="fivestar"><Star id="star-5" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star></div>
       </StarContainer>
     );
   }

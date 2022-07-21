@@ -98,7 +98,6 @@ const RatingsReviews = forwardRef((props, ref) => {
   };
 
   useEffect(() => {
-    console.log('ratingfilter is changing');
     if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
       getByRating();
       setFilteredByRating(true);
@@ -184,6 +183,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             getReviews={getReviews}
             scrollMore={scrollMore}
             page={page}
+            isLoaded={isLoaded}
           />
         )}
         {(!filteredByRating) && (
@@ -196,6 +196,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             getReviews={getReviews}
             scrollMore={scrollMore}
             page={page}
+            isLoaded={isLoaded}
           />
         )}
       </StyledInner>
@@ -208,6 +209,7 @@ const StyledMain = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 70%;
+  min-width: 500px;
   color: #1c1c1c;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;
@@ -232,7 +234,7 @@ const StyledTitle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-left: 2%;
-  font-size: small;
+  font-size: 15px;
   font-weight: 400;
   margin-bottom: 1%;
 

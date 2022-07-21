@@ -10,8 +10,8 @@ function Summary({ average, totalRatings, isLoaded }) {
         && (
         <div>
           <StyledSummary>
-            <BigRating>{`${average}`}</BigRating>
-            <Star average={average} />
+            <BigRating data-testid="averagerating">{`${average}`}</BigRating>
+            <StarDiv><Star average={average} /></StarDiv>
           </StyledSummary>
           <div>
             <em>{`out of ${totalRatings} reviews`}</em>
@@ -23,7 +23,7 @@ function Summary({ average, totalRatings, isLoaded }) {
 }
 
 const BigRating = styled.div`
-  font-size: xxx-large;
+  font-size: 50px !important;
   font-weight: bold;
   margin-right: 5%;
   margin-top:-5%;
@@ -32,9 +32,15 @@ const BigRating = styled.div`
 
 const StyledSummary = styled.div`
   display: flex;
+  height: auto;
   flex-direction: row;
-  align-items: flex-start;
+  justify-content: flex-start;
   width: auto;
 `;
+
+const StarDiv = styled.div`
+  font-size: 20px !important;
+
+`
 
 export default Summary;
