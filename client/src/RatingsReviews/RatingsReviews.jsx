@@ -215,6 +215,8 @@ const StyledMain = styled.div`
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   border-bottom: .5px solid black;
+  border-top: .5px solid black;
+  padding-top: 1.5%;
 `;
 const StyledInner = styled.div`
   display: flex;
@@ -223,7 +225,7 @@ const StyledInner = styled.div`
   align-items: top;
   min-width: 700px;
   width: 100%;
-  border-top: 1px solid black;
+  /* border-top: 1px solid black; */
   padding-top: 1%;
   height: 100%
 `;
@@ -233,8 +235,8 @@ const StyledTitle = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-left: 2%;
-  font-size: 15px;
+  margin-left: 1%;
+  font-size: 16px;
   font-weight: 400;
   margin-bottom: 1%;
 
