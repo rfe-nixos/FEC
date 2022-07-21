@@ -197,6 +197,11 @@
   margin: auto 3%;
 }
 
+.share:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
 .styleSelector {
   float: center;
   width: 90%;
