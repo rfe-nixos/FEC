@@ -16,7 +16,7 @@ function App() {
   const qaRef = useRef();
   const pdRef = useRef();
   const riRef = useRef();
-  const refs = [ratingsRef, topRef, qaRef, pdRef, riRef]; // TODO: if more refs are created, add them here.
+  const refs = [ratingsRef, topRef, qaRef, pdRef, riRef];
   const [clicks, setClicks] = useState([]);
 
   const sendInteraction = (click) => {
@@ -73,6 +73,7 @@ const MainDiv = styled.div`
   flex-direction: column;
   align-items: center;
   align-self: center;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 `;
 
 export default App;

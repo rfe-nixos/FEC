@@ -28,7 +28,14 @@ class AddBar extends React.Component {
       <AddBarMain data-testid="addbar-1">
         <StyledButton data-testid="morebutton" onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
         <StyledButton data-testid="addbutton" onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
-        {this.state.formShowing && <ReviewForm productId={this.props.productId} addReview={this.props.addReview} toggleForm={this.toggleForm} />}
+        {this.state.formShowing
+        && (
+        <ReviewForm
+          productId={this.props.productId}
+          addReview={this.props.addReview}
+          toggleForm={this.toggleForm}
+        />
+        )}
       </AddBarMain>
     );
   }
@@ -37,7 +44,7 @@ class AddBar extends React.Component {
 const AddBarMain = styled.div`
   margin-top: 2%;
   margin-bottom: 2%;
-`
+`;
 
 const StyledButton = styled.button`
   width: auto;

@@ -4,7 +4,6 @@ import SearchThing from './SearchThing';
 import Nav from './Nav';
 
 const TopBar = forwardRef(({ ratingsRef, qaRef, pdRef, riRef }, ref) => {
-  console.log(ratingsRef);
   const [searching, setSearching] = useState(false);
 
   const refresh = () => {

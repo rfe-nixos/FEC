@@ -40,6 +40,11 @@ const StyledSummary = styled.div`
 
 const StarDiv = styled.div`
   font-size: 20px !important;
+  align-items: center;
+  height:100%;
+  display:flex;
+  flex-direction:column;
+  justify-content:flex-start;
 
 `
 

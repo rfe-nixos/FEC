@@ -5,6 +5,7 @@ import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import Star from '../Ratings/Star';
 import PhotoPopup from './PhotoPopup';
+import resizeThumbnail from '../lib/resizeThumbnail';
 
 class ReviewTile extends React.Component {
   constructor(props) {
@@ -40,7 +41,7 @@ class ReviewTile extends React.Component {
 
   render() {
     return (
-      <TileContainer id={"tile-container-" + this.props.index}>
+      <TileContainer id={`tile-container-${this.props.index}`}>
         <TileTop>
           <Stars>
             <Star average={this.props.review.rating} />
@@ -61,10 +62,16 @@ class ReviewTile extends React.Component {
             {this.props.review.photos.length > 0
               && (
               <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={photo.url} onClick={this.togglePhotoPop} />)}
+                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={resizeThumbnail(photo.url, 100)} onClick={this.togglePhotoPop} />)}
               </PhotoDiv>
               )}
-            {(this.state.openPhotoPop) && (<PhotoPopup photoUrl={this.state.photo} togglePhotoPop={this.togglePhotoPop} />)}
+            {(this.state.openPhotoPop)
+            && (
+            <PhotoPopup
+              photoUrl={this.state.photo}
+              togglePhotoPop={this.togglePhotoPop}
+            />
+            )}
             {this.props.review.response
               && (
               <Seller>
@@ -188,7 +195,8 @@ const StyledButton = styled.button`
 `;
 
 const StyledImg = styled.img`
-  max-height: 100px;
+  height: 100px;
+  width: auto;
   scale: auto;
   border: 1px solid #d9d9d9;
   &:hover {
@@ -200,6 +208,6 @@ const StyledImg = styled.img`
 
 const Stars = styled.div`
   font-size: 15px;
-`
+`;
 
 export default ReviewTile;
