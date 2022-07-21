@@ -132,7 +132,7 @@ const Overview = forwardRef(({ productId, ratingsRef }, ref) => {
   // RENDER
   if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail !== '' && range.length > 0) {
     return (
-      <div className="overview" ref={ref}>
+      <div className="overview main-widget-container" ref={ref}>
         <ImageGallery currentStyle={currentStyle} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} ratingsRef={ratingsRef} />
