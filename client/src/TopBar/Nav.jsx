@@ -1,9 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import styled from 'styled-components';
 
-function Nav({ ratingsRef, qaRef }) {
-  console.log(ratingsRef);
+function Nav({ ratingsRef, qaRef, pdRef }) {
   const [showNav, setShowNav] = useState(false);
+  const navBotRef = useRef();
 
   const toggleNav = () => {
     !showNav ? setShowNav(true) : setShowNav(false);
@@ -25,20 +25,50 @@ function Nav({ ratingsRef, qaRef }) {
     toggleNav();
   };
 
+  const scrollToPd = () => {
+    window.scrollTo({
+      top: pdRef.current.offsetTop, // scrolls to location of ref
+      behavior: 'smooth',
+    });
+    toggleNav();
+  };
+
+  const handleOffClick = (event) => {
+    if (!navBotRef.current.contains(event.target)
+        || event.target !== navBotRef.current) {
+      setShowNav(false);
+    }
+  };
+
   return (
     <NavMain>
       <NavTop id="nav-top" onClick={toggleNav}>
         <Name>NAV</Name>
       </NavTop>
-      <NavBot showNav={showNav} id="nav-bot">
-        <Name>PRODUCT</Name>
+      <NavBot showNav={showNav} id="nav-bot" ref={navBotRef}>
+        <Name onClick={scrollToPd}>PRODUCT</Name>
         <Name>RELATED ITEMS</Name>
         <Name onClick={scrollToQa}>Q + A</Name>
         <Name onClick={scrollDown}>RATINGS REVIEWS</Name>
       </NavBot>
+      {(showNav) && <NavBotBack onClick={handleOffClick} />}
     </NavMain>
   );
 }
+
+const NavBotBack = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 100;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background: transparent;
+`;
 
 const NavMain = styled.div`
   position: absolute;
@@ -70,13 +100,14 @@ const NavTop = styled.div`
   background-color: white;
   align-items: flex-start;
   padding: 2%;
-`
+`;
 
 const NavBot = styled.div`
   position: absolute;
+  z-index: 200;
   transform: translate(0%, 24px);
   width: 200px;
-  height: ${props => props.showNav ? '100' : '0'}px;
+  height: ${(props) => (props.showNav ? '100' : '0')}px;
   overflow-y: hidden;
   transition: .5s;
   display:flex;
@@ -84,7 +115,7 @@ const NavBot = styled.div`
   background-color: white;
   padding: 2%;
   align-items: flex-start;
-  border: ${props => props.showNav ? '.5' : '0'}px solid black;
+  border: ${(props) => (props.showNav ? '.5' : '0')}px solid black;
 `;
 
 export default Nav;

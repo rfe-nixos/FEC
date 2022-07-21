@@ -10,7 +10,7 @@ const StyledForm = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 1;
+  z-index: 200;
   left: 0;
   top: 0;
   width: 100%;
@@ -22,6 +22,7 @@ const StyledForm = styled.div`
 
 const StyledInner = styled.div`
   display: flex;
+  z-index: 200;
   flex-direction: column;
   justify-content: left;
   align-items: flex-start;
@@ -40,6 +41,7 @@ const StyledInner = styled.div`
 
 const InnerTop = styled.div`
   display: flex;
+  z-index: 200;
   flex-direction: row;
   justify-content: space-between;
   font-size: large;
@@ -52,6 +54,7 @@ const InnerTop = styled.div`
 
 const StyledCat = styled.div`
   font-weight: bold;
+  z-index: 200;
   font-size: small;
   display: flex;
   flex-direction: column;
@@ -60,6 +63,7 @@ const StyledCat = styled.div`
   width: 100%;
 `;
 const InnerBot = styled.div`
+  z-index: 200;
   font-weight: bold;
   font-size: regular;
   display: flex;
@@ -73,6 +77,7 @@ const InnerBot = styled.div`
 
 const StyledInput = styled.input`
   width: 200px;
+  z-index: 200;
 `;
 
 const StyledTextArea = styled.textarea`
@@ -80,9 +85,11 @@ const StyledTextArea = styled.textarea`
   height: 60px;
   resize: none;
   font-family: inherit;
+  z-index: 200;
 `;
 const StyledClose = styled.button`
   color: #1c1c1c;
+  z-index: 200;
   font-size: 15px;
   background-color: white;
   width: auto;
@@ -97,6 +104,7 @@ const StyledClose = styled.button`
 `;
 const StyledButton = styled.button`
   width: auto;
+  z-index: 200;
   max-width: 100px;
   font-size: small;
   margin: 1%;

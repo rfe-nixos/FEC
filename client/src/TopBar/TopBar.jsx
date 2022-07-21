@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import SearchThing from './SearchThing';
 import Nav from './Nav';
 
-const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
+const TopBar = forwardRef(({ ratingsRef, qaRef, pdRef }, ref) => {
   console.log(ratingsRef);
   const [searching, setSearching] = useState(false);
 
@@ -19,7 +19,7 @@ const TopBar = forwardRef(({ ratingsRef, qaRef }, ref) => {
     <TitleDiv id="top-bar" ref={ref}>
 
       <Div>
-        <Nav ratingsRef={ratingsRef} qaRef={qaRef} />
+        <Nav ratingsRef={ratingsRef} qaRef={qaRef} pdRef={pdRef} />
       </Div>
       <Div>
         <TitleImg

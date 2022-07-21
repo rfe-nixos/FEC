@@ -16,7 +16,7 @@ function App() {
   const qaRef = useRef();
   const pdRef = useRef();
   const riRef = useRef();
-  const refs = [ratingsRef, topRef, qaRef]; // TODO: if more refs are created, add them here.
+  const refs = [ratingsRef, topRef, qaRef, pdRef]; // TODO: if more refs are created, add them here.
   const [clicks, setClicks] = useState([]);
 
   const sendInteraction = (click) => {
@@ -54,8 +54,8 @@ function App() {
   return (
     <MainDiv>
       <CurrentProductProvider>
-        <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} />
-        <Overview ratingsRef={ratingsRef} />
+        <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} pdRef={pdRef}/>
+        <Overview ratingsRef={ratingsRef} ref={pdRef} />
         <RelatedItems />
         <QuestionListProvider>
           <QuestionsAnswers ref={qaRef} />

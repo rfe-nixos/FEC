@@ -74,6 +74,7 @@ const LeftDiv = styled.div`
 
 `;
 const RightDiv = styled.div`
+  min-width:300px;
   width: 30%;
   height: 100%;
   display: flex;
