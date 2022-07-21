@@ -215,8 +215,6 @@ const StyledMain = styled.div`
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
   border-bottom: .5px solid black;
-  border-top: .5px solid black;
-  padding-top: 1.5%;
 `;
 const StyledInner = styled.div`
   display: flex;
