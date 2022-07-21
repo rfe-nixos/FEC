@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, forwardRef } from 'react';
+import React, { useState, useEffect, forwardRef } from 'react';
 import axios from 'axios';
 import styled from 'styled-components';
 import { parseISO, compareAsc } from 'date-fns';
@@ -225,7 +225,6 @@ const StyledInner = styled.div`
   align-items: top;
   min-width: 700px;
   width: 100%;
-  /* border-top: 1px solid black; */
   padding-top: 1%;
   height: 100%
 `;

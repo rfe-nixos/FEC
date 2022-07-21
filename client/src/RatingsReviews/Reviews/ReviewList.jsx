@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import ReviewTile from './ReviewTile';
 
 function ReviewList({
-  reviews, markHelpful, report, scrollMore, page, isLoaded
+  reviews, markHelpful, report, scrollMore, page, isLoaded,
 }) {
   const listInnerRef = useRef();
 
@@ -23,21 +23,23 @@ function ReviewList({
       ref={listInnerRef}
       data-testid="reviewlist"
     >
-    {!isLoaded && <h4 data-testid="reviewlistload">loading reviewtiles</h4>}
-    {isLoaded &&
+      {!isLoaded && <h4 data-testid="reviewlistload">loading reviewtiles</h4>}
+      {isLoaded
+      && (
       <div data-testid="reviewtiles">
-      {reviews.slice(0, page * 5).map((review, index) => (
-        <ReviewTile
-          review={review}
-          key={review.review_id}
-          index={index}
-          markHelpful={markHelpful}
-          report={report}
-        />
-      ))}
-      </div>}
+        {reviews.slice(0, page * 5).map((review, index) => (
+          <ReviewTile
+            review={review}
+            key={review.review_id}
+            index={index}
+            markHelpful={markHelpful}
+            report={report}
+          />
+        ))}
+      </div>
+      )}
     </StyledList>
-  )
+  );
 }
 
 const StyledList = styled.div`
