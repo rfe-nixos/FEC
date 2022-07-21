@@ -6,7 +6,6 @@ import getImageUrl from '../../lib/api/cloudinaryAPI';
 import Helpful from '../../components/Helpful';
 import AddAnswerForm from '../AddAnswer/AddAnswerForm';
 import AnswerList from '../AnswerList/AnswerList';
-import Options from '../../components/Options';
 
 function IndividualQuestion({ productName, question, renderQuestions }) {
   const [showModal, setShowModal] = useState(false);
@@ -56,7 +55,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
           <Title>Q:</Title>
           <BoldBody>{question.question_body}</BoldBody>
         </QContainer>
-        <Options>
+        <OptionsDiv>
           <Helpful
             id={question.question_id}
             type="question"
@@ -64,10 +63,11 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
             renderComponent={renderQuestions}
             tabIndex="0"
           />
+          <PaddedSpan>{' | '}</PaddedSpan>
           <u onClick={() => setShowModal(true)} onKeyDown={() => setShowModal(true)} role="button" tabIndex="-1">
             Add Answer
           </u>
-        </Options>
+        </OptionsDiv>
       </DivQuestion>
       <AnswerList
         answerList={answerList}
@@ -115,4 +115,19 @@ const QContainer = styled.div`
 
 const BoldBody = styled.b`
   width: 100%;
+`;
+
+const OptionsDiv = styled.div`
+  font-size: 11px;
+  font-weight: 300;
+  color: #77787a;
+  display: flex;
+  max-width: 25vh;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const PaddedSpan = styled.div`
+  padding: 0 10px;
+  font-size: 15px;
 `;
