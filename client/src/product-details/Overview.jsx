@@ -14,7 +14,6 @@ function Overview({ productId, ratingsRef }) {
   const [styles, setStyles] = useState({});
   const [currentStyle, setCurrentStyle] = useState({});
   const [currentSize, setCurrentSize] = useState('');
-  const [currentAmount, setCurrentAmount] = useState('');
   const [sizeAlert, setSizeAlert] = useState('');
   const [productReviews, setProductReviews] = useState({});
   const [currentThumbnail, setCurrentThumbnail] = useState('');
@@ -138,7 +137,7 @@ function Overview({ productId, ratingsRef }) {
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} ratingsRef={ratingsRef} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
-          <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
+          <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
         </div>
       </div>
     );
