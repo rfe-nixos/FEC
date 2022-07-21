@@ -42,6 +42,10 @@ const Select = styled.select`
   border-bottom: 1px solid black;
   align-self: flex-end;
   margin-bottom: .1%;
+  &:hover{
+    cursor: pointer;
+    opacity: 70%;
+  }
 `;
 
 export default SortBar;

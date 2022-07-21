@@ -68,7 +68,8 @@ class Reviews extends React.Component {
   }
 
   markHelpful(reviewId) {
-    if (this.state.markedHelpful.indexOf(reviewId) === -1) {
+    if (true) {
+    //if (this.state.markedHelpful.indexOf(reviewId) === -1) {
       axios.put(`${process.env.API_URL}/reviews/${reviewId}/helpful`, { review_id: reviewId }, {
         headers: {
           Authorization: process.env.AUTH_KEY,

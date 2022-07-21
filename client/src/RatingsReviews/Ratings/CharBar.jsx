@@ -33,7 +33,7 @@ const OuterBar = styled.div`
   display: inline-block;
   position: relative;
   width: 100%;
-  height: 10px;
+  height: 12px;
   background-color: #d9d9d9;
   &:hover{
     opacity:70%;
