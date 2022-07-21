@@ -209,6 +209,7 @@ const StyledMain = styled.div`
   flex-direction: column;
   justify-content: center;
   width: 70%;
+  min-width: 500px;
   color: #1c1c1c;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   line-height: 1.5;

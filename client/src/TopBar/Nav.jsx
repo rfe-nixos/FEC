@@ -114,7 +114,7 @@ const NavTop = styled.div`
 const NavBot = styled.div`
   position: absolute;
   z-index: 200;
-  transform: translate(0%, 24px);
+  transform: translate(0%, 29px);
   width: 200px;
   height: ${(props) => (props.showNav ? '120' : '0')}px;
   overflow-y: hidden;

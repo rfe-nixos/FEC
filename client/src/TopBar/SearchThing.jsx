@@ -118,19 +118,6 @@ const StyledInner = styled.div`
   transition: all 0.5s ease-in-out;
 `;
 
-const InnerTop = styled.div`
-  z-index: 200;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: large;
-  font-weight: bold;
-  width: 100% ;
-  border-bottom: .5px solid black;
-  padding-bottom: 1%;
-  margin-bottom: 2%;
-`;
-
 const StyledButton = styled.button`
   z-index: 200;
   width: auto;
