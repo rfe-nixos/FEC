@@ -233,7 +233,7 @@ const StyledTitle = styled.div`
   align-items: center;
   justify-content: space-between;
   margin-left: 2%;
-  font-size: small;
+  font-size: 15px;
   font-weight: 400;
   margin-bottom: 1%;
 

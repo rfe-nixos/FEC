@@ -32,14 +32,14 @@ const BigRating = styled.div`
 
 const StyledSummary = styled.div`
   display: flex;
+  height: auto;
   flex-direction: row;
-  align-items: flex-start;
+  justify-content: flex-start;
   width: auto;
 `;
 
 const StarDiv = styled.div`
   font-size: 20px !important;
-  margin-top: 1%;
 
 `
 
