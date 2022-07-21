@@ -55,7 +55,7 @@ function App() {
     <MainDiv>
       <CurrentProductProvider>
         <TopBar ratingsRef={ratingsRef} ref={topRef} qaRef={qaRef} />
-        <Overview />
+        <Overview ratingsRef={ratingsRef} />
         <RelatedItems />
         <QuestionListProvider>
           <QuestionsAnswers ref={qaRef} />

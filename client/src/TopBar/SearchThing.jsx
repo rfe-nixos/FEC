@@ -67,6 +67,7 @@ function SearchThing({ toggleSearch }) {
 }
 
 const StyledInput = styled.input`
+z-index: 200;
   width: 200px;
   margin: 4%;
   transition: 1s;
@@ -78,6 +79,7 @@ const StyledInput = styled.input`
 `;
 
 const StyledForm = styled.div`
+z-index: 200;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -93,7 +95,8 @@ const StyledForm = styled.div`
   background-color: rgba(0,0,0,0.4);
 `;
 
-const StyledInner = styled.div`
+const StyledInner = styled.div`\
+z-index: 200;
   display: flex;
   flex-direction: column;
   justify-content: space-evenly;
@@ -115,6 +118,7 @@ const StyledInner = styled.div`
 `;
 
 const InnerTop = styled.div`
+z-index: 200;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -127,6 +131,7 @@ const InnerTop = styled.div`
 `;
 
 const StyledButton = styled.button`
+z-index: 200;
   width: auto;
   max-width: 100px;
   font-size: small;
