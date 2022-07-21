@@ -8,7 +8,7 @@ function SortBar({ setSort, totalRatings, page, reviews }) {
 
   return (
     <StyledSortBar data-testid="sortbar-1">
-      {page * 5}
+      {page * 3}
       {' '}
       of
       {' '}

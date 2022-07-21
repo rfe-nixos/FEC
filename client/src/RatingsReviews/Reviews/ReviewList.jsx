@@ -27,7 +27,7 @@ function ReviewList({
       {isLoaded
       && (
       <div data-testid="reviewtiles">
-        {reviews.slice(0, page * 5).map((review, index) => (
+        {reviews.slice(0, page * 3).map((review, index) => (
           <ReviewTile
             review={review}
             key={review.review_id}
