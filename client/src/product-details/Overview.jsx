@@ -1,21 +1,19 @@
 /* eslint-disable no-param-reassign */
 /* eslint-disable max-len */
-import React, { useState, useEffect, forwardRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 import './OverviewStyles.css';
 import ImageGallery from './ImageGallery';
 import AddToCart from './AddToCart';
 import ProductDetails from './ProductDetails';
 import StyleSelector from './StyleSelector';
-import { useCurrentProductContext } from '../context';
 
-const Overview = forwardRef(({ ratingsRef }, ref) => {
+function Overview({ productId, ratingsRef }) {
   // STATE
   const [product, setProduct] = useState({});
   const [styles, setStyles] = useState({});
   const [currentStyle, setCurrentStyle] = useState({});
   const [currentSize, setCurrentSize] = useState('');
-  const [currentAmount, setCurrentAmount] = useState('');
   const [sizeAlert, setSizeAlert] = useState('');
   const [productReviews, setProductReviews] = useState({});
   const [currentThumbnail, setCurrentThumbnail] = useState('');
@@ -25,8 +23,7 @@ const Overview = forwardRef(({ ratingsRef }, ref) => {
   const [range, setRange] = useState([]);
 
   // API INTERACTION
-  //productId = productId || '37311';
-  const productId = useCurrentProductContext();
+  productId = productId || '37311';
   const productUrl = `${process.env.API_URL}/products/${productId}`;
   const productStylesUrl = `${productUrl}/styles`;
   const productReviewsUrl = `${process.env.API_URL}/reviews/meta?product_id=${productId}`;
@@ -86,14 +83,13 @@ const Overview = forwardRef(({ ratingsRef }, ref) => {
   // SET STATE
   useEffect(() => {
     getProduct();
-    getStyles();
-    getReviews();
   }, []);
   useEffect(() => {
-    getProduct();
     getStyles();
+  }, []);
+  useEffect(() => {
     getReviews();
-  }, [productId]);
+  }, []);
   useEffect(() => {
     if (styles.length > 0 && Object.keys(currentStyle).length === 0) {
       setCurrentStyle(styles[0]);
@@ -136,17 +132,16 @@ const Overview = forwardRef(({ ratingsRef }, ref) => {
   // RENDER
   if (Object.keys(currentStyle).length > 0 && Object.keys(productReviews).length > 0 && currentThumbnail !== '' && range.length > 0) {
     return (
-      <div className="overview" ref={ref}>
+      <div className="overview">
         <ImageGallery currentStyle={currentStyle} currentThumbnail={currentThumbnail} setCurrentThumbnail={setCurrentThumbnail} modal={modal} setModal={setModal} zoom={zoom} setZoom={setZoom} modalZoom={modalZoom} setModalZoom={setModalZoom} range={range} setRange={setRange} />
         <div className="right">
           <ProductDetails product={product} currentStyle={currentStyle} productReviews={productReviews} ratingsRef={ratingsRef} />
           <StyleSelector styles={styles} currentStyle={currentStyle} setCurrentStyle={setCurrentStyle} />
-          <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} currentAmount={currentAmount} setCurrentAmount={setCurrentAmount} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
-          <div class="sharethis-inline-share-buttons"></div>
+          <AddToCart currentStyle={currentStyle} currentSize={currentSize} setCurrentSize={setCurrentSize} sizeAlert={sizeAlert} setSizeAlert={setSizeAlert} />
         </div>
       </div>
     );
   }
-})
+}
 
 export default Overview;

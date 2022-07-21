@@ -191,6 +191,18 @@
   height: 15%;
 }
 
+.share {
+  width: 35px;
+  height: 35px;
+  border-radius: 35px;
+  margin: auto 3%;
+}
+
+.share:hover {
+  cursor: pointer;
+  opacity: 60%;
+}
+
 .styleSelector {
   float: center;
   width: 90%;
@@ -200,7 +212,7 @@
 }
 
 .currentStyleSelector {
-  margin-left: 30%;
+  margin-left: 25%;
   font-weight: bold;
 }
 

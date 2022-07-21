@@ -5,9 +5,10 @@ import React from 'react';
 import axios from 'axios';
 
 function AddToCart({
-  currentStyle, currentSize, setCurrentSize, currentAmount, setCurrentAmount, sizeAlert, setSizeAlert,
+  currentStyle, currentSize, setCurrentSize, sizeAlert, setSizeAlert,
 }) {
   const stock = currentStyle.skus;
+  let currentAmount = 0;
 
   if (Object.keys(stock).length === 0) {
     return (
@@ -36,7 +37,7 @@ function AddToCart({
   const amountOptions = [];
   if (currentSize !== '') {
     const amount = allOptions[currentSize];
-    setCurrentAmount('1');
+    currentAmount = 1;
     if (amount < 15) {
       for (let i = 1; i <= amount; i += 1) {
         amountOptions.push(<option key={i} value={i}>{i}</option>);
@@ -55,7 +56,7 @@ function AddToCart({
   };
 
   const handleAmountChange = (event) => {
-    setCurrentAmount(event.target.value);
+    currentAmount = event.target.value;
   };
 
   const handleSubmit = (event) => {
@@ -83,16 +84,16 @@ function AddToCart({
 
       const queries = [];
       for (let i = 0; i < currentAmount; i += 1) {
-        queries.push(
-          axios(cartConfig)
-            .catch((err) => console.log(err)),
-        );
+        queries.push(axios(cartConfig)
+          .catch((err) => console.log(err)));
       }
       Promise.all(queries).then(() => {
         setSizeAlert('');
+        console.log('done');
       });
     }
   };
+  // console.log(currentSize);
 
   return (
     <div className="addToCart">
