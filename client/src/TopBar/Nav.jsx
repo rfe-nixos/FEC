@@ -93,6 +93,7 @@ const NavMain = styled.div`
 const Name = styled.div`
   padding: 5px;
   margin-top: 1%;
+  margin-bottom: 2%;
   background-color: white;
   &:hover{
     cursor: pointer;
@@ -115,13 +116,13 @@ const NavBot = styled.div`
   z-index: 200;
   transform: translate(0%, 24px);
   width: 200px;
-  height: ${(props) => (props.showNav ? '100' : '0')}px;
+  height: ${(props) => (props.showNav ? '120' : '0')}px;
   overflow-y: hidden;
   transition: .5s;
   display:flex;
   flex-direction: column;
   background-color: white;
-  padding: 2%;
+  padding: 10%;
   align-items: flex-start;
   border: ${(props) => (props.showNav ? '.5' : '0')}px solid black;
 `;

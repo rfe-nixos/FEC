@@ -30,7 +30,7 @@ class Reviews extends React.Component {
       .then((response) => {
         console.log('success adding review', response);
         alert('thank you for your submission');
-        this.refresh();
+        this.props.getReviews();
       })
       .catch((err) => console.log('error adding review', err));
   }
