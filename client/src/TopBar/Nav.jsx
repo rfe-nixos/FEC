@@ -86,7 +86,7 @@ const NavMain = styled.div`
   letter-spacing: 5px;
   background: white;
   background-color: white;
-  margin-left: 5%;
+  margin-left: 0%;
   height: 20px;
 `;
 

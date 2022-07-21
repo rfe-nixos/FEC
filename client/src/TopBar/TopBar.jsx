@@ -103,7 +103,7 @@ const TitleInner = styled.div`
 `;
 
 const TitleDiv = styled.div`
-  width: 90%;
+  width: 70%;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -116,6 +116,7 @@ const TitleDiv = styled.div`
   -webkit-font-smoothing: antialiased;
   margin-bottom: 1%;
   margin-top: 1%;
+  border-bottom: .5px solid black;
 `;
 
 export default TopBar;
