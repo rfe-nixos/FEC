@@ -224,7 +224,6 @@ const StyledInner = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: top;
-  min-width: 700px;
   width: 100%;
   padding-top: 1%;
   height: 100%
