@@ -196,4 +196,5 @@ export const ModalOverlay = styled.div`
 export const RelatedItemsStyleContainer = styled.div`
   /* height: 70%; */
   width: 70%;
+  border-top: .5px solid black;
 `;
