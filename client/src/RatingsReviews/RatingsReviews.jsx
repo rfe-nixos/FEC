@@ -62,16 +62,14 @@ const RatingsReviews = forwardRef((props, ref) => {
       .catch((err) => console.log('error fetching ratings', err));
   };
 
-  useEffect(() => {
-    getReviews();
-    getRatings();
-  }, []);
+  // useEffect(() => {
+  //   getReviews();
+  //   getRatings();
+  // }, []);
 
   useEffect(() => {
-    if (isLoaded) {
-      getRatings();
-      getReviews();
-    }
+    getRatings();
+    getReviews();
   }, [productId]);
 
   const setRatingsFilter = (rating) => {
@@ -207,7 +205,7 @@ const RatingsReviews = forwardRef((props, ref) => {
       </StyledInner>
     </StyledMain>
   );
-})
+});
 
 const StyledMain = styled.div`
   display: flex;
@@ -226,7 +224,6 @@ const StyledInner = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: top;
-  min-width: 700px;
   width: 100%;
   padding-top: 1%;
   height: 100%
@@ -237,7 +234,6 @@ const StyledTitle = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-left: 1%;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 1%;
