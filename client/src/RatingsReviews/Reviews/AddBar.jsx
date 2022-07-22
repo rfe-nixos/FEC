@@ -34,6 +34,7 @@ class AddBar extends React.Component {
           productId={this.props.productId}
           addReview={this.props.addReview}
           toggleForm={this.toggleForm}
+          setPage={this.props.setPage}
         />
         )}
       </AddBarMain>

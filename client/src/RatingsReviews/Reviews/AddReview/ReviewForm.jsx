@@ -183,6 +183,7 @@ class ReviewForm extends React.Component {
     } else if (!reviewBody.name) {
       alert('please enter nickname');
     } else {
+      this.props.setPage(1);
       this.props.addReview(reviewBody);
       this.props.toggleForm();
     }
