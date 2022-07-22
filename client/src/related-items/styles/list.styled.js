@@ -5,16 +5,21 @@ export const StyledList = styled.div`
 #relatedList, #outfitList {
   display: flex;
   flex-direction:row;
+  width: 100%;
   overflow: scroll;
   scroll-behavior: smooth;
   border-radius: 8px;
   /* box-shadow: 0px 0px 4px; */
   gap: 2rem;
-  margin-left: 2em;
+  /* margin-left: 2em; */
   ::-webkit-scrollbar {
   display: none;
   }
 
+}
+
+.list-container {
+  width: 100%
 }
 
 
@@ -26,7 +31,6 @@ position: relative;
 
   .slider {
     /* position: relative; */
-    width: 5rem;
     font-size:1.5rem;
     transform: translateY(400%);
     cursor: pointer;
@@ -38,11 +42,11 @@ position: relative;
   }
 
   .leftSlider {
-    padding-right: .5em;
+    margin-right: 1.5%;
   }
 
   .rightSlider {
-    padding-left: .5em;
+    margin-left: 1.5%;
   }
 `;
 
