@@ -79,8 +79,7 @@ const OptionsDiv = styled.div`
   font-weight: 300;
   color: #77787a;
   display: flex;
-  max-width: 40vh;
-  justify-content: space-between;
+  max-width: 40%;
   padding: 10px 0;
   align-items: center;
 `;

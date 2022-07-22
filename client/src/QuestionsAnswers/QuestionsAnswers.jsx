@@ -33,14 +33,6 @@ const QuestionAnswers = forwardRef((props, ref) => {
       .then((result) => {
         setProductInfo(result.data);
       });
-  }, []);
-
-  useEffect(() => {
-    renderQuestions();
-    getProductInfo(productId)
-      .then((result) => {
-        setProductInfo(result.data);
-      });
   }, [productId]);
 
   return (
