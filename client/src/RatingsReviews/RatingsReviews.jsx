@@ -113,6 +113,9 @@ const RatingsReviews = forwardRef((props, ref) => {
   const sort = (sortMethod) => {
     // setSorted(false);
     const temp = reviews;
+    let list = document.getElementById('reviewlist1');
+    list.scrollTo(0, 0);
+    setPage(1);
     if (sortMethod === 'helpful') {
       temp.sort((a, b) => b.helpfulness - a.helpfulness);
       setSortedReviews(() => temp);
@@ -145,10 +148,6 @@ const RatingsReviews = forwardRef((props, ref) => {
     }
   }, [sortCount]);
 
-  // useEffect(() => {
-  //   getReviews();
-  // }, [page]);
-
   const moreReviews = () => {
     setPage(page + 1);
   };
@@ -158,6 +157,18 @@ const RatingsReviews = forwardRef((props, ref) => {
     setPage(page + 1);
     // }
   };
+
+  const onFormSubmit = () => {
+    let list = document.getElementById('reviewlist1');
+    list.scrollTo(0, 0);
+    setPage(1);
+  };
+
+  const onSortSelect = (sortOption) => {
+    list.scrollTo(0, 0);
+    setPage(1);
+    setSortOption(sortOption);
+  }
 
   return (
     <StyledMain id="ratings-reviews" className="main-widget-container" ref={ref}>
@@ -187,6 +198,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             scrollMore={scrollMore}
             page={page}
             isLoaded={isLoaded}
+            setPage={onFormSubmit}
           />
         )}
         {(!filteredByRating) && (
@@ -200,6 +212,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             scrollMore={scrollMore}
             page={page}
             isLoaded={isLoaded}
+            setPage={onFormSubmit}
           />
         )}
       </StyledInner>
