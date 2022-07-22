@@ -89,11 +89,9 @@ function AddToCart({
       }
       Promise.all(queries).then(() => {
         setSizeAlert('');
-        console.log('done');
       });
     }
   };
-  console.log(currentSize);
 
   return (
     <div className="addToCart">
