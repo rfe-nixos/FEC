@@ -53,13 +53,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
           </div>
           <p id="overview">{product.description}</p>
-          <FacebookShareButton url="http://3.82.233.99/" className="share">
+          <FacebookShareButton url={window.location.href} className="share">
             <FacebookIcon className="share" />
           </FacebookShareButton>
-          <TwitterShareButton url="http://3.82.233.99/" className="share">
+          <TwitterShareButton url={window.location.href} className="share">
             <TwitterIcon className="share" />
           </TwitterShareButton>
-          <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+          <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
             <PinterestIcon className="share" />
           </PinterestShareButton>
         </div>
@@ -79,13 +79,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
         </div>
         <h3 id="price">{'$' + currentStyle.original_price}</h3>
         <p id="overview">{product.description}</p>
-        <FacebookShareButton url="http://3.82.233.99/" className="share">
+        <FacebookShareButton url={window.location.href} className="share">
           <FacebookIcon className="share" />
         </FacebookShareButton>
-        <TwitterShareButton url="http://3.82.233.99/" className="share">
+        <TwitterShareButton url={window.location.href} className="share">
           <TwitterIcon className="share" />
         </TwitterShareButton>
-        <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+        <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
           <PinterestIcon className="share" />
         </PinterestShareButton>
       </div>
@@ -102,13 +102,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
           <h3 id="salesPrice">{currentStyle.sales_price}</h3>
         </div>
         <p id="overview">{product.description}</p>
-        <FacebookShareButton url="http://3.82.233.99/" className="share">
+        <FacebookShareButton url={window.location.href} className="share">
           <FacebookIcon className="share" />
         </FacebookShareButton>
-        <TwitterShareButton url="http://3.82.233.99/" className="share">
+        <TwitterShareButton url={window.location.href} className="share">
           <TwitterIcon className="share" />
         </TwitterShareButton>
-        <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+        <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
           <PinterestIcon className="share" />
         </PinterestShareButton>
       </div>
@@ -121,13 +121,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
       <h1 id="title">{product.name}</h1>
       <h3 id="price">{'$' + currentStyle.original_price}</h3>
       <p id="overview">{product.description}</p>
-      <FacebookShareButton url="http://3.82.233.99/" className="share">
+      <FacebookShareButton url={window.location.href} className="share">
         <FacebookIcon className="share" />
       </FacebookShareButton>
-      <TwitterShareButton url="http://3.82.233.99/" className="share">
+      <TwitterShareButton url={window.location.href} className="share">
         <TwitterIcon className="share" />
       </TwitterShareButton>
-      <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+      <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
         <PinterestIcon className="share" />
       </PinterestShareButton>
     </div>
