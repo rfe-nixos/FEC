@@ -10,6 +10,7 @@ import AddOutfit from '../addOutfit';
 import Comparison from '../comparison';
 import Product from '../product';
 import { CurrentProductProvider } from '../../context';
+require('dotenv').config();
 
 // import  from '../';
 
@@ -46,15 +47,15 @@ describe('Related-items tests', () => {
     expect().toMatchSnapshot();
   });
 
-  // it("render ImageCarousel correctly", () => {
-  //   const currentStyle = {photos: [{url: 'https://images.newscientist.com/wp-content/uploads/2021/06/03141753/03-june_puppies.jpg', thumbnail_url: 'https://images.newscientist.com/wp-content/uploads/2021/06/03141753/03-june_puppies.jpg' }]};
-  //   const closeModal = () => {};
-  //   const setZoomed = () => {};
-  //   const expanded = false;
-  //   const zoomed = false;
-  //   const ImageCarouselInstance = renderer.create(<ImageCarousel currentStyle={currentStyle} setExpanded={setExpanded} setZoomed={setZoomed} expanded={expanded} zoomed={zoomed}/>)
-  //   expect(ImageCarouselInstance.toJSON().props.className).toEqual('ImageCarousel');
-  // });
+  it("render ImageCarousel correctly", () => {
+    const currentStyle = {photos: [{url: 'https://images.newscientist.com/wp-content/uploads/2021/06/03141753/03-june_puppies.jpg', thumbnail_url: 'https://images.newscientist.com/wp-content/uploads/2021/06/03141753/03-june_puppies.jpg' }]};
+    const closeModal = () => {};
+    const setZoomed = () => {};
+    const expanded = false;
+    const zoomed = false;
+    const ImageCarouselInstance = renderer.create(<ImageCarousel currentStyle={currentStyle} setExpanded={setExpanded} setZoomed={setZoomed} expanded={expanded} zoomed={zoomed}/>)
+    expect(ImageCarouselInstance.toJSON().props.className).toEqual('ImageCarousel');
+  });
   it('setExpanded been called when image is not expanded', () => {
     const currentStyle = {
       photos: [
@@ -69,29 +70,17 @@ describe('Related-items tests', () => {
     const overviewProductData = {}
      overviewProductData.features = []
     render(
-      <currentProductDataContext>
+      <currentProductDataContext.Provider value={testCard}>
         <Comparison
           closeModal={closeModal}
           currentProduct={{ name: 'Ian', feature: 'blue' }}
         />
-      </currentProductDataContext>
+      </currentProductDataContext.Provider>
     );
     fireEvent.click(screen.getByTestId('closeModal'));
     expect(closeModal).toHaveBeenCalledTimes(1);
   });
-  // test('render Related Items text', () => {
-  //   render(<RelatedItems />);
 
-  //   screen.debug();
-
-  //   expect(screen.getByText('Related Items')).toBeInTheDocument();
-  // });
-
-  // test('Should render product', () => {
-  //   const { getbyTestId } = render(<Product/>);
-  //   const star = findByTestId("Star");
-  //   expect(star).not.toBe('undefined');
-  // });
 
   test('Should get somthing somwhere', async () => {
     render(

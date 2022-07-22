@@ -34,7 +34,6 @@ function Comparison({ closeModal, currentProduct }) {
       }
       index++;
     }
-    console.log(featureStore);
     const tableData = [];
     if (featureStore) {
       // eslint-disable-next-line no-restricted-syntax
