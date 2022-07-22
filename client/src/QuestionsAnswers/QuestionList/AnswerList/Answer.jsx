@@ -39,7 +39,6 @@ function Answer({ answer, renderAnswers }) {
       <Report
         id={answer.answer_id || answer.id}
         type="answer"
-        renderComponent={renderAnswers}
       />
     </span>
   );

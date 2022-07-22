@@ -45,7 +45,7 @@ const QuestionAnswers = forwardRef((props, ref) => {
 
   return (
     <DivContainer id="question-and-answers" className="main-widget-container" ref={ref}>
-      <Title className="main-widget-title">QUESTIONS & ANSWERS</Title>
+      <div className="main-widget-title">QUESTIONS & ANSWERS</div>
       <Search setFilter={setFilteredKeyword} />
       <QuestionList
         renderQuestions={renderQuestions}
@@ -77,7 +77,6 @@ const DivContainer = styled.div`
   width: 70%;
   color : #3d3c3c;
   font-size: 15px;
-  /* padding: 20px 0; */
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
   border-bottom: 0.5px solid black;
 `;
@@ -93,10 +92,4 @@ const Button = styled.button`
 const ButtonContainer = styled.div`
   display: flex;
   margin-top: 30px;
-`;
-
-const Title = styled.div`
-  font-size: small;
-  padding: 17px 0;
-  margin-left: 2%;
 `;
