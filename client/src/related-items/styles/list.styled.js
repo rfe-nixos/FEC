@@ -76,6 +76,9 @@ export const StyledCard = styled.div`
   }
   .cardImage:hover {
     transform: scale(1.05);
+    cursor: pointer;
+    opacity: 70%;
+    transition: .6s;
   }
   .relatedAction {
     position: absolute;
