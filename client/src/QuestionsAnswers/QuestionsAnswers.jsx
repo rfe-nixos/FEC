@@ -1,5 +1,6 @@
 import React, { useState, useEffect, forwardRef } from 'react';
 import styled from 'styled-components';
+import _ from 'underscore';
 import { getQuestions, getProductInfo } from './lib/api/githubAPI';
 import Search from './SearchBar/Search';
 import QuestionList from './QuestionList/QuestionList/QuestionList';
@@ -10,38 +11,52 @@ import { useQuestionList, useUpdateQuestionList } from './contexts/QuestionListC
 
 const QuestionAnswers = forwardRef((props, ref) => {
   const productId = useCurrentProductContext();
+  const questionList = useQuestionList();
   const setQuestionList = useUpdateQuestionList();
   const [filteredKeyword, setFilteredKeyword] = useState('');
   const [productInfo, setProductInfo] = useState({});
   const [expanded, setExpanded] = useState(false);
-  const [count, setCount] = useState(200);
+  const [hasMore, setHasMore] = useState(true);
+  // const [count, setCount] = useState(200);
   const [page, setPage] = useState(1);
+  const count = 10;
 
-  const renderQuestions = () => {
-    getQuestions(productId, page, count)
+  const renderQuestions = (init) => {
+    if (init) {
+      setPage(1);
+      setHasMore(true);
+    }
+    const targetPage = init ? 1 : page;
+    getQuestions(productId, targetPage, count)
       .then((result) => {
         if (result.data.results.length === 0) {
+          setHasMore(false);
           return;
         }
-        setQuestionList(result.data.results);
+        if (targetPage === 1) {
+          setQuestionList(sortQuestions(result.data.results));
+        } else {
+          const newQList = {};
+          questionList.concat(result.data.results).forEach((item) => {
+            newQList[item.question_id] = item;
+          });
+          const sorted = sortQuestions(Object.values(newQList));
+          setQuestionList(sorted);
+        }
       });
   };
 
   useEffect(() => {
-    renderQuestions();
-    getProductInfo(productId)
-      .then((result) => {
-        setProductInfo(result.data);
-      });
-  }, []);
-
-  useEffect(() => {
-    renderQuestions();
+    renderQuestions(true);
     getProductInfo(productId)
       .then((result) => {
         setProductInfo(result.data);
       });
   }, [productId]);
+
+  useEffect(() => {
+    renderQuestions(true);
+  }, [expanded]);
 
   return (
     <DivContainer id="question-and-answers" className="main-widget-container" ref={ref}>
@@ -52,6 +67,9 @@ const QuestionAnswers = forwardRef((props, ref) => {
         keyword={filteredKeyword}
         productName={productInfo.name}
         expanded={expanded}
+        page={page}
+        setPage={setPage}
+        hasMore={hasMore}
       />
       <ButtonContainer>
         <MoreQuestions
@@ -63,6 +81,7 @@ const QuestionAnswers = forwardRef((props, ref) => {
           renderQuestions={renderQuestions}
           Button={Button}
           productName={productInfo.name}
+          setHasMore={setHasMore}
         />
       </ButtonContainer>
     </DivContainer>
@@ -70,6 +89,15 @@ const QuestionAnswers = forwardRef((props, ref) => {
 })
 
 export default QuestionAnswers;
+
+const sortQuestions = (questions) => (
+  _(questions).chain()
+    .sortBy('question_date')
+    .reverse()
+    .sortBy('question_helpfulness')
+    .reverse()
+    .value()
+);
 
 const DivContainer = styled.div`
   display: flex;
@@ -87,6 +115,10 @@ const Button = styled.button`
   background-color: white;
   margin-right: 10px;
   font-weight:500px!important;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;
 
 const ButtonContainer = styled.div`

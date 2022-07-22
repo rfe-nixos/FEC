@@ -62,16 +62,14 @@ const RatingsReviews = forwardRef((props, ref) => {
       .catch((err) => console.log('error fetching ratings', err));
   };
 
-  useEffect(() => {
-    getReviews();
-    getRatings();
-  }, []);
+  // useEffect(() => {
+  //   getReviews();
+  //   getRatings();
+  // }, []);
 
   useEffect(() => {
-    if (isLoaded) {
-      getRatings();
-      getReviews();
-    }
+    getRatings();
+    getReviews();
   }, [productId]);
 
   const setRatingsFilter = (rating) => {
@@ -115,6 +113,9 @@ const RatingsReviews = forwardRef((props, ref) => {
   const sort = (sortMethod) => {
     // setSorted(false);
     const temp = reviews;
+    let list = document.getElementById('reviewlist1');
+    list.scrollTo(0, 0);
+    setPage(1);
     if (sortMethod === 'helpful') {
       temp.sort((a, b) => b.helpfulness - a.helpfulness);
       setSortedReviews(() => temp);
@@ -147,10 +148,6 @@ const RatingsReviews = forwardRef((props, ref) => {
     }
   }, [sortCount]);
 
-  // useEffect(() => {
-  //   getReviews();
-  // }, [page]);
-
   const moreReviews = () => {
     setPage(page + 1);
   };
@@ -159,6 +156,15 @@ const RatingsReviews = forwardRef((props, ref) => {
     // if (!filteredByRating) {
     setPage(page + 1);
     // }
+  };
+
+  const onFormSubmit = () => {
+    let list = document.getElementById('reviewlist1');
+    list.scrollTo(0, 0);
+    setPage(1);
+    sort('newest');
+    setSorted(true);
+    setReviews(sortedReviews);
   };
 
   return (
@@ -189,6 +195,7 @@ const RatingsReviews = forwardRef((props, ref) => {
             scrollMore={scrollMore}
             page={page}
             isLoaded={isLoaded}
+            setPage={onFormSubmit}
           />
         )}
         {(!filteredByRating) && (
@@ -202,12 +209,13 @@ const RatingsReviews = forwardRef((props, ref) => {
             scrollMore={scrollMore}
             page={page}
             isLoaded={isLoaded}
+            setPage={onFormSubmit}
           />
         )}
       </StyledInner>
     </StyledMain>
   );
-})
+});
 
 const StyledMain = styled.div`
   display: flex;
@@ -226,7 +234,6 @@ const StyledInner = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: top;
-  min-width: 700px;
   width: 100%;
   padding-top: 1%;
   height: 100%
@@ -237,7 +244,6 @@ const StyledTitle = styled.div`
   flex-direction: row;
   align-items: center;
   justify-content: space-between;
-  margin-left: 1%;
   font-size: 16px;
   font-weight: 400;
   margin-bottom: 1%;

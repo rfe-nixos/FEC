@@ -6,6 +6,7 @@ import Comparison from './comparison.jsx';
 import { useCurrentProductUpdate } from '../context.jsx';
 import { ImCancelCircle } from 'react-icons/im';
 import Star from '../RatingsReviews/Ratings/Star';
+import priceFormat from '../TopBar/lib/priceFormat';
 
 function Product({ formattedCard, outfit, setLocalStorageState }) {
   // States
@@ -79,11 +80,13 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
           </button>
         </div>
         <div className="cardBody">
-          <h1 className="cardCategory">{formattedCard.category}</h1>
+          <p className="cardCategory">{formattedCard.category}</p>
           <p className="cardName" onClick={handleGlobalStateClick}>
-            {formattedCard.name}
+            <b>
+              {formattedCard.name}
+            </b>
           </p>
-          <p className="cardPrice">{formattedCard.price}</p>
+          <p className="cardPrice">{priceFormat(formattedCard.price)}</p>
           <p className="discountedCardPrice">{formattedCard.discountedPrice}</p>
           {/* TODO: Rating needs to be updated to show stars up to 1/4  */}
           <Star average={formattedCard.rating} />

@@ -8,6 +8,7 @@ import React, { useState } from 'react';
 // import { ShareSocial } from 'react-share-social';
 import { FacebookShareButton, FacebookIcon, PinterestShareButton, PinterestIcon, TwitterShareButton, TwitterIcon } from 'react-share';
 import Star from '../RatingsReviews/Ratings/Star';
+import priceFormat from '../TopBar/lib/priceFormat';
 
 function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
   if (Object.keys(productReviews.ratings).length > 0) {
@@ -53,13 +54,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
             <h3 id="salesPrice">{currentStyle.sales_price}</h3>
           </div>
           <p id="overview">{product.description}</p>
-          <FacebookShareButton url="http://3.82.233.99/" className="share">
+          <FacebookShareButton url={window.location.href} className="share">
             <FacebookIcon className="share" />
           </FacebookShareButton>
-          <TwitterShareButton url="http://3.82.233.99/" className="share">
+          <TwitterShareButton url={window.location.href} className="share">
             <TwitterIcon className="share" />
           </TwitterShareButton>
-          <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+          <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
             <PinterestIcon className="share" />
           </PinterestShareButton>
         </div>
@@ -74,18 +75,18 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
             <Star average={averageRating} />
           </div>
           <div onClick={scrollDown}>
-            <h3 className="totalRatings">Read all {totalRatings} review(s)</h3>
+            <h4 className="totalRatings">Read all {totalRatings} review(s)</h4>
           </div>
         </div>
-        <h3 id="price">{'$' + currentStyle.original_price}</h3>
+        <h3 id="price">{priceFormat(currentStyle.original_price)}</h3>
         <p id="overview">{product.description}</p>
-        <FacebookShareButton url="http://3.82.233.99/" className="share">
+        <FacebookShareButton url={window.location.href} className="share">
           <FacebookIcon className="share" />
         </FacebookShareButton>
-        <TwitterShareButton url="http://3.82.233.99/" className="share">
+        <TwitterShareButton url={window.location.href} className="share">
           <TwitterIcon className="share" />
         </TwitterShareButton>
-        <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+        <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
           <PinterestIcon className="share" />
         </PinterestShareButton>
       </div>
@@ -102,13 +103,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
           <h3 id="salesPrice">{currentStyle.sales_price}</h3>
         </div>
         <p id="overview">{product.description}</p>
-        <FacebookShareButton url="http://3.82.233.99/" className="share">
+        <FacebookShareButton url={window.location.href} className="share">
           <FacebookIcon className="share" />
         </FacebookShareButton>
-        <TwitterShareButton url="http://3.82.233.99/" className="share">
+        <TwitterShareButton url={window.location.href} className="share">
           <TwitterIcon className="share" />
         </TwitterShareButton>
-        <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+        <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
           <PinterestIcon className="share" />
         </PinterestShareButton>
       </div>
@@ -121,13 +122,13 @@ function ProductDetails({ product, currentStyle, productReviews, ratingsRef }) {
       <h1 id="title">{product.name}</h1>
       <h3 id="price">{'$' + currentStyle.original_price}</h3>
       <p id="overview">{product.description}</p>
-      <FacebookShareButton url="http://3.82.233.99/" className="share">
+      <FacebookShareButton url={window.location.href} className="share">
         <FacebookIcon className="share" />
       </FacebookShareButton>
-      <TwitterShareButton url="http://3.82.233.99/" className="share">
+      <TwitterShareButton url={window.location.href} className="share">
         <TwitterIcon className="share" />
       </TwitterShareButton>
-      <PinterestShareButton url="http://3.82.233.99/" media="http://3.82.233.99/" className="share">
+      <PinterestShareButton url={window.location.href} media={window.location.href} className="share">
         <PinterestIcon className="share" />
       </PinterestShareButton>
     </div>

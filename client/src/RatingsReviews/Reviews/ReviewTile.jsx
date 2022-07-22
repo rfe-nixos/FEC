@@ -4,98 +4,71 @@ import React from 'react';
 import { format, parseISO } from 'date-fns';
 import styled from 'styled-components';
 import Star from '../Ratings/Star';
-import PhotoPopup from './PhotoPopup';
-import resizeThumbnail from '../lib/resizeThumbnail';
+import PhotoList from './PhotoList';
 
-class ReviewTile extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      openPhotoPop: false,
-      photo: '',
-    };
-    this.markHelpful = this.markHelpful.bind(this);
-    this.report = this.report.bind(this);
-    this.togglePhotoPop = this.togglePhotoPop.bind(this);
-  }
-
-  togglePhotoPop(e) {
-    !this.state.openPhotoPop
-      ? this.setState({ openPhotoPop: true, photo: e.target.src })
-      : this.setState({ openPhotoPop: false });
-  }
-
-  markHelpful(e) {
+function ReviewTile({ review, index, markHelpful, report }) {
+  const onMarkHelpful = (e) => {
     e.preventDefault();
-    const rId = this.props.review.review_id;
-    this.props.markHelpful(rId);
-  }
+    const rId = review.review_id;
+    markHelpful(rId);
+  };
 
-  report(e) {
+  const onReport = (e) => {
     e.preventDefault();
     const r = confirm('are you sure you want to report this review?');
     if (r) {
-      this.props.report(this.props.review.review_id);
+      report(review.review_id);
     }
-  }
+  };
 
-  render() {
-    return (
-      <TileContainer id={`tile-container-${this.props.index}`}>
-        <TileTop>
-          <Stars>
-            <Star average={this.props.review.rating} />
-          </Stars>
-          <div>
-            {`${this.props.review.reviewer_name}, `}
-            {`${format(parseISO(this.props.review.date), 'MMMM dd, yyyy')} `}
-          </div>
-        </TileTop>
-        <TileMain>
-          <Summary>{this.props.review.summary}</Summary>
-          <TileDiv>{this.props.review.body}</TileDiv>
-          {this.props.review.recommend
+  return (
+    <TileContainer id={`tile-container-${index}`}>
+      <TileTop>
+        <Stars>
+          <Star average={review.rating} />
+        </Stars>
+        <div>
+          {`${review.reviewer_name}, `}
+          {`${format(parseISO(review.date), 'MMMM dd, yyyy')} `}
+        </div>
+      </TileTop>
+      <TileMain>
+        <Summary>{review.summary}</Summary>
+        <TileDiv>{review.body}</TileDiv>
+        {review.recommend
               && (
                 <TileDiv><b>I recommend this product &#10003;</b></TileDiv>
               )}
-          <TileDiv>
-            {this.props.review.photos.length > 0
+        <TileDiv>
+          {review.photos.length > 0 // renders if there are photos
               && (
               <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={resizeThumbnail(photo.url, 100)} onClick={this.togglePhotoPop} />)}
+                <PhotoList photos={review.photos} />
               </PhotoDiv>
               )}
-            {(this.state.openPhotoPop)
-            && (
-            <PhotoPopup
-              photoUrl={this.state.photo}
-              togglePhotoPop={this.togglePhotoPop}
-            />
-            )}
-            {this.props.review.response
+          {review.response
               && (
               <Seller>
                 <b>Response:</b>
                 <br />
                 {' '}
-                {this.props.review.response}
+                {review.response}
               </Seller>
               )}
-          </TileDiv>
-          <TileBot>
-            <span data-testid="review-helpful">
-              Helpful?
-            </span>
-            <Spanny data-testid={`helpful-button-${this.props.index}`} onClick={this.markHelpful}><u>Yes</u></Spanny>
-            <span data-testid={`helpful-count-${this.props.index}`}>
-              {`(${this.props.review.helpfulness})    |  `}
-            </span>
-            <Spanny onClick={this.report}><u>Report</u></Spanny>
-          </TileBot>
-        </TileMain>
-      </TileContainer>
-    );
-  }
+        </TileDiv>
+        <TileBot>
+          <span data-testid="review-helpful">
+            Helpful?
+          </span>
+          <Spanny data-testid={`helpful-button-${index}`} onClick={onMarkHelpful}><u>Yes</u></Spanny>
+          <span data-testid={`helpful-count-${index}`}>
+            {`(${review.helpfulness})    |  `}
+          </span>
+          <Spanny onClick={onReport}><u>Report</u></Spanny>
+        </TileBot>
+      </TileMain>
+    </TileContainer>
+  );
 }
 
 const TileDiv = styled.div`
@@ -177,21 +150,6 @@ const TileMain = styled.div`
   flex-direction: column;
   margin-top: -2%;
   max-width: 100%;
-`;
-
-const StyledButton = styled.button`
-  width: auto;
-  font-size: x-small;
-  margin: 1em;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
 `;
 
 const StyledImg = styled.img`

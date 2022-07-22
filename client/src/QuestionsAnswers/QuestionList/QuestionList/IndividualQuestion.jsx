@@ -70,9 +70,9 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
             type="question"
           />
           <PaddedSpan>{' | '}</PaddedSpan>
-          <u onClick={() => setShowModal(true)} onKeyDown={() => setShowModal(true)} role="button" tabIndex="-1">
+          <ClickableU onClick={() => setShowModal(true)} onKeyDown={() => setShowModal(true)} role="button" tabIndex="-1">
             Add Answer
-          </u>
+          </ClickableU>
         </OptionsDiv>
       </DivQuestion>
       <AnswerList
@@ -135,4 +135,11 @@ const OptionsDiv = styled.div`
 const PaddedSpan = styled.div`
   padding: 0 10px;
   font-size: 15px;
+`;
+
+const ClickableU = styled.u`
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;

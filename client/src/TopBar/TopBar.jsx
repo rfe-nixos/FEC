@@ -73,8 +73,10 @@ const Link = styled.a`
 
 const TitleImg = styled.img`
   position: absolute;
+  z-index: 200;
   left: 50%;
   max-height: 50px;
+  min-height: 10px;
   size: auto;
   align-self: center;
   transform: translate(-50%, 0%);

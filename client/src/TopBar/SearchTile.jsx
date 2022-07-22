@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useCurrentProductUpdate } from '../context'
+import { useCurrentProductUpdate } from '../context';
+import priceFormat from './lib/priceFormat';
 
 function SearchTile({ product, toggleSearch }) {
   const setCurrentProduct = useCurrentProductUpdate();
@@ -13,7 +14,7 @@ function SearchTile({ product, toggleSearch }) {
   return (
     <StyledDiv onClick={handleClick}>
       <div>{product.name}</div>
-      <div>{product.default_price}</div>
+      <div>{priceFormat(product.default_price)}</div>
     </StyledDiv>
   );
 }

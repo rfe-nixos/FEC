@@ -109,6 +109,7 @@ class Reviews extends React.Component {
           addReview={this.addReview}
           moreReviews={this.props.moreReviews}
           productId={this.props.productId}
+          setPage={this.props.setPage}
         />
       </ReviewsContainer>
     );
