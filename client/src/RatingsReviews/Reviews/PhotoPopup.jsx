@@ -68,6 +68,7 @@ const StyledButton = styled.button`
 `;
 
 const StyledImg = styled.img`
+  height: 80%;
   size: auto;
 `;
 

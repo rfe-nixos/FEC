@@ -59,16 +59,15 @@ class ReviewTile extends React.Component {
                 <TileDiv><b>I recommend this product &#10003;</b></TileDiv>
               )}
           <TileDiv>
-            {this.props.review.photos.length > 0
+            {this.props.review.photos.length > 0 // renders if there are photos
               && (
               <PhotoDiv>
-                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={index} src={resizeThumbnail(photo.url, 100)} onClick={this.togglePhotoPop} />)}
+                {this.props.review.photos.map((photo, index) => <StyledImg data-testid={`photo-${index}-${this.props.index}`} key={`${this.props.key}-${index}`} data-full={photo.url} src={photo.url} onClick={this.togglePhotoPop} />)}
               </PhotoDiv>
               )}
             {(this.state.openPhotoPop)
             && (
             <PhotoPopup
-
               togglePhotoPop={this.togglePhotoPop}
               photoUrl={this.state.photo}
             />
