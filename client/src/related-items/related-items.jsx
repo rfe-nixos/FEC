@@ -76,7 +76,6 @@ const RelatedItems = forwardRef((props, ref) => {
   const getReviewsArr = (ids) => {
     const promises = [];
     for (let i = 0; i < ids.length; i++) {
-      console.log('an api call occured')
       const config = {
         method: 'get',
         url: `${process.env.API_URL}/reviews`,
