@@ -46,7 +46,7 @@ class Reviews extends React.Component {
   }
 
   scrollMore() { // only works when its not filtered by rating.
-    if (!this.state.filteredByRating) {
+    if (!this.state.filteredByRating && page > 1) {
       let { page } = this.state;
       page += 1;
       this.setState({ page });
