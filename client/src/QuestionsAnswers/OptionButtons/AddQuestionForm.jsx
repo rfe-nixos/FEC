@@ -85,9 +85,11 @@ function AddQuestionForm({ show, setShowModal, productName, renderQuestions }) {
     e.preventDefault();
     postQuestion(productId, formValue)
       .then(() => {
-        renderQuestions();
+        renderQuestions(true);
       });
     setShowModal(false);
+    const list = document.getElementById('question-scroller');
+    list.scrollTo(0, 0);
   };
 
   const handleClose = (e) => {

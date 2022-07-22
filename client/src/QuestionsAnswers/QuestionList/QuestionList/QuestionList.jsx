@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import IndividualQuestion from './IndividualQuestion';
 import { useQuestionList } from '../../contexts/QuestionListContext';
 
-function QuestionList({ renderQuestions, keyword, productName, expanded }) {
+function QuestionList({ renderQuestions, keyword, productName, expanded, page, setPage, hasMore }) {
   const questions = useQuestionList();
+  const listInnerRef = useRef();
+
   if (questions.length === 0) {
     return (
       <NoDataDiv id="question-list">
@@ -18,16 +20,23 @@ function QuestionList({ renderQuestions, keyword, productName, expanded }) {
       question.question_body.match(new RegExp(keyword, 'i'))
     ));
 
-  // filteredQuestions = expanded ? filteredQuestions : filteredQuestions.slice(0, 2);
-
-  // onscroll
-  //
+  const onScroll = async () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
+        if (hasMore) {
+          setPage(page + 1);
+          renderQuestions();
+        }
+      }
+    }
+  };
 
   return (
     <div id="question-list">
       {expanded
       && (
-        <Scroller>
+        <Scroller onScroll={onScroll} ref={listInnerRef} id="question-scroller">
           {filteredQuestions
             .map((question) => (
               <IndividualQuestion
