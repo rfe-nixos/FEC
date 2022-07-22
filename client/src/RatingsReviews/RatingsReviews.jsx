@@ -32,6 +32,7 @@ const RatingsReviews = forwardRef((props, ref) => {
       },
     })
       .then((response) => {
+        // console.log('got reviews.')
         setReviews(response.data.results);
       })
       .then(() => {
@@ -42,11 +43,6 @@ const RatingsReviews = forwardRef((props, ref) => {
       .catch((err) => console.log('error fetching reviews', err));
   };
 
-  useEffect(() => {
-    getRatings();
-    getReviews();
-  }, [productId]);
-
   const getRatings = () => {
     axios.get(`${process.env.API_URL}/reviews/meta?product_id=${productId}`, {
       headers: {
@@ -54,6 +50,7 @@ const RatingsReviews = forwardRef((props, ref) => {
       },
     })
       .then((response) => {
+        // console.log('got ratings.')
         const sum = getTotalRatings(response.data.ratings)[0];
         const totalRatings = getTotalRatings(response.data.ratings)[1];
         setMeta(response.data);
@@ -69,6 +66,13 @@ const RatingsReviews = forwardRef((props, ref) => {
     getReviews();
     getRatings();
   }, []);
+
+  useEffect(() => {
+    if (isLoaded) {
+      getRatings();
+      getReviews();
+    }
+  }, [productId]);
 
   const setRatingsFilter = (rating) => {
     const index = ratingFilter.indexOf(rating);
@@ -101,7 +105,7 @@ const RatingsReviews = forwardRef((props, ref) => {
     if (ratingFilter.length > 0) { // once ratingfilter updates, is longer than 0
       getByRating();
       setFilteredByRating(true);
-    } else { // if its not longer than 0, empty array, just get regular reviews.
+    } else if (isLoaded) { // if its not longer than 0, empty array, just get regular reviews.
       getReviews();
       setFilteredByRating(false);
       setFiltered([]);
@@ -143,13 +147,14 @@ const RatingsReviews = forwardRef((props, ref) => {
     }
   }, [sortCount]);
 
-  useEffect(() => {
-    getReviews();
-  }, [page]);
+  // useEffect(() => {
+  //   getReviews();
+  // }, [page]);
 
   const moreReviews = () => {
     setPage(page + 1);
   };
+
   const scrollMore = () => { // only works when its not filtered by rating.
     // if (!filteredByRating) {
     setPage(page + 1);
