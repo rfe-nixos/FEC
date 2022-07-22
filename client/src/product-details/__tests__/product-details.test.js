@@ -121,31 +121,31 @@ describe('render tests', () => {
 
   test('ImageGallery renders correctly 1', () => {
     const tree = renderer
-      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }] }} currentThumbnail="0" setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} setRange={console.log()} />)
+      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }] }} currentThumbnail={['./assets/checkmark.png', '0']} setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} setRange={console.log()} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
   test('ImageGallery renders correctly 2', () => {
     const tree = renderer
-      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }] }} currentThumbnail="0" setCurrentThumbnail={console.log()} modal="on" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} setRange={console.log()} />)
+      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }] }} currentThumbnail={['./assets/checkmark.png', '0']} setCurrentThumbnail={console.log()} modal="on" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} setRange={console.log()} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
   test('ImageGallery renders correctly 3', () => {
     const tree = renderer
-      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }] }} currentThumbnail="0" setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} setRange={console.log()} />)
+      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }] }} currentThumbnail={['./assets/checkmark.png', '0']} setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[0, 7]} setRange={console.log()} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
   test('ImageGallery renders correctly 4', () => {
     const tree = renderer
-      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }] }} currentThumbnail="0" setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[1, 8]} setRange={console.log()} />)
+      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }] }} currentThumbnail={['./assets/checkmark.png', '0']} setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom="" setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[1, 8]} setRange={console.log()} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
   test('ImageGallery renders correctly 5', () => {
     const tree = renderer
-      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }] }} currentThumbnail="0" setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[1, 7]} setRange={console.log()} />)
+      .create(<ImageGallery currentStyle={{ photos: [{ url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }, { url: './assets/checkmark.png' }] }} currentThumbnail={['./assets/checkmark.png', '0']} setCurrentThumbnail={console.log()} modal="" setModal={console.log()} zoom setZoom={console.log()} modalZoom="" setModalZoom={console.log()} range={[1, 7]} setRange={console.log()} />)
       .toJSON();
     expect(tree).toMatchSnapshot();
   });
