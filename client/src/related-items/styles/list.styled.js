@@ -189,6 +189,4 @@ export const ModalOverlay = styled.div`
 export const RelatedItemsStyleContainer = styled.div`
   /* height: 70%; */
   width: 70%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-  -webkit-font-smoothing: antialiased;
 `;

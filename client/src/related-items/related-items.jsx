@@ -198,14 +198,14 @@ const RelatedItems = forwardRef((props, ref) => {
 
   return (
     <currentProductDataContext.Provider value={currentProductData}>
-      <RelatedItemsStyleContainer ref={ref}>
-        <h2>Related Items</h2>
+      <RelatedItemsStyleContainer ref={ref} className="main-widget-container">
+        <div className="main-widget-title">RELATED ITEMS</div>
         <ProductList
           relatedProductStyles={relatedProductStyles}
           relatedProduct_ids={relatedProduct_ids}
           relatedProductReviews={relatedProductReviews}
         />
-        <h2>Your Outfits</h2>
+        <div className="main-widget-title">YOUR OUTFITS</div>
         <OutfitList
           relatedProductStyles={currentProductStyles}
           relatedProduct_ids={currentProductData}

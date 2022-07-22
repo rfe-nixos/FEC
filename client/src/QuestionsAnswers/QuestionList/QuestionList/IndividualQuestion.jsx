@@ -4,6 +4,7 @@ import _ from 'underscore';
 import { getAnswers, postAnswer } from '../../lib/api/githubAPI';
 import getImageUrl from '../../lib/api/cloudinaryAPI';
 import Helpful from '../../components/Helpful';
+import Report from '../../components/Report';
 import AddAnswerForm from '../AddAnswer/AddAnswerForm';
 import AnswerList from '../AnswerList/AnswerList';
 
@@ -64,6 +65,11 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
             tabIndex="0"
           />
           <PaddedSpan>{' | '}</PaddedSpan>
+          <Report
+            id={question.question_id}
+            type="question"
+          />
+          <PaddedSpan>{' | '}</PaddedSpan>
           <u onClick={() => setShowModal(true)} onKeyDown={() => setShowModal(true)} role="button" tabIndex="-1">
             Add Answer
           </u>
@@ -110,7 +116,7 @@ const Title = styled.span`
 
 const QContainer = styled.div`
   display: flex;
-  width: 65%;
+  width: 60%;
 `;
 
 const BoldBody = styled.b`
@@ -122,8 +128,7 @@ const OptionsDiv = styled.div`
   font-weight: 300;
   color: #77787a;
   display: flex;
-  max-width: 25vh;
-  justify-content: space-between;
+  max-width: 40%;
   align-items: center;
 `;
 
