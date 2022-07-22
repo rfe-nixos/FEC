@@ -1,9 +1,9 @@
 .overview {
   display: inline-block;
   height: 800px;
-  width: 70%;
-  min-width: 800px;
-  max-width: 1000px;
+  width: 800px;
+  /*min-width: 700px;
+  max-width: 800px;*/
   padding: 10px;
   margin-top: 10px;
   margin-bottom: 100px;
@@ -147,17 +147,19 @@
 
 .starRating {
   float: left;
-  width: 40%;
+  width: 42%;
   margin-bottom: 5px;
-  margin-top: 1px;
+  padding-right: 5px;
+  margin-top: 1.8%;
   text-align: right;
   color: goldenrod;
 }
 
 .totalRatings {
   float: right;
-  width: 55%;
+  width: 53%;
   margin-top: 1.5%;
+  padding-left: 5px;
   text-align: left;
   text-decoration: underline;
 }
@@ -208,6 +210,7 @@
   float: center;
   width: 100%;
   text-align: left;
+  align-items: center;
   height: 45%;
 }
 
@@ -217,15 +220,12 @@
 }
 
 .styleOption {
-  float: left;
-  text-align: center;
-  align-items: center;
+  display: inline-block;
   font-style: italic;
-  height: 80px;
-  width: 80px;
-  margin-right: 2.2%;
-  margin-bottom: 3%;
-  margin-left: 2.2%;
+  width: 23%;
+  max-height: 100px;
+  height: 25%;
+  margin: 1%;
 }
 
 .styleOption:hover {
@@ -234,11 +234,11 @@
 }
 
 #styleOverlay {
-  margin-left: 15px;
+  margin-left: 20px;
   margin-top: 10px;
   position: absolute;
-  height: 50px;
-  width: 50px;
+  height: 60px;
+  width: 60px;
   z-index: 2;
 }
 

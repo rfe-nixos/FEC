@@ -93,7 +93,7 @@ function AddToCart({
       });
     }
   };
-  // console.log(currentSize);
+  console.log(currentSize);
 
   return (
     <div className="addToCart">
