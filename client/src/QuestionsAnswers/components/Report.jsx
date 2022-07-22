@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import { updateReport } from '../lib/api/githubAPI';
 
 function Report({ id, type }) {
@@ -17,10 +18,17 @@ function Report({ id, type }) {
   };
 
   return (
-    <u onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="-1">
+    <ClickableU onClick={handleClick} onKeyDown={handleClick} role="button" tabIndex="-1">
       {reported ? 'Reported' : 'Report'}
-    </u>
+    </ClickableU>
   );
 }
 
 export default Report;
+
+const ClickableU = styled.u`
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;

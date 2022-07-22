@@ -162,13 +162,10 @@ const RatingsReviews = forwardRef((props, ref) => {
     let list = document.getElementById('reviewlist1');
     list.scrollTo(0, 0);
     setPage(1);
+    sort('newest');
+    setSorted(true);
+    setReviews(sortedReviews);
   };
-
-  const onSortSelect = (sortOption) => {
-    list.scrollTo(0, 0);
-    setPage(1);
-    setSortOption(sortOption);
-  }
 
   return (
     <StyledMain id="ratings-reviews" className="main-widget-container" ref={ref}>

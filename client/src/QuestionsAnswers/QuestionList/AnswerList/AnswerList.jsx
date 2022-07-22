@@ -10,15 +10,30 @@ function AnswerList({ answerList, renderAnswers, Title }) {
       <DivAnswer>
         <Title>A:</Title>
         <AnswerListDiv>
-          <Scroller id="scrollableDiv">
-            {filteredAnswerList.map((answer) => (
-              <Answer
-                key={answer.id || answer.answer_id}
-                answer={answer}
-                renderAnswers={renderAnswers}
-              />
-            ))}
-          </Scroller>
+          {collapsed
+          && (
+            <div>
+              {filteredAnswerList.map((answer) => (
+                <Answer
+                  key={answer.id || answer.answer_id}
+                  answer={answer}
+                  renderAnswers={renderAnswers}
+                />
+              ))}
+            </div>
+          )}
+          {!collapsed
+          && (
+            <Scroller id="scrollableDiv">
+              {filteredAnswerList.map((answer) => (
+                <Answer
+                  key={answer.id || answer.answer_id}
+                  answer={answer}
+                  renderAnswers={renderAnswers}
+                />
+              ))}
+            </Scroller>
+          )}
           {collapsed && answerList.length > 2
           && <CollapseSpan onClick={() => setCollapsed(false)}>LOAD MORE ANSWERS</CollapseSpan>}
           {!collapsed
@@ -49,7 +64,7 @@ const DivAnswer = styled.div`
 `;
 
 const Scroller = styled.div`
-  max-height: 30vh;
+  max-height: 50vh;
   overflow-y: auto;
   height: 300;
   padding-right: 10px;
