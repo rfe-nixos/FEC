@@ -24,7 +24,7 @@ const StyledForm = styled.div`
   align-items: center;
   justify-content: center;
   position: fixed;
-  z-index: 1;
+  z-index: 100;
   left: 0;
   top: 0;
   width: 100%;
@@ -37,10 +37,10 @@ const StyledForm = styled.div`
 const StyledInner = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-evenly;
   align-items: center;
-  width: 500px;
-  height: auto;
+  width: 90%;
+  height: 80%;
   padding: 1.5%;
   overflow-y: auto;
   background: #ffffff;
@@ -69,7 +69,6 @@ const StyledButton = styled.button`
 
 const StyledImg = styled.img`
   size: auto;
-  max-width: 80%;
 `;
 
 export default PhotoPopup;
