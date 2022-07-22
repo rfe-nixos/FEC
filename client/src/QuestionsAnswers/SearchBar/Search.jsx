@@ -1,7 +1,5 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
 
 function Search({ setFilter }) {
   const [searchTerm, setSearchTerm] = useState('');
@@ -24,7 +22,8 @@ function Search({ setFilter }) {
           onChange={handleChange}
           value={searchTerm}
         />
-        <Icon icon={faMagnifyingGlass} />
+        {/* <Icon icon={faMagnifyingGlass} /> */}
+        <Icon src="public/icons/icons8-search-50.png" />
       </InputIcons>
     </Form>
   );
@@ -47,9 +46,10 @@ const SearchInput = styled.input`
   }
 `;
 
-const Icon = styled(FontAwesomeIcon)`
+const Icon = styled.img`
   padding: 15px;
   position: absolute;
+  height: 3vh;
 `;
 
 const InputIcons = styled.div`

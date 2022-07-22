@@ -3,7 +3,6 @@ import { format } from 'date-fns';
 import styled from 'styled-components';
 import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
-import Options from '../../components/Options';
 import Image from '../../components/Image';
 
 const AnswerDiv = styled.div`
@@ -49,11 +48,13 @@ function Answer({ answer, renderAnswers }) {
     <AnswerDiv className="answer">
       <div className="answer-text">{answer.body}</div>
       {images}
-      <Options>
+      <OptionsDiv>
         {answerInfo}
+        <PaddedSpan>{' | '}</PaddedSpan>
         {helpful}
+        <PaddedSpan>{' | '}</PaddedSpan>
         {report}
-      </Options>
+      </OptionsDiv>
     </AnswerDiv>
   );
 }
@@ -68,3 +69,19 @@ const PhotoDiv = styled.div`
   overflow-x: auto;
   margin: 5px 0;
 `
+
+const PaddedSpan = styled.div`
+  padding: 0 10px;
+  font-size: 15px;
+`;
+
+const OptionsDiv = styled.div`
+  font-size: 11px;
+  font-weight: 300;
+  color: #77787a;
+  display: flex;
+  max-width: 40vh;
+  justify-content: space-between;
+  padding: 10px 0;
+  align-items: center;
+`;
