@@ -35,10 +35,6 @@ const OuterBar = styled.div`
   width: 100%;
   height: 12px;
   background-color: #d9d9d9;
-  &:hover{
-    opacity:70%;
-    cursor: pointer;
-  }
 `;
 
 const InnerBar = styled.div`
