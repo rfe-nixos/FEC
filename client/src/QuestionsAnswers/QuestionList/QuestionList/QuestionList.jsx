@@ -18,21 +18,43 @@ function QuestionList({ renderQuestions, keyword, productName, expanded }) {
       question.question_body.match(new RegExp(keyword, 'i'))
     ));
 
-  filteredQuestions = expanded ? filteredQuestions : filteredQuestions.slice(0, 2);
+  // filteredQuestions = expanded ? filteredQuestions : filteredQuestions.slice(0, 2);
+
+  // onscroll
+  //
 
   return (
     <div id="question-list">
-      <Scroller>
-        {filteredQuestions
-          .map((question) => (
-            <IndividualQuestion
-              key={question.question_id}
-              question={question}
-              renderQuestions={renderQuestions}
-              productName={productName}
-            />
-          ))}
-      </Scroller>
+      {expanded
+      && (
+        <Scroller>
+          {filteredQuestions
+            .map((question) => (
+              <IndividualQuestion
+                key={question.question_id}
+                question={question}
+                renderQuestions={renderQuestions}
+                productName={productName}
+              />
+            ))}
+        </Scroller>
+      )}
+      {!expanded
+      && (
+        <div>
+          {filteredQuestions
+            .slice(0, 2)
+            .map((question) => (
+              <IndividualQuestion
+                key={question.question_id}
+                question={question}
+                renderQuestions={renderQuestions}
+                productName={productName}
+              />
+            ))}
+        </div>
+      )}
+
     </div>
   );
 }

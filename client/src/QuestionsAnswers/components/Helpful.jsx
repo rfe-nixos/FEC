@@ -44,6 +44,10 @@ const PaddedSpan = styled.span`
 
 const PaddedU = styled.u`
   padding-right: 3px;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;
 
 const HelpfulDiv = styled.div`

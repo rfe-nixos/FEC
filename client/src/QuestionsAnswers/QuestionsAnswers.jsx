@@ -79,6 +79,10 @@ const Button = styled.button`
   background-color: white;
   margin-right: 10px;
   font-weight:500px!important;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
 `;
 
 const ButtonContainer = styled.div`
