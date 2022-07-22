@@ -157,9 +157,9 @@ const RatingsReviews = forwardRef((props, ref) => {
   };
 
   return (
-    <StyledMain id="ratings-reviews" ref={ref}>
+    <StyledMain id="ratings-reviews" className="main-widget-container" ref={ref}>
       <StyledTitle id="inner-title">
-        <div>
+        <div className="main-widget-title">
           RATINGS & REVIEWS
         </div>
       </StyledTitle>
