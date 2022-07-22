@@ -68,6 +68,7 @@ class ReviewTile extends React.Component {
             {(this.state.openPhotoPop)
             && (
             <PhotoPopup
+
               togglePhotoPop={this.togglePhotoPop}
               photoUrl={this.state.photo}
             />
