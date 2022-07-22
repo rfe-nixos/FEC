@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import styled from 'styled-components';
 import IndividualQuestion from './IndividualQuestion';
 import { useQuestionList } from '../../contexts/QuestionListContext';
 
-function QuestionList({ renderQuestions, keyword, productName, expanded }) {
+function QuestionList({ renderQuestions, keyword, productName, expanded, page, setPage, hasMore }) {
   const questions = useQuestionList();
+  const listInnerRef = useRef();
+
   if (questions.length === 0) {
     return (
       <NoDataDiv id="question-list">
@@ -18,21 +20,50 @@ function QuestionList({ renderQuestions, keyword, productName, expanded }) {
       question.question_body.match(new RegExp(keyword, 'i'))
     ));
 
-  filteredQuestions = expanded ? filteredQuestions : filteredQuestions.slice(0, 2);
+  const onScroll = async () => {
+    if (listInnerRef.current) {
+      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
+      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
+        if (hasMore) {
+          setPage(page + 1);
+          renderQuestions();
+        }
+      }
+    }
+  };
 
   return (
     <div id="question-list">
-      <Scroller>
-        {filteredQuestions
-          .map((question) => (
-            <IndividualQuestion
-              key={question.question_id}
-              question={question}
-              renderQuestions={renderQuestions}
-              productName={productName}
-            />
-          ))}
-      </Scroller>
+      {expanded
+      && (
+        <Scroller onScroll={onScroll} ref={listInnerRef} id="question-scroller">
+          {filteredQuestions
+            .map((question) => (
+              <IndividualQuestion
+                key={question.question_id}
+                question={question}
+                renderQuestions={renderQuestions}
+                productName={productName}
+              />
+            ))}
+        </Scroller>
+      )}
+      {!expanded
+      && (
+        <div>
+          {filteredQuestions
+            .slice(0, 2)
+            .map((question) => (
+              <IndividualQuestion
+                key={question.question_id}
+                question={question}
+                renderQuestions={renderQuestions}
+                productName={productName}
+              />
+            ))}
+        </div>
+      )}
+
     </div>
   );
 }
