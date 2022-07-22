@@ -117,7 +117,7 @@ function OutfitList({
   }
 
   return (
-    <StyledList>
+    <StyledList className="list-container">
       <button
         type="button"
         className="slider leftSlider"
