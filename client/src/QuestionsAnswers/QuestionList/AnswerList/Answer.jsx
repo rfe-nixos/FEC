@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import Helpful from '../../components/Helpful';
@@ -6,6 +6,7 @@ import Report from '../../components/Report';
 import Image from '../../components/Image';
 
 function Answer({ answer, renderAnswers, last }) {
+  const [helpfulCount, setHelpfulCount] = useState(answer.helpfulness)
   const answerInfo = (
     <span>
       {answer.answerer_name.toLowerCase() === 'seller' ? <span>by <b>Seller</b></span> : <span>by {answer.answerer_name} </span>}
@@ -26,8 +27,8 @@ function Answer({ answer, renderAnswers, last }) {
   const helpful = (
     <Helpful id={answer.answer_id || answer.id}
       type="answer"
-      currentCount={answer.helpfulness}
-      renderComponent={renderAnswers}
+      currentCount={helpfulCount}
+      setHelpfulCount={setHelpfulCount}
     />
   );
   const report = (

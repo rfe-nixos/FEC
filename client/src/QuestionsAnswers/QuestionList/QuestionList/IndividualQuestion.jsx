@@ -13,6 +13,7 @@ function IndividualQuestion({ productName, question, renderQuestions, keyword })
   const [answerList, setAnswerList] = useState(sortAnswers(question.answers));
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(100);
+  const [helpfulCount, setHelpfulCount] = useState(question.question_helpfulness);
 
   const renderAnswers = () => {
     getAnswers(question.question_id, page, count)
@@ -60,7 +61,8 @@ function IndividualQuestion({ productName, question, renderQuestions, keyword })
           <Helpful
             id={question.question_id}
             type="question"
-            currentCount={question.question_helpfulness}
+            currentCount={helpfulCount}
+            setHelpfulCount={setHelpfulCount}
             renderComponent={renderQuestions}
             tabIndex="0"
           />
