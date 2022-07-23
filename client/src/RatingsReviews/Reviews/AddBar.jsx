@@ -1,45 +1,37 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import ReviewForm from './AddReview/ReviewForm';
 
-class AddBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      formShowing: false,
-    };
-    this.moreReviews = this.moreReviews.bind(this);
-    this.toggleForm = this.toggleForm.bind(this);
-  }
-
-  moreReviews(e) {
+function AddBar({
+  reviews, addReview, moreReviews, productId, setPage,
+}) {
+  const [showForm, setShowForm] = useState(false);
+  const onMoreReviews = (e) => {
     e.preventDefault();
-    this.props.moreReviews();
-  }
+    moreReviews();
+  };
 
-  toggleForm() {
-    this.state.formShowing
-      ? this.setState({ formShowing: false })
-      : this.setState({ formShowing: true });
-  }
+  const toggleForm = () => {
+    showForm
+      ? setShowForm(false)
+      : setShowForm(true);
+  };
 
-  render() {
-    return (
-      <AddBarMain data-testid="addbar-1">
-        <StyledButton data-testid="morebutton" onClick={this.moreReviews}>MORE REVIEWS</StyledButton>
-        <StyledButton data-testid="addbutton" onClick={this.toggleForm}>ADD A REVIEW +</StyledButton>
-        {this.state.formShowing
+  return (
+    <AddBarMain data-testid="addbar-1">
+      <StyledButton data-testid="morebutton" onClick={onMoreReviews}>MORE REVIEWS</StyledButton>
+      <StyledButton data-testid="addbutton" onClick={toggleForm}>ADD A REVIEW +</StyledButton>
+      {showForm
         && (
         <ReviewForm
-          productId={this.props.productId}
-          addReview={this.props.addReview}
-          toggleForm={this.toggleForm}
-          setPage={this.props.setPage}
+          productId={productId}
+          addReview={addReview}
+          toggleForm={toggleForm}
+          setPage={setPage}
         />
         )}
-      </AddBarMain>
-    );
-  }
+    </AddBarMain>
+  );
 }
 
 const AddBarMain = styled.div`
