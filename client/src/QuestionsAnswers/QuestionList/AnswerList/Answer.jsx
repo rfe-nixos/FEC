@@ -6,7 +6,6 @@ import Report from '../../components/Report';
 import Image from '../../components/Image';
 
 function Answer({ answer, renderAnswers, last }) {
-  console.log(last);
   const answerInfo = (
     <span>
       {answer.answerer_name.toLowerCase() === 'seller' ? <span>by <b>Seller</b></span> : <span>by {answer.answerer_name} </span>}
@@ -84,5 +83,5 @@ const OptionsDiv = styled.div`
 const AnswerDiv = styled.div`
   padding-bottom: ${props => props.last ? 0 : '5px'};
   border-bottom: ${props => props.last ? 'none' : '0.5px solid grey;'};
-  margin-bottom: ${props => props.last ? 0 : '10px'};
+  margin-bottom: ${props => props.last ? 0 : '15px'};
 `;

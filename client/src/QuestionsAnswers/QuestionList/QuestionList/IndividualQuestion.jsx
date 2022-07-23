@@ -105,7 +105,7 @@ const DivQuestion = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 0;
+  margin: 15px 0;
   padding-right: 10px;
 `;
 

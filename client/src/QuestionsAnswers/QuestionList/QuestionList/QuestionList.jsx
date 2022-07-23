@@ -22,8 +22,8 @@ function QuestionList({ renderQuestions, keyword, productName, expanded, page, s
 
   const onScroll = async () => {
     if (listInnerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
+      const { offsetHeight, scrollTop, scrollHeight } = listInnerRef.current;
+      if (scrollTop + offsetHeight + 10 >= scrollHeight) {
         if (hasMore) {
           setPage(page + 1);
           renderQuestions();
