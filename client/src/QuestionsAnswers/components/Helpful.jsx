@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { updateHelpful } from '../lib/api/githubAPI';
 
-function Helpful({ id, type, currentCount, renderComponent }) {
+function Helpful({ id, type, currentCount, setHelpfulCount }) {
   const [clicked, setClicked] = useState(false);
 
   const handleClick = () => {
@@ -12,7 +12,7 @@ function Helpful({ id, type, currentCount, renderComponent }) {
     updateHelpful(type, id)
       .then(() => {
         setClicked(true);
-        renderComponent();
+        setHelpfulCount(currentCount + 1);
       });
   };
 

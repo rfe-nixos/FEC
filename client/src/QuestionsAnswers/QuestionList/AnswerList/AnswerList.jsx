@@ -13,23 +13,26 @@ function AnswerList({ answerList, renderAnswers, Title }) {
           {collapsed
           && (
             <div>
-              {filteredAnswerList.map((answer) => (
-                <Answer
-                  key={answer.id || answer.answer_id}
-                  answer={answer}
-                  renderAnswers={renderAnswers}
-                />
-              ))}
+              {filteredAnswerList
+                .map((answer, index) => (
+                  <Answer
+                    key={answer.id || answer.answer_id}
+                    answer={answer}
+                    renderAnswers={renderAnswers}
+                    last={index === filteredAnswerList.length - 1}
+                  />
+                ))}
             </div>
           )}
           {!collapsed
           && (
             <Scroller id="scrollableDiv">
-              {filteredAnswerList.map((answer) => (
+              {filteredAnswerList.map((answer, index) => (
                 <Answer
                   key={answer.id || answer.answer_id}
                   answer={answer}
                   renderAnswers={renderAnswers}
+                  last={index === filteredAnswerList.length - 1}
                 />
               ))}
             </Scroller>

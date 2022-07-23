@@ -15,15 +15,15 @@ function QuestionList({ renderQuestions, keyword, productName, expanded, page, s
     );
   }
 
-  let filteredQuestions = questions
-    .filter((question) => (
-      question.question_body.match(new RegExp(keyword, 'i'))
-    ));
+  // let filteredQuestions = questions
+  //   .filter((question) => (
+  //     question.question_body.match(new RegExp(keyword, 'i'))
+  //   ));
 
   const onScroll = async () => {
     if (listInnerRef.current) {
-      const { scrollTop, scrollHeight, clientHeight } = listInnerRef.current;
-      if (scrollTop + clientHeight + 0.75 > scrollHeight) {
+      const { offsetHeight, scrollTop, scrollHeight } = listInnerRef.current;
+      if (scrollTop + offsetHeight + 10 >= scrollHeight) {
         if (hasMore) {
           setPage(page + 1);
           renderQuestions();
@@ -37,13 +37,14 @@ function QuestionList({ renderQuestions, keyword, productName, expanded, page, s
       {expanded
       && (
         <Scroller onScroll={onScroll} ref={listInnerRef} id="question-scroller">
-          {filteredQuestions
+          {questions
             .map((question) => (
               <IndividualQuestion
                 key={question.question_id}
                 question={question}
                 renderQuestions={renderQuestions}
                 productName={productName}
+                keyword={keyword}
               />
             ))}
         </Scroller>
@@ -51,7 +52,7 @@ function QuestionList({ renderQuestions, keyword, productName, expanded, page, s
       {!expanded
       && (
         <div>
-          {filteredQuestions
+          {questions
             .slice(0, 2)
             .map((question) => (
               <IndividualQuestion
@@ -59,6 +60,7 @@ function QuestionList({ renderQuestions, keyword, productName, expanded, page, s
                 question={question}
                 renderQuestions={renderQuestions}
                 productName={productName}
+                keyword={keyword}
               />
             ))}
         </div>

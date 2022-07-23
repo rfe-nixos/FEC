@@ -1,15 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { format } from 'date-fns';
 import styled from 'styled-components';
 import Helpful from '../../components/Helpful';
 import Report from '../../components/Report';
 import Image from '../../components/Image';
 
-const AnswerDiv = styled.div`
-  padding-bottom: 10px;
-`;
-
-function Answer({ answer, renderAnswers }) {
+function Answer({ answer, renderAnswers, last }) {
+  const [helpfulCount, setHelpfulCount] = useState(answer.helpfulness)
   const answerInfo = (
     <span>
       {answer.answerer_name.toLowerCase() === 'seller' ? <span>by <b>Seller</b></span> : <span>by {answer.answerer_name} </span>}
@@ -30,8 +27,8 @@ function Answer({ answer, renderAnswers }) {
   const helpful = (
     <Helpful id={answer.answer_id || answer.id}
       type="answer"
-      currentCount={answer.helpfulness}
-      renderComponent={renderAnswers}
+      currentCount={helpfulCount}
+      setHelpfulCount={setHelpfulCount}
     />
   );
   const report = (
@@ -44,7 +41,7 @@ function Answer({ answer, renderAnswers }) {
   );
 
   return (
-    <AnswerDiv className="answer">
+    <AnswerDiv className="answer" last={last}>
       <div className="answer-text">{answer.body}</div>
       {images}
       <OptionsDiv>
@@ -82,4 +79,10 @@ const OptionsDiv = styled.div`
   max-width: 40%;
   padding: 10px 0;
   align-items: center;
+`;
+
+const AnswerDiv = styled.div`
+  padding-bottom: ${props => props.last ? 0 : '5px'};
+  border-bottom: ${props => props.last ? 'none' : '0.5px solid grey;'};
+  margin-bottom: ${props => props.last ? 0 : '15px'};
 `;

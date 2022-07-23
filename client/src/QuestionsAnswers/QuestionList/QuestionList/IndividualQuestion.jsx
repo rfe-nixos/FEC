@@ -8,11 +8,12 @@ import Report from '../../components/Report';
 import AddAnswerForm from '../AddAnswer/AddAnswerForm';
 import AnswerList from '../AnswerList/AnswerList';
 
-function IndividualQuestion({ productName, question, renderQuestions }) {
+function IndividualQuestion({ productName, question, renderQuestions, keyword }) {
   const [showModal, setShowModal] = useState(false);
   const [answerList, setAnswerList] = useState(sortAnswers(question.answers));
   const [page, setPage] = useState(1);
   const [count, setCount] = useState(100);
+  const [helpfulCount, setHelpfulCount] = useState(question.question_helpfulness);
 
   const renderAnswers = () => {
     getAnswers(question.question_id, page, count)
@@ -31,13 +32,13 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         .then((result) => {
           formValues.photos = result;
           postAnswer(question.question_id, formValues)
-            .then((response) => {
+            .then(() => {
               renderAnswers();
             });
         });
     } else {
       postAnswer(question.question_id, formValues)
-        .then((response) => {
+        .then(() => {
           renderAnswers();
         });
     }
@@ -50,7 +51,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
   }, [answerList]);
 
   return (
-    <div className="individual-question">
+    <DivContainer show={question.question_body.match(new RegExp(keyword, 'i'))}>
       <DivQuestion>
         <QContainer>
           <Title>Q:</Title>
@@ -60,7 +61,8 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
           <Helpful
             id={question.question_id}
             type="question"
-            currentCount={question.question_helpfulness}
+            currentCount={helpfulCount}
+            setHelpfulCount={setHelpfulCount}
             renderComponent={renderQuestions}
             tabIndex="0"
           />
@@ -87,7 +89,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         show={showModal}
         setShowModal={setShowModal}
       />
-    </div>
+    </DivContainer>
   );
 }
 
@@ -101,11 +103,15 @@ const sortAnswers = (answers) => (
     .value()
 );
 
+const DivContainer = styled.div`
+  display: ${props => props.show ? 'block' : 'none'}
+`;
+
 const DivQuestion = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin: 5px 0;
+  margin: 15px 0;
   padding-right: 10px;
 `;
 
