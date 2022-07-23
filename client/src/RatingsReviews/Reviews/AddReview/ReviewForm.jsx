@@ -3,122 +3,7 @@ import styled from 'styled-components';
 import CharButtons from './CharButtons';
 import StarRatingBar from './StarRatingBar';
 import PhotoForm from './PhotoForm';
-
-const StyledForm = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  z-index: 200;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: rgb(0,0,0);
-  background-color: rgba(0,0,0,0.4);
-`;
-
-const StyledInner = styled.div`
-  display: flex;
-  z-index: 200;
-  flex-direction: column;
-  justify-content: left;
-  align-items: flex-start;
-  width: 400px;
-  height: 80%;
-  padding: 1.5%;
-  overflow-y: auto;
-  background: white;
-  border: 1px solid black;
-  font-size:small;
-  -webkit-transition: all 0.5s ease-in-out;
-  -moz-transition: all 0.5s ease-in-out;
-  -o-transition: all 0.5s ease-in-out;
-  transition: all 0.5s ease-in-out;
-`;
-
-const InnerTop = styled.div`
-  display: flex;
-  z-index: 200;
-  flex-direction: row;
-  justify-content: space-between;
-  font-size: large;
-  font-weight: bold;
-  width: 100% ;
-  border-bottom: .5px solid black;
-  padding-bottom: 1%;
-  margin-bottom: 2%;
-`;
-
-const StyledCat = styled.div`
-  font-weight: bold;
-  z-index: 200;
-  font-size: small;
-  display: flex;
-  flex-direction: column;
-  align-content: flex-start;
-  margin-top: 1%;
-  width: 100%;
-`;
-const InnerBot = styled.div`
-  z-index: 200;
-  font-weight: bold;
-  font-size: regular;
-  display: flex;
-  flex-direction: row;
-  align-content: flex-start;
-  margin-top: 4%;
-  width: 95%;
-  padding: 2%;
-  border-top: .5px solid black;
-`;
-
-const StyledInput = styled.input`
-  width: 200px;
-  z-index: 200;
-`;
-
-const StyledTextArea = styled.textarea`
-  width: 390px;
-  height: 60px;
-  resize: none;
-  font-family: inherit;
-  z-index: 200;
-`;
-const StyledClose = styled.button`
-  color: #1c1c1c;
-  z-index: 200;
-  font-size: 15px;
-  background-color: white;
-  width: auto;
-  font-weight: light;
-  padding: .25em .5em;
-  border-radius: 3px;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
-const StyledButton = styled.button`
-  width: auto;
-  z-index: 200;
-  max-width: 100px;
-  font-size: small;
-  margin: 1%;
-  margin-right: 3%;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
+import validateEmail from '../../lib/validateEmail';
 
 class ReviewForm extends React.Component {
   constructor(props) {
@@ -176,7 +61,7 @@ class ReviewForm extends React.Component {
       alert('please enter rating');
     } else if (reviewBody.body.length < 5) {
       alert('body must be at least 20 characters');
-    } else if (!reviewBody.email) {
+    } else if (!reviewBody.email || validateEmail(reviewBody.email)) {
       alert('please enter email');
     } else if (!reviewBody.characteristics) {
       alert('please enter characteristics');
@@ -317,5 +202,122 @@ class ReviewForm extends React.Component {
     );
   }
 }
+
+
+const StyledForm = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  z-index: 200;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgb(0,0,0);
+  background-color: rgba(0,0,0,0.4);
+`;
+
+const StyledInner = styled.div`
+  display: flex;
+  z-index: 200;
+  flex-direction: column;
+  justify-content: left;
+  align-items: flex-start;
+  width: 400px;
+  height: 80%;
+  padding: 1.5%;
+  overflow-y: auto;
+  background: white;
+  border: 1px solid black;
+  font-size:small;
+  -webkit-transition: all 0.5s ease-in-out;
+  -moz-transition: all 0.5s ease-in-out;
+  -o-transition: all 0.5s ease-in-out;
+  transition: all 0.5s ease-in-out;
+`;
+
+const InnerTop = styled.div`
+  display: flex;
+  z-index: 200;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: large;
+  font-weight: bold;
+  width: 100% ;
+  border-bottom: .5px solid black;
+  padding-bottom: 1%;
+  margin-bottom: 2%;
+`;
+
+const StyledCat = styled.div`
+  font-weight: bold;
+  z-index: 200;
+  font-size: small;
+  display: flex;
+  flex-direction: column;
+  align-content: flex-start;
+  margin-top: 1%;
+  width: 100%;
+`;
+const InnerBot = styled.div`
+  z-index: 200;
+  font-weight: bold;
+  font-size: regular;
+  display: flex;
+  flex-direction: row;
+  align-content: flex-start;
+  margin-top: 4%;
+  width: 95%;
+  padding: 2%;
+  border-top: .5px solid black;
+`;
+
+const StyledInput = styled.input`
+  width: 200px;
+  z-index: 200;
+`;
+
+const StyledTextArea = styled.textarea`
+  width: 390px;
+  height: 60px;
+  resize: none;
+  font-family: inherit;
+  z-index: 200;
+`;
+const StyledClose = styled.button`
+  color: #1c1c1c;
+  z-index: 200;
+  font-size: 15px;
+  background-color: white;
+  width: auto;
+  font-weight: light;
+  padding: .25em .5em;
+  border-radius: 3px;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
+const StyledButton = styled.button`
+  width: auto;
+  z-index: 200;
+  max-width: 100px;
+  font-size: small;
+  margin: 1%;
+  margin-right: 3%;
+  padding: 0.25em 1em;
+  border-radius: 3px;
+  background: white;
+  color: black;
+  border: 1px solid black;
+  &:hover {
+    cursor: pointer;
+    opacity: 60%;
+  }
+`;
 
 export default ReviewForm;
