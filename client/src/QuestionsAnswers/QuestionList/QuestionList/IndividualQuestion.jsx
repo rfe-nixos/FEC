@@ -8,7 +8,7 @@ import Report from '../../components/Report';
 import AddAnswerForm from '../AddAnswer/AddAnswerForm';
 import AnswerList from '../AnswerList/AnswerList';
 
-function IndividualQuestion({ productName, question, renderQuestions }) {
+function IndividualQuestion({ productName, question, renderQuestions, keyword }) {
   const [showModal, setShowModal] = useState(false);
   const [answerList, setAnswerList] = useState(sortAnswers(question.answers));
   const [page, setPage] = useState(1);
@@ -31,13 +31,13 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         .then((result) => {
           formValues.photos = result;
           postAnswer(question.question_id, formValues)
-            .then((response) => {
+            .then(() => {
               renderAnswers();
             });
         });
     } else {
       postAnswer(question.question_id, formValues)
-        .then((response) => {
+        .then(() => {
           renderAnswers();
         });
     }
@@ -50,7 +50,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
   }, [answerList]);
 
   return (
-    <div className="individual-question">
+    <DivContainer show={question.question_body.match(new RegExp(keyword, 'i'))}>
       <DivQuestion>
         <QContainer>
           <Title>Q:</Title>
@@ -87,7 +87,7 @@ function IndividualQuestion({ productName, question, renderQuestions }) {
         show={showModal}
         setShowModal={setShowModal}
       />
-    </div>
+    </DivContainer>
   );
 }
 
@@ -100,6 +100,10 @@ const sortAnswers = (answers) => (
     .reverse()
     .value()
 );
+
+const DivContainer = styled.div`
+  display: ${props => props.show ? 'block' : 'none'}
+`;
 
 const DivQuestion = styled.div`
   display: flex;
