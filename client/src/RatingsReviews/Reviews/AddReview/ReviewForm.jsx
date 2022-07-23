@@ -65,11 +65,13 @@ function ReviewForm({
 
   const handleChange = (e) => {
     e.preventDefault();
-    if (e.target.name === 'rating') setRating(e.target.value);
-    if (e.target.name === 'summary') setSummary(e.target.value);
-    if (e.target.name === 'body') setBody(e.target.value);
-    if (e.target.name === 'name') setName(e.target.value);
-    if (e.target.name === 'email') setEmail(e.target.value);
+    const name = e.target.name;
+    const val = e.target.val;
+    if (name === 'rating') setRating(val);
+    if (name === 'summary') setSummary(val);
+    if (name === 'body') setBody(val);
+    if (name === 'name') setName(val);
+    if (name === 'email') setEmail(val);
   };
 
   const toggleRecommend = (e) => {
