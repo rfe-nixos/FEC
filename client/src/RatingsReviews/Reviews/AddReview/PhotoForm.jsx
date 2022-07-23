@@ -28,7 +28,6 @@ function PhotoForm(props) {
         setSelectedPhoto(null); // reset selected photo.
       })
       .then(() => {
-        console.log('turning off spinner');
         setShowSpinner(false);
         setUploaded(true);
       })

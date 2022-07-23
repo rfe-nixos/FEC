@@ -72,10 +72,6 @@ function ReviewForm({
     if (e.target.name === 'email') setEmail(e.target.value);
   };
 
-  // const setRating = (rating) => {
-  //   this.setState({ rating });
-  // }
-
   const toggleRecommend = (e) => {
     e.preventDefault();
     !recommend
@@ -85,8 +81,8 @@ function ReviewForm({
 
   const togglePhotoForm = () => {
     !showPhotoform
-      ? setPhotoform(true)
-      : setPhotoform(false);
+      ? setShowPhotoform(true)
+      : setShowPhotoform(false);
   };
 
   const addPhoto = (photo) => {
@@ -104,7 +100,7 @@ function ReviewForm({
       if (photoUrls.length >= 5) {
         alert('you have reached the maximum number of photos');
       } else {
-        const tempurls = [...photoUrls, url];
+        const tempUrls = [...photoUrls, url];
         setPhotoUrls(tempUrls);
       }
     } else {
