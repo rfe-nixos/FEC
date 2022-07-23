@@ -1,21 +1,23 @@
 /* eslint-disable no-plusplus */
 /* eslint-disable radix */
 /* eslint-disable no-console */
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-class StarRatingBar extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      selected: false,
-    };
-    this.handleHover = this.handleHover.bind(this);
-    this.handleClick = this.handleClick.bind(this);
-  }
-
-  handleHover(e) {
-    if (!this.state.selected) {
+// class StarRatingBar extends React.Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       selected: false,
+//     };
+//     this.handleHover = this.handleHover.bind(this);
+//     this.handleClick = this.handleClick.bind(this);
+//   }
+function StarRatingBar({ setRating }) {
+  const [selected, setSelected] = useState(false);
+  const [rating, setThisRating] = useState('');
+  const handleHover = (e) => {
+    if (!selected) {
       const r = e.target.id.slice(-1);
       for (let i = 1; i <= 5; i++) {
         const x = `star-${i}`;
@@ -27,34 +29,33 @@ class StarRatingBar extends React.Component {
         }
       }
     }
-  }
+  };
 
-  handleClick(e) {
-    const rating = e.target.id.slice(-1);
+  const handleClick = (e) => {
+    const r = e.target.id.slice(-1);
     for (let i = 1; i <= 5; i++) {
       const x = `star-${i}`;
       const y = document.getElementById(x);
-      if (i <= parseInt(rating)) {
+      if (i <= parseInt(r)) {
         y.textContent = '★';
       } else {
         y.textContent = '☆';
       }
     }
-    this.setState({ rating, selected: true });
-    this.props.setRating(rating);
-  }
+    setThisRating(r);
+    setSelected(true);
+    setRating(r);
+  };
 
-  render() {
-    return (
-      <StarContainer>
-        <Star id="star-1" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
-        <Star id="star-2" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
-        <Star id="star-3" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
-        <Star id="star-4" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star>
-        <div data-testid="fivestar"><Star id="star-5" onMouseOver={this.handleHover} onClick={this.handleClick}>☆</Star></div>
-      </StarContainer>
-    );
-  }
+  return (
+    <StarContainer>
+      <Star id="star-1" onMouseOver={handleHover} onClick={handleClick}>☆</Star>
+      <Star id="star-2" onMouseOver={handleHover} onClick={handleClick}>☆</Star>
+      <Star id="star-3" onMouseOver={handleHover} onClick={handleClick}>☆</Star>
+      <Star id="star-4" onMouseOver={handleHover} onClick={handleClick}>☆</Star>
+      <div data-testid="fivestar"><Star id="star-5" onMouseOver={handleHover} onClick={handleClick}>☆</Star></div>
+    </StarContainer>
+  );
 }
 
 const StarContainer = styled.div`
