@@ -35,6 +35,8 @@ function PhotoUpload({
 const PhotoDiv = styled.div`
   display: flex;
   flex-direction: row;
+  padding: 1%;
+  margin: 1%;
 `;
 
 export default PhotoUpload;

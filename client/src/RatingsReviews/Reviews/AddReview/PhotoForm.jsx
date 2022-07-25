@@ -57,7 +57,7 @@ function PhotoForm({ addPhoto, setPhotoUrls }) {
         photosArray={photosArray}
         onDelete={onDelete}
       />
-      {(selectedPhoto) && (<StyledButton onClick={onUpload}>upload photo</StyledButton>)}
+      {(photosArray.length > 0) && (<StyledButton onClick={onUpload}>upload photo</StyledButton>)}
       {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
       {(uploaded) && (<div>photos have been uploaded.</div>)}
     </StyledDiv>
