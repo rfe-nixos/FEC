@@ -42,30 +42,32 @@ function PhotoUpload({
   });
 
   const handleMultipleFiles = (e) => {
-    const files = e.currentTarget.files;
+    const { files } = e.currentTarget;
     const readers = [];
-    // Abort if there were no files selected
     if (!files.length) return;
 
-    // Store promises in array
+    if (files.length + photosArray.length > 5) {
+      alert('maximum 5 photos');
+      const x = document.getElementById('photoselect');
+      x.value = '';
+      return;
+    }
+
     for (let i = 0; i < files.length; i++) {
       readers.push(readFileAsUrl(files[i]));
     }
-    // Trigger Promises
     Promise.all(readers).then((values) => {
-      // Values will be an array that contains an item
-      // with the text of every selected file
-      // ["File1 Content", "File2 Content" ... "FileN Content"]
       console.log(values);
       addToArray(...photosArray, values);
     });
-  }
+  };
 
   return (
     <div data-testid="photouploadform">
       {/* <input type="file" id="photoselect" onChange={handleFileInput} /> */}
-      <input type="file" id="photoselect" onChange={handleMultipleFiles} multiple/>
+      <input type="file" id="photoselect" onChange={handleMultipleFiles} multiple />
       {(photosArray.length < 1) && (<div>please select a photo</div>)}
+      {(photosArray.length > 0) && (<div>{`${photosArray.length} photos`}</div>)}
       <PhotoDiv>
         {(photosArray.length > 0)
         && (photosArray.map((photo, index) => (

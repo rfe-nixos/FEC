@@ -54,16 +54,18 @@ function PhotoForm({ addPhoto, setPhotoUrls }) {
 
   return (
     <StyledDiv>
-      <PhotoUpload
-        onFileSelect={(file) => {
-          setSelectedPhoto(file);
-        }}
-        setUploaded={setUploaded}
-        addPhoto={addPhoto}
-        addToArray={addToArray}
-        photosArray={photosArray}
-        onDelete={onDelete}
-      />
+      {(!uploaded) && (
+        <PhotoUpload
+          onFileSelect={(file) => {
+            setSelectedPhoto(file);
+          }}
+          setUploaded={setUploaded}
+          addPhoto={addPhoto}
+          addToArray={addToArray}
+          photosArray={photosArray}
+          onDelete={onDelete}
+        />
+      )}
       {(photosArray.length > 0) && (<StyledButton onClick={onUpload}>upload photo</StyledButton>)}
       {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
       {(uploaded) && (<div>photos have been uploaded.</div>)}
