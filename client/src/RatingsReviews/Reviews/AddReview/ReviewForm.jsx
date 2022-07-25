@@ -1,8 +1,195 @@
-import React from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import CharButtons from './CharButtons';
 import StarRatingBar from './StarRatingBar';
 import PhotoForm from './PhotoForm';
+import validateEmail from '../../lib/validateEmail';
+
+function ReviewForm({
+  productId, addReview, toggleForm, setPage,
+}) {
+  const [rating, setRating] = useState('');
+  const [summary, setSummary] = useState('');
+  const [body, setBody] = useState('');
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [recommend, setRecommend] = useState(false);
+  const [characteristics, setCharacteristics] = useState({});
+  const [showPhotoform, setShowPhotoform] = useState(false);
+  const [photos, setPhotos] = useState([]);
+  const [photoUrls, setPhotoUrls] = useState([]);
+
+  const setChar = (char, rating) => {
+    const temp = characteristics;
+    temp[char] = parseInt(rating);
+    setCharacteristics(temp);
+  };
+
+  const closeForm = () => {
+    toggleForm();
+  };
+
+  const onAddReview = (e) => {
+    e.preventDefault();
+    const reviewBody = {
+      product_id: parseInt(productId),
+      rating: parseInt(rating),
+      summary,
+      body,
+      name,
+      email,
+      recommend,
+      characteristics,
+      photos: photoUrls,
+    };
+    if (!reviewBody.rating) {
+      alert('please enter rating');
+    } else if (reviewBody.body.length < 5) {
+      alert('body must be at least 20 characters');
+    } else if (!reviewBody.email) {
+      alert('please enter email');
+    } else if (!validateEmail(reviewBody.email)) {
+      alert('Please enter a valid email');
+      const x = document.getElementById('review-email');
+      x.focus();
+    } else if (!reviewBody.characteristics) {
+      alert('please enter characteristics');
+    } else if (!reviewBody.name) {
+      alert('please enter nickname');
+    } else {
+      setPage(1);
+      addReview(reviewBody);
+      toggleForm();
+    }
+  };
+
+  const handleChange = (e) => {
+    e.preventDefault();
+    const name = e.target.name;
+    const val = e.target.val;
+    if (name === 'rating') setRating(val);
+    if (name === 'summary') setSummary(val);
+    if (name === 'body') setBody(val);
+    if (name === 'name') setName(val);
+    if (name === 'email') setEmail(val);
+  };
+
+  const toggleRecommend = (e) => {
+    e.preventDefault();
+    !recommend
+      ? setRecommend(true)
+      : setRecommend(false);
+  };
+
+  const togglePhotoForm = () => {
+    !showPhotoform
+      ? setShowPhotoform(true)
+      : setShowPhotoform(false);
+  };
+
+  const addPhoto = (photo) => {
+    if (photoUrls.length >= 5) {
+      alert('you have reached the maximum number of photos');
+    } else {
+      const temp = [...photos, photo];
+      setPhotos(temp);
+    }
+  };
+
+  const addUrl = (url) => {
+    const index = photoUrls.indexOf(url);
+    if (index === -1) {
+      if (photoUrls.length >= 5) {
+        alert('you have reached the maximum number of photos');
+      } else {
+        const tempUrls = [...photoUrls, url];
+        setPhotoUrls(tempUrls);
+      }
+    } else {
+      const temp = photoUrls;
+      temp.splice(index, 1);
+      setPhotoUrls(temp);
+    }
+  };
+
+  const handleBgClick = (e) => {
+    if (e.target.id === 'addreview-bg') {
+      toggleForm();
+    }
+  };
+  return (
+    <StyledForm onClick={handleBgClick} id="addreview-bg" data-testid="addreviewform">
+      <StyledInner id="addreview-inner">
+        <InnerTop>
+          <div>Write a Review.</div>
+          <StyledClose onClick={closeForm}>X</StyledClose>
+        </InnerTop>
+        <StyledCat>
+          <div>
+            Your Rating
+            <sup>*</sup>
+            <StarRatingBar setRating={setRating} />
+          </div>
+        </StyledCat>
+        <StyledCat>
+          <div>
+            Review Headline
+            <sup>*</sup>
+          </div>
+          <StyledTextArea data-testid="summary-input" placeholder="Example: Best purchase ever!" name="summary" onChange={handleChange} />
+        </StyledCat>
+        <StyledCat>
+          <div>
+            Comments
+            <sup>*</sup>
+          </div>
+          <StyledTextArea data-testid="body-input" placeholder="Example: why did you like the product or not?" name="body" onChange={handleChange} />
+        </StyledCat>
+        <StyledCat>
+          <div>
+            Recommend
+            <sup>*</sup>
+          </div>
+          <div>
+            <StyledButton onClick={toggleRecommend}>YES</StyledButton>
+            {(recommend) && (<small><em>thanks for your recommendation !</em></small>)}
+          </div>
+
+        </StyledCat>
+        <StyledCat>
+          Fit:
+          <CharButtons char="125031" setChar={setChar} />
+          Length:
+          <CharButtons char="125032" setChar={setChar} />
+          Comfort:
+          <CharButtons char="125033" setChar={setChar} />
+          Quality:
+          <CharButtons char="125034" setChar={setChar} />
+        </StyledCat>
+        <StyledCat>
+          <div>Nickname</div>
+          <StyledInput data-testid="name-input" placeholder="Example: snoibly123" name="name" onChange={handleChange} />
+        </StyledCat>
+        <p><em>For privacy reasons, do not use your full name or email address</em></p>
+        <StyledCat>
+          <div>Email*</div>
+          <StyledInput data-testid="email-input" id="review-email" placeholder="Example: snoibly@snois.com" name="email" onChange={handleChange} />
+        </StyledCat>
+        <p><em>For authentication reasons, you will not be emailed.</em></p>
+        <StyledCat>
+          <div>Photos</div>
+          {(!showPhotoform) && <StyledButton id="uploadphoto" onClick={togglePhotoForm}>upload</StyledButton>}
+          {showPhotoform && <PhotoForm photos={photos} addPhoto={addPhoto} addUrl={addUrl} />}
+        </StyledCat>
+        <InnerBot>
+          <StyledButton data-testid="submit-button" onClick={onAddReview}>SUBMIT</StyledButton>
+          <StyledButton onClick={closeForm}>BACK</StyledButton>
+        </InnerBot>
+
+      </StyledInner>
+    </StyledForm>
+  );
+}
 
 const StyledForm = styled.div`
   display: flex;
@@ -119,203 +306,5 @@ const StyledButton = styled.button`
     opacity: 60%;
   }
 `;
-
-class ReviewForm extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      rating: '',
-      summary: '',
-      body: '',
-      name: '',
-      email: '',
-      recommend: false,
-      characteristics: {},
-      openPhotoForm: false,
-      photos: [],
-      photoUrls: [],
-    };
-    this.addReview = this.addReview.bind(this);
-    this.handleChange = this.handleChange.bind(this);
-    this.recommend = this.recommend.bind(this);
-    this.closeForm = this.closeForm.bind(this);
-    this.setChar = this.setChar.bind(this);
-    this.setRating = this.setRating.bind(this);
-    this.togglePhotoForm = this.togglePhotoForm.bind(this);
-    this.addPhoto = this.addPhoto.bind(this);
-    this.addUrl = this.addUrl.bind(this);
-    this.handleBgClick = this.handleBgClick.bind(this);
-  }
-
-  setChar(char, rating) {
-    const temp = this.state.characteristics;
-    temp[char] = parseInt(rating);
-    this.setState({
-      characteristics: temp,
-    });
-  }
-
-  closeForm() {
-    this.props.toggleForm();
-  }
-
-  addReview(e) {
-    e.preventDefault();
-    const reviewBody = {
-      product_id: parseInt(this.props.productId),
-      rating: parseInt(this.state.rating),
-      summary: this.state.summary,
-      body: this.state.body,
-      name: this.state.name,
-      email: this.state.email,
-      recommend: this.state.recommend,
-      characteristics: this.state.characteristics,
-      photos: this.state.photoUrls,
-    };
-    if (!reviewBody.rating) {
-      alert('please enter rating');
-    } else if (reviewBody.body.length < 5) {
-      alert('body must be at least 20 characters');
-    } else if (!reviewBody.email) {
-      alert('please enter email');
-    } else if (!reviewBody.characteristics) {
-      alert('please enter characteristics');
-    } else if (!reviewBody.name) {
-      alert('please enter nickname');
-    } else {
-      this.props.setPage(1);
-      this.props.addReview(reviewBody);
-      this.props.toggleForm();
-    }
-  }
-
-  handleChange(e) {
-    e.preventDefault();
-    this.setState({
-      [e.target.name]: e.target.value,
-    });
-  }
-
-  setRating(rating) {
-    this.setState({ rating });
-  }
-
-  recommend(e) {
-    e.preventDefault();
-    this.setState({ recommend: true });
-  }
-
-  togglePhotoForm() {
-    !this.state.openPhotoForm
-      ? this.setState({ openPhotoForm: true })
-      : this.setState({ openPhotoForm: false });
-  }
-
-  addPhoto(photo) {
-    if(this.state.photoUrls.length >= 5) {
-      alert('you have reached the maximum number of photos');
-    } else {
-      let temp = [...this.state.photos, photo];
-      this.setState({photos: temp});
-    }
-  }
-
-  addUrl(url) {
-    let index = this.state.photoUrls.indexOf(url)
-    if (index === -1) {
-      if(this.state.photoUrls.length >= 5) {
-        alert('you have reached the maximum number of photos');
-      } else {
-        let tempurls = [...this.state.photoUrls, url];
-        this.setState({photoUrls: tempurls});
-      }
-    } else {
-      let temp = this.state.photoUrls;
-      temp.splice(index, 1);
-      this.setState({photoUrls: temp});
-    }
-  }
-
-  handleBgClick(e) {
-    if(e.target.id === 'addreview-bg') {
-      this.props.toggleForm();
-    }
-  }
-
-  render() {
-    return (
-      <StyledForm onClick={this.handleBgClick} id="addreview-bg" data-testid="addreviewform">
-        <StyledInner id="addreview-inner">
-          <InnerTop>
-            <div>Write a Review.</div>
-            <StyledClose onClick={this.closeForm}>X</StyledClose>
-          </InnerTop>
-          <StyledCat>
-            <div>
-              Your Rating
-              <sup>*</sup>
-              <StarRatingBar setRating={this.setRating} />
-            </div>
-          </StyledCat>
-          <StyledCat>
-            <div>
-              Review Headline
-              <sup>*</sup>
-            </div>
-            <StyledTextArea data-testid="summary-input" placeholder="Example: Best purchase ever!" name="summary" onChange={this.handleChange} />
-          </StyledCat>
-          <StyledCat>
-            <div>
-              Comments
-              <sup>*</sup>
-            </div>
-            <StyledTextArea data-testid="body-input" placeholder="Example: why did you like the product or not?" name="body" onChange={this.handleChange} />
-          </StyledCat>
-          <StyledCat>
-            <div>
-              Recommend
-              <sup>*</sup>
-            </div>
-            <div>
-              <StyledButton onClick={this.recommend}>YES</StyledButton>
-              {(this.state.recommend) && (<small><em>thanks for your recommendation !</em></small>)}
-            </div>
-
-          </StyledCat>
-          <StyledCat>
-            Fit:
-            <CharButtons char="125031" setChar={this.setChar} />
-            Length:
-            <CharButtons char="125032" setChar={this.setChar} />
-            Comfort:
-            <CharButtons char="125033" setChar={this.setChar} />
-            Quality:
-            <CharButtons char="125034" setChar={this.setChar} />
-          </StyledCat>
-          <StyledCat>
-            <div>Nickname</div>
-            <StyledInput data-testid="name-input" placeholder="Example: snoibly123" name="name" onChange={this.handleChange} />
-          </StyledCat>
-          <p><em>For privacy reasons, do not use your full name or email address</em></p>
-          <StyledCat>
-            <div>Email*</div>
-            <StyledInput data-testid="email-input" placeholder="Example: snoibly@snois.com" name="email" onChange={this.handleChange} />
-          </StyledCat>
-          <p><em>For authentication reasons, you will not be emailed.</em></p>
-          <StyledCat>
-            <div>Photos</div>
-            {(!this.state.openPhotoForm) && <StyledButton id="uploadphoto" onClick={this.togglePhotoForm}>upload</StyledButton>}
-            {this.state.openPhotoForm && <PhotoForm photos={this.state.photos} addPhoto={this.addPhoto} addUrl={this.addUrl} />}
-          </StyledCat>
-          <InnerBot>
-            <StyledButton data-testid="submit-button" onClick={this.addReview}>SUBMIT</StyledButton>
-            <StyledButton onClick={this.closeForm}>BACK</StyledButton>
-          </InnerBot>
-
-        </StyledInner>
-      </StyledForm>
-    );
-  }
-}
 
 export default ReviewForm;
