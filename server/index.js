@@ -8,9 +8,9 @@ const app = express();
 app.use(compression());
 
 app.use(express.static(path.join(__dirname, '../client/public'), {
-  // setHeaders: function (res, path, stat) {
-  //   res.set('Cache-Control', 'max-age=31536000')
-  // }
+  setHeaders: function (res, path, stat) {
+    res.set('Cache-Control', 'max-age=31536000')
+  }
 }));
 
 app.listen(process.env.PORT, () => {
