@@ -3,47 +3,30 @@ import styled from 'styled-components';
 import PhotoTile from './PhotoTile';
 
 function PhotoUpload({
-  onFileSelect, addUrl, uploaded, setUploaded, photosArray, addToArray,
+  onFileSelect, addUrl, uploaded, setUploaded, photosArray, addToArray, onDelete
 }) {
-  const [selectedPhoto, setSelectedPhoto] = useState(null);
-  // const [photosArray, setPhotosArray] = useState([]);
-  // const reader = new FileReader();
-
   const handleFileInput = (e) => {
     const file = e.target.files[0];
 
     const reader = new FileReader();
 
     reader.onload = (evt) => {
-      // console.log('loaded brah', reader.result);
-      console.log(evt.target.result);
-      // setPhotosArray([...photosArray, evt.target.result]);
+      // console.log(evt.target.result);
       addToArray([...photosArray, evt.target.result]);
-      // const img = new Image();
-      // img.onload = () => {
-      //   console.log('img loaded');
-      //   setPhotosArray([...photosArray], img.src);
-      // };
     };
     reader.readAsDataURL(file);
-    setSelectedPhoto(file);
     onFileSelect(file);
     setUploaded(false);
-  };
-
-  const handlePhotoSelection = (e) => {
-    const url = e.target.src;
-    addUrl(url);
   };
 
   return (
     <div data-testid="photouploadform">
       <input type="file" onChange={handleFileInput} />
-      {(!selectedPhoto) && (<div>please select a photo</div>)}
+      {(photosArray.length < 1) && (<div>please select a photo</div>)}
       <PhotoDiv>
         {(photosArray.length > 0)
         && (photosArray.map((photo, index) => (
-          <PhotoTile key={index} photo={photo} />
+          <PhotoTile key={index} value={index} photo={photo} onDelete={onDelete} />
         )))}
       </PhotoDiv>
     </div>
@@ -53,7 +36,7 @@ function PhotoUpload({
 const PhotoDiv = styled.div`
   display: flex;
   flex-direction: row;
-`
+`;
 
 const StyledImg = styled.img`
   height: 60px;

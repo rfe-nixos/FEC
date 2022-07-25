@@ -1,9 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PhotoTile({ photo }) {
+function PhotoTile({ photo, value, onDelete }) {
+  const handleClick = (event) => {
+    event.preventDefault();
+    console.log(event.target.id.slice(4));
+    onDelete(event.target.id.slice(4));
+  };
   return (
-      <StyledImg src={photo} />
+      <StyledImg src={photo} id={`img-${value}`} onClick={handleClick} />
   );
 }
 

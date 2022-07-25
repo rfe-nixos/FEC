@@ -14,28 +14,6 @@ function PhotoForm({
 
   const url = 'https://api.cloudinary.com/v1_1/joehan/image/upload';
 
-  // const uploadPhoto = () => {
-  //   setShowSpinner(true);
-  //   const fd = new FormData();
-  //   fd.append('upload_preset', 'upload1');
-  //   fd.append('file', selectedPhoto);
-  //   const config = {
-  //     headers: { 'X-Requested-With': 'XMLHttpRequest' },
-  //   };
-  //   axios.post(url, fd, config)
-  //     .then((res) => {
-  //       // console.log('file upload success', res);
-  //       addUrl(res.data.url);
-  //       addPhoto(res.data);
-  //       setSelectedPhoto(null); // reset selected photo.
-  //     })
-  //     .then(() => {
-  //       setShowSpinner(false);
-  //       setUploaded(true);
-  //     })
-  //     .catch((err) => console.log('error uploading photo', err));
-  // };
-
   const onUpload = () => {
     if (photosArray.length > 0) {
       setShowSpinner(true);
@@ -61,17 +39,15 @@ function PhotoForm({
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
     };
     return axios.post(url, fd, config)
-      .then((res) => res.data.url,
-        // console.log('file upload success', res);
-        // addUrl(res.data.url);
-        // addPhoto(res.data);
-        // setSelectedPhoto(null); // reset selected photo.
-      )
-      // .then(() => {
-      //   setShowSpinner(false);
-      //   setUploaded(true);
-      // })
+      .then((res) => res.data.url)
       .catch((err) => console.log('error uploading photo', err));
+  };
+
+  const onDelete = (index) => {
+    // const temp = photosArray;
+    // temp.splice(index + 1, 1);
+    photosArray.splice(index, 1);
+    addToArray(photosArray);
   };
 
   return (
@@ -79,22 +55,16 @@ function PhotoForm({
       <PhotoUpload
         onFileSelect={(file) => {
           setSelectedPhoto(file);
-          addToArray([...photosArray, file]);
         }}
-        addUrl={addUrl}
-        uploaded={uploaded}
         setUploaded={setUploaded}
         addPhoto={addPhoto}
         addToArray={addToArray}
         photosArray={photosArray}
+        onDelete={onDelete}
       />
       {(selectedPhoto) && (<StyledButton onClick={onUpload}>upload photo</StyledButton>)}
       {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
-      {/* <div>uploaded images:</div> */}
-      {/* {(photosArray.length > 0)
-        && (photosArray.map((photo, index) => (
-          <PhotoTile key={index} photo={photo} />
-        )))} */}
+      {(uploaded) && (<div>photos have been uploaded.</div>)}
     </StyledDiv>
   );
 }
