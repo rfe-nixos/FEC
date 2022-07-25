@@ -64,9 +64,9 @@ function ReviewForm({
   };
 
   const handleChange = (e) => {
-    e.preventDefault();
-    const name = e.target.name;
-    const val = e.target.val;
+    // e.preventDefault();
+    let name = e.target.name;
+    let val = e.target.value;
     if (name === 'rating') setRating(val);
     if (name === 'summary') setSummary(val);
     if (name === 'body') setBody(val);
