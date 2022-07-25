@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import PhotoTile from './PhotoTile';
 import PhotoUpload from './PhotoUpload';
 
-function PhotoForm({
-  photos, addPhoto, addUrl, setPhotoUrls,
-}) {
+function PhotoForm({ addPhoto, setPhotoUrls }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photosArray, addToArray] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
@@ -44,8 +41,6 @@ function PhotoForm({
   };
 
   const onDelete = (index) => {
-    // const temp = photosArray;
-    // temp.splice(index + 1, 1);
     photosArray.splice(index, 1);
     addToArray(photosArray);
   };

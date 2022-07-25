@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import PhotoTile from './PhotoTile';
 
 function PhotoUpload({
-  onFileSelect, addUrl, uploaded, setUploaded, photosArray, addToArray, onDelete
+  onFileSelect, setUploaded, photosArray, addToArray, onDelete
 }) {
   const handleFileInput = (e) => {
     const file = e.target.files[0];
@@ -11,7 +11,6 @@ function PhotoUpload({
     const reader = new FileReader();
 
     reader.onload = (evt) => {
-      // console.log(evt.target.result);
       addToArray([...photosArray, evt.target.result]);
     };
     reader.readAsDataURL(file);
@@ -36,35 +35,6 @@ function PhotoUpload({
 const PhotoDiv = styled.div`
   display: flex;
   flex-direction: row;
-`;
-
-const StyledImg = styled.img`
-  height: 60px;
-  width: 60px;
-  scale: auto;
-  object-fit: cover;
-  border: 1px solid #d9d9d9;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
-`;
-
-const StyledButton = styled.button`
-  width: auto;
-  max-width: 100px;
-  font-size: small;
-  margin: 1%;
-  margin-right: 3%;
-  padding: 0.25em 1em;
-  border-radius: 3px;
-  background: white;
-  color: black;
-  border: 1px solid black;
-  &:hover {
-    cursor: pointer;
-    opacity: 60%;
-  }
 `;
 
 export default PhotoUpload;
