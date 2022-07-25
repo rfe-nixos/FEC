@@ -117,6 +117,29 @@ function ReviewForm({
       toggleForm();
     }
   };
+
+  // const uploadPhoto = () => {
+  //   setShowSpinner(true);
+  //   const fd = new FormData();
+  //   fd.append('upload_preset', 'upload1');
+  //   fd.append('file', selectedPhoto);
+  //   const config = {
+  //     headers: { 'X-Requested-With': 'XMLHttpRequest' },
+  //   };
+  //   axios.post(url, fd, config)
+  //     .then((res) => {
+  //       // console.log('file upload success', res);
+  //       addUrl(res.data.url);
+  //       addPhoto(res.data);
+  //       setSelectedPhoto(null); // reset selected photo.
+  //     })
+  //     .then(() => {
+  //       setShowSpinner(false);
+  //       setUploaded(true);
+  //     })
+  //     .catch((err) => console.log('error uploading photo', err));
+  // };
+
   return (
     <StyledForm onClick={handleBgClick} id="addreview-bg" data-testid="addreviewform">
       <StyledInner id="addreview-inner">
@@ -179,7 +202,7 @@ function ReviewForm({
         <StyledCat>
           <div>Photos</div>
           {(!showPhotoform) && <StyledButton id="uploadphoto" onClick={togglePhotoForm}>upload</StyledButton>}
-          {showPhotoform && <PhotoForm photos={photos} addPhoto={addPhoto} addUrl={addUrl} />}
+          {showPhotoform && <PhotoForm photos={photos} addPhoto={addPhoto} addUrl={addUrl} setPhotoUrls={setPhotoUrls} />}
         </StyledCat>
         <InnerBot>
           <StyledButton data-testid="submit-button" onClick={onAddReview}>SUBMIT</StyledButton>

@@ -4,7 +4,9 @@ import axios from 'axios';
 import PhotoTile from './PhotoTile';
 import PhotoUpload from './PhotoUpload';
 
-function PhotoForm({ photos, addPhoto, addUrl }) {
+function PhotoForm({
+  photos, addPhoto, addUrl, setPhotoUrls,
+}) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photosArray, addToArray] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
@@ -12,25 +14,63 @@ function PhotoForm({ photos, addPhoto, addUrl }) {
 
   const url = 'https://api.cloudinary.com/v1_1/joehan/image/upload';
 
-  const uploadPhoto = () => {
+  // const uploadPhoto = () => {
+  //   setShowSpinner(true);
+  //   const fd = new FormData();
+  //   fd.append('upload_preset', 'upload1');
+  //   fd.append('file', selectedPhoto);
+  //   const config = {
+  //     headers: { 'X-Requested-With': 'XMLHttpRequest' },
+  //   };
+  //   axios.post(url, fd, config)
+  //     .then((res) => {
+  //       // console.log('file upload success', res);
+  //       addUrl(res.data.url);
+  //       addPhoto(res.data);
+  //       setSelectedPhoto(null); // reset selected photo.
+  //     })
+  //     .then(() => {
+  //       setShowSpinner(false);
+  //       setUploaded(true);
+  //     })
+  //     .catch((err) => console.log('error uploading photo', err));
+  // };
+
+  const onUpload = () => {
+    if (photosArray.length > 0) {
+      setShowSpinner(true);
+      const uploadPromise = photosArray.map((file) => uploadPhoto(file));
+      Promise.all(uploadPromise)
+        .then((result) => {
+          setPhotoUrls(result);
+        })
+        .then(() => {
+          setShowSpinner(false);
+          setUploaded(true);
+        })
+        .catch((err) => console.log('error uploading photos', err));
+    }
+  };
+
+  const uploadPhoto = (file) => {
     setShowSpinner(true);
     const fd = new FormData();
     fd.append('upload_preset', 'upload1');
-    fd.append('file', selectedPhoto);
+    fd.append('file', file);
     const config = {
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
     };
-    axios.post(url, fd, config)
-      .then((res) => {
+    return axios.post(url, fd, config)
+      .then((res) => res.data.url,
         // console.log('file upload success', res);
-        addUrl(res.data.url);
-        addPhoto(res.data);
-        setSelectedPhoto(null); // reset selected photo.
-      })
-      .then(() => {
-        setShowSpinner(false);
-        setUploaded(true);
-      })
+        // addUrl(res.data.url);
+        // addPhoto(res.data);
+        // setSelectedPhoto(null); // reset selected photo.
+      )
+      // .then(() => {
+      //   setShowSpinner(false);
+      //   setUploaded(true);
+      // })
       .catch((err) => console.log('error uploading photo', err));
   };
 
@@ -46,8 +86,9 @@ function PhotoForm({ photos, addPhoto, addUrl }) {
         setUploaded={setUploaded}
         addPhoto={addPhoto}
         addToArray={addToArray}
+        photosArray={photosArray}
       />
-      {(selectedPhoto) && (<StyledButton onClick={uploadPhoto}>upload photo</StyledButton>)}
+      {(selectedPhoto) && (<StyledButton onClick={onUpload}>upload photo</StyledButton>)}
       {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
       {/* <div>uploaded images:</div> */}
       {/* {(photosArray.length > 0)

@@ -3,10 +3,10 @@ import styled from 'styled-components';
 import PhotoTile from './PhotoTile';
 
 function PhotoUpload({
-  onFileSelect, addUrl, uploaded, setUploaded, addToArray,
+  onFileSelect, addUrl, uploaded, setUploaded, photosArray, addToArray,
 }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [photosArray, setPhotosArray] = useState([]);
+  // const [photosArray, setPhotosArray] = useState([]);
   // const reader = new FileReader();
 
   const handleFileInput = (e) => {
@@ -17,7 +17,8 @@ function PhotoUpload({
     reader.onload = (evt) => {
       // console.log('loaded brah', reader.result);
       console.log(evt.target.result);
-      setPhotosArray([...photosArray, evt.target.result]);
+      // setPhotosArray([...photosArray, evt.target.result]);
+      addToArray([...photosArray, evt.target.result]);
       // const img = new Image();
       // img.onload = () => {
       //   console.log('img loaded');
