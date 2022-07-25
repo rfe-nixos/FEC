@@ -1,12 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 
-function PhotoTile(props) {
+function PhotoTile({ photo }) {
   return (
-    <StyledDiv>
-      {props.photo.original_filename}
-      <StyledImg src={props.photo.url} />
-    </StyledDiv>
+      <StyledImg src={photo} />
   );
 }
 
@@ -31,6 +28,8 @@ const StyledImg = styled.img`
     cursor: pointer;
     opacity: 60%;
   }
+  margin: 2%;
+  margin-left: 0%;
 `;
 
 export default PhotoTile;

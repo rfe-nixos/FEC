@@ -4,7 +4,7 @@ import axios from 'axios';
 import PhotoTile from './PhotoTile';
 import PhotoUpload from './PhotoUpload';
 
-function PhotoForm(props) {
+function PhotoForm({ photos, addPhoto, addUrl }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
   const [photosArray, addToArray] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
@@ -22,9 +22,9 @@ function PhotoForm(props) {
     };
     axios.post(url, fd, config)
       .then((res) => {
-        console.log('file upload success', res);
-        props.addUrl(res.data.url);
-        props.addPhoto(res.data);
+        // console.log('file upload success', res);
+        addUrl(res.data.url);
+        addPhoto(res.data);
         setSelectedPhoto(null); // reset selected photo.
       })
       .then(() => {
@@ -39,18 +39,21 @@ function PhotoForm(props) {
       <PhotoUpload
         onFileSelect={(file) => {
           setSelectedPhoto(file);
+          addToArray([...photosArray, file]);
         }}
-        addUrl={props.addUrl}
+        addUrl={addUrl}
         uploaded={uploaded}
         setUploaded={setUploaded}
+        addPhoto={addPhoto}
+        addToArray={addToArray}
       />
       {(selectedPhoto) && (<StyledButton onClick={uploadPhoto}>upload photo</StyledButton>)}
       {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
-      <div>uploaded images:</div>
-      {(props.photos.length > 0)
-        && (props.photos.map((photo, index) => (
+      {/* <div>uploaded images:</div> */}
+      {/* {(photosArray.length > 0)
+        && (photosArray.map((photo, index) => (
           <PhotoTile key={index} photo={photo} />
-        )))}
+        )))} */}
     </StyledDiv>
   );
 }
