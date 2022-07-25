@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import PhotoUpload from './PhotoUpload';
@@ -44,6 +44,13 @@ function PhotoForm({ addPhoto, setPhotoUrls }) {
     photosArray.splice(index, 1);
     addToArray(photosArray);
   };
+
+  useEffect(() => {
+    if (photosArray.length === 0) {
+      const x = document.getElementById('photoselect');
+      x.value = '';
+    }
+  });
 
   return (
     <StyledDiv>

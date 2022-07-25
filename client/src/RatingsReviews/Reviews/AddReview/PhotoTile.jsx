@@ -4,7 +4,9 @@ import styled from 'styled-components';
 function PhotoTile({ photo, value, onDelete }) {
   const handleClick = (event) => {
     event.preventDefault();
-    onDelete(event.target.id.slice(4));
+    console.log(event.target.id);
+    console.log(value);
+    onDelete(value);
   };
   return (
     <Div>
@@ -16,7 +18,7 @@ function PhotoTile({ photo, value, onDelete }) {
 
 const Div = styled.div`
   height: 60px;
-  width: 48px;
+  width: auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
