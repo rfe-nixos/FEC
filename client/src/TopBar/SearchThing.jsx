@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useTransition } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
 import SearchList from './SearchList';
@@ -8,6 +8,7 @@ function SearchThing({ toggleSearch }) {
   const [products, setProducts] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [filter, setFilter] = useState('');
+  const [isPending, startTransition] = useTransition();
 
   const getProducts = () => {
     axios.get(`${process.env.API_URL}/products?count=100`, { // max 1011, but just get 100 for now
@@ -41,11 +42,13 @@ function SearchThing({ toggleSearch }) {
 
   const handleChange = (e) => {
     setQuery(e.target.value);
-    if (e.target.value.length >= 3) {
-      setFilter(e.target.value);
-    } else {
-      setFilter('');
-    }
+    startTransition(() => {
+      if (e.target.value.length >= 3) {
+        setFilter(e.target.value);
+      } else {
+        setFilter('');
+      }
+    });
   };
 
   const handleBgClick = (e) => {
