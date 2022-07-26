@@ -40,7 +40,7 @@ function PhotoUpload({ photosArray, addToArray, onDelete }) {
   return (
     <div data-testid="photouploadform">
       <input type="file" id="photoselect" onChange={handleMultipleFiles} multiple />
-      {(photosArray.length < 1) && (<div>please select a photo</div>)}
+      {(photosArray.length < 1) && (<div>select upto 5 photos.</div>)}
       {(photosArray.length > 0) && (<div>{`${photosArray.length} photos`}</div>)}
       <PhotoDiv>
         {(photosArray.length > 0 && photosArray)
