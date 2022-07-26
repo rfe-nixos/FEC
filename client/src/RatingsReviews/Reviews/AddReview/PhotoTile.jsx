@@ -17,7 +17,7 @@ function PhotoTile({ photo, value, onDelete }) {
 }
 
 const Div = styled.div`
-  height: 60px;
+  height: auto;
   width: auto;
   display: flex;
   flex-direction: column;
@@ -27,7 +27,11 @@ const Div = styled.div`
 
 const Remove = styled.button`
   font-size: 13px;
-  width: 13px;
+  width: 14px;
+  height: 14px;
+  align-content: center;
+  justify-content: center;
+  margin: 1%;
   background: white;
   border: .5px solid black;
   padding: 1%;
