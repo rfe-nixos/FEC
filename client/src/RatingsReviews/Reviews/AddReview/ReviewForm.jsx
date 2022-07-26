@@ -4,6 +4,7 @@ import CharButtons from './CharButtons';
 import StarRatingBar from './StarRatingBar';
 import PhotoForm from './PhotoForm';
 import validateEmail from '../../lib/validateEmail';
+import axios from 'axios';
 
 function ReviewForm({
   productId, addReview, toggleForm, setPage,
@@ -18,6 +19,8 @@ function ReviewForm({
   const [showPhotoform, setShowPhotoform] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [photoUrls, setPhotoUrls] = useState([]);
+  const [photosArray, addToArray] = useState([]);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const setChar = (char, rating) => {
     const temp = characteristics;
@@ -65,8 +68,8 @@ function ReviewForm({
 
   const handleChange = (e) => {
     // e.preventDefault();
-    let name = e.target.name;
-    let val = e.target.value;
+    const { name } = e.target;
+    const val = e.target.value;
     if (name === 'rating') setRating(val);
     if (name === 'summary') setSummary(val);
     if (name === 'body') setBody(val);
@@ -117,6 +120,38 @@ function ReviewForm({
       toggleForm();
     }
   };
+
+  // const url = 'https://api.cloudinary.com/v1_1/joehan/image/upload';
+
+  // const onUpload = (e) => {
+  //   if (photosArray.length > 0) {
+  //     setShowSpinner(true);
+  //     const uploadPromise = photosArray.map((file) => uploadPhoto(file));
+  //     Promise.all(uploadPromise)
+  //       .then((result) => {
+  //         setPhotoUrls(result);
+  //       })
+  //       .then(() => {
+  //         setShowSpinner(false);
+  //         // setUploaded(true);
+  //         onAddReview(e);
+  //       })
+  //       .catch((err) => console.log('error uploading photos', err));
+  //   }
+  // };
+
+  // const uploadPhoto = (file) => {
+  //   setShowSpinner(true);
+  //   const fd = new FormData();
+  //   fd.append('upload_preset', 'upload1');
+  //   fd.append('file', file);
+  //   const config = {
+  //     headers: { 'X-Requested-With': 'XMLHttpRequest' },
+  //   };
+  //   return axios.post(url, fd, config)
+  //     .then((res) => res.data.url)
+  //     .catch((err) => console.log('error uploading photo', err));
+  // };
 
   return (
     <StyledForm onClick={handleBgClick} id="addreview-bg" data-testid="addreviewform">
@@ -180,7 +215,17 @@ function ReviewForm({
         <StyledCat>
           <div>Photos</div>
           {(!showPhotoform) && <StyledButton id="uploadphoto" onClick={togglePhotoForm}>upload</StyledButton>}
-          {showPhotoform && <PhotoForm photos={photos} addPhoto={addPhoto} addUrl={addUrl} setPhotoUrls={setPhotoUrls} />}
+          {showPhotoform
+            && (
+            <PhotoForm
+              photos={photos}
+              addPhoto={addPhoto}
+              addUrl={addUrl}
+              setPhotoUrls={setPhotoUrls}
+              // photosArray={photosArray}
+              // addToArray={addToArray}
+            />
+            )}
         </StyledCat>
         <InnerBot>
           <StyledButton data-testid="submit-button" onClick={onAddReview}>SUBMIT</StyledButton>

@@ -22,7 +22,7 @@ class Reviews extends React.Component {
   }
 
   addReview(reviewBody) {
-    axios.post(`${process.env.API_URL}/reviews`, reviewBody, {
+    return axios.post(`${process.env.API_URL}/reviews`, reviewBody, {
       headers: {
         Authorization: process.env.AUTH_KEY,
       },

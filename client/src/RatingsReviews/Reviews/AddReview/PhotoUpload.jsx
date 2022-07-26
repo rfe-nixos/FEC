@@ -58,7 +58,7 @@ function PhotoUpload({
     }
     Promise.all(readers).then((values) => {
       console.log(values);
-      addToArray(...photosArray, values);
+      addToArray([...photosArray, ...values]);
     });
   };
 
@@ -69,10 +69,10 @@ function PhotoUpload({
       {(photosArray.length < 1) && (<div>please select a photo</div>)}
       {(photosArray.length > 0) && (<div>{`${photosArray.length} photos`}</div>)}
       <PhotoDiv>
-        {(photosArray.length > 0)
-        && (photosArray.map((photo, index) => (
+        {(photosArray.length > 0 && photosArray)
+        && photosArray.map((photo, index) => (
           <PhotoTile key={index} value={index} photo={photo} onDelete={onDelete} />
-        )))}
+        ))}
       </PhotoDiv>
     </div>
   );
