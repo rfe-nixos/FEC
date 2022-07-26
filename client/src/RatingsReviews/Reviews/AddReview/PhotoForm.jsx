@@ -3,9 +3,9 @@ import styled from 'styled-components';
 import axios from 'axios';
 import PhotoUpload from './PhotoUpload';
 
-function PhotoForm({ addPhoto, setPhotoUrls }) {
+function PhotoForm({ addPhoto, setPhotoUrls, photosArray, addToArray }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [photosArray, addToArray] = useState([]);
+  // const [photosArray, addToArray] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [uploaded, setUploaded] = useState(false);
 

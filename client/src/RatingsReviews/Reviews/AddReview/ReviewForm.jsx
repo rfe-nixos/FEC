@@ -121,38 +121,6 @@ function ReviewForm({
     }
   };
 
-  // const url = 'https://api.cloudinary.com/v1_1/joehan/image/upload';
-
-  // const onUpload = (e) => {
-  //   if (photosArray.length > 0) {
-  //     setShowSpinner(true);
-  //     const uploadPromise = photosArray.map((file) => uploadPhoto(file));
-  //     Promise.all(uploadPromise)
-  //       .then((result) => {
-  //         setPhotoUrls(result);
-  //       })
-  //       .then(() => {
-  //         setShowSpinner(false);
-  //         // setUploaded(true);
-  //         onAddReview(e);
-  //       })
-  //       .catch((err) => console.log('error uploading photos', err));
-  //   }
-  // };
-
-  // const uploadPhoto = (file) => {
-  //   setShowSpinner(true);
-  //   const fd = new FormData();
-  //   fd.append('upload_preset', 'upload1');
-  //   fd.append('file', file);
-  //   const config = {
-  //     headers: { 'X-Requested-With': 'XMLHttpRequest' },
-  //   };
-  //   return axios.post(url, fd, config)
-  //     .then((res) => res.data.url)
-  //     .catch((err) => console.log('error uploading photo', err));
-  // };
-
   return (
     <StyledForm onClick={handleBgClick} id="addreview-bg" data-testid="addreviewform">
       <StyledInner id="addreview-inner">
@@ -222,8 +190,8 @@ function ReviewForm({
               addPhoto={addPhoto}
               addUrl={addUrl}
               setPhotoUrls={setPhotoUrls}
-              // photosArray={photosArray}
-              // addToArray={addToArray}
+              photosArray={photosArray}
+              addToArray={addToArray}
             />
             )}
         </StyledCat>
