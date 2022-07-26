@@ -26,8 +26,8 @@ const Div = styled.div`
 `;
 
 const Remove = styled.button`
-  font-size: 10px;
-  width: 50%;
+  font-size: 13px;
+  width: 13px;
   background: white;
   border: .5px solid black;
   padding: 1%;

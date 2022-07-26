@@ -83,6 +83,7 @@ const PhotoDiv = styled.div`
   flex-direction: row;
   padding: 1%;
   margin: 1%;
+  overflow-x: auto;
 `;
 
 export default PhotoUpload;
