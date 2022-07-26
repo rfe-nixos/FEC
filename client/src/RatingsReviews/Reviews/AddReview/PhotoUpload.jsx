@@ -2,31 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import PhotoTile from './PhotoTile';
 
-function PhotoUpload({
-  onFileSelect, setUploaded, photosArray, addToArray, onDelete,
-}) {
-  const handleFileInput = (e) => {
-    const file = e.target.files[0];
-    if (file.type.match('image.*')) {
-      // console.log('is an image');
-      const reader = new FileReader();
-
-      reader.onload = (evt) => {
-        // console.log(evt.target.result, 'etargetresult');
-        console.log(reader.result, 'reader.result');
-        addToArray([...photosArray, reader.result]);
-      };
-
-      reader.readAsDataURL(file);
-      // onFileSelect(file);
-      // setUploaded(false);
-    } else {
-      alert('selected file is not a photo, try again');
-      const x = document.getElementById('photoselect');
-      x.value = '';
-    }
-  };
-
+function PhotoUpload({ photosArray, addToArray, onDelete }) {
   const readFileAsUrl = (file) => new Promise((res, rej) => {
     const fr = new FileReader();
 
@@ -57,14 +33,12 @@ function PhotoUpload({
       readers.push(readFileAsUrl(files[i]));
     }
     Promise.all(readers).then((values) => {
-      console.log(values);
       addToArray([...photosArray, ...values]);
     });
   };
 
   return (
     <div data-testid="photouploadform">
-      {/* <input type="file" id="photoselect" onChange={handleFileInput} /> */}
       <input type="file" id="photoselect" onChange={handleMultipleFiles} multiple />
       {(photosArray.length < 1) && (<div>please select a photo</div>)}
       {(photosArray.length > 0) && (<div>{`${photosArray.length} photos`}</div>)}
