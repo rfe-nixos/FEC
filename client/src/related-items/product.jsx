@@ -25,30 +25,34 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
     }
   };
 
-  const handleGlobalStateClick = () => {
+  const handleGlobalStateClick = (e) => {
     setCurrentProduct(formattedCard.id);
+    if (outfit) return;
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   function handleDeleteOutfit() {
     const currentStorage = JSON.parse(localStorage.getItem('outfits'));
-    const newStorage = currentStorage.filter((item) => item.id !== formattedCard.id);
+    const newStorage = currentStorage.filter(
+      (item) => item.id !== formattedCard.id
+    );
     localStorage.setItem('outfits', JSON.stringify(newStorage));
     setLocalStorageState(newStorage);
   }
   let relatedAction;
   if (outfit) {
     relatedAction = (
-      <ImCancelCircle
-        className="relatedOutfit"
-        onClick={handleDeleteOutfit}
-      />
+      <ImCancelCircle className="relatedOutfit" onClick={handleDeleteOutfit} />
     );
   } else {
     relatedAction = (
       <FaStar className="relatedAction" onClick={() => setOpenModal(true)} />
     );
   }
-
 
   return (
     <>
@@ -79,12 +83,10 @@ function Product({ formattedCard, outfit, setLocalStorageState }) {
             &#8658;
           </button>
         </div>
-        <div className="cardBody">
+        <div className="cardBody" onClick={handleGlobalStateClick}>
           <p className="cardCategory">{formattedCard.category}</p>
           <p className="cardName" onClick={handleGlobalStateClick}>
-            <b>
-              {formattedCard.name}
-            </b>
+            <b>{formattedCard.name}</b>
           </p>
           <p className="cardPrice">{priceFormat(formattedCard.price)}</p>
           <p className="discountedCardPrice">{formattedCard.discountedPrice}</p>

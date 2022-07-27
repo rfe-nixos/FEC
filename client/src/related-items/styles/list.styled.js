@@ -55,12 +55,17 @@ export const StyledCard = styled.div`
   min-width: 250px;
   max-width: 250px;
   min-height:400px;
-  margin: 2px;
+  margin: 20px;
   font-size: 1rem;
   background: white;
   box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.2);
   border-radius: 0.25rem;
   overflow: hidden;
+  transition: .5s;
+  cursor:pointer;
+  :hover {
+    box-shadow:2px 6px 16px 2px rgba(0, 0, 0, 0.2);
+  }
   .cardBody {
     padding: 0.5rem;
     padding-top: 0;
@@ -198,3 +203,7 @@ export const RelatedItemsStyleContainer = styled.div`
   width: 70%;
   border-top: .5px solid black;
 `;
+
+export const ModalWrapper = styled.div`
+position:relative;
+`

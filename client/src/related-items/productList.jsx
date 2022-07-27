@@ -38,7 +38,6 @@ function ProductList({
     }
     return formattedCards;
   };
-
   const scrollRef = useRef();
   const leftSliderRef = useRef();
   const rightSliderRef = useRef();
@@ -63,7 +62,7 @@ function ProductList({
     } else {
       leftSliderRef.current.innerHTML = '&#9001';
     }
-    if (e.target.scrollLeft >= e.target.scrollWidth - e.target.clientWidth) {
+    if (e.target.scrollLeft >= e.target.scrollWidth - e.target.clientWidth - 5) {
       rightSliderRef.current.innerText = ' ';
     } else {
       rightSliderRef.current.innerHTML = ' &#9002';
