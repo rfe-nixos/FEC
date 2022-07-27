@@ -13,5 +13,3 @@ package-lock.json
 client/public/bundle.js
 
 coverage
-
-FEC.pem
