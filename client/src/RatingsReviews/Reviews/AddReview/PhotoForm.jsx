@@ -1,56 +1,75 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import axios from 'axios';
-import PhotoTile from './PhotoTile';
 import PhotoUpload from './PhotoUpload';
 
-function PhotoForm(props) {
+function PhotoForm({ addPhoto, setPhotoUrls, photosArray, addToArray }) {
   const [selectedPhoto, setSelectedPhoto] = useState(null);
-  const [photosArray, addToArray] = useState([]);
+  // const [photosArray, addToArray] = useState([]);
   const [showSpinner, setShowSpinner] = useState(false);
   const [uploaded, setUploaded] = useState(false);
 
   const url = 'https://api.cloudinary.com/v1_1/joehan/image/upload';
 
-  const uploadPhoto = () => {
+  const onUpload = () => {
+    if (photosArray.length > 0) {
+      setShowSpinner(true);
+      const uploadPromise = photosArray.map((file) => uploadPhoto(file));
+      Promise.all(uploadPromise)
+        .then((result) => {
+          setPhotoUrls(result);
+        })
+        .then(() => {
+          setShowSpinner(false);
+          setUploaded(true);
+        })
+        .catch((err) => console.log('error uploading photos', err));
+    }
+  };
+
+  const uploadPhoto = (file) => {
     setShowSpinner(true);
     const fd = new FormData();
     fd.append('upload_preset', 'upload1');
-    fd.append('file', selectedPhoto);
+    fd.append('file', file);
     const config = {
       headers: { 'X-Requested-With': 'XMLHttpRequest' },
     };
-    axios.post(url, fd, config)
-      .then((res) => {
-        console.log('file upload success', res);
-        props.addUrl(res.data.url);
-        props.addPhoto(res.data);
-        setSelectedPhoto(null); // reset selected photo.
-      })
-      .then(() => {
-        setShowSpinner(false);
-        setUploaded(true);
-      })
+    return axios.post(url, fd, config)
+      .then((res) => res.data.url)
       .catch((err) => console.log('error uploading photo', err));
   };
 
+  const onDelete = (index) => {
+    photosArray.splice(index, 1);
+    addToArray(photosArray);
+  };
+
+  useEffect(() => {
+    if (photosArray.length === 0) {
+      const x = document.getElementById('photoselect');
+      x.value = '';
+    }
+  });
+
   return (
     <StyledDiv>
-      <PhotoUpload
-        onFileSelect={(file) => {
-          setSelectedPhoto(file);
-        }}
-        addUrl={props.addUrl}
-        uploaded={uploaded}
-        setUploaded={setUploaded}
-      />
-      {(selectedPhoto) && (<StyledButton onClick={uploadPhoto}>upload photo</StyledButton>)}
+      {(!uploaded) && (
+        <PhotoUpload
+          onFileSelect={(file) => {
+            setSelectedPhoto(file);
+          }}
+          setUploaded={setUploaded}
+          addPhoto={addPhoto}
+          addToArray={addToArray}
+          photosArray={photosArray}
+          onDelete={onDelete}
+        />
+      )}
+      {(photosArray.length > 0 && !uploaded)
+      && (<StyledButton onClick={onUpload}>upload photo</StyledButton>)}
       {(showSpinner) && (<div><Spinner id="spinner" src="public/icons/spinner.gif" /></div>)}
-      <div>uploaded images:</div>
-      {(props.photos.length > 0)
-        && (props.photos.map((photo, index) => (
-          <PhotoTile key={index} photo={photo} />
-        )))}
+      {(uploaded) && (<div>photos have been uploaded.</div>)}
     </StyledDiv>
   );
 }

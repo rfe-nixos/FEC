@@ -4,6 +4,7 @@ import CharButtons from './CharButtons';
 import StarRatingBar from './StarRatingBar';
 import PhotoForm from './PhotoForm';
 import validateEmail from '../../lib/validateEmail';
+import axios from 'axios';
 
 function ReviewForm({
   productId, addReview, toggleForm, setPage,
@@ -18,6 +19,8 @@ function ReviewForm({
   const [showPhotoform, setShowPhotoform] = useState(false);
   const [photos, setPhotos] = useState([]);
   const [photoUrls, setPhotoUrls] = useState([]);
+  const [photosArray, addToArray] = useState([]);
+  const [showSpinner, setShowSpinner] = useState(false);
 
   const setChar = (char, rating) => {
     const temp = characteristics;
@@ -64,9 +67,9 @@ function ReviewForm({
   };
 
   const handleChange = (e) => {
-    e.preventDefault();
-    const name = e.target.name;
-    const val = e.target.val;
+    // e.preventDefault();
+    const { name } = e.target;
+    const val = e.target.value;
     if (name === 'rating') setRating(val);
     if (name === 'summary') setSummary(val);
     if (name === 'body') setBody(val);
@@ -117,6 +120,7 @@ function ReviewForm({
       toggleForm();
     }
   };
+
   return (
     <StyledForm onClick={handleBgClick} id="addreview-bg" data-testid="addreviewform">
       <StyledInner id="addreview-inner">
@@ -179,7 +183,17 @@ function ReviewForm({
         <StyledCat>
           <div>Photos</div>
           {(!showPhotoform) && <StyledButton id="uploadphoto" onClick={togglePhotoForm}>upload</StyledButton>}
-          {showPhotoform && <PhotoForm photos={photos} addPhoto={addPhoto} addUrl={addUrl} />}
+          {showPhotoform
+            && (
+            <PhotoForm
+              photos={photos}
+              addPhoto={addPhoto}
+              addUrl={addUrl}
+              setPhotoUrls={setPhotoUrls}
+              photosArray={photosArray}
+              addToArray={addToArray}
+            />
+            )}
         </StyledCat>
         <InnerBot>
           <StyledButton data-testid="submit-button" onClick={onAddReview}>SUBMIT</StyledButton>
