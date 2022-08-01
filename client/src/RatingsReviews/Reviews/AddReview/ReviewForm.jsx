@@ -6,9 +6,8 @@ import PhotoForm from './PhotoForm';
 import validateEmail from '../../lib/validateEmail';
 import axios from 'axios';
 
-function ReviewForm({
-  productId, addReview, toggleForm, setPage,
-}) {
+function ReviewForm({ productId, addReview, toggleForm, setPage }) {
+
   const [rating, setRating] = useState('');
   const [summary, setSummary] = useState('');
   const [body, setBody] = useState('');
@@ -67,7 +66,7 @@ function ReviewForm({
   };
 
   const handleChange = (e) => {
-    // e.preventDefault();
+    e.preventDefault();
     const { name } = e.target;
     const val = e.target.value;
     if (name === 'rating') setRating(val);
@@ -203,7 +202,7 @@ function ReviewForm({
       </StyledInner>
     </StyledForm>
   );
-}
+            }
 
 const StyledForm = styled.div`
   display: flex;
