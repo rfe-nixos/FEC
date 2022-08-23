@@ -6,11 +6,12 @@
   "author": "hmaria <mh6417a@gmail.com>",
   "license": "MIT",
   "scripts": {
-    "start": "webpack --mode=development --watch",
+    "build-dev": "webpack --mode=development --watch",
     "server-dev": "npx nodemon server/index.js",
     "build": "webpack --mode=production",
     "dev": "webpack serve --open",
-    "test": "jest --coverage"
+    "test": "jest --coverage",
+    "start": "node server/index.js"
   },
   "dependencies": {
     "@babel/core": "^7.4.5",
