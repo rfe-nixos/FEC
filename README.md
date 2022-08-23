@@ -1,9 +1,5 @@
-# FEC
-Front End Capstone project for HR RFE2205 Team Nixos
-
-
 <div id="top"/>
-![nix atelier](https://raw.githubusercontent.com/rfe-nixos/FEC/main/client/public/public/icons/nixatelier.png)
+![nix atelier](main/client/public/public/icons/nixatelier.png)
 
 # NixAtelier
 A frontend development of a modern retail e-commerce website
