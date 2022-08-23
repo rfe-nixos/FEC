@@ -1,8 +1,7 @@
 <div id="top"/>
-![nix atelier](main/client/public/public/icons/nixatelier.png)
 
-# NixAtelier
-A frontend development of a modern retail e-commerce website
+![nix atelier](client/public/public/icons/nixatelier.png)
+<div>A frontend development of a modern retail e-commerce website</div>
 
 ## Tech Stack
 ![Javascript](https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E)
